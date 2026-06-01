@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './App.css';
 
 import logo from './assets/HS.jpg';
-import bgMusic from './assets/ambient-music.mp3';
+import bgMusic from './assets/music.wav';
 
 gsap.registerPlugin(ScrollTrigger);
 
