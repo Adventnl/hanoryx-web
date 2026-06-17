@@ -3,7 +3,7 @@ import { PageTransition } from '../components/layout/PageTransition';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Button } from '../components/ui/Button';
-import { SystemSynthesisExperience } from '../components/experience/SystemSynthesisExperience';
+import { SystemSynthesisExperience } from '@/features/experience/SystemSynthesisExperience';
 import styles from './SystemSynthesis.module.css';
 
 /**

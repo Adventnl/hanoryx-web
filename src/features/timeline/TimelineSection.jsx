@@ -4,9 +4,9 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ArrowUpRight } from 'lucide-react';
 import { timelineIntro, timelineNodes } from '../../data/timeline';
-import TimelineNode from '../ui/TimelineNode';
-import SectionHeader from '../ui/SectionHeader';
-import Button from '../ui/Button';
+import TimelineNode from '@/components/ui/TimelineNode';
+import SectionHeader from '@/components/ui/SectionHeader';
+import Button from '@/components/ui/Button';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import styles from './TimelineSection.module.css';
 

@@ -69,6 +69,39 @@
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
+  clip-path: inset(0 0 0 0);
+}
+
+/* --- Per-block header entrance variants (override only the hidden state;
+   .visible resets all three to identity). So no two blocks share one reveal. --- */
+.header[data-variant='left'] .eyebrow,
+.header[data-variant='left'] .title,
+.header[data-variant='left'] .intro { transform: translateX(-46px); }
+
+.header[data-variant='right'] .eyebrow,
+.header[data-variant='right'] .title,
+.header[data-variant='right'] .intro { transform: translateX(46px); }
+
+.header[data-variant='depth'] { }
+.header[data-variant='depth'] .eyebrow,
+.header[data-variant='depth'] .title,
+.header[data-variant='depth'] .intro { transform: scale(0.84) translateY(10px); transform-origin: left center; }
+.center.header[data-variant='depth'] .eyebrow,
+.center.header[data-variant='depth'] .title,
+.center.header[data-variant='depth'] .intro { transform-origin: center; }
+
+.header[data-variant='split'] .eyebrow,
+.header[data-variant='split'] .title,
+.header[data-variant='split'] .intro { transform: scaleY(0.18); transform-origin: top; }
+
+.header[data-variant='scan'] .eyebrow,
+.header[data-variant='scan'] .title,
+.header[data-variant='scan'] .intro { transform: none; filter: none; clip-path: inset(0 100% 0 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .header[data-variant] .eyebrow,
+  .header[data-variant] .title,
+  .header[data-variant] .intro { transform: none; filter: none; clip-path: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

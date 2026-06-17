@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import { MagneticButton } from '../animation/MagneticButton';
+import { MagneticButton } from '../effects/MagneticButton';
 import styles from './Button.module.css';
 
 /**

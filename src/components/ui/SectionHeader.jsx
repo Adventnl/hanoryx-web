@@ -31,6 +31,7 @@ export function SectionHeader({
   as: Tag = 'h2',
   size = 'h2',
   align = 'left',
+  variant = 'up',
   reveal = true,
   className,
   children,
@@ -41,6 +42,7 @@ export function SectionHeader({
   return (
     <header
       ref={ref}
+      data-variant={variant}
       className={clsx(
         styles.header,
         align === 'center' && styles.center,

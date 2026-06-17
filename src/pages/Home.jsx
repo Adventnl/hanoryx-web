@@ -1,7 +1,7 @@
 import { PageTransition } from '../components/layout/PageTransition';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { PageHeroBlock, PageBlock } from '../components/page/PageBlocks';
-import { TimelineSection } from '../components/sections/TimelineSection';
+import { TimelineSection } from '@/features/timeline/TimelineSection';
 import { systemCategories, projects } from '../data/systems';
 import { metrics, manifesto } from '../data/company';
 

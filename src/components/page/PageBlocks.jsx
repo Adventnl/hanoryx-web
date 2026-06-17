@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import clsx from 'clsx';
 import { ArrowUpRight } from 'lucide-react';
 import { SectionScene } from '../scenes/SectionScene';
@@ -10,10 +11,9 @@ import { StatBlock } from '../ui/StatBlock';
 import { RedactedTag } from '../ui/RedactedTag';
 import { GlitchLine } from '../ui/GlitchLine';
 import { MarqueeRail } from '../ui/MarqueeRail';
-import { KineticText } from '../animation/KineticText';
-import { ScrollReveal } from '../animation/ScrollReveal';
-import { RedactionReveal } from '../animation/RedactionReveal';
-import { RevealText } from '../../animation/componentMotion/textMotions';
+import { KineticText } from '@/animation/reveal/KineticText';
+import { RedactionReveal } from '@/animation/reveal/RedactionReveal';
+import { Reveal, RevealGroup } from '@/animation/reveal/Reveal';
 import { musebaseLogo, hasMusebaseLogo } from '../../utils/assetResolver';
 import styles from './page.module.css';
 
@@ -42,31 +42,31 @@ export function PageHeroBlock({ hero, accent }) {
     >
       <div className={clsx('container', styles.heroInner)}>
         {hero.eyebrow && (
-          <ScrollReveal as="span" className={clsx('eyebrow', styles.heroEyebrow)}>
+          <Reveal profile="scanX" as="span" className={clsx('eyebrow', styles.heroEyebrow)}>
             {hero.eyebrow}
-          </ScrollReveal>
+          </Reveal>
         )}
         <KineticText as="h1" by="word" text={hero.title} immediate className={clsx('heading-hero', styles.heroTitle)} />
         {hero.intro && (
-          <ScrollReveal as="p" className={clsx('lead', styles.heroIntro)} delay={0.12}>
+          <Reveal profile="slideLeft" as="p" delay={0.12} className={clsx('lead', styles.heroIntro)}>
             {hero.intro}
-          </ScrollReveal>
+          </Reveal>
         )}
         {hero.actions?.length > 0 && (
-          <ScrollReveal as="div" className={clsx('cluster', styles.heroActions)} delay={0.22}>
+          <Reveal profile="depthRise" as="div" delay={0.22} className={clsx('cluster', styles.heroActions)}>
             {hero.actions.map((a) => (
               <Button key={a.label} to={a.to} href={a.href} variant={a.variant || 'primary'} icon={a.variant === 'outline' ? undefined : ArrowUpRight}>
                 {a.label}
               </Button>
             ))}
-          </ScrollReveal>
+          </Reveal>
         )}
         {hero.metrics?.length > 0 && (
-          <ScrollReveal as="div" className={styles.heroMetrics} delay={0.3} stagger={0.08}>
+          <RevealGroup profile="countRise" className={styles.heroMetrics} stagger={0.08} delayChildren={0.3}>
             {hero.metrics.map((m) => (
               <StatBlock key={m.label} value={m.value} suffix={m.suffix} label={m.label} />
             ))}
-          </ScrollReveal>
+          </RevealGroup>
         )}
       </div>
       <div className={styles.heroTelemetry} aria-hidden="true">
@@ -78,7 +78,9 @@ export function PageHeroBlock({ hero, accent }) {
   );
 }
 
-/* ---------------- Block dispatcher ---------------- */
+/* ---------------- Block dispatcher ----------------
+   Every block type declares its OWN motion identity (header variant + body /
+   item reveal profiles). No two block types share a reveal language. */
 export function PageBlock({ block, accent }) {
   switch (block.type) {
     case 'split':
@@ -86,14 +88,14 @@ export function PageBlock({ block, accent }) {
         <Shell block={block} accent={accent}>
           <div className={clsx('grid', 'grid--split', styles.split)}>
             <div>
-              <SectionHeader eyebrow={block.eyebrow} title={block.title} code={block.code} size="h1" />
-              <div className={clsx('stack', 'stack-4', styles.splitBody)}>
+              <SectionHeader eyebrow={block.eyebrow} title={block.title} code={block.code} size="h1" variant="left" />
+              <RevealGroup profile="slideLeft" className={clsx('stack', 'stack-4', styles.splitBody)} stagger={0.12}>
                 {block.body?.map((p) => (
-                  <RevealText key={p} as="p" variant="slideIn" amount={0.4} className="body">{p}</RevealText>
+                  <p key={p} className="body">{p}</p>
                 ))}
-              </div>
+              </RevealGroup>
             </div>
-            <ScrollReveal as="div" className={styles.splitAside} y={28}>
+            <Reveal profile="diagonalSlice" as="div" className={styles.splitAside}>
               <DataPanel label={block.asideLabel || 'PARAMETERS'} code={block.asideCode || 'P.01'}>
                 {block.points?.length > 0 ? (
                   <dl className={styles.kv}>
@@ -108,7 +110,7 @@ export function PageBlock({ block, accent }) {
                   <p className="body-sm">{block.asideBody}</p>
                 )}
               </DataPanel>
-            </ScrollReveal>
+            </Reveal>
           </div>
         </Shell>
       );
@@ -116,8 +118,8 @@ export function PageBlock({ block, accent }) {
     case 'cards':
       return (
         <Shell block={block} accent={accent}>
-          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" />
-          <ScrollReveal className={clsx('grid', 'grid--auto', styles.grid)} stagger={0.07}>
+          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" variant="depth" />
+          <RevealGroup profile="dataMaterialize" className={clsx('grid', 'grid--auto', styles.grid)} itemClassName={styles.cardCell} stagger={0.08}>
             {block.items.map((it) =>
               it.redacted ? (
                 <DataPanel key={it.title} code={it.code} tone="redacted" interactive>
@@ -138,33 +140,33 @@ export function PageBlock({ block, accent }) {
                 />
               )
             )}
-          </ScrollReveal>
+          </RevealGroup>
         </Shell>
       );
 
     case 'process':
       return (
         <Shell block={block} accent={accent}>
-          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" />
-          <ScrollReveal as="ol" className={styles.process} stagger={0.1} y={26}>
+          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" variant="scan" />
+          <RevealGroup profile="stepActivate" as="ol" itemAs="li" className={styles.process} itemClassName={styles.step} stagger={0.12}>
             {block.steps.map((s, i) => (
-              <li key={s.title} className={styles.step}>
+              <Fragment key={s.title}>
                 <span className={styles.stepNum}>{s.step}</span>
                 {i < block.steps.length - 1 && <span className={styles.stepLine} aria-hidden="true" />}
                 <h3 className={clsx('heading-3', styles.stepTitle)}>{s.title}</h3>
                 <p className="body-sm">{s.body}</p>
-              </li>
+              </Fragment>
             ))}
-          </ScrollReveal>
+          </RevealGroup>
         </Shell>
       );
 
     case 'modules':
       return (
         <Shell block={block} accent={accent}>
-          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" />
+          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" variant="right" />
           {block.groups?.length > 0 && (
-            <ScrollReveal className={clsx('grid', 'grid--3', styles.grid)} stagger={0.07}>
+            <RevealGroup profile="hexCellForm" className={clsx('grid', 'grid--3', styles.grid)} itemClassName={styles.cardCell} stagger={0.09}>
               {block.groups.map((g) => (
                 <DataPanel key={g.label} code={g.label} brackets={false}>
                   <ul className={styles.moduleList}>
@@ -176,17 +178,17 @@ export function PageBlock({ block, accent }) {
                   </ul>
                 </DataPanel>
               ))}
-            </ScrollReveal>
+            </RevealGroup>
           )}
           {block.rows?.length > 0 && (
-            <ScrollReveal as="dl" className={styles.kvWide} y={24}>
+            <RevealGroup profile="redactedUnlock" as="dl" className={styles.kvWide} stagger={0.07}>
               {block.rows.map((r) => (
                 <div key={r.k} className={styles.kvWideRow}>
                   <dt className={clsx('mono', styles.kvKey)}>{r.k}</dt>
                   <dd className={styles.kvVal}>{r.v}</dd>
                 </div>
               ))}
-            </ScrollReveal>
+            </RevealGroup>
           )}
         </Shell>
       );
@@ -195,29 +197,33 @@ export function PageBlock({ block, accent }) {
       return (
         <Shell block={block} accent={accent}>
           {(block.eyebrow || block.title) && (
-            <SectionHeader eyebrow={block.eyebrow} title={block.title} size="h2" />
+            <SectionHeader eyebrow={block.eyebrow} title={block.title} size="h2" variant="split" />
           )}
           <GlitchLine className={styles.statLine} />
-          <ScrollReveal className={clsx(styles.stats)} stagger={0.08}>
+          <RevealGroup profile="countRise" className={clsx(styles.stats)} stagger={0.08}>
             {block.items.map((m) => (
               <StatBlock key={m.label} value={m.value} suffix={m.suffix} decimals={Number.isInteger(m.value) ? 0 : 1} label={m.label} note={m.note} />
             ))}
-          </ScrollReveal>
+          </RevealGroup>
         </Shell>
       );
 
     case 'manifesto':
       return (
         <Shell block={block} accent={accent} className={styles.manifesto}>
-          {block.eyebrow && <span className={clsx('eyebrow', styles.manifestoEyebrow)}>{block.eyebrow}</span>}
+          {block.eyebrow && (
+            <Reveal profile="scanX" as="span" className={clsx('eyebrow', styles.manifestoEyebrow)}>
+              {block.eyebrow}
+            </Reveal>
+          )}
           <div className={styles.manifestoLines}>
             {block.lines.map((line, i) =>
               i === 0 ? (
                 <KineticText key={line} as="p" by="word" text={line} className={clsx('display', styles.manifestoLead)} />
               ) : (
-                <RevealText key={line} as="p" variant="maskUp" className={clsx('heading-1', 'font-serif', styles.manifestoLine)}>
+                <Reveal key={line} profile={i % 2 ? 'maskUp' : 'curtainSplit'} as="p" className={clsx('heading-1', 'font-serif', styles.manifestoLine)}>
                   {line}
-                </RevealText>
+                </Reveal>
               )
             )}
           </div>
@@ -228,7 +234,8 @@ export function PageBlock({ block, accent }) {
     case 'feature':
       return (
         <Shell block={block} accent={accent}>
-          <ScrollReveal>
+          {/* "into reality" assembly for the featured-system block */}
+          <Reveal profile="realityAssemble">
             <DataPanel label={block.eyebrow || 'FEATURED SYSTEM'} code={block.code} className={styles.feature}>
               <div className={styles.featureGrid}>
                 <div className={styles.featureIdentity}>
@@ -243,40 +250,38 @@ export function PageBlock({ block, accent }) {
                   </div>
                   <p className={clsx('body', 'measure')}>{block.summary}</p>
                 </div>
-                <dl className={styles.featureModules}>
+                <RevealGroup profile="nodeSequence" as="dl" className={styles.featureModules} stagger={0.08} delayChildren={0.3}>
                   {block.modules.map((m) => (
                     <div key={m.k} className={styles.kvRow}>
                       <dt className={clsx('mono', styles.kvKey)}>{m.k}</dt>
                       <dd className={styles.kvVal}>{m.v}</dd>
                     </div>
                   ))}
-                </dl>
+                </RevealGroup>
               </div>
             </DataPanel>
-          </ScrollReveal>
+          </Reveal>
         </Shell>
       );
 
     case 'redacted':
       return (
         <Shell block={block} accent={accent}>
-          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" />
-          <ScrollReveal as="ul" className={clsx('grid', 'grid--auto', styles.grid)} stagger={0.1}>
+          <SectionHeader eyebrow={block.eyebrow} title={block.title} intro={block.intro} size="h1" variant="left" />
+          <RevealGroup profile="redactedUnlock" as="ul" itemAs="li" className={clsx('grid', 'grid--auto', styles.grid)} itemClassName={styles.redactedItem} stagger={0.1}>
             {block.items.map((it, i) => (
-              <li key={it.code} className={styles.redactedItem}>
-                <DataPanel tone="redacted" code={it.code} interactive>
-                  <div className={clsx('cluster', styles.redactedHead)}>
-                    <RedactedTag label="CLASSIFIED" lock />
-                    {i === 0 && <Pill variant="red">RESTRICTED</Pill>}
-                  </div>
-                  <RedactionReveal as="p" label="DECRYPTING" className={styles.redactedLabel}>
-                    {it.label}
-                  </RedactionReveal>
-                  <span className={clsx('mono', styles.redactedNote)}>{it.note}</span>
-                </DataPanel>
-              </li>
+              <DataPanel key={it.code} tone="redacted" code={it.code} interactive>
+                <div className={clsx('cluster', styles.redactedHead)}>
+                  <RedactedTag label="CLASSIFIED" lock />
+                  {i === 0 && <Pill variant="red">RESTRICTED</Pill>}
+                </div>
+                <RedactionReveal as="p" label="DECRYPTING" className={styles.redactedLabel}>
+                  {it.label}
+                </RedactionReveal>
+                <span className={clsx('mono', styles.redactedNote)}>{it.note}</span>
+              </DataPanel>
             ))}
-          </ScrollReveal>
+          </RevealGroup>
         </Shell>
       );
 
@@ -284,15 +289,15 @@ export function PageBlock({ block, accent }) {
       return (
         <SectionScene scene={block.scene || 'signal-wave'} intensity="medium" accent={accent} className={clsx('section', styles.cta)}>
           <div className={clsx('container', styles.ctaInner)}>
-            <SectionHeader eyebrow={block.eyebrow || 'Open a channel'} title={block.title || 'Compose an inquiry.'} align="center" size="hero" />
-            <ScrollReveal as="div" className={clsx('stack', 'stack-6', styles.ctaBody)} delay={0.1}>
+            <SectionHeader eyebrow={block.eyebrow || 'Open a channel'} title={block.title || 'Compose an inquiry.'} align="center" size="hero" variant="depth" />
+            <Reveal profile="zoomThrough" as="div" delay={0.1} className={clsx('stack', 'stack-6', styles.ctaBody)}>
               <p className={clsx('lead', styles.ctaLead)}>{block.body || 'For software systems, internal platforms, operational interfaces, and controlled online infrastructure.'}</p>
               <a href="mailto:contact@hanoryx.com" className={clsx('font-serif', styles.ctaEmail)}>contact@hanoryx.com</a>
               <div className={clsx('cluster', styles.ctaActions)}>
                 <Button href="mailto:contact@hanoryx.com" variant="primary" icon={ArrowUpRight}>Email Hanoryx</Button>
                 <Button to="/contact" variant="outline">Contact page</Button>
               </div>
-            </ScrollReveal>
+            </Reveal>
           </div>
         </SectionScene>
       );

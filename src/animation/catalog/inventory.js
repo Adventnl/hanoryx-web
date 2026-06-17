@@ -95,6 +95,55 @@ const OTHER = [
   ['text-reveal-slidein', 'text', 'RevealText slide-in', ['split body']],
   ['text-sectionheader', 'text', 'SectionHeader staged blur reveal', ['all sections']],
   ['text-redaction-unmask', 'text', 'Redaction decrypt unmask', ['classified']],
+
+  // ---- component reveal profiles (revealProfiles.js): one distinct entrance
+  //      language PER BLOCK, applied via <Reveal> / <RevealGroup>. The fix for
+  //      "every box fades up the same way." ----
+  ['reveal-slide-left', 'component', 'Slide in from inline-start', ['split body', 'hero intro']],
+  ['reveal-slide-right', 'component', 'Slide in from inline-end', ['contact email row']],
+  ['reveal-skew-in', 'component', 'Skewed slide settle', ['accent rows']],
+  ['reveal-settle-down', 'component', 'Drop in from above', ['footer lead']],
+  ['reveal-scan-x', 'component', 'Horizontal scan-mask wipe', ['eyebrows', 'manifesto eyebrow']],
+  ['reveal-scan-x-reverse', 'component', 'Reverse scan-mask wipe', ['labels']],
+  ['reveal-mask-up', 'component', 'Clip mask-up reveal', ['manifesto lines']],
+  ['reveal-mask-down', 'component', 'Clip mask-down reveal', ['panels']],
+  ['reveal-curtain-split', 'component', 'Center curtain split reveal', ['manifesto lines']],
+  ['reveal-depth-rise', 'component', 'Scale-from-behind depth rise', ['hero actions', 'cta header']],
+  ['reveal-zoom-through', 'component', 'Zoom-through from large scale', ['cta body']],
+  ['reveal-split-y', 'component', 'Vertical split open', ['stats header']],
+  ['reveal-unfold-x', 'component', 'Horizontal unfold from edge', ['bars']],
+  ['reveal-radial-pop', 'component', 'Radial spring pop', ['tags']],
+  ['reveal-chip-pop', 'component', 'Chip spring pop', ['chips']],
+  ['reveal-module-snap', 'component', 'Spring snap into grid', ['modules']],
+  ['reveal-orbital-card', 'component', 'Rotate-into-place like an orbit node', ['cards']],
+  ['reveal-rise-rotate', 'component', 'Rise with slight rotation', ['footer columns']],
+  ['reveal-flip-in', 'component', '3D rotateY flip-in', ['inquiry cards']],
+  ['reveal-terminal-open', 'component', 'Terminal-window scaleY open', ['contact form']],
+  ['reveal-glass-materialize', 'component', 'De-blur zoom-out glass materialize', ['contact cta body']],
+  ['reveal-data-materialize', 'component', 'Blur + scale data materialize', ['card grids']],
+  ['reveal-reality-assemble', 'component', 'Disintegrate→assemble into reality', ['feature/Musebase block']],
+  ['reveal-blur-focus', 'component', 'Chromatic blur-to-focus lock', ['headings']],
+  ['reveal-diagonal-slice', 'component', 'Diagonal clip-path slice-in', ['split aside panel']],
+  ['reveal-redacted-unlock', 'component', 'Redaction bar slides away to unlock', ['redacted cards', 'module rows']],
+  ['reveal-node-sequence', 'component', 'Sequential node slide', ['feature modules list']],
+  ['reveal-step-activate', 'component', 'Process-step activation slide', ['process steps']],
+  ['reveal-count-rise', 'component', 'Stat block count rise', ['stats', 'hero metrics']],
+  ['reveal-bracket-in', 'component', 'Bracketed blur-scale settle', ['panels']],
+  ['reveal-depth-stack-rise', 'component', 'Stacked-layer depth rise', ['stacked cards']],
+  ['reveal-hex-cell-form', 'component', 'Hex-cell spring form', ['module groups']],
+
+  // ---- per-block SectionHeader entrance variants (no two blocks share one) ----
+  ['header-variant-up', 'text', 'SectionHeader rise (default)', ['hero/manifesto']],
+  ['header-variant-left', 'text', 'SectionHeader slide-left', ['split', 'redacted']],
+  ['header-variant-right', 'text', 'SectionHeader slide-right', ['modules']],
+  ['header-variant-depth', 'text', 'SectionHeader depth scale-in', ['cards', 'cta']],
+  ['header-variant-split', 'text', 'SectionHeader vertical split', ['stats']],
+  ['header-variant-scan', 'text', 'SectionHeader scan-mask wipe', ['process', 'contact']],
+
+  // ---- reveal primitives ----
+  ['reveal-primitive-single', 'component', '<Reveal> single-element profile host', ['site-wide']],
+  ['reveal-primitive-group', 'component', '<RevealGroup> staggered profile host', ['grids/lists']],
+
   // components
   ['card-bracket-draw', 'component', 'Card corner-bracket draw on view', ['cards']],
   ['card-reveal-scan', 'component', 'Card one-shot reveal scan', ['cards']],

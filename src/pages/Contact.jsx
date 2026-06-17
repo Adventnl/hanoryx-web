@@ -1,7 +1,7 @@
 import { PageTransition } from '../components/layout/PageTransition';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { SectionScene } from '../components/scenes/SectionScene';
-import { ContactSection } from '../components/sections/ContactSection';
+import { ContactSection } from '@/features/contact/ContactSection';
 import styles from './Contact.module.css';
 
 /**

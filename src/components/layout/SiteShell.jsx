@@ -6,15 +6,15 @@ import { STORAGE_KEYS } from '../../utils/constants';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useAudio } from '../../app/providers/audio-context';
 import { useLenis } from '../../app/providers/lenis-context';
-import { AdvancedNavbar } from '../navigation/AdvancedNavbar';
-import { MobileNav } from './MobileNav';
+import { AdvancedNavbar } from '@/features/navigation/AdvancedNavbar';
+import { MobileNav } from '@/features/navigation/MobileNav';
 import { Footer } from './Footer';
 import { ErrorBoundary } from './ErrorBoundary';
-import { BootSequence } from '../animation/BootSequence';
-import { HanoryxCursor } from '../cursor/HanoryxCursor';
-import { ScanlineOverlay } from '../animation/ScanlineOverlay';
-import { NoiseOverlay } from '../animation/NoiseOverlay';
-import { PerfDebug } from '../animation/PerfDebug';
+import { BootSequence } from '../effects/BootSequence';
+import { HanoryxCursor } from '@/features/cursor/HanoryxCursor';
+import { ScanlineOverlay } from '../effects/ScanlineOverlay';
+import { NoiseOverlay } from '../effects/NoiseOverlay';
+import { PerfDebug } from '../effects/PerfDebug';
 import styles from './SiteShell.module.css';
 
 function readBooted() {

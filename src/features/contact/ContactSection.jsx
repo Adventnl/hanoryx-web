@@ -2,12 +2,12 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { contact } from '../../data/company';
-import { SectionHeader } from '../ui/SectionHeader';
-import { DataPanel } from '../ui/DataPanel';
-import { Button } from '../ui/Button';
-import { Pill } from '../ui/Pill';
-import { ScrollReveal } from '../animation/ScrollReveal';
-import { SystemGrid } from '../animation/SystemGrid';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { DataPanel } from '@/components/ui/DataPanel';
+import { Button } from '@/components/ui/Button';
+import { Pill } from '@/components/ui/Pill';
+import { Reveal, RevealGroup } from '@/animation/reveal/Reveal';
+import { SystemGrid } from '@/components/effects/SystemGrid';
 import styles from './ContactSection.module.css';
 
 /* Single channel — kept in-file, never exported. */
@@ -60,10 +60,11 @@ export function ContactSection({ variant = 'cta' }) {
             title={contact.title}
             size="display"
             align="center"
+            variant="depth"
             className={styles.bandHeader}
           />
 
-          <ScrollReveal as="div" className={clsx('stack stack-6', styles.bandBody)}>
+          <Reveal profile="glassMaterialize" as="div" className={clsx('stack stack-6', styles.bandBody)}>
             <p className={clsx('lead', styles.bandLead)}>{contact.body}</p>
 
             <a href={CONTACT_HREF} className={clsx('font-serif', styles.bigEmail)}>
@@ -78,7 +79,7 @@ export function ContactSection({ variant = 'cta' }) {
                 Contact page
               </Button>
             </div>
-          </ScrollReveal>
+          </Reveal>
         </div>
       </section>
     );
@@ -94,10 +95,11 @@ export function ContactSection({ variant = 'cta' }) {
           title={contact.title}
           intro={contact.body}
           size="hero"
+          variant="scan"
         />
 
         {/* 2 — Large email CTA row */}
-        <ScrollReveal as="div" className={clsx(styles.emailRow)}>
+        <Reveal profile="slideRight" as="div" className={clsx(styles.emailRow)}>
           <div className={styles.emailLead}>
             <span className={clsx('eyebrow', styles.emailLabel)}>Direct channel</span>
             <a href={CONTACT_HREF} className={clsx('font-serif', styles.bigEmail)}>
@@ -107,10 +109,11 @@ export function ContactSection({ variant = 'cta' }) {
           <Button href={CONTACT_HREF} variant="primary" icon={ArrowUpRight}>
             Email Hanoryx
           </Button>
-        </ScrollReveal>
+        </Reveal>
 
         {/* 3 — Inquiry type cards */}
-        <ScrollReveal
+        <RevealGroup
+          profile="flipIn"
           as="div"
           className={clsx('grid', 'grid--auto', styles.inquiries)}
           stagger={0.1}
@@ -121,10 +124,10 @@ export function ContactSection({ variant = 'cta' }) {
               <p className={clsx('body-sm', styles.inquiryBody)}>{type.body}</p>
             </DataPanel>
           ))}
-        </ScrollReveal>
+        </RevealGroup>
 
         {/* 4 — Contact form */}
-        <ScrollReveal as="div" className={styles.formWrap}>
+        <Reveal profile="terminalOpen" as="div" className={styles.formWrap}>
           <div className={styles.formHead}>
             <Pill variant="red" dot>
               FORM // OPEN
@@ -217,7 +220,7 @@ export function ContactSection({ variant = 'cta' }) {
               </Button>
             </div>
           </form>
-        </ScrollReveal>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { AnimatedCounter } from '../animation/AnimatedCounter';
+import { AnimatedCounter } from '../effects/AnimatedCounter';
 import styles from './StatBlock.module.css';
 
 /**

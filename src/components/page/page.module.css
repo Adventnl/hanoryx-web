@@ -128,3 +128,7 @@
 @media (prefers-reduced-motion: reduce) {
   .heroDot { animation: none; }
 }
+
+/* Reveal wrappers used by RevealGroup so animated grid cells still stretch. */
+.cardCell { display: flex; min-width: 0; }
+.cardCell > * { width: 100%; }

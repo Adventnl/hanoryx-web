@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { footer } from '../../data/navigation';
 import { company } from '../../data/company';
-import { ScrollReveal } from '../animation/ScrollReveal';
+import { RevealGroup } from '@/animation/reveal/Reveal';
 import styles from './Footer.module.css';
 
 /**
@@ -18,7 +18,7 @@ export function Footer() {
       <span className={styles.topLine} aria-hidden="true" />
 
       <div className={styles.inner}>
-        <ScrollReveal className={styles.lead} stagger={0.08}>
+        <RevealGroup profile="settleDown" className={styles.lead} stagger={0.08}>
           <div className={styles.brandRow}>
             <span className={styles.brand}>Hanoryx Systems</span>
             <span className={styles.division}>// {company.division}</span>
@@ -28,9 +28,9 @@ export function Footer() {
             {company.email}
             <ArrowUpRight size={15} strokeWidth={1.5} />
           </Link>
-        </ScrollReveal>
+        </RevealGroup>
 
-        <nav className={styles.columns} aria-label="Footer">
+        <RevealGroup as="nav" profile="riseRotate" className={styles.columns} stagger={0.1} aria-label="Footer">
           {footer.columns.map((col) => (
             <div key={col.id} className={styles.column}>
               <h4 className={styles.colTitle}>{col.title}</h4>
@@ -47,7 +47,7 @@ export function Footer() {
               </ul>
             </div>
           ))}
-        </nav>
+        </RevealGroup>
       </div>
 
       <div className={styles.telemetry}>

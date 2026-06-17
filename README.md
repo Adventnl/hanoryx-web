@@ -36,12 +36,37 @@ node qa/scene-smoke.mjs   # validate every scene with a mock 2D context (no brow
 
 ---
 
+## Project structure
+
+Organised by responsibility, with absolute `@/…` imports (alias → `src/`, see `vite.config.js` / `jsconfig.json`) so modules move without rewriting relative chains.
+
+```
+src/
+  app/             # shell, providers, router, route config
+  pages/           # one component per route (lazy-loaded)
+  features/        # self-contained feature modules
+    navigation/    #   AdvancedNavbar · RadialMegaMenu · MobileNav · nav hooks
+    audio/         #   AudioVisualizer · AudioSignalButton
+    cursor/        #   HanoryxCursor
+    contact/       #   ContactSection (channel + form)
+    timeline/      #   TimelineSection (roadmap)
+    experience/    #   SystemSynthesis — 20s pure-code cinematic
+  components/       # shared, presentational
+    ui/            #   Button · Card · DataPanel · StatBlock · SectionHeader · Pill · …
+    layout/        #   SiteShell · Footer · PageTransition · RouteFallback · ErrorBoundary
+    page/          #   PageBlocks (block dispatcher) · PageTemplate
+    scenes/        #   SceneCanvas · SectionScene (the React canvas host)
+    effects/       #   BootSequence · MagneticButton · overlays · counters · grids
+  animation/        # the animation engine (see below)
+  data/ hooks/ styles/ utils/ assets/
+```
+
 ## Animation engine (performance-first)
 
 The core idea: **one scheduler, many cheap scenes, paused when offscreen, quality scaled to the device, loaded on demand.**
 
 ```
-src/animation/
+src/animation/                # the animation ENGINE (kernel + scenes + reveal + catalogue)
   rafScheduler.js     # ONE requestAnimationFrame loop for the whole app; scenes subscribe/unsubscribe
   motionBudget.js     # device tier + DPR cap + live-FPS downgrade + reduced-motion -> resolveQuality(cost)
   pointer.js          # single global pointer tracker (no per-scene listeners)
@@ -49,7 +74,6 @@ src/animation/
   sceneRegistry.js    # name -> scene factory
   scenePalette.js     # canvas colour helpers mirroring the CSS tokens
   easing.js           # math helpers (flow noise, easings, lerp/clamp)
-  animationInventory.js   # canonical catalogue of every animation system (132 entries)
   scenes/
     primitives/       # reusable stateless draw layers (grid, arcs, hex, waves, radial bars,
                       #   particles, nodes, contours, ribbons, voronoi, isometric, redaction,
@@ -58,10 +82,14 @@ src/animation/
     *.js              # 25 retained base scenes
     registerAll.js    # eager glob of every scene (the code-split boundary)
     index.js          # ensureScenes() — loads registerAll on demand
-  componentMotion/    # component (not background) motion grammar
-    motionProfiles.js   # easings, springs, reveal variants
-    textMotions.jsx     # <RevealText variant=…> (fadeUp|maskUp|scanX|splitY|pop|slideIn, word-split)
+  reveal/             # COMPONENT entrance system (not backgrounds)
+    revealProfiles.js   # 33 visually-distinct entrance variants (the per-block vocabulary)
+    Reveal.jsx          # <Reveal> + <RevealGroup> — profile hosts (single / staggered)
+    motionProfiles.js   # easings, springs, base reveal variants
+    textMotions.jsx     # <RevealText variant=…>  ScrollReveal.jsx · KineticText.jsx · RedactionReveal.jsx
     cardMotions.js · buttonMotions.js · formMotions.js · listMotions.js · diagramMotions.js · navMotions.js
+  catalog/
+    inventory.js        # canonical catalogue of every animation system (172 entries)
 ```
 
 - **Single RAF scheduler.** Every scene/visualizer subscribes to one loop — no uncontrolled `requestAnimationFrame` stacking. The loop stops when nothing is subscribed and resets on tab hide/restore.
@@ -83,7 +111,16 @@ Add a scene by dropping a self-registering module into `scenes/` or `scenes/pres
 
 ### Animation inventory
 
-`src/animation/animationInventory.js` catalogues **132 distinct animation systems** (67 background + 54 component/text/nav/form/cursor/transition/overlay/audio + 11 cinematic phases). It is a guard against regressions — extend it, never collapse the variety back into a single fade-up. It is never rendered in production.
+`src/animation/catalog/inventory.js` catalogues **172 distinct animation systems** (67 canvas backgrounds + 94 component/text/nav/form/cursor/transition/overlay/audio + 11 cinematic phases). It is a guard against regressions — extend it, never collapse the variety back into a single fade-up. It is never rendered in production.
+
+### Per-block component motion (no shared fade-up)
+
+`src/animation/reveal/revealProfiles.js` defines **33 visually-distinct entrance languages** — `slideLeft`, `scanX`, `maskUp`, `curtainSplit`, `depthRise`, `zoomThrough`, `splitY`, `radialPop`, `moduleSnap`, `orbitalCard`, `flipIn`, `terminalOpen`, `glassMaterialize`, `dataMaterialize`, `realityAssemble`, `diagonalSlice`, `redactedUnlock`, `hexCellForm`, `stepActivate`, `countRise`, … — applied through two primitives:
+
+- **`<Reveal profile="…">`** animates a single element into view with the named profile.
+- **`<RevealGroup profile="…">`** staggers its children, each entering with that profile.
+
+Every page block declares its **own** profile per slot, so no two block types share a reveal: split bodies `slideLeft` + aside `diagonalSlice`; card grids `dataMaterialize`; process steps `stepActivate`; module groups `hexCellForm` + rows `redactedUnlock`; stats `countRise`; the featured/Musebase block `realityAssemble` ("disintegrate → into reality"); redacted cards `redactedUnlock`; CTA `zoomThrough`; the contact form `terminalOpen`; the footer `settleDown`/`riseRotate`. `SectionHeader` additionally takes a `variant` (`up`/`left`/`right`/`depth`/`split`/`scan`) so even section titles differ per block. All honour reduced motion (render statically).
 
 ---
 

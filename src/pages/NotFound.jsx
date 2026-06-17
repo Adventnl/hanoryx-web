@@ -2,7 +2,7 @@ import { ArrowLeft } from 'lucide-react';
 import clsx from 'clsx';
 import { PageTransition } from '../components/layout/PageTransition';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
-import { KineticText } from '../components/animation/KineticText';
+import { KineticText } from '@/animation/reveal/KineticText';
 import { SceneCanvas } from '../components/scenes/SceneCanvas';
 import { GlitchLine } from '../components/ui/GlitchLine';
 import { Button } from '../components/ui/Button';
