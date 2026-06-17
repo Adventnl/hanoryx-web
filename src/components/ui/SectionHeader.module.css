@@ -63,9 +63,13 @@
 .title   { transition-delay: 0.14s; }
 .intro   { transition-delay: 0.26s; max-width: 56ch; }
 
-.visible .eyebrow,
-.visible .title,
-.visible .intro {
+/* The reveal reset must out-specify the per-variant hidden rules below
+   (`.header[data-variant='x'] .title` = three classes). `data-variant` is
+   always present, so scoping the reset to it keeps every variant's settled
+   state at identity instead of leaving the hidden transform/clip-path stuck. */
+.header[data-variant].visible .eyebrow,
+.header[data-variant].visible .title,
+.header[data-variant].visible .intro {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
