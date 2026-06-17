@@ -2,14 +2,14 @@
 
 The corporate website for **Hanoryx Systems** — an advanced software company that builds online systems, management platforms, commerce infrastructure, automation tools, and digital operating environments. The software division is **Hanoryx North**.
 
-The site is a cinematic, **multi-page (30 routes), animation-heavy** experience built to feel like a real-time digital operating environment — a set of distinct technical chambers, not one long page. Deep black surfaces, white typography, a single restrained red accent. Every section declares **its own animated scene**; there is no single global background. Components are animated too — entrances, hovers, idle micro-motion — so almost nothing is ever fully static, while a performance-first engine keeps it frame-consistent and light on weaker devices.
+The site is a cinematic, **multi-page (31 routes), animation-heavy** experience built to feel like a real-time digital operating environment — a set of distinct technical chambers, not one long page. Deep black surfaces, white typography, a single restrained red accent. Every section declares **its own animated scene**; there is no single global background. Components are animated too — entrances, hovers, idle micro-motion — so almost nothing is ever fully static, while a performance-first engine keeps it frame-consistent and light on weaker devices.
 
 ---
 
 ## Stack
 
 - **React 19** + **Vite 8 (rolldown)** — framework & build (route-level code splitting)
-- **react-router-dom 7** — routing (30 real routes, all lazy-loaded)
+- **react-router-dom 7** — routing (31 real routes, all lazy-loaded)
 - **GSAP 3** + **@gsap/react** + **ScrollTrigger** — scroll-linked & timeline motion
 - **Lenis** — smooth scrolling
 - **motion** (Framer Motion) — page/menu transitions + component reveals
@@ -49,7 +49,7 @@ src/animation/
   sceneRegistry.js    # name -> scene factory
   scenePalette.js     # canvas colour helpers mirroring the CSS tokens
   easing.js           # math helpers (flow noise, easings, lerp/clamp)
-  animationInventory.js   # canonical catalogue of every animation system (121 entries)
+  animationInventory.js   # canonical catalogue of every animation system (132 entries)
   scenes/
     primitives/       # reusable stateless draw layers (grid, arcs, hex, waves, radial bars,
                       #   particles, nodes, contours, ribbons, voronoi, isometric, redaction,
@@ -83,7 +83,18 @@ Add a scene by dropping a self-registering module into `scenes/` or `scenes/pres
 
 ### Animation inventory
 
-`src/animation/animationInventory.js` catalogues **121 distinct animation systems** (67 background + 54 component/text/nav/form/cursor/transition/overlay/audio). It is a guard against regressions — extend it, never collapse the variety back into a single fade-up. It is never rendered in production.
+`src/animation/animationInventory.js` catalogues **132 distinct animation systems** (67 background + 54 component/text/nav/form/cursor/transition/overlay/audio + 11 cinematic phases). It is a guard against regressions — extend it, never collapse the variety back into a single fade-up. It is never rendered in production.
+
+---
+
+## System Synthesis — 20-second pure-code cinematic
+
+`/experience/system-synthesis` (and a **Play System Sequence** button on the Home hero) opens a **twenty-second, pure-code cinematic** that assembles the Hanoryx Systems identity in real time — no video, no MP4, no pre-render.
+
+- **One master clock.** A single paused **GSAP timeline** (`SystemSynthesisExperience.jsx`) is the only clock: it choreographs the lightweight DOM overlay (telemetry stream, route/module chips, convergence headline, wordmark lock-in) and, in its `onUpdate`, drives the procedural canvas via `render(t)`. Canvas + DOM stay frame-perfect and teardown is a single `tl.kill()`.
+- **One canvas, eleven phases.** `SynthesisCanvas.jsx` paints every particle/ring/grid/module/timeline/signal layer procedurally (phases defined in `synthesisTimeline.js`): Black Start → Core Ignition → Grid Construction → Fragment Assembly → North Activation → Systems Expansion → Project Timeline Pull → Interface Convergence → Signal Wall → System Lock → Release. Layers cross-fade with trapezoid envelopes so nothing cuts hard.
+- **Controls.** Never autoplays. Play / Pause / Restart / Skip + a clickable scrubber with per-phase ticks and a live phase/time HUD. The Signal Wall phase reacts to live audio (via the audio bridge) and idles procedurally when silent.
+- **Safeguards.** Respects `prefers-reduced-motion` (renders a static identity poster, no loop); mobile/coarse-pointer gets a reduced quality tier (fewer particles, DPR cap); it's a normal scrolling route so it never traps scroll; all observers/timelines are cleaned up on unmount.
 
 ---
 
@@ -105,7 +116,7 @@ Add a scene by dropping a self-registering module into `scenes/` or `scenes/pres
 - **Bespoke pages:** Home, Contact, Timeline, 404 — each lazy-loaded.
 - **Data-driven pages:** every other route renders through **`TemplatePage` → `PageTemplate`** from a data object in `src/data/pages/<route>.js` (one file per route, auto-combined). Each page = a scene-backed hero + ordered **blocks** (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`, `feature`, `redacted`, `cta`), each block with its **own distinct scene preset**. Scenes are assigned thematically per page (operational pages get workflow/permission/scheduling scenes; commerce gets pipeline/transaction; research gets redaction/silhouette; etc.) so no two pages feel cloned.
 
-**Routes (30):** `/` · `/systems` (+7 sub) · `/north` (+5 sub) · `/work` (+5 sub incl. Musebase) · `/company` (+3 sub) · `/timeline` · `/contact` · `/legal/privacy` · `/legal/terms` · `*`.
+**Routes (31):** `/` · `/systems` (+7 sub) · `/north` (+5 sub) · `/work` (+5 sub incl. Musebase) · `/company` (+3 sub) · `/timeline` · `/experience/system-synthesis` · `/contact` · `/legal/privacy` · `/legal/terms` · `*`.
 
 ---
 

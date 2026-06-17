@@ -11,6 +11,7 @@ import { RouteFallback } from '../components/layout/RouteFallback';
 const Home = lazy(() => import('../pages/Home'));
 const Contact = lazy(() => import('../pages/Contact'));
 const Timeline = lazy(() => import('../pages/Timeline'));
+const SystemSynthesis = lazy(() => import('../pages/SystemSynthesis'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const TemplatePage = lazy(() => import('../pages/TemplatePage'));
 
@@ -30,6 +31,7 @@ export function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/timeline" element={<Timeline />} />
+          <Route path="/experience/system-synthesis" element={<SystemSynthesis />} />
 
           {templateRouteKeys.map((key) => (
             <Route key={key} path={`/${key}`} element={<TemplatePage routeKey={key} />} />

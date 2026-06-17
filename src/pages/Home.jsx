@@ -18,6 +18,7 @@ const hero = {
   status: 'ONLINE',
   actions: [
     { label: 'Enter systems', to: '/systems' },
+    { label: 'Play System Sequence', to: '/experience/system-synthesis', variant: 'outline' },
     { label: 'Open a channel', to: '/contact', variant: 'outline' },
   ],
 };

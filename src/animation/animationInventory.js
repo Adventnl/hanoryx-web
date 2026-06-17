@@ -145,6 +145,18 @@ const OTHER = [
   ['overlay-scanline', 'overlay', 'Global scanline overlay', ['site']],
   ['overlay-noise', 'overlay', 'Global film-grain noise', ['site']],
   ['audio-nav-visualizer', 'audio', 'Nav mini audio visualizer', ['header']],
+  // 20-second System Synthesis cinematic — one phase per entry
+  ['synth-black-start', 'cinematic', 'Synthesis P1 — black start core + telemetry', ['system-synthesis']],
+  ['synth-core-ignition', 'cinematic', 'Synthesis P2 — concentric ring ignition + orbit nodes', ['system-synthesis']],
+  ['synth-grid-construction', 'cinematic', 'Synthesis P3 — architectural grid construction', ['system-synthesis']],
+  ['synth-fragment-assembly', 'cinematic', 'Synthesis P4 — fragments pulled inward', ['system-synthesis']],
+  ['synth-north-activation', 'cinematic', 'Synthesis P5 — Hanoryx North + route orbit', ['system-synthesis']],
+  ['synth-systems-expansion', 'cinematic', 'Synthesis P6 — system modules with micro-motifs', ['system-synthesis']],
+  ['synth-timeline-pull', 'cinematic', 'Synthesis P7 — project timeline + redacted silhouettes', ['system-synthesis']],
+  ['synth-interface-convergence', 'cinematic', 'Synthesis P8 — panels converge + radial menu flash', ['system-synthesis']],
+  ['synth-signal-wall', 'cinematic', 'Synthesis P9 — full-screen audio/signal wall', ['system-synthesis']],
+  ['synth-system-lock', 'cinematic', 'Synthesis P10 — compression + wordmark lock-in', ['system-synthesis']],
+  ['synth-release', 'cinematic', 'Synthesis P11 — release dissolve into the site', ['system-synthesis']],
 ];
 
 export const animationInventory = [

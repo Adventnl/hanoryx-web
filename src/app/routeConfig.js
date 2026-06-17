@@ -117,4 +117,4 @@ export const templateRouteKeys = [
   'legal/terms',
 ];
 
-export const ALL_ROUTE_COUNT = templateRouteKeys.length + 4; // + home, contact, timeline, 404
+export const ALL_ROUTE_COUNT = templateRouteKeys.length + 5; // + home, contact, timeline, system-synthesis, 404

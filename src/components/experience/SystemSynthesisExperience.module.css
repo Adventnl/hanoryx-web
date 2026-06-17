@@ -1,0 +1,286 @@
+/* ============================================================
+   SYSTEM SYNTHESIS — cinematic stage. The canvas paints the procedural layers;
+   the overlay holds the few choreographed DOM elements; the HUD + controls sit
+   above. Everything is contained so paints stay isolated.
+   ============================================================ */
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: min(82vh, 760px);
+  min-height: 460px;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.08));
+  border-radius: 14px;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 50%, #06060a 0%, #020203 70%);
+  contain: layout paint;
+  isolation: isolate;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------------- DOM overlay ---------------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+.telemetry {
+  position: absolute;
+  left: clamp(16px, 4vw, 48px);
+  bottom: clamp(60px, 12vh, 120px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.04em;
+}
+.telemetry li { display: block; }
+
+.routeChips,
+.moduleChips {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: min(80%, 720px);
+}
+.routeChips { top: 24%; }
+.moduleChips { top: 70%; }
+
+.routeChips li,
+.moduleChips li {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 51, 51, 0.4);
+  background: rgba(255, 51, 51, 0.04);
+  padding: 4px 9px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.converge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(18px, 4vw, 40px);
+  letter-spacing: 0.18em;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+
+.lockGroup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(28px, 7vw, 72px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.locknode {
+  display: inline-block;
+  width: 0.34em;
+  height: 0.34em;
+  border-radius: 50%;
+  background: var(--red, #ff3333);
+  box-shadow: 0 0 18px rgba(255, 51, 51, 0.9);
+}
+
+.tagline {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---------------- HUD ---------------- */
+.hud {
+  position: absolute;
+  top: 16px;
+  left: clamp(16px, 4vw, 28px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+.hudCode { color: var(--red, #ff3333); }
+.hudPhase { color: rgba(255, 255, 255, 0.85); text-transform: uppercase; }
+.hudTime { color: rgba(255, 255, 255, 0.4); margin-left: auto; }
+
+/* ---------------- Big play affordance ---------------- */
+.bigPlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 40px;
+  background: rgba(5, 5, 8, 0.55);
+  border: 1px solid rgba(255, 51, 51, 0.35);
+  border-radius: 12px;
+  cursor: pointer;
+  color: #fff;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.bigPlay:hover { border-color: rgba(255, 51, 51, 0.8); transform: translate(-50%, -50%) scale(1.02); }
+
+.bigPlayIcon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 13px 0 13px 22px;
+  border-color: transparent transparent transparent var(--red, #ff3333);
+  filter: drop-shadow(0 0 12px rgba(255, 51, 51, 0.7));
+}
+.bigPlayLabel { font-size: 16px; font-weight: 600; letter-spacing: 0.04em; }
+.bigPlayMeta {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+/* ---------------- Controls ---------------- */
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px clamp(16px, 4vw, 28px) 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(0deg, rgba(2, 2, 3, 0.85), rgba(2, 2, 3, 0));
+}
+
+.transport { display: flex; gap: 8px; }
+
+.ctrl,
+.ctrlPrimary {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.ctrl {
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+}
+.ctrl:hover { color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+.ctrlPrimary {
+  color: #fff;
+  border: 1px solid rgba(255, 51, 51, 0.6);
+  background: rgba(255, 51, 51, 0.12);
+}
+.ctrlPrimary:hover { background: rgba(255, 51, 51, 0.25); border-color: var(--red, #ff3333); }
+
+.scrubber {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  border: none;
+  padding: 0;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  overflow: hidden;
+}
+.scrubFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(255, 51, 51, 0.6), var(--red, #ff3333));
+  pointer-events: none;
+}
+.scrubTick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+/* ---------------- Reduced-motion poster ---------------- */
+.posterOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  padding: 24px;
+  animation: posterIn 0.6s ease both;
+}
+.reducedNote {
+  max-width: 36ch;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.45);
+}
+@keyframes posterIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .stage { height: 70vh; min-height: 420px; }
+  .routeChips li, .moduleChips li { font-size: 9px; padding: 3px 6px; }
+}
