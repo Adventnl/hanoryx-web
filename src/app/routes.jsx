@@ -1,17 +1,20 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'motion/react';
 
+import { templateRouteKeys } from './routeConfig';
+import { pages } from '../data/pages';
+import { PageTemplate } from '../components/page/PageTemplate';
+
 import Home from '../pages/Home';
-import Systems from '../pages/Systems';
-import HanoryxNorth from '../pages/HanoryxNorth';
-import Work from '../pages/Work';
-import Timeline from '../pages/Timeline';
 import Contact from '../pages/Contact';
+import Timeline from '../pages/Timeline';
 import NotFound from '../pages/NotFound';
 
 /**
- * Route table wrapped in AnimatePresence so each page can run an exit
- * transition before the next mounts (see PageTransition).
+ * 30 real routes. Bespoke pages (Home, Contact, Timeline, 404) are wired
+ * directly; every other route renders through the data-driven PageTemplate,
+ * keyed into data/pages. A missing data entry degrades to the 404, never a
+ * crash. AnimatePresence drives the page-to-page transition.
  */
 export function AppRoutes() {
   const location = useLocation();
@@ -20,11 +23,17 @@ export function AppRoutes() {
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
-        <Route path="/systems" element={<Systems />} />
-        <Route path="/north" element={<HanoryxNorth />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/timeline" element={<Timeline />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/timeline" element={<Timeline />} />
+
+        {templateRouteKeys.map((key) => (
+          <Route
+            key={key}
+            path={`/${key}`}
+            element={pages[key] ? <PageTemplate data={pages[key]} /> : <NotFound />}
+          />
+        ))}
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>

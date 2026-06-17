@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { musicSrc } from '../../utils/assetResolver';
 import { STORAGE_KEYS } from '../../utils/constants';
-import { useAudioController } from '../../hooks/useAudioController';
+import { useAudio } from '../../app/providers/audio-context';
 import { useLenis } from '../../app/providers/lenis-context';
-import { Navbar } from './Navbar';
+import { AdvancedNavbar } from '../navigation/AdvancedNavbar';
 import { MobileNav } from './MobileNav';
 import { Footer } from './Footer';
 import { BootSequence } from '../animation/BootSequence';
-import { FlowFieldCanvas } from '../animation/FlowFieldCanvas';
-import { CursorField } from '../animation/CursorField';
+import { HanoryxCursor } from '../cursor/HanoryxCursor';
 import { ScanlineOverlay } from '../animation/ScanlineOverlay';
 import { NoiseOverlay } from '../animation/NoiseOverlay';
 import styles from './SiteShell.module.css';
@@ -24,26 +22,25 @@ function readBooted() {
 }
 
 /**
- * Top-level frame. Owns the boot gate, ambient audio, scroll-lock, the
- * living background, overlays, navigation, and footer. Pages render through
- * `children`. The full boot sequence plays at most once per session.
+ * Top-level frame. Owns the boot gate, scroll-lock, designed cursor, light
+ * global overlays, navigation, and footer. There is NO global animated
+ * background — every section declares its own scene (SectionScene). Audio
+ * lives in AudioProvider; boot START triggers it.
  */
 export function SiteShell({ children }) {
   const [booted, setBooted] = useState(readBooted);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { audioRef, isPlaying, start: startAudio, toggle: toggleAudio } = useAudioController({ volume: 0.4 });
+  const { start: startAudio } = useAudio();
   const lenis = useLenis();
   const { pathname } = useLocation();
 
-  // Close the mobile menu on navigation — React's render-time state
-  // adjustment (no effect needed, no extra commit).
+  // Close the mobile menu on navigation (render-time adjust, no effect).
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
     setLastPath(pathname);
     if (menuOpen) setMenuOpen(false);
   }
 
-  // Scroll-lock during boot.
   useEffect(() => {
     if (!booted) {
       document.body.classList.add('is-locked');
@@ -54,7 +51,6 @@ export function SiteShell({ children }) {
     }
   }, [booted, lenis]);
 
-  // Scroll-lock while the mobile menu is open.
   useEffect(() => {
     if (menuOpen) {
       document.body.classList.add('is-locked');
@@ -69,36 +65,22 @@ export function SiteShell({ children }) {
     try {
       sessionStorage.setItem(STORAGE_KEYS.bootComplete, '1');
     } catch {
-      /* storage unavailable — boot just won't be remembered */
+      /* storage unavailable */
     }
     setBooted(true);
-    // The page was scroll-locked during boot; recompute trigger positions
-    // now that the real layout is in place.
     requestAnimationFrame(() => ScrollTrigger.refresh());
   };
 
   return (
     <div className={styles.shell}>
       <a className="skip-link" href="#main">Skip to content</a>
-      <audio ref={audioRef} src={musicSrc} loop preload="none" />
 
-      <FlowFieldCanvas />
-      <ScanlineOverlay />
       <NoiseOverlay />
-      <CursorField />
+      <ScanlineOverlay />
+      <HanoryxCursor />
 
-      <Navbar
-        isPlaying={isPlaying}
-        onToggleAudio={toggleAudio}
-        menuOpen={menuOpen}
-        onToggleMenu={() => setMenuOpen((v) => !v)}
-      />
-      <MobileNav
-        open={menuOpen}
-        onClose={() => setMenuOpen(false)}
-        isPlaying={isPlaying}
-        onToggleAudio={toggleAudio}
-      />
+      <AdvancedNavbar menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((v) => !v)} />
+      <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <div className={styles.content}>
         {children}

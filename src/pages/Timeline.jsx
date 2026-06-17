@@ -1,31 +1,44 @@
 import { PageTransition } from '../components/layout/PageTransition';
-import { PageHero } from '../components/ui/PageHero';
-import { TimelineSection } from '../components/sections/TimelineSection';
-import { UnknownSystems } from '../components/sections/UnknownSystems';
-import { ContactSection } from '../components/sections/ContactSection';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { PageHeroBlock, PageBlock } from '../components/page/PageBlocks';
+import { TimelineSection } from '../components/sections/TimelineSection';
 
-/**
- * Timeline — the program roadmap, read as a forward-looking sequence of nodes
- * rather than a corporate history. Cinematic hero, the full node timeline, a
- * band of withheld/unknown systems, then a closing contact CTA.
- */
+const ACCENT = '#ff3333';
+
+const hero = {
+  scene: 'spline-ribbon',
+  intensity: 'hero',
+  eyebrow: 'Roadmap // TIME.NODE',
+  title: 'A system roadmap, not a history.',
+  intro:
+    'From the first commerce layer to unannounced programs — revealed only as far as each phase is ready to be seen.',
+  code: 'NODE.TIME',
+  status: 'STREAMING',
+};
+
+const futures = {
+  type: 'redacted',
+  scene: 'redaction-matrix',
+  eyebrow: 'Future Branches',
+  title: 'Unannounced interface programs.',
+  intro: 'Beyond the active roadmap, several system branches remain classified.',
+  items: [
+    { code: 'BRANCH.A', label: 'Classified system branch', note: 'Architecture in progress' },
+    { code: 'BRANCH.B', label: 'Unannounced interface program', note: 'Surface withheld' },
+    { code: 'BRANCH.C', label: 'Redacted research node', note: 'Access scoped' },
+  ],
+};
+
+const cta = { type: 'cta', scene: 'polar-radar', eyebrow: 'Open a channel', title: 'Request roadmap context.' };
+
 export default function Timeline() {
   useDocumentTitle('Timeline');
-
   return (
     <PageTransition>
-      <PageHero
-        eyebrow="Roadmap // TIME.NODE"
-        title="A system roadmap, not a history."
-        intro="From the first commerce layer to unannounced programs — revealed only as far as each phase is ready to be seen."
-        code="NODE.TIME"
-        status="STREAMING"
-      />
-
+      <PageHeroBlock hero={hero} accent={ACCENT} />
       <TimelineSection variant="full" />
-      <UnknownSystems />
-      <ContactSection variant="cta" />
+      <PageBlock block={futures} accent={ACCENT} />
+      <PageBlock block={cta} accent={ACCENT} />
     </PageTransition>
   );
 }

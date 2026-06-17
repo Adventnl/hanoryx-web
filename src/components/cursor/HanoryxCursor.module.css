@@ -1,0 +1,102 @@
+.ring,
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+}
+
+/* The ring is a 0x0 origin point; children center on it. */
+.ring { width: 0; height: 0; }
+
+.dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  z-index: calc(var(--z-cursor) + 1);
+}
+
+/* Centered children of the ring origin */
+.reticle,
+.corner,
+.scan,
+.orbit {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.reticle {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 1px solid var(--c-white-30);
+  border-radius: 50%;
+  transition:
+    width var(--dur-2) var(--ease-out),
+    height var(--dur-2) var(--ease-out),
+    margin var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    opacity var(--dur-2) var(--ease-out);
+}
+
+.corner {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--c-red);
+  opacity: 0;
+  transition: opacity var(--dur-1) var(--ease-out);
+}
+.corner_tl { margin: -24px 0 0 -24px; border-right: none; border-bottom: none; }
+.corner_tr { margin: -24px 0 0 16px; border-left: none; border-bottom: none; }
+.corner_bl { margin: 16px 0 0 -24px; border-right: none; border-top: none; }
+.corner_br { margin: 16px 0 0 16px; border-left: none; border-top: none; }
+
+.scan {
+  width: 42px;
+  height: 1px;
+  margin: 0 0 0 -21px;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  opacity: 0;
+}
+
+.orbit {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: var(--c-white);
+  opacity: 0;
+}
+
+/* ---- States (classes toggled on .ring) ---- */
+.link .reticle { width: 46px; height: 46px; margin: -23px 0 0 -23px; border-color: var(--c-white-50); }
+
+.card .reticle { opacity: 0; }
+.card .corner { opacity: 1; }
+
+.nav .reticle { width: 40px; height: 40px; margin: -20px 0 0 -20px; border-style: dashed; border-color: var(--c-white-40); }
+.nav .orbit { opacity: 1; animation: cursor-orbit 1.5s linear infinite; }
+
+.redacted .reticle { opacity: 0; }
+.redacted .scan { opacity: 1; }
+
+.audio .reticle { border-color: var(--c-red); animation: cursor-pulse 1s var(--ease-in-out) infinite; }
+
+.down .reticle { transform: scale(0.82); }
+
+@keyframes cursor-orbit {
+  from { transform: rotate(0deg) translateX(22px); }
+  to { transform: rotate(360deg) translateX(22px); }
+}
+@keyframes cursor-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.22); }
+}

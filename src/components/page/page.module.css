@@ -1,0 +1,130 @@
+/* ============================================================
+   PAGE TEMPLATE — hero + block layouts. Leans on global utilities
+   (container, grid, stack, heading-*) and tokens; adds block-specific rules.
+   ============================================================ */
+
+.block { padding-block: var(--section-pad); }
+
+/* ---------------- Hero ---------------- */
+.hero {
+  position: relative;
+  min-height: 78vh;
+  min-height: 78svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: calc(var(--nav-h) + var(--space-10));
+  padding-bottom: var(--space-12);
+  border-bottom: var(--border-faint);
+  overflow: hidden;
+}
+.heroInner { position: relative; display: flex; flex-direction: column; gap: var(--space-5); }
+.heroEyebrow { color: var(--c-white-50); }
+.heroTitle { max-width: 18ch; margin: 0; }
+.heroIntro { max-width: 58ch; color: var(--c-white-65); }
+.heroActions { gap: var(--space-4); margin-top: var(--space-2); }
+.heroMetrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  max-width: 720px;
+}
+.heroTelemetry {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--space-8);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.heroDot { width: 5px; height: 5px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); animation: node-pulse 2.2s ease-in-out infinite; }
+
+/* ---------------- Split ---------------- */
+.split { gap: var(--space-10); align-items: start; }
+.splitBody { margin-top: var(--space-5); }
+.splitAside { align-self: stretch; }
+
+.kv, .featureModules { display: flex; flex-direction: column; }
+.kvRow { display: flex; justify-content: space-between; gap: var(--space-4); padding: 0.55rem 0; border-top: var(--border-faint); }
+.kvRow:first-child { border-top: none; }
+.kvKey { font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.14em; color: var(--c-white-40); }
+.kvVal { font-size: var(--fs-sm); color: var(--c-white-80); text-align: right; }
+
+.kvWide { margin-top: var(--space-8); border-top: var(--border); }
+.kvWideRow { display: grid; grid-template-columns: 12rem 1fr; gap: var(--space-5); padding: var(--space-4) 0; border-bottom: var(--border-faint); }
+
+/* ---------------- Cards / grids ---------------- */
+.grid { margin-top: var(--space-10); }
+.redName { filter: blur(6px); user-select: none; margin: var(--space-3) 0; color: var(--c-white-50); }
+
+/* ---------------- Process ---------------- */
+.process {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+.step { position: relative; padding-top: var(--space-6); }
+.stepNum {
+  font-family: var(--font-mono);
+  font-size: var(--fs-h3);
+  color: var(--c-red);
+  letter-spacing: 0.04em;
+}
+.stepLine { position: absolute; top: calc(var(--space-6) + 0.5rem); left: 3rem; right: -1.5rem; height: 1px; background: linear-gradient(90deg, var(--c-line-strong), transparent); }
+.stepTitle { margin: var(--space-3) 0 var(--space-2); }
+
+/* ---------------- Modules ---------------- */
+.moduleList { display: flex; flex-direction: column; gap: var(--space-3); }
+.moduleList li { display: flex; align-items: center; gap: 0.6em; color: var(--c-white-65); }
+
+/* ---------------- Stats ---------------- */
+.statLine { margin-bottom: var(--space-4); }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: var(--space-5);
+}
+
+/* ---------------- Manifesto ---------------- */
+.manifesto { overflow: hidden; }
+.manifestoEyebrow { color: var(--c-white-50); }
+.manifestoLines { display: flex; flex-direction: column; gap: var(--space-5); margin: var(--space-8) 0; }
+.manifestoLead { max-width: 20ch; }
+.manifestoLine { max-width: 24ch; color: var(--c-white-65); }
+.manifestoRail { margin-top: var(--space-8); }
+
+/* ---------------- Feature ---------------- */
+.feature { padding: clamp(1.6rem, 3vw, 2.6rem); }
+.featureGrid { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-8); }
+.featureIdentity { display: flex; flex-direction: column; gap: var(--space-4); }
+.featureLogo { height: 44px; width: auto; object-fit: contain; align-self: flex-start; }
+.featureWordmark { font-size: var(--fs-h1); font-weight: 300; letter-spacing: 0.04em; }
+.featureMeta { gap: var(--space-3); }
+.featureType { color: var(--c-white-50); }
+
+/* ---------------- Redacted ---------------- */
+.redactedItem { list-style: none; }
+.redactedHead { gap: var(--space-3); margin-bottom: var(--space-4); }
+.redactedLabel { font-family: var(--font-serif); font-size: var(--fs-h3); color: var(--c-white-65); margin-bottom: var(--space-3); }
+.redactedNote { color: var(--c-white-30); }
+
+/* ---------------- CTA ---------------- */
+.cta { position: relative; padding-block: var(--section-pad); overflow: hidden; border-top: var(--border-faint); }
+.ctaInner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-6); }
+.ctaBody { align-items: center; }
+.ctaLead { max-width: 52ch; }
+.ctaEmail { font-size: clamp(1.4rem, 4vw, 2.4rem); color: var(--c-white); }
+.ctaEmail:hover { color: var(--c-red); }
+.ctaActions { justify-content: center; gap: var(--space-4); }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 900px) {
+  .split, .featureGrid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .kvWideRow { grid-template-columns: 1fr; gap: var(--space-2); }
+  .heroTelemetry { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heroDot { animation: none; }
+}

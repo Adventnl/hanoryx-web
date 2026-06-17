@@ -1,20 +1,21 @@
 import { PageTransition } from '../components/layout/PageTransition';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { SectionScene } from '../components/scenes/SectionScene';
 import { ContactSection } from '../components/sections/ContactSection';
 import styles from './Contact.module.css';
 
 /**
- * Contact — thin page wrapper around the full ContactSection, which already
- * carries the hero header, direct-email row, inquiry cards, and the form.
+ * Contact — the full ContactSection (hero header, direct-email row, inquiry
+ * cards, animated form) over a live signal-wave field.
  */
 export default function Contact() {
   useDocumentTitle('Contact');
 
   return (
     <PageTransition>
-      <div className={styles.page}>
+      <SectionScene as="div" scene="wave-interference" intensity="medium" className={styles.page}>
         <ContactSection variant="full" />
-      </div>
+      </SectionScene>
     </PageTransition>
   );
 }

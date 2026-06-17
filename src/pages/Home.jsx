@@ -1,32 +1,153 @@
-import { PageTransition } from "../components/layout/PageTransition";
-import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import { PageTransition } from '../components/layout/PageTransition';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { PageHeroBlock, PageBlock } from '../components/page/PageBlocks';
+import { TimelineSection } from '../components/sections/TimelineSection';
+import { systemCategories, projects } from '../data/systems';
+import { metrics, manifesto } from '../data/company';
 
-import { HeroSystem } from "../components/sections/HeroSystem";
-import { CompanySignal } from "../components/sections/CompanySignal";
-import { MetricsBand } from "../components/sections/MetricsBand";
-import { HanoryxNorthPreview } from "../components/sections/HanoryxNorth";
-import { SystemsPreview } from "../components/sections/SystemsPreview";
-import { CapabilitiesMatrix } from "../components/sections/CapabilitiesMatrix";
-import { TimelineSection } from "../components/sections/TimelineSection";
-import { ManifestoPanel } from "../components/sections/ManifestoPanel";
-import { ContactSection } from "../components/sections/ContactSection";
+const ACCENT = '#ff3333';
 
-// Home — thin composition of the system sections. Each section owns its layout,
-// data, and motion; this page only orders the narrative.
+const hero = {
+  scene: 'concentric-gate',
+  intensity: 'hero',
+  eyebrow: 'Hanoryx Systems // NORTH NODE ONLINE',
+  title: 'Online systems for controlled digital operations.',
+  intro:
+    'Software infrastructure, management platforms, and interface systems designed for operational clarity.',
+  code: 'SYS.CORE',
+  status: 'ONLINE',
+  actions: [
+    { label: 'Enter systems', to: '/systems' },
+    { label: 'Open a channel', to: '/contact', variant: 'outline' },
+  ],
+};
+
+const signal = {
+  type: 'split',
+  scene: 'wave-interference',
+  eyebrow: 'Company Signal',
+  code: 'SIG.01',
+  title: 'A controlled environment for serious operations.',
+  body: [
+    'Hanoryx Systems develops online systems, internal platforms, and digital operating environments for teams that need structure, speed, and control.',
+    'The work sits between software engineering, interface design, automation, and operational architecture — built quietly, released deliberately.',
+  ],
+  asideLabel: 'DISCIPLINES',
+  asideCode: 'SIG.02',
+  points: [
+    { k: 'ENGINEERING', v: 'Applied software' },
+    { k: 'INTERFACE', v: 'Systems, not screens' },
+    { k: 'AUTOMATION', v: 'Operational logic' },
+    { k: 'ARCHITECTURE', v: 'Built to expand' },
+  ],
+};
+
+const stats = {
+  type: 'stats',
+  eyebrow: '// System status',
+  items: metrics.map((m) => ({ value: m.value, suffix: m.suffix, label: m.label, note: m.note })),
+};
+
+const systems = {
+  type: 'cards',
+  scene: 'hex-lattice',
+  eyebrow: 'Systems',
+  title: 'We build systems that reduce operational drag.',
+  intro:
+    'Management layers, commerce infrastructure, automation, dashboards, data interfaces, and client-facing portals.',
+  items: systemCategories.slice(0, 6).map((c) => ({
+    code: c.code,
+    title: c.title,
+    body: c.summary,
+    tags: c.tags,
+    status: c.status,
+    to: '/systems',
+  })),
+};
+
+const north = {
+  type: 'split',
+  scene: 'circuit-trace',
+  eyebrow: 'Hanoryx North',
+  code: 'NTH.00',
+  title: 'The engineering division behind Hanoryx Systems.',
+  body: [
+    'North focuses on platform architecture, interface systems, operational tools, and production-minded software development.',
+    'A single, tightly-scoped engineering surface held under one design language.',
+  ],
+  asideLabel: 'DIVISION',
+  asideCode: 'NTH.MAP',
+  points: [
+    { k: 'N.ARCH', v: 'Platform architecture' },
+    { k: 'N.IFACE', v: 'Interface systems' },
+    { k: 'N.ORCH', v: 'Orchestration' },
+    { k: 'N.PROTO', v: 'Prototyping' },
+  ],
+};
+
+const work = {
+  type: 'cards',
+  scene: 'network-constellation',
+  eyebrow: 'Work',
+  title: 'Selected systems.',
+  intro: 'A controlled record. Some active, some withheld.',
+  items: projects.map((p) => ({
+    code: p.code,
+    label: p.type,
+    title: p.name,
+    body: p.summary,
+    status: p.status,
+    to: '/work',
+    redacted: p.classified,
+  })),
+};
+
+const unknown = {
+  type: 'redacted',
+  scene: 'redaction-matrix',
+  eyebrow: 'Classified Branches',
+  title: 'Systems below the surface.',
+  intro: 'Future modules exist. Detail is withheld until the architecture is ready to hold them.',
+  items: [
+    { code: 'NODE.07', label: 'Classified system branch', note: 'Architecture in progress' },
+    { code: 'NODE.08', label: 'Unannounced interface program', note: 'Surface withheld' },
+    { code: 'NODE.09', label: 'Redacted research node', note: 'Access scoped' },
+  ],
+};
+
+const doctrine = {
+  type: 'manifesto',
+  scene: 'topographic-lines',
+  eyebrow: manifesto.eyebrow,
+  lines: manifesto.lines,
+  marquee: ['SYSTEMS', 'INTERFACES', 'ORCHESTRATION', 'AUTOMATION', 'CONTROL', 'ARCHITECTURE', 'TELEMETRY'],
+};
+
+const contactCta = {
+  type: 'cta',
+  scene: 'polar-radar',
+  eyebrow: 'Open a channel',
+  title: 'Compose an inquiry.',
+  body: 'For software systems, internal platforms, operational interfaces, and controlled online infrastructure.',
+};
+
+/** Home — the cinematic entry. A scene-per-block experience with the boot,
+ *  cursor, nav, audio, hero, and eight distinct section scenes. */
 export default function Home() {
-  useDocumentTitle("Online Systems");
+  useDocumentTitle('Online Systems');
 
   return (
     <PageTransition>
-      <HeroSystem />
-      <CompanySignal />
-      <MetricsBand />
-      <HanoryxNorthPreview />
-      <SystemsPreview variant="preview" />
-      <CapabilitiesMatrix />
+      <PageHeroBlock hero={hero} accent={ACCENT} />
+      <PageBlock block={signal} accent={ACCENT} />
+      <PageBlock block={stats} accent={ACCENT} />
+      <PageBlock block={systems} accent={ACCENT} />
+      <PageBlock block={north} accent={ACCENT} />
+      <PageBlock block={work} accent={ACCENT} />
       <TimelineSection variant="preview" />
-      <ManifestoPanel />
-      <ContactSection variant="cta" />
+      <PageBlock block={unknown} accent={ACCENT} />
+      <PageBlock block={doctrine} accent={ACCENT} />
+      <PageBlock block={contactCta} accent={ACCENT} />
     </PageTransition>
   );
 }

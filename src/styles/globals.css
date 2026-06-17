@@ -173,6 +173,13 @@ body.is-locked {
   height: 100vh;
 }
 
+/* Designed cursor active -> hide the native cursor (fine pointers only;
+   the class is added by HanoryxCursor, which never mounts on touch/reduced). */
+html.hnx-cursor-active,
+html.hnx-cursor-active * {
+  cursor: none;
+}
+
 /* --- Reduced motion: neutralize continuous + transform animation --- */
 @media (prefers-reduced-motion: reduce) {
   *,
