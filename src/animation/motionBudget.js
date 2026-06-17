@@ -23,7 +23,9 @@ function detect() {
   if (mobile || cores <= 4 || mem <= 4) tier = 'medium';
   if (cores <= 2 || mem <= 2) tier = 'low';
 
-  const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.5 : 2);
+  // Cap DPR aggressively for the background canvases — they are soft/abstract,
+  // so 1.5x on retina is indistinguishable from 2x but ~45% cheaper to paint.
+  const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.5);
   return { tier, mobile, dpr, reduced };
 }
 
@@ -61,6 +63,22 @@ export function resolveQuality(cost = 'medium') {
   if (wantIdx < 0) wantIdx = 1;
 
   return ORDER[Math.min(wantIdx, ceilingIdx)];
+}
+
+/* How many background canvases may ANIMATE at once. Everything else holds a
+   static frame. This is the primary defence against "every page lags": no
+   matter how many scenes a page declares, only the most-visible few run. */
+export function maxActiveScenes() {
+  if (state.reduced) return 0;
+  if (state.mobile || state.tier === 'low') return 1;
+  if (state.tier === 'medium') return 2;
+  return 2;
+}
+
+/* Target frame interval (ms) for background scenes — backgrounds run at ~30fps
+   regardless of a 60/120Hz display; halves/quarters draw work, invisibly. */
+export function sceneFrameInterval() {
+  return 1000 / 30;
 }
 
 /* At most one full-quality "hero" scene at a time. */

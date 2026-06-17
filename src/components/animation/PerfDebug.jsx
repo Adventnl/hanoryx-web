@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { getFps, getSubscriberCount } from '../../animation/rafScheduler';
 import { getMotionState } from '../../animation/motionBudget';
+import { activeSceneCount } from '../../animation/sceneBudget';
 import styles from './PerfDebug.module.css';
 
 /**
@@ -18,7 +19,7 @@ export function PerfDebug() {
     const id = setInterval(() => {
       const { tier, mobile, reduced } = getMotionState();
       const fps = Math.round(getFps());
-      el.textContent = `FPS ${fps} · LOOPS ${getSubscriberCount()} · ${tier.toUpperCase()}${mobile ? '·M' : ''}${reduced ? '·RM' : ''}`;
+      el.textContent = `FPS ${fps} · SCENES ${activeSceneCount()} · LOOPS ${getSubscriberCount()} · ${tier.toUpperCase()}${mobile ? '·M' : ''}${reduced ? '·RM' : ''}`;
       el.dataset.warn = fps < 45 ? '1' : '0';
     }, 500);
     return () => clearInterval(id);

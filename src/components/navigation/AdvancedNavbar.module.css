@@ -8,9 +8,9 @@
   transition: background var(--dur-3) var(--ease-out), border-color var(--dur-3) var(--ease-out);
 }
 .scrolled {
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0.92), rgba(5, 5, 5, 0.55));
-  backdrop-filter: blur(var(--blur-nav));
-  -webkit-backdrop-filter: blur(var(--blur-nav));
+  /* near-opaque instead of blur: backdrop-filter over the full-width hero scene
+     was a per-frame GPU cost across the whole top strip. */
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0.97), rgba(5, 5, 5, 0.86));
   border-bottom-color: var(--c-line-faint);
 }
 
@@ -61,9 +61,7 @@
 
 /* keep the bar solid while a panel is deployed so the diagram reads cleanly */
 .menuActive {
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0.96), rgba(5, 5, 5, 0.7));
-  backdrop-filter: blur(var(--blur-nav));
-  -webkit-backdrop-filter: blur(var(--blur-nav));
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0.9));
   border-bottom-color: var(--c-line-faint);
 }
 .groupLabel { font-size: var(--fs-sm); }

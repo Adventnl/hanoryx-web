@@ -3,7 +3,10 @@
    Reusable surface treatments that give the "operating system" feel.
    ============================================================ */
 
-/* --- Glass panel --- */
+/* --- Glass panel ---
+   NOTE: the fill is opaque (var(--c-panel)), so a backdrop-filter blurred
+   something that could never be seen through it — pure GPU cost on every panel,
+   every frame, over the animated scenes. Removed. The look is unchanged. */
 .glass {
   position: relative;
   background:
@@ -11,8 +14,6 @@
     var(--c-panel);
   border: var(--border);
   border-radius: var(--r-md);
-  backdrop-filter: blur(var(--blur-panel));
-  -webkit-backdrop-filter: blur(var(--blur-panel));
 }
 
 .panel {
@@ -48,13 +49,12 @@
   pointer-events: none;
   background: repeating-linear-gradient(
     0deg,
-    rgba(255, 255, 255, 0.02) 0px,
-    rgba(255, 255, 255, 0.02) 1px,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
     transparent 2px,
     transparent 4px
   );
-  mix-blend-mode: overlay;
-  opacity: 0.5;
+  opacity: 0.6;
   z-index: 2;
 }
 
