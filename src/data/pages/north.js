@@ -3,14 +3,15 @@ import { engineeringPrinciples } from '../capabilities';
 
 const page = {
   key: 'north',
-  title: 'Hanoryx North',
+  title: 'Development',
   accent: '#ff3333',
   hero: {
     scene: 'circuit-trace',
-    eyebrow: north.eyebrow,
-    title: 'The engineering division behind Hanoryx Systems.',
-    intro: north.lead,
-    code: 'NODE.NORTH',
+    eyebrow: 'Development // DEV.NODE',
+    title: 'Software development, run by our team — Hanoryx North.',
+    intro:
+      'Hanoryx North is the development team behind Hanoryx Systems — platform architecture, interface systems, operational tooling, and production-minded software engineering.',
+    code: 'NODE.DEV',
     status: 'ACTIVE',
     actions: [
       { label: 'Engineering', to: '/north/engineering' },

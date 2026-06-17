@@ -174,10 +174,15 @@ body.is-locked {
 }
 
 /* Designed cursor active -> hide the native cursor (fine pointers only;
-   the class is added by HanoryxCursor, which never mounts on touch/reduced). */
+   the class is added by HanoryxCursor, which never mounts on touch/reduced).
+   Text fields keep a native caret so typing affordance stays clear. */
 html.hnx-cursor-active,
 html.hnx-cursor-active * {
   cursor: none;
+}
+html.hnx-cursor-active input,
+html.hnx-cursor-active textarea {
+  cursor: text;
 }
 
 /* --- Reduced motion: neutralize continuous + transform animation --- */

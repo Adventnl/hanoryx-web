@@ -53,11 +53,11 @@ export const footer = {
     },
     {
       id: 'col-north',
-      title: 'Hanoryx North',
+      title: 'Development',
       links: [
-        { label: 'Division', to: '/north' },
-        { label: 'Engineering principles', to: '/north' },
-        { label: 'Motion philosophy', to: '/north' },
+        { label: 'Overview', to: '/north' },
+        { label: 'Engineering', to: '/north/engineering' },
+        { label: 'Motion systems', to: '/north/motion-systems' },
         { label: 'Work', to: '/work' },
       ],
     },

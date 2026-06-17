@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { navGroups } from '../../app/routeConfig';
 import { company } from '../../data/company';
 import { brandLogo } from '../../utils/assetResolver';
-import { Button } from '../ui/Button';
 import { AudioSignalButton } from '../audio/AudioSignalButton';
 import { RadialMegaMenu } from './RadialMegaMenu';
 import styles from './AdvancedNavbar.module.css';
@@ -72,9 +71,6 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu }) {
             {company.status}
           </span>
           <AudioSignalButton className={styles.audio} />
-          <Button to="/contact" variant="primary" size="sm" className={styles.cta} data-cursor="link">
-            Open Channel
-          </Button>
           <button
             type="button"
             className={clsx(styles.burger, menuOpen && styles.burgerOpen)}

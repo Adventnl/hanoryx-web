@@ -112,11 +112,11 @@
   --z-bg: 0;
   --z-content: 10;
   --z-overlay: 30;
-  --z-cursor: 60;
   --z-nav: 100;
   --z-menu: 200;
   --z-transition: 500;
   --z-boot: 9999;
+  --z-cursor: 100000; /* always on top — above nav, menus, and the boot overlay */
 
   /* --- SHADOWS / GLOW --- */
   --shadow-panel: 0 24px 60px -30px rgba(0, 0, 0, 0.9);

@@ -26,12 +26,12 @@ export const navGroups = [
   },
   {
     id: 'north',
-    label: 'Hanoryx North',
-    code: 'NTH',
+    label: 'Development',
+    code: 'DEV',
     to: '/north',
-    blurb: 'The engineering division — architecture, interface, motion, tooling.',
+    blurb: 'Hanoryx North — our development team. Architecture, interface, motion, tooling.',
     children: [
-      { label: 'Division', to: '/north', code: 'NTH.00' },
+      { label: 'Overview', to: '/north', code: 'NTH.00' },
       { label: 'Engineering', to: '/north/engineering', code: 'NTH.01' },
       { label: 'Interface Lab', to: '/north/interface-lab', code: 'NTH.02' },
       { label: 'Motion Systems', to: '/north/motion-systems', code: 'NTH.03' },
@@ -74,6 +74,14 @@ export const navGroups = [
     to: '/timeline',
     blurb: 'The system roadmap.',
     children: [{ label: 'Roadmap', to: '/timeline', code: 'TIME.00' }],
+  },
+  {
+    id: 'contact',
+    label: 'Contact',
+    code: 'CH',
+    to: '/contact',
+    blurb: 'Open a channel.',
+    children: [{ label: 'Contact', to: '/contact', code: 'CH.00' }],
   },
 ];
 
