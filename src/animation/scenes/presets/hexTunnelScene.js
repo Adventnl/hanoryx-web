@@ -51,8 +51,8 @@ registerScene('hex-tunnel', ({ ctx, width, height, quality, accent, density }) =
       ctx.lineJoin = 'round';
 
       const flow = (t * 0.32) % 1;           // 0..1 z-progress that loops
-      const accentSlot = Math.floor(t * 0.18) % rings;
 
+      // Concentric white rings: the continuous outward surge.
       for (let i = 0; i < rings; i++) {
         // depth d: 0 at vanishing point, 1 at viewer; advanced by flow
         let d = ((i + flow) % rings) / rings;
@@ -65,21 +65,29 @@ registerScene('hex-tunnel', ({ ctx, width, height, quality, accent, density }) =
         const far = clamp(d / 0.12, 0, 1);
         const depthAlpha = far * (1 - near * 0.9);
 
-        const isAccent = i === accentSlot;
-        if (isAccent) {
-          const pulse = 0.45 + 0.55 * Math.sin(t * 3.4 + i);
-          ctx.lineWidth = 1.6;
-          ctx.strokeStyle = A(clamp(depthAlpha * (0.28 + 0.4 * pulse), 0, 0.7));
-          hexPath(r, rot);
-          ctx.stroke();
-        } else {
-          const jitter = 0.85 + hash(i * 1.7) * 0.3;
-          ctx.lineWidth = lerp(0.6, 1.4, d);
-          ctx.strokeStyle = white(clamp(depthAlpha * 0.16 * jitter, 0, 0.22));
-          hexPath(r, rot);
-          ctx.stroke();
-        }
+        const jitter = 0.85 + hash(i * 1.7) * 0.3;
+        ctx.lineWidth = lerp(0.6, 1.4, d);
+        ctx.strokeStyle = white(clamp(depthAlpha * 0.16 * jitter, 0, 0.22));
+        hexPath(r, rot);
+        ctx.stroke();
       }
+
+      // One red ring rides the loop. It travels on its OWN continuously
+      // looping depth (not a discrete ring slot, which used to make it snap),
+      // surging from the vanishing point out to the viewer and fading fully to
+      // zero at BOTH ends — so the wrap is invisible and it reads as a single
+      // seamless infinite loop. Tweak the 0.07 rate to speed it up / slow it.
+      const ad = (t * 0.07) % 1;
+      const da = Math.pow(ad, 1.7);
+      const rad = lerp(6, maxR, da);
+      const rota = t * (0.28 - da * 0.18);
+      const nearA = clamp((da - 0.85) / 0.15, 0, 1);
+      const farA = clamp(da / 0.12, 0, 1);
+      const pulse = 0.5 + 0.5 * Math.sin(t * 3.4);
+      ctx.lineWidth = 1.6;
+      ctx.strokeStyle = A(clamp(farA * (1 - nearA) * (0.32 + 0.38 * pulse), 0, 0.78));
+      hexPath(rad, rota);
+      ctx.stroke();
 
       // vanishing-point core
       const corePulse = 0.6 + 0.4 * Math.sin(t * 2.2);

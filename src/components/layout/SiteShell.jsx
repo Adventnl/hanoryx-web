@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { STORAGE_KEYS } from '../../utils/constants';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useAudio } from '../../app/providers/audio-context';
 import { useLenis } from '../../app/providers/lenis-context';
 import { AdvancedNavbar } from '../navigation/AdvancedNavbar';
@@ -31,7 +33,12 @@ function readBooted() {
  */
 export function SiteShell({ children }) {
   const [booted, setBooted] = useState(readBooted);
+  // The boot overlay outlives `booted` by one fade: it stays mounted while it
+  // lifts away, then unmounts itself via onExited — so there's no hard cut.
+  const [bootMounted, setBootMounted] = useState(() => !readBooted());
   const [menuOpen, setMenuOpen] = useState(false);
+  const contentRef = useRef(null);
+  const reduced = usePrefersReducedMotion();
   const { start: startAudio } = useAudio();
   const lenis = useLenis();
   const { pathname } = useLocation();
@@ -70,7 +77,25 @@ export function SiteShell({ children }) {
       /* storage unavailable */
     }
     setBooted(true);
-    requestAnimationFrame(() => ScrollTrigger.refresh());
+
+    // Rise the site into view as the overlay lifts, instead of snapping it in.
+    const el = contentRef.current;
+    if (el && !reduced) {
+      gsap.fromTo(
+        el,
+        { autoAlpha: 0, y: 72 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1.3,
+          ease: 'power2.out',
+          clearProps: 'transform,opacity,visibility',
+          onComplete: () => ScrollTrigger.refresh(),
+        }
+      );
+    } else {
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    }
   };
 
   return (
@@ -84,12 +109,18 @@ export function SiteShell({ children }) {
       <AdvancedNavbar menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((v) => !v)} />
       <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      <div className={styles.content}>
+      <div className={styles.content} ref={contentRef}>
         <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>
         <Footer />
       </div>
 
-      {!booted && <BootSequence onComplete={handleBootComplete} onStart={startAudio} />}
+      {bootMounted && (
+        <BootSequence
+          onComplete={handleBootComplete}
+          onExited={() => setBootMounted(false)}
+          onStart={startAudio}
+        />
+      )}
       {import.meta.env.DEV && <PerfDebug />}
     </div>
   );

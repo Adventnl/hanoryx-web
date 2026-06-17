@@ -15,9 +15,14 @@ import styles from './BootSequence.module.css';
  * START triggers audio (onStart). A Skip control is always available so
  * the user is never trapped. Reduced motion collapses to a quiet fade.
  *
- * Props: onComplete(), onStart()
+ * onComplete fires the moment the reveal begins (so the shell can animate
+ * the site in underneath), and onExited fires once the overlay has fully
+ * lifted away and is safe to unmount — together they replace the old hard
+ * cut with a crossfade.
+ *
+ * Props: onComplete(), onExited(), onStart()
  */
-export function BootSequence({ onComplete, onStart }) {
+export function BootSequence({ onComplete, onExited, onStart }) {
   const root = useRef(null);
   const tl = useRef(null);
   const [phase, setPhase] = useState('intro');
@@ -27,7 +32,19 @@ export function BootSequence({ onComplete, onStart }) {
   const finish = () => {
     if (finished.current) return;
     finished.current = true;
+    // Reveal the site now (the shell rises it into view), then lift the
+    // black overlay away over it so the handoff is a soft crossfade.
     onComplete?.();
+    if (reduced || !root.current) {
+      onExited?.();
+      return;
+    }
+    gsap.to(root.current, {
+      autoAlpha: 0,
+      duration: 0.7,
+      ease: 'power2.inOut',
+      onComplete: () => onExited?.(),
+    });
   };
 
   // Entry: brand + control glide in from opposite sides.
@@ -96,11 +113,7 @@ export function BootSequence({ onComplete, onStart }) {
   const handleSkip = () => {
     if (finished.current) return;
     tl.current?.kill();
-    if (reduced || !root.current) {
-      finish();
-      return;
-    }
-    gsap.to(root.current, { autoAlpha: 0, duration: 0.45, ease: 'power2.inOut', onComplete: finish });
+    finish();
   };
 
   return (

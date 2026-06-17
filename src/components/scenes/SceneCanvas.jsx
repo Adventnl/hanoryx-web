@@ -40,6 +40,9 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
     let ro = null;
     let resizeRaf = 0;
     let lastDraw = 0;
+    // Per-scene clock: advances only on frames this canvas actually draws, so
+    // pausing off-screen (scene budget) and resuming is seamless. See `frame`.
+    let sceneTime = 0;
     let hasFrame = false;
     let width = 0;
     let height = 0;
@@ -64,15 +67,21 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
     };
     const drawStill = () => {
       if (!scene) return;
-      scene.draw({ time: 0, delta: 16.7, width, height, quality, pointer: getPointer(), audio: getAudio(), still: true });
+      scene.draw({ time: sceneTime, delta: 16.7, width, height, quality, pointer: getPointer(), audio: getAudio(), still: true });
       hasFrame = true;
     };
-    const frame = (time, delta) => {
+    const frame = (now, delta) => {
       if (disposed || !scene) return;
       // throttle background scenes to ~30fps regardless of display refresh
-      if (time - lastDraw < interval - 2) return;
-      lastDraw = time;
-      scene.draw({ time, delta, width, height, quality, pointer: getPointer(), audio: getAudio() });
+      if (lastDraw && now - lastDraw < interval - 2) return;
+      // Advance the per-scene clock by the real time since the last *drawn*
+      // frame. Because it only ticks while drawing, a scene paused off-screen
+      // by the budget resumes exactly where it froze instead of snapping to
+      // wall-clock time (the cause of the jump when scrolling back to it).
+      const step = lastDraw ? Math.min(now - lastDraw, 64) : 16.7;
+      lastDraw = now;
+      sceneTime += step;
+      scene.draw({ time: sceneTime, delta, width, height, quality, pointer: getPointer(), audio: getAudio() });
       hasFrame = true;
     };
     const startLoop = () => {
@@ -83,6 +92,9 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
         unsub();
         unsub = null;
       }
+      // Reset the draw cadence so resuming starts a fresh, clamped step rather
+      // than a huge gap; the per-scene clock (sceneTime) keeps its value.
+      lastDraw = 0;
     };
 
     // The budget calls this to grant/revoke animation. Revoked scenes keep
