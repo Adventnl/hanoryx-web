@@ -5,7 +5,7 @@ const page = {
   title: 'Interface Lab',
   accent: '#ff3333',
   hero: {
-    scene: 'glass-prism',
+    scene: 'interface-lab-shape',
     intensity: 'hero',
     eyebrow: 'North // LAB.IFC',
     title: 'Where the interface system is forged before it ships.',
@@ -24,7 +24,7 @@ const page = {
   blocks: [
     {
       type: 'cards',
-      scene: 'hex-lattice',
+      scene: 'split-prism',
       eyebrow: 'Specimens',
       title: 'Component-system specimens.',
       intro: 'Each specimen is a self-contained unit of the interface system — proven in isolation, then admitted into the shared library only once its behaviour is fully defined.',
@@ -75,7 +75,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'glyph-field',
+      scene: 'glyph-compiler',
       eyebrow: 'Language',
       code: 'LAB.LANG',
       title: 'Interaction, motion, and density resolved together.',
@@ -96,7 +96,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'wave-interference',
+      scene: 'dashboard-tiles',
       eyebrow: interfaceLanguage.eyebrow,
       title: interfaceLanguage.title,
       intro: interfaceLanguage.body,
@@ -104,7 +104,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'magnetic-vector',
       eyebrow: 'Open a channel',
       title: 'Commission an interface system.',
       body: 'Bring an operation that needs a real interface language — not another set of screens.',

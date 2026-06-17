@@ -3,7 +3,7 @@ const page = {
   title: 'Terms',
   accent: '#ff3333',
   hero: {
-    scene: 'architectural-grid',
+    scene: 'privacy-quiet-grid',
     intensity: 'hero',
     eyebrow: 'Legal // TERMS',
     title: 'The terms that govern use of this website.',
@@ -55,7 +55,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'command-terminal',
+      scene: 'architectural-grid',
       eyebrow: 'Open a channel',
       title: 'Questions on terms?',
       body: 'For clarification on these terms or how content from this site may be used, reach the team directly.',

@@ -3,7 +3,7 @@ const page = {
   title: 'Privacy',
   accent: '#ff3333',
   hero: {
-    scene: 'architectural-grid',
+    scene: 'privacy-quiet-grid',
     intensity: 'hero',
     eyebrow: 'Legal // DOC.PRIV',
     title: 'A restrained position on data: collect little, hold it carefully, and explain the rest plainly.',
@@ -50,7 +50,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'redaction-matrix',
+      scene: 'architectural-grid',
       eyebrow: 'Detail',
       title: 'The specifics, without the legalese.',
       intro: 'Four points cover almost every question a visitor sends about this page.',
@@ -61,7 +61,7 @@ const page = {
         { code: 'PD.04', title: 'Your control', body: 'You can ask us what we hold, ask us to correct it, or ask us to delete it. Write to the contact address and we will act on the request.', tags: ['Access', 'Deletion'] },
       ],
     },
-    { type: 'cta', scene: 'architectural-grid', eyebrow: 'Reach us', title: 'Questions on privacy?', body: 'If anything here is unclear, or you want to know what we hold about you, send a message and a person will answer.' },
+    { type: 'cta', scene: 'topology-pulse', eyebrow: 'Reach us', title: 'Questions on privacy?', body: 'If anything here is unclear, or you want to know what we hold about you, send a message and a person will answer.' },
   ],
 };
 

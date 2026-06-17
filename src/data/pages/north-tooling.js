@@ -5,7 +5,7 @@ const page = {
   title: 'Tooling',
   accent: '#ff3333',
   hero: {
-    scene: 'command-terminal',
+    scene: 'tooling-console',
     intensity: 'hero',
     eyebrow: 'Hanoryx North // TOOL',
     title: 'The systems we build to build everything else.',
@@ -25,7 +25,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'circuit-trace',
+      scene: 'build-pipeline',
       eyebrow: 'Internal Console',
       code: 'TOOL.CORE',
       title: 'One command surface, every operation behind it.',
@@ -46,7 +46,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'data-rain',
+      scene: 'command-terminal',
       eyebrow: 'Dev Workflow',
       title: 'The instruments behind the work.',
       intro: 'A small set of internal tools, each owning one part of the loop between writing a system and watching it run.',
@@ -90,7 +90,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'architectural-grid',
+      scene: 'glyph-compiler',
       eyebrow: stack.eyebrow,
       title: 'Tools chosen for control, not fashion.',
       intro: stack.body,
@@ -105,7 +105,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'command-terminal',
+      scene: 'dependency-graph',
       eyebrow: 'Open a channel',
       title: 'Ask how we run our own systems.',
       body: 'The tooling is internal, but the discipline behind it shows up in everything we ship.',

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
+import { useElementInView } from '../../hooks/useElementInView';
 import styles from './DataPanel.module.css';
 
 /**
@@ -26,6 +27,7 @@ export function DataPanel({
   children,
   ...rest
 }) {
+  const [viewRef, inView] = useElementInView({ threshold: 0.2 });
   let Tag = 'div';
   const tagProps = { ...rest };
   if (to) { Tag = Link; tagProps.to = to; }
@@ -33,11 +35,13 @@ export function DataPanel({
 
   return (
     <Tag
+      ref={viewRef}
       className={clsx(
         styles.panel,
         'glass',
         interactive && styles.interactive,
         tone === 'redacted' && styles.redacted,
+        inView && styles.armed,
         className
       )}
       {...tagProps}
@@ -50,6 +54,7 @@ export function DataPanel({
           <i className={clsx(styles.bracket, styles.br)} />
         </span>
       )}
+      <span className={styles.revealScan} aria-hidden="true" />
 
       {(label || code) && (
         <div className={styles.head}>

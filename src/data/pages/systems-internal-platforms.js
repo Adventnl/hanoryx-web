@@ -3,7 +3,7 @@ const page = {
   title: 'Internal Platforms',
   accent: '#ff3333',
   hero: {
-    scene: 'architectural-grid',
+    scene: 'dashboard-tiles',
     intensity: 'hero',
     eyebrow: 'Systems // SYS.04',
     title: 'Internal consoles that turn live operational state into decisions.',
@@ -24,7 +24,7 @@ const page = {
   blocks: [
     {
       type: 'cards',
-      scene: 'isometric-module',
+      scene: 'status-pulse-grid',
       eyebrow: 'Surfaces',
       title: 'Dashboard, admin, and control modules.',
       intro:
@@ -66,7 +66,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'data-rain',
+      scene: 'heatmap-control',
       eyebrow: 'Capability',
       code: 'INT.DEC',
       title: 'Live data, resolved into a decision.',
@@ -87,7 +87,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'wave-interference',
+      scene: 'data-interface-wave',
       eyebrow: 'Platform',
       title: 'Platform capabilities.',
       intro:
@@ -103,7 +103,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'command-terminal',
+      scene: 'architecture-layer',
       eyebrow: 'Open a channel',
       title: 'Discuss an internal platform.',
       body: 'Bring us the operation and the data it already produces. We will design the console that makes it legible.',

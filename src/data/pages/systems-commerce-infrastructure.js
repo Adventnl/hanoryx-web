@@ -7,7 +7,7 @@ const page = {
   title: 'Commerce Infrastructure',
   accent: '#ff3333',
   hero: {
-    scene: 'spline-ribbon',
+    scene: 'commerce-pipeline',
     intensity: 'hero',
     eyebrow: 'Systems // SYS.02',
     title: 'Commerce infrastructure engineered for throughput and control.',
@@ -25,7 +25,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'circuit-trace',
+      scene: 'transaction-wave',
       eyebrow: 'Foundations',
       code: 'CMX.01',
       title: 'A storefront is the surface, not the system.',
@@ -45,7 +45,7 @@ const page = {
     },
     {
       type: 'process',
-      scene: 'timeline-pulse',
+      scene: 'dashboard-tiles',
       eyebrow: 'Pipeline',
       title: 'How an order moves.',
       intro: 'Every order travels one path. No stage is skipped, and each transition is recorded.',
@@ -58,7 +58,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'hex-lattice',
+      scene: 'secure-boundary',
       eyebrow: 'Capabilities',
       title: 'What the infrastructure controls.',
       intro: 'Four surfaces over one core. Each is scoped, observable, and built to hold load.',
@@ -95,7 +95,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'topographic-lines',
+      scene: 'data-stream-ribbons',
       eyebrow: 'Lineage',
       code: 'WRK.01',
       title: 'This lineage traces back to Commerce System I.',
@@ -111,7 +111,7 @@ const page = {
         { k: 'STATUS', v: commerceSystemI.status },
       ],
     },
-    { type: 'cta', scene: 'polar-radar', eyebrow: 'Open a channel', title: 'Discuss a commerce build.' },
+    { type: 'cta', scene: 'node-compression', eyebrow: 'Open a channel', title: 'Discuss a commerce build.' },
   ],
 };
 

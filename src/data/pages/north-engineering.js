@@ -5,7 +5,7 @@ const page = {
   title: 'Engineering',
   accent: '#ff3333',
   hero: {
-    scene: 'circuit-trace',
+    scene: 'build-pipeline',
     intensity: 'hero',
     eyebrow: 'Hanoryx North // ENG',
     title: 'Systems are decided at the bottom of the stack, before a surface is ever drawn.',
@@ -25,7 +25,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'architectural-grid',
+      scene: 'dependency-graph',
       eyebrow: 'Discipline',
       code: 'ENG.CORE',
       title: 'Architecture, reliability, and modularity carry the weight.',
@@ -46,7 +46,7 @@ const page = {
     },
     {
       type: 'process',
-      scene: 'vector-compass',
+      scene: 'isometric-infra',
       eyebrow: 'Build Pipeline',
       title: 'How a system moves from intent to production.',
       intro: 'A linear, instrumented path. Each stage gates the next, and nothing reaches production unobserved.',
@@ -59,13 +59,13 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'network-constellation',
+      scene: 'architecture-layer',
       eyebrow: 'Engineering Principles',
       title: 'Concepts that govern dependency and structure.',
       intro: 'The rules that decide how modules connect, where state lives, and what is allowed to depend on what.',
       items: engineeringPrinciples.map((e) => ({ code: e.code, title: e.title, body: e.body })),
     },
-    { type: 'cta', scene: 'command-terminal', eyebrow: 'Open a channel', title: 'Brief the engineering division.', body: 'Bring a system that needs a foundation, not a surface.' },
+    { type: 'cta', scene: 'tooling-console', eyebrow: 'Open a channel', title: 'Brief the engineering division.', body: 'Bring a system that needs a foundation, not a surface.' },
   ],
 };
 

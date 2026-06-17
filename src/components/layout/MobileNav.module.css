@@ -7,15 +7,48 @@
   gap: var(--space-6);
   padding: calc(var(--nav-h) + var(--space-4)) var(--gutter) var(--space-6);
   overflow-y: auto;
+  /* fully opaque base — no content bleed-through behind the menu */
   background:
-    radial-gradient(120% 70% at 50% 0%, rgba(255, 51, 51, 0.05), transparent 60%),
-    rgba(2, 2, 3, 0.98);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+    radial-gradient(130% 75% at 50% -8%, rgba(255, 51, 51, 0.08), transparent 55%),
+    linear-gradient(180deg, var(--c-black-2), var(--c-void) 60%);
 }
 
-.menu { display: flex; flex-direction: column; margin-top: auto; }
-.group { border-bottom: var(--border-faint); }
+/* command-surface rail running down the left edge of the stack */
+.menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  padding-left: var(--space-5);
+}
+.menu::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--c-red-dim), var(--c-line-strong) 60%, transparent);
+  transform-origin: top;
+  animation: rail-draw 0.7s var(--ease-out) 0.1s both;
+}
+@keyframes rail-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.group { position: relative; border-bottom: var(--border-faint); }
+/* node marker on the rail per group */
+.group::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--space-5) + 1px);
+  top: calc(var(--space-4) + 0.6em);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-void);
+  border: 1px solid var(--c-red-dim);
+  transition: background var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.group:focus-within::before { background: var(--c-red); box-shadow: var(--glow-red); }
 .groupHead { display: flex; align-items: center; justify-content: space-between; }
 .groupLink {
   display: flex;

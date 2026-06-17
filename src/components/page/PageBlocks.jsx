@@ -13,6 +13,7 @@ import { MarqueeRail } from '../ui/MarqueeRail';
 import { KineticText } from '../animation/KineticText';
 import { ScrollReveal } from '../animation/ScrollReveal';
 import { RedactionReveal } from '../animation/RedactionReveal';
+import { RevealText } from '../../animation/componentMotion/textMotions';
 import { musebaseLogo, hasMusebaseLogo } from '../../utils/assetResolver';
 import styles from './page.module.css';
 
@@ -86,11 +87,11 @@ export function PageBlock({ block, accent }) {
           <div className={clsx('grid', 'grid--split', styles.split)}>
             <div>
               <SectionHeader eyebrow={block.eyebrow} title={block.title} code={block.code} size="h1" />
-              <ScrollReveal as="div" className={clsx('stack', 'stack-4', styles.splitBody)} stagger={0.1}>
+              <div className={clsx('stack', 'stack-4', styles.splitBody)}>
                 {block.body?.map((p) => (
-                  <p key={p} className="body">{p}</p>
+                  <RevealText key={p} as="p" variant="slideIn" amount={0.4} className="body">{p}</RevealText>
                 ))}
-              </ScrollReveal>
+              </div>
             </div>
             <ScrollReveal as="div" className={styles.splitAside} y={28}>
               <DataPanel label={block.asideLabel || 'PARAMETERS'} code={block.asideCode || 'P.01'}>
@@ -214,9 +215,9 @@ export function PageBlock({ block, accent }) {
               i === 0 ? (
                 <KineticText key={line} as="p" by="word" text={line} className={clsx('display', styles.manifestoLead)} />
               ) : (
-                <ScrollReveal key={line} as="p" className={clsx('heading-1', 'font-serif', styles.manifestoLine)} y={36} blur={8}>
+                <RevealText key={line} as="p" variant="maskUp" className={clsx('heading-1', 'font-serif', styles.manifestoLine)}>
                   {line}
-                </ScrollReveal>
+                </RevealText>
               )
             )}
           </div>

@@ -1,6 +1,8 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { musicSrc } from '../../utils/assetResolver';
 import { STORAGE_KEYS } from '../../utils/constants';
+import { subscribe } from '../../animation/rafScheduler';
+import { setAudioActive, writeAudioBytes } from '../../animation/audioBridge';
 import { AudioContextRef } from './audio-context';
 
 const FFT_SIZE = 64; // -> 32 frequency bins
@@ -76,6 +78,28 @@ export function AudioProvider({ children }) {
     analyser.getByteFrequencyData(arr);
     return true;
   }, []);
+
+  // Feed the shared audio bridge so any canvas scene can react to the spectrum.
+  useEffect(() => {
+    if (!isPlaying) {
+      setAudioActive(false);
+      return undefined;
+    }
+    const buf = new Uint8Array(FFT_SIZE / 2);
+    const unsub = subscribe(() => {
+      const analyser = analyserRef.current;
+      if (!analyser) {
+        setAudioActive(false);
+        return;
+      }
+      analyser.getByteFrequencyData(buf);
+      writeAudioBytes(buf);
+    });
+    return () => {
+      unsub();
+      setAudioActive(false);
+    };
+  }, [isPlaying]);
 
   const value = useMemo(
     () => ({

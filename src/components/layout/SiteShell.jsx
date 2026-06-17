@@ -7,10 +7,12 @@ import { useLenis } from '../../app/providers/lenis-context';
 import { AdvancedNavbar } from '../navigation/AdvancedNavbar';
 import { MobileNav } from './MobileNav';
 import { Footer } from './Footer';
+import { ErrorBoundary } from './ErrorBoundary';
 import { BootSequence } from '../animation/BootSequence';
 import { HanoryxCursor } from '../cursor/HanoryxCursor';
 import { ScanlineOverlay } from '../animation/ScanlineOverlay';
 import { NoiseOverlay } from '../animation/NoiseOverlay';
+import { PerfDebug } from '../animation/PerfDebug';
 import styles from './SiteShell.module.css';
 
 function readBooted() {
@@ -83,11 +85,12 @@ export function SiteShell({ children }) {
       <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <div className={styles.content}>
-        {children}
+        <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>
         <Footer />
       </div>
 
       {!booted && <BootSequence onComplete={handleBootComplete} onStart={startAudio} />}
+      {import.meta.env.DEV && <PerfDebug />}
     </div>
   );
 }

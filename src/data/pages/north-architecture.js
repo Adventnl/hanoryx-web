@@ -5,7 +5,7 @@ const page = {
   title: 'Architecture',
   accent: '#ff3333',
   hero: {
-    scene: 'architectural-grid',
+    scene: 'architecture-layer',
     intensity: 'hero',
     eyebrow: 'Hanoryx North // ARCH',
     title: 'Every platform is a stack of boundaries decided before a screen is ever drawn.',
@@ -25,7 +25,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'isometric-module',
+      scene: 'isometric-infra',
       eyebrow: 'The Stack',
       code: 'ARCH.STACK',
       title: 'Four layers, with the lines between them drawn first.',
@@ -46,7 +46,7 @@ const page = {
     },
     {
       type: 'process',
-      scene: 'timeline-pulse',
+      scene: 'dependency-graph',
       eyebrow: 'Design Approach',
       title: 'From operation to hardened system.',
       intro: 'A staged path. The shape of the operation is understood before architecture is laid, and the language is built before anything is hardened.',
@@ -54,7 +54,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'hex-lattice',
+      scene: 'hex-tunnel',
       eyebrow: 'Architecture Surface',
       title: 'Service map, boundaries, and scalability.',
       intro: 'The three axes every architecture is judged on: how capability is divided, how those divisions are enforced, and how the whole grows under load.',
@@ -90,7 +90,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'command-terminal',
+      scene: 'secure-boundary',
       eyebrow: 'Open a channel',
       title: 'Commission an architecture.',
       body: 'Bring an operation that needs its boundaries decided before a single screen is drawn.',

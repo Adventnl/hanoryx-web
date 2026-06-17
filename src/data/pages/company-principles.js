@@ -5,7 +5,7 @@ const page = {
   title: 'Principles',
   accent: '#ff3333',
   hero: {
-    scene: 'orbital-node',
+    scene: 'compass-vector',
     intensity: 'hero',
     eyebrow: 'Company // DOCTRINE',
     title: 'The operating principles every system is built against.',
@@ -26,7 +26,7 @@ const page = {
   blocks: [
     {
       type: 'cards',
-      scene: 'hex-lattice',
+      scene: 'orbital-command',
       eyebrow: 'Operating Principles',
       title: 'Six rules that hold the work together.',
       intro:
@@ -39,7 +39,7 @@ const page = {
     },
     {
       type: 'manifesto',
-      scene: 'topographic-lines',
+      scene: 'vector-compass',
       eyebrow: 'Doctrine',
       lines: [
         'A system earns its surface by holding its weight underneath.',
@@ -51,7 +51,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'vector-compass',
+      scene: 'topology-pulse',
       eyebrow: 'Principle // Meaning',
       title: 'What each principle changes in practice.',
       intro:
@@ -67,7 +67,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'polar-radar',
+      scene: 'motion-curve-field',
       eyebrow: 'Open a channel',
       title: 'Hold us to the doctrine.',
       body: 'For teams that want structure, scope, and control over the systems they run on.',

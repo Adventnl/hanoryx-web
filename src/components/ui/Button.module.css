@@ -1,6 +1,7 @@
 .btn {
   --btn-px: 1.5rem;
   --btn-py: 0.85rem;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +20,27 @@
     color var(--dur-2) var(--ease-out),
     background var(--dur-2) var(--ease-out),
     border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-1) var(--ease-out),
     box-shadow var(--dur-3) var(--ease-out);
+}
+/* tactile press compression */
+.btn:active { transform: scale(0.97); }
+
+/* hover light-sweep crawling across the control (not on the underline variant) */
+.btn:not(.line) { overflow: hidden; }
+.btn:not(.line)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, var(--c-white-12) 50%, transparent 65%);
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+.btn:not(.line):hover::after { animation: btn-sweep 0.9s var(--ease-out) 1; }
+@keyframes btn-sweep { to { transform: translateX(130%); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn:active { transform: none; }
+  .btn:not(.line):hover::after { animation: none; }
 }
 
 .label { display: inline-block; }

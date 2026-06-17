@@ -3,7 +3,7 @@ const page = {
   title: 'Experimental Interface Program',
   accent: '#ff3333',
   hero: {
-    scene: 'glyph-field',
+    scene: 'interface-lab-shape',
     intensity: 'hero',
     eyebrow: 'Work // NODE.XIP',
     title: 'A standing research program where the next interface grammar is pressured before it earns a name.',
@@ -24,7 +24,7 @@ const page = {
   blocks: [
     {
       type: 'cards',
-      scene: 'voronoi-cell',
+      scene: 'split-prism',
       eyebrow: 'Directions',
       title: 'Prototype directions under study.',
       intro:
@@ -63,7 +63,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'liquid-metal',
+      scene: 'glyph-compiler',
       eyebrow: 'Method',
       code: 'XIP.MTN',
       title: 'Motion and interface researched as one continuous problem.',
@@ -84,7 +84,7 @@ const page = {
     },
     {
       type: 'redacted',
-      scene: 'blackout-silhouette',
+      scene: 'liquid-glass-operational',
       eyebrow: 'Withheld',
       title: 'A direction not yet announced.',
       intro:
@@ -109,7 +109,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'magnetic-vector',
       eyebrow: 'Open a channel',
       title: 'Most of this stays withheld.',
       body: 'If a direction from the program becomes relevant to your operation, the conversation starts here — under the same controls as the research itself.',

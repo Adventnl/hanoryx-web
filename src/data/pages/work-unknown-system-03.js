@@ -3,7 +3,7 @@ const page = {
   title: 'Unknown System 03',
   accent: '#ff3333',
   hero: {
-    scene: 'blackout-silhouette',
+    scene: 'unknown-silhouette',
     intensity: 'hero',
     eyebrow: 'Work // WRK.04',
     title: 'A system we are not ready to describe.',
@@ -20,7 +20,7 @@ const page = {
   blocks: [
     {
       type: 'redacted',
-      scene: 'redaction-matrix',
+      scene: 'research-blackout',
       eyebrow: 'Withheld',
       title: 'Designation, scope, and surface are suppressed.',
       intro:
@@ -34,7 +34,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'glyph-field',
+      scene: 'blackout-silhouette',
       eyebrow: 'Metadata',
       code: 'WRK.04.META',
       title: 'What we can hold in the open, kept abstract.',
@@ -54,7 +54,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'redaction-matrix',
       eyebrow: 'Open a channel',
       title: 'Request access context.',
       body: 'If your work intersects this node, the relevant context can be shared under the same controls that govern the build. The conversation starts here, not on this page.',

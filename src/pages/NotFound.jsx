@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { PageTransition } from '../components/layout/PageTransition';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { KineticText } from '../components/animation/KineticText';
-import { SystemGrid } from '../components/animation/SystemGrid';
+import { SceneCanvas } from '../components/scenes/SceneCanvas';
 import { GlitchLine } from '../components/ui/GlitchLine';
 import { Button } from '../components/ui/Button';
 import styles from './NotFound.module.css';
@@ -25,8 +25,10 @@ export default function NotFound() {
   return (
     <PageTransition>
       <section className={clsx('stage', 'scanlines', styles.stage)}>
-        {/* Drifting operating surface behind the content */}
-        <SystemGrid nodes={5} className={styles.bg} />
+        {/* Broken-signal field behind the content */}
+        <div className={styles.bg} aria-hidden="true">
+          <SceneCanvas scene="error-signal-lost" cost="high" />
+        </div>
         <div className={styles.vignette} aria-hidden="true" />
 
         <div className={clsx('container', styles.inner)}>

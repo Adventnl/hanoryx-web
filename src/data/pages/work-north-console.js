@@ -3,7 +3,7 @@ const page = {
   title: 'North Internal Console',
   accent: '#ff3333',
   hero: {
-    scene: 'command-terminal',
+    scene: 'tooling-console',
     intensity: 'hero',
     eyebrow: 'Work // CASE.NC',
     title: 'One console that runs the division — command, telemetry, deployment, and orchestration on a single surface.',
@@ -24,7 +24,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'circuit-trace',
+      scene: 'dashboard-tiles',
       eyebrow: 'Architecture',
       code: 'NC.CORE',
       title: 'Four control layers folded into one operating surface.',
@@ -45,7 +45,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'data-rain',
+      scene: 'command-terminal',
       eyebrow: 'System Status',
       title: 'What the console reports at a glance.',
       intro:
@@ -61,7 +61,7 @@ const page = {
     },
     {
       type: 'redacted',
-      scene: 'redaction-matrix',
+      scene: 'build-pipeline',
       eyebrow: 'Internal Only',
       title: 'Modules that stay behind the wall.',
       intro:
@@ -74,7 +74,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'command-terminal',
+      scene: 'status-pulse-grid',
       eyebrow: 'Open a channel',
       title: 'Brief us on an operating layer.',
       body: 'Bring an operation that has outgrown its tools. We build the console that lets operators see it, steer it, and trust what it reports.',

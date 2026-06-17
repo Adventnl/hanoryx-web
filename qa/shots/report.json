@@ -1,0 +1,29 @@
+{
+  "navTests": {
+    "hover-opens": false,
+    "after-link-click-still-open": false,
+    "after-link-click-url": "http://localhost:5174/",
+    "outside-click-opened-first": false,
+    "after-outside-click-still-open": false,
+    "escape-opened-first": true,
+    "after-escape-still-open": true,
+    "scroll-opened-first": true,
+    "after-scroll-still-open": true
+  },
+  "errorsByUrl": {},
+  "log": [
+    "shot home (/)",
+    "shot systems (/systems)",
+    "shot systems-operational (/systems/operational-management)",
+    "shot north (/north)",
+    "shot north-motion (/north/motion-systems)",
+    "shot work (/work)",
+    "shot work-musebase (/work/musebase)",
+    "shot timeline (/timeline)",
+    "shot contact (/contact)",
+    "shot company (/company)",
+    "shot company-status (/company/status)",
+    "shot legal-privacy (/legal/privacy)",
+    "shot 404 (/this-route-does-not-exist)"
+  ]
+}

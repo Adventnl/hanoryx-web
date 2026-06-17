@@ -1,116 +1,161 @@
+/* ============================================================
+   RADIAL MEGA MENU — a deployable command diagram, not a dropdown box.
+   The field is a chamfered HUD polygon anchored under the active nav item;
+   the dominant visual is a drawn orbit ring with a node per route.
+   ============================================================ */
+
 .wrap {
   position: absolute;
-  top: 100%;
+  top: calc(100% - 2px);
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0 var(--gutter);
   pointer-events: none;
+  /* emerge from the hovered item */
+  transform-origin: var(--anchor-x, 50%) top;
 }
 
-.panel {
+.field {
+  position: relative;
   pointer-events: auto;
-  width: min(680px, 100%);
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: var(--space-6);
-  padding: var(--space-6);
-  margin-top: 0.5rem;
+  /* nudge the field so its centre sits roughly under the anchor, clamped to gutters */
+  margin-left: clamp(0px, calc(var(--anchor-x, 50%) - 300px), calc(100vw - 620px - 2 * var(--gutter)));
+  width: min(600px, 100%);
+  margin-top: 0.55rem;
+  padding: var(--space-6) var(--space-6) var(--space-5);
   background:
-    linear-gradient(180deg, var(--c-white-03), transparent 60%),
-    rgba(8, 9, 11, 0.94);
-  border: var(--border);
-  border-radius: var(--r-lg);
+    radial-gradient(120% 80% at 18% 30%, rgba(255, 51, 51, 0.06), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 60%),
+    rgba(7, 8, 10, 0.96);
+  border: 1px solid var(--c-line-strong);
+  /* chamfered corners => HUD module, not a rectangle */
+  clip-path: polygon(
+    18px 0, 100% 0, 100% calc(100% - 18px),
+    calc(100% - 18px) 100%, 0 100%, 0 18px
+  );
   box-shadow: var(--shadow-lift);
   backdrop-filter: blur(var(--blur-panel));
   -webkit-backdrop-filter: blur(var(--blur-panel));
+}
+
+/* corner brackets */
+.corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--c-red-dim);
+  opacity: 0;
+  animation: corner-in 0.5s var(--ease-out) 0.1s forwards;
+}
+.tl { top: 8px; left: 8px; border-top: 1px solid; border-left: 1px solid; }
+.tr { top: 8px; right: 8px; border-top: 1px solid; border-right: 1px solid; }
+.bl { bottom: 8px; left: 8px; border-bottom: 1px solid; border-left: 1px solid; }
+.br { bottom: 8px; right: 8px; border-bottom: 1px solid; border-right: 1px solid; }
+@keyframes corner-in { from { opacity: 0; transform: scale(0.6); } to { opacity: 0.8; transform: scale(1); } }
+
+.body {
+  display: grid;
+  grid-template-columns: 215px 1fr;
+  gap: var(--space-6);
+  align-items: center;
 }
 
 /* ---- Diagram ---- */
 .diagram { display: grid; place-items: center; }
 .svg { width: 100%; height: auto; overflow: visible; }
 
-.ringOuter,
-.ringInner {
+.ticks line { stroke: var(--c-white-12); stroke-width: 1; }
+
+.ringOuter, .ringMid, .ringInner {
   fill: none;
-  stroke: var(--c-white-12);
-  stroke-width: 1;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: ring-draw 0.9s var(--ease-out) forwards;
+  animation: ring-draw 1s var(--ease-out) forwards;
 }
-.ringInner {
-  stroke: var(--c-white-05);
-  animation-delay: 0.1s;
-  animation-direction: reverse;
+.ringOuter { stroke: var(--c-white-12); stroke-width: 1; }
+.ringMid { stroke: var(--c-white-20); stroke-width: 1.4; animation-delay: 0.08s; }
+.ringInner { stroke: var(--c-white-08); stroke-width: 1; animation-delay: 0.16s; animation-direction: reverse; }
+@keyframes ring-draw { to { stroke-dashoffset: 0; } }
+
+.selector {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.45s var(--ease-out);
+  /* rotate origin is the svg centre */
 }
-@keyframes ring-draw {
-  to { stroke-dashoffset: 0; }
-}
+.selectorLine { stroke: var(--c-red); stroke-width: 1.2; opacity: 0.7; }
+.selectorHead { fill: var(--c-red); filter: drop-shadow(0 0 6px var(--c-red)); }
 
 .connector {
   stroke: var(--c-white-08);
   stroke-width: 1;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: ring-draw 0.6s var(--ease-out) 0.3s forwards;
+  animation: ring-draw 0.5s var(--ease-out) forwards;
 }
-.nodeDot {
-  fill: var(--c-white-40);
-  transition: r 0.25s var(--ease-out), fill 0.25s var(--ease-out);
-}
-.nodeOn .nodeDot { fill: var(--c-red); filter: drop-shadow(0 0 5px var(--c-red)); }
+.nodeDot { fill: var(--c-white-40); transition: fill 0.25s var(--ease-out); }
+.nodeOn .nodeDot { fill: var(--c-red); filter: drop-shadow(0 0 6px var(--c-red)); }
 .nodeOn .connector { stroke: var(--c-red-dim); }
 
-.core { fill: var(--c-red); filter: drop-shadow(0 0 6px var(--c-red)); }
+.coreGlow { fill: var(--c-red-ghost); animation: core-pulse 2.6s ease-in-out infinite; }
+.core { fill: var(--c-red); filter: drop-shadow(0 0 8px var(--c-red)); }
+@keyframes core-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
 .coreLabel {
-  fill: var(--c-white-40);
+  fill: var(--c-white-50);
   font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.18em;
+  font-size: 10px;
+  letter-spacing: 0.16em;
 }
 
-/* ---- List ---- */
-.head { margin-bottom: var(--space-4); }
+/* ---- Route terminal ---- */
+.head { margin-bottom: var(--space-3); }
+.headCode { font-size: var(--fs-2xs); letter-spacing: 0.2em; color: var(--c-red); }
 .blurb {
   margin-top: var(--space-2);
   font-size: var(--fs-sm);
   color: var(--c-white-50);
-  max-width: 42ch;
+  max-width: 40ch;
+  text-wrap: pretty;
 }
 .items { display: flex; flex-direction: column; }
+.itemWrap { overflow: hidden; }
+.itemReveal { display: block; }
+
 .item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: 0.6rem 0;
+  padding: 0.55rem 0;
   border-top: var(--border-faint);
   color: var(--c-white-65);
   transition: color var(--dur-2) var(--ease-out), padding-left var(--dur-2) var(--ease-out);
 }
-.item:hover,
-.item:focus-visible {
-  color: var(--c-white);
-  padding-left: var(--space-2);
-}
+.item:hover, .item:focus-visible, .itemHot { color: var(--c-white); padding-left: var(--space-2); }
+.itemActive { color: var(--c-white); }
 .itemCode {
   font-family: var(--font-mono);
   font-size: var(--fs-2xs);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: var(--c-red);
   min-width: 4.2rem;
 }
 .itemLabel { flex: 1; font-size: var(--fs-sm); }
+.itemLive {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--c-red); box-shadow: var(--glow-red);
+  animation: node-pulse 2s ease-in-out infinite;
+}
 .itemArrow { opacity: 0.4; transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
-.item:hover .itemArrow { opacity: 1; transform: translate(2px, -2px); }
+.item:hover .itemArrow, .itemHot .itemArrow { opacity: 1; transform: translate(2px, -2px); }
 
 @media (max-width: 900px) {
   .wrap { display: none; }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .ringOuter,
-  .ringInner,
-  .connector { animation: none; stroke-dashoffset: 0; }
+  .ringOuter, .ringMid, .ringInner, .connector { animation: none; stroke-dashoffset: 0; }
+  .corner { animation: none; opacity: 0.8; }
+  .selector, .coreGlow { transition: none; animation: none; }
 }

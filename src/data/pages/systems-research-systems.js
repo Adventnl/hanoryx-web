@@ -5,7 +5,7 @@ const page = {
   title: 'Research Systems',
   accent: '#ff3333',
   hero: {
-    scene: 'glyph-field',
+    scene: 'research-blackout',
     intensity: 'hero',
     eyebrow: 'Systems // SYS.07',
     title: 'Experimental online systems, built away from the surface.',
@@ -22,7 +22,7 @@ const page = {
   blocks: [
     {
       type: 'redacted',
-      scene: 'blackout-silhouette',
+      scene: 'unknown-silhouette',
       eyebrow: 'Withheld',
       title: 'Nodes that are not ready to be seen.',
       intro: 'Each entry is a live research branch. The surface is suppressed on purpose — what reaches this page is a code, a shape, and nothing that would commit us to a direction before the architecture holds.',
@@ -30,7 +30,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'voronoi-cell',
+      scene: 'glyph-compiler',
       eyebrow: 'Directions',
       title: 'Where the work is pointed.',
       intro: 'Abstract research tracks, kept deliberately general. These describe the kind of problem under study, not the system that may eventually carry it.',
@@ -68,7 +68,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'liquid-metal',
+      scene: 'redaction-matrix',
       eyebrow: 'Method',
       code: 'RD.MODE',
       title: 'Production-minded prototyping.',
@@ -88,7 +88,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'blackout-silhouette',
       eyebrow: 'Open a channel',
       title: 'Most of this stays withheld.',
       body: 'If a research direction becomes relevant to your operation, the conversation starts here — under the same controls as the work itself.',

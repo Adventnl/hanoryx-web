@@ -27,6 +27,26 @@
   white-space: nowrap;
 }
 
+/* eyebrow signal ping — a small live pulse before the label */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.eyebrow::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  flex: none;
+  animation: node-pulse 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow::before { animation: none; }
+}
+
 /* --- Staged reveal (CSS-driven, gated by .visible) --- */
 .eyebrow,
 .title,

@@ -6,7 +6,7 @@ const page = {
   title: 'Development',
   accent: '#ff3333',
   hero: {
-    scene: 'circuit-trace',
+    scene: 'dependency-graph',
     eyebrow: 'Development // DEV.NODE',
     title: 'Software development, run by our team — Hanoryx North.',
     intro:
@@ -21,7 +21,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'topographic-lines',
+      scene: 'architecture-layer',
       eyebrow: 'Mission',
       code: 'N.MISSION',
       title: north.mission.title,
@@ -32,7 +32,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'hex-lattice',
+      scene: 'build-pipeline',
       eyebrow: 'Pillars',
       title: 'Four engineering pillars.',
       intro: 'Architecture, interface, orchestration, and prototyping under one design language.',
@@ -40,20 +40,20 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'network-constellation',
+      scene: 'tooling-console',
       eyebrow: 'Engineering Principles',
       title: 'How North builds.',
       items: engineeringPrinciples.map((e) => ({ code: e.code, title: e.title, body: e.body })),
     },
     {
       type: 'modules',
-      scene: 'wave-interference',
+      scene: 'interface-lab-shape',
       eyebrow: 'Motion Philosophy',
       title: 'Flow like a river.',
       intro: 'Motion at Hanoryx is continuous, quiet, and high-control — a statement about state, never decoration.',
       rows: north.motion.notes.map((n) => ({ k: n.k, v: n.v })),
     },
-    { type: 'cta', scene: 'polar-radar', eyebrow: 'Open a channel', title: 'Brief the division.' },
+    { type: 'cta', scene: 'isometric-infra', eyebrow: 'Open a channel', title: 'Brief the division.' },
   ],
 };
 

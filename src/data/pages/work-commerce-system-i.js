@@ -7,7 +7,7 @@ const page = {
   title: 'Commerce System I',
   accent: '#ff3333',
   hero: {
-    scene: 'spline-ribbon',
+    scene: 'commerce-pipeline',
     intensity: 'hero',
     eyebrow: `Work // ${record.code}`,
     title: 'The first Hanoryx system — commerce infrastructure, shipped and held under load.',
@@ -28,7 +28,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'circuit-trace',
+      scene: 'transaction-wave',
       eyebrow: 'What it is',
       code: 'CS1.01',
       title: 'A storefront on the surface, a settlement engine underneath.',
@@ -48,7 +48,7 @@ const page = {
     },
     {
       type: 'process',
-      scene: 'timeline-pulse',
+      scene: 'dashboard-tiles',
       eyebrow: 'Order pipeline',
       title: 'How an order moves through the system.',
       intro:
@@ -78,7 +78,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'architectural-grid',
+      scene: 'secure-boundary',
       eyebrow: 'System summary',
       title: 'The record at a glance.',
       intro:
@@ -97,7 +97,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'data-stream-ribbons',
       eyebrow: 'Open a channel',
       title: 'Discuss a commerce build.',
       body: 'Bring us the catalog, the transactions, and the payment logic you need held under control. We will design the path every order travels.',

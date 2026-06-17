@@ -3,7 +3,7 @@ const page = {
   title: 'Data Interfaces',
   accent: '#ff3333',
   hero: {
-    scene: 'data-rain',
+    scene: 'data-interface-wave',
     intensity: 'hero',
     eyebrow: 'Systems // SYS.05',
     title: 'Readable surfaces over records that are anything but simple.',
@@ -24,7 +24,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'signal-wave',
+      scene: 'data-stream-ribbons',
       eyebrow: 'Capability',
       code: 'DI.01',
       title: 'Make the record answerable.',
@@ -45,7 +45,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'wave-interference',
+      scene: 'signal-spectrum-field',
       eyebrow: 'Surfaces',
       title: 'What the interface exposes.',
       intro:
@@ -79,7 +79,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'architectural-grid',
+      scene: 'heatmap-control',
       eyebrow: 'Principles',
       title: 'How a data interface is held together.',
       intro: 'A short set of rules the surfaces are not allowed to break.',
@@ -94,7 +94,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'transaction-wave',
       eyebrow: 'Open a channel',
       title: 'Discuss a data interface.',
       body: 'If your operation has records that are hard to read and harder to trust, we can talk about the surface that makes them answerable.',

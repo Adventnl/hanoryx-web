@@ -13,7 +13,7 @@ export default function Contact() {
 
   return (
     <PageTransition>
-      <SectionScene as="div" scene="wave-interference" intensity="medium" className={styles.page}>
+      <SectionScene as="div" scene="audio-signal-wall" intensity="high" className={styles.page}>
         <ContactSection variant="full" />
       </SectionScene>
     </PageTransition>

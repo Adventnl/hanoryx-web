@@ -6,7 +6,7 @@ import { TimelineSection } from '../components/sections/TimelineSection';
 const ACCENT = '#ff3333';
 
 const hero = {
-  scene: 'spline-ribbon',
+  scene: 'redacted-timeline-branch',
   intensity: 'hero',
   eyebrow: 'Roadmap // TIME.NODE',
   title: 'A system roadmap, not a history.',
@@ -18,7 +18,7 @@ const hero = {
 
 const futures = {
   type: 'redacted',
-  scene: 'redaction-matrix',
+  scene: 'research-blackout',
   eyebrow: 'Future Branches',
   title: 'Unannounced interface programs.',
   intro: 'Beyond the active roadmap, several system branches remain classified.',
@@ -29,7 +29,7 @@ const futures = {
   ],
 };
 
-const cta = { type: 'cta', scene: 'polar-radar', eyebrow: 'Open a channel', title: 'Request roadmap context.' };
+const cta = { type: 'cta', scene: 'contact-transmission', eyebrow: 'Open a channel', title: 'Request roadmap context.' };
 
 export default function Timeline() {
   useDocumentTitle('Timeline');

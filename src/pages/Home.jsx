@@ -8,7 +8,7 @@ import { metrics, manifesto } from '../data/company';
 const ACCENT = '#ff3333';
 
 const hero = {
-  scene: 'concentric-gate',
+  scene: 'home-core',
   intensity: 'hero',
   eyebrow: 'Hanoryx Systems // NORTH NODE ONLINE',
   title: 'Online systems for controlled digital operations.',
@@ -24,7 +24,8 @@ const hero = {
 
 const signal = {
   type: 'split',
-  scene: 'wave-interference',
+  scene: 'signal-spectrum-field',
+  intensity: 'high',
   eyebrow: 'Company Signal',
   code: 'SIG.01',
   title: 'A controlled environment for serious operations.',
@@ -44,13 +45,16 @@ const signal = {
 
 const stats = {
   type: 'stats',
+  scene: 'status-pulse-grid',
+  intensity: 'low',
   eyebrow: '// System status',
   items: metrics.map((m) => ({ value: m.value, suffix: m.suffix, label: m.label, note: m.note })),
 };
 
 const systems = {
   type: 'cards',
-  scene: 'hex-lattice',
+  scene: 'hex-tunnel',
+  intensity: 'high',
   eyebrow: 'Systems',
   title: 'We build systems that reduce operational drag.',
   intro:
@@ -67,7 +71,7 @@ const systems = {
 
 const north = {
   type: 'split',
-  scene: 'circuit-trace',
+  scene: 'dependency-graph',
   eyebrow: 'Hanoryx North',
   code: 'NTH.00',
   title: 'The engineering division behind Hanoryx Systems.',
@@ -87,7 +91,7 @@ const north = {
 
 const work = {
   type: 'cards',
-  scene: 'network-constellation',
+  scene: 'node-compression',
   eyebrow: 'Work',
   title: 'Selected systems.',
   intro: 'A controlled record. Some active, some withheld.',
@@ -104,7 +108,7 @@ const work = {
 
 const unknown = {
   type: 'redacted',
-  scene: 'redaction-matrix',
+  scene: 'research-blackout',
   eyebrow: 'Classified Branches',
   title: 'Systems below the surface.',
   intro: 'Future modules exist. Detail is withheld until the architecture is ready to hold them.',
@@ -117,7 +121,7 @@ const unknown = {
 
 const doctrine = {
   type: 'manifesto',
-  scene: 'topographic-lines',
+  scene: 'topology-pulse',
   eyebrow: manifesto.eyebrow,
   lines: manifesto.lines,
   marquee: ['SYSTEMS', 'INTERFACES', 'ORCHESTRATION', 'AUTOMATION', 'CONTROL', 'ARCHITECTURE', 'TELEMETRY'],
@@ -125,7 +129,7 @@ const doctrine = {
 
 const contactCta = {
   type: 'cta',
-  scene: 'polar-radar',
+  scene: 'contact-transmission',
   eyebrow: 'Open a channel',
   title: 'Compose an inquiry.',
   body: 'For software systems, internal platforms, operational interfaces, and controlled online infrastructure.',

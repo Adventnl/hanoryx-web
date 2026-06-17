@@ -3,7 +3,7 @@ const page = {
   title: 'Security Posture',
   accent: '#ff3333',
   hero: {
-    scene: 'polar-radar',
+    scene: 'secure-boundary',
     intensity: 'hero',
     eyebrow: 'Company // SEC',
     title: 'Security is a property of the architecture, not a layer bolted on at the end.',
@@ -21,7 +21,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'architectural-grid',
+      scene: 'client-portal-gate',
       eyebrow: 'Foundations',
       code: 'SEC.01',
       title: 'Secure channels, scoped access, and data boundaries.',
@@ -42,7 +42,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'hex-lattice',
+      scene: 'permission-orbit',
       eyebrow: 'Model',
       title: 'Access model, data boundaries, operational control.',
       intro:
@@ -79,7 +79,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'redaction-matrix',
+      scene: 'radar-cutaway',
       eyebrow: 'Concepts',
       title: 'The security concepts a system is built around.',
       intro:
@@ -121,7 +121,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'command-terminal',
+      scene: 'concentric-gate',
       eyebrow: 'Open a channel',
       title: 'Ask about a security posture.',
       body: 'Bring the operation and the data it holds. We will reason through the boundaries, access model, and controls it needs — plainly, with no claims we cannot stand behind.',

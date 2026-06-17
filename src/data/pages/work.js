@@ -23,7 +23,7 @@ const page = {
   title: 'Work',
   accent: '#ff3333',
   hero: {
-    scene: 'network-constellation',
+    scene: 'node-compression',
     intensity: 'hero',
     eyebrow: 'Work // NODE.WRK',
     title: 'The Project Codex — every system Hanoryx has built, deployed, or sealed.',
@@ -44,7 +44,7 @@ const page = {
   blocks: [
     {
       type: 'cards',
-      scene: 'redaction-matrix',
+      scene: 'orbital-command',
       eyebrow: 'The Project Codex',
       title: 'Every system on record.',
       intro:
@@ -53,7 +53,7 @@ const page = {
     },
     {
       type: 'redacted',
-      scene: 'blackout-silhouette',
+      scene: 'isometric-infra',
       eyebrow: 'Sealed Branches',
       title: 'Systems that have not surfaced.',
       intro:
@@ -85,7 +85,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'research-blackout',
       eyebrow: 'Open a channel',
       title: 'Request access to a record.',
       body: 'Cleared entries can be discussed in detail. For anything under redaction, the conversation starts behind the gate.',

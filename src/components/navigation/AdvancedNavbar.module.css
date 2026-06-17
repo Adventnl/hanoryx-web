@@ -55,7 +55,17 @@
   color: var(--c-white-50);
   transition: color var(--dur-2) var(--ease-out);
 }
-.group:hover { color: var(--c-white); }
+.group:hover,
+.groupOpen { color: var(--c-white); }
+.groupOpen .marker { width: calc(100% - 1.8rem); background: var(--c-red); }
+
+/* keep the bar solid while a panel is deployed so the diagram reads cleanly */
+.menuActive {
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0.96), rgba(5, 5, 5, 0.7));
+  backdrop-filter: blur(var(--blur-nav));
+  -webkit-backdrop-filter: blur(var(--blur-nav));
+  border-bottom-color: var(--c-line-faint);
+}
 .groupLabel { font-size: var(--fs-sm); }
 .groupCode {
   position: absolute;

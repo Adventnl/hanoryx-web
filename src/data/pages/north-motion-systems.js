@@ -5,7 +5,7 @@ const page = {
   title: 'Motion Systems',
   accent: '#ff3333',
   hero: {
-    scene: 'wave-interference',
+    scene: 'motion-curve-field',
     intensity: 'hero',
     eyebrow: 'North // MOT.SYS',
     title: 'Motion is the language a system uses to explain itself.',
@@ -24,7 +24,7 @@ const page = {
   blocks: [
     {
       type: 'manifesto',
-      scene: 'topographic-lines',
+      scene: 'radial-audio-core',
       eyebrow: 'Motion Doctrine',
       lines: [
         'Flow like a river. Continuous, quiet, high-control.',
@@ -36,7 +36,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'signal-wave',
+      scene: 'signal-spectrum-field',
       eyebrow: 'Mechanics',
       code: 'MOT.MECH',
       title: 'Easing, budget, and meaning — held together.',
@@ -57,7 +57,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'vector-compass',
+      scene: 'compass-vector',
       eyebrow: north.motion.eyebrow,
       title: 'Motion grammar.',
       intro: 'Four fixed terms govern how every surface behaves. They are constraints, not suggestions — applied identically across each Hanoryx node so the whole system moves with one voice.',
@@ -65,7 +65,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'magnetic-vector',
       eyebrow: 'Open a channel',
       title: 'Commission a motion language.',
       body: 'Bring an interface that needs movement with intent — easing, cadence, and accent engineered to explain state, not to decorate it.',

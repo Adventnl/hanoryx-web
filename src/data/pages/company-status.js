@@ -3,7 +3,7 @@ const page = {
   title: 'Status',
   accent: '#ff3333',
   hero: {
-    scene: 'heatmap-grid',
+    scene: 'status-pulse-grid',
     intensity: 'hero',
     eyebrow: 'Company // STAT.NODE',
     title: 'A live read on every system Hanoryx holds.',
@@ -27,7 +27,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'network-constellation',
+      scene: 'dashboard-tiles',
       eyebrow: 'Module Grid',
       title: 'System status, node by node.',
       intro:
@@ -79,7 +79,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'signal-wave',
+      scene: 'heatmap-control',
       eyebrow: 'Telemetry',
       title: 'Signal readout.',
       intro:
@@ -97,7 +97,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'command-terminal',
+      scene: 'polar-status',
       eyebrow: 'Open a channel',
       title: 'Need a deeper read than this surface shows?',
       body: 'Status here is intentionally abstract. For scoped detail on a specific system, compose an inquiry at contact@hanoryx.com.',

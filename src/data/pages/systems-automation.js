@@ -3,7 +3,7 @@ const page = {
   title: 'Automation Systems',
   accent: '#ff3333',
   hero: {
-    scene: 'network-constellation',
+    scene: 'trigger-action-pulse',
     intensity: 'hero',
     eyebrow: 'Systems // SYS.03',
     title: 'Automation that holds operational state predictable.',
@@ -21,7 +21,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'circuit-trace',
+      scene: 'dependency-graph',
       eyebrow: 'Capability',
       code: 'AUTO.01',
       title: 'Rule-based workflow orchestration.',
@@ -42,7 +42,7 @@ const page = {
     },
     {
       type: 'process',
-      scene: 'vector-compass',
+      scene: 'build-pipeline',
       eyebrow: 'Flow',
       title: 'How a rule resolves.',
       intro: 'Every automated action follows the same four-stage path. No stage is skipped, and each one is observable.',
@@ -71,7 +71,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'heatmap-grid',
+      scene: 'node-compression',
       eyebrow: 'Surfaces',
       title: 'What automation removes.',
       intro: 'Four patterns that turn repeated manual effort into controlled, observable execution.',
@@ -102,7 +102,7 @@ const page = {
         },
       ],
     },
-    { type: 'cta', scene: 'polar-radar', eyebrow: 'Open a channel', title: 'Discuss an automation layer.' },
+    { type: 'cta', scene: 'workflow-river', eyebrow: 'Open a channel', title: 'Discuss an automation layer.' },
   ],
 };
 

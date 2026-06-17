@@ -1,10 +1,14 @@
-/* Auto-registers every scene module in this folder. Each scene file calls
-   registerScene(...) at import time, so importing this index makes the whole
-   scene library available. New scene files are picked up automatically. */
-
+/* Scene library entrypoint. The actual registration lives in registerAll.js,
+   loaded on demand so the (large) scene library is split out of the initial
+   bundle. ensureScenes() is idempotent and returns a promise that resolves
+   once every scene has self-registered. */
 import { listScenes } from '../sceneRegistry';
 
-const modules = import.meta.glob(['./*.js', '!./index.js'], { eager: true });
+let promise = null;
 
-export const SCENE_MODULE_COUNT = Object.keys(modules).length;
+export function ensureScenes() {
+  if (!promise) promise = import('./registerAll.js');
+  return promise;
+}
+
 export { listScenes };

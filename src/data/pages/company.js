@@ -5,7 +5,7 @@ const page = {
   title: 'Company',
   accent: '#ff3333',
   hero: {
-    scene: 'concentric-gate',
+    scene: 'orbital-command',
     intensity: 'hero',
     eyebrow: 'Company // NODE.HQ',
     title: 'Hanoryx Systems is the system behind the systems.',
@@ -26,7 +26,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'topographic-lines',
+      scene: 'architecture-layer',
       eyebrow: company.signal.eyebrow,
       code: 'HQ.SIGNAL',
       title: company.signal.title,
@@ -42,7 +42,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'hex-lattice',
+      scene: 'topology-pulse',
       eyebrow: 'Topology',
       title: 'Three nodes, one system.',
       intro:
@@ -90,7 +90,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'polar-radar',
+      scene: 'status-pulse-grid',
       eyebrow: 'Open a channel',
       title: 'Reach the node.',
       body: 'For software systems, internal platforms, operational interfaces, and controlled online infrastructure — the conversation starts at the gate.',

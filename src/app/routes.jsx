@@ -1,42 +1,44 @@
+import { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'motion/react';
 
 import { templateRouteKeys } from './routeConfig';
-import { pages } from '../data/pages';
-import { PageTemplate } from '../components/page/PageTemplate';
+import { RouteFallback } from '../components/layout/RouteFallback';
 
-import Home from '../pages/Home';
-import Contact from '../pages/Contact';
-import Timeline from '../pages/Timeline';
-import NotFound from '../pages/NotFound';
+/* Route-level code splitting: every page is its own async chunk, so the initial
+   bundle no longer carries all 30 routes + page data + the scene renderer.
+   Bespoke pages are wired directly; the rest share one data-driven chunk. */
+const Home = lazy(() => import('../pages/Home'));
+const Contact = lazy(() => import('../pages/Contact'));
+const Timeline = lazy(() => import('../pages/Timeline'));
+const NotFound = lazy(() => import('../pages/NotFound'));
+const TemplatePage = lazy(() => import('../pages/TemplatePage'));
 
 /**
  * 30 real routes. Bespoke pages (Home, Contact, Timeline, 404) are wired
- * directly; every other route renders through the data-driven PageTemplate,
- * keyed into data/pages. A missing data entry degrades to the 404, never a
- * crash. AnimatePresence drives the page-to-page transition.
+ * directly; every other route renders through the lazy data-driven TemplatePage,
+ * keyed into data/pages. AnimatePresence drives the page-to-page transition;
+ * Suspense covers the brief chunk-load window.
  */
 export function AppRoutes() {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/timeline" element={<Timeline />} />
+    <Suspense fallback={<RouteFallback />}>
+      <AnimatePresence mode="wait" initial={false}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/timeline" element={<Timeline />} />
 
-        {templateRouteKeys.map((key) => (
-          <Route
-            key={key}
-            path={`/${key}`}
-            element={pages[key] ? <PageTemplate data={pages[key]} /> : <NotFound />}
-          />
-        ))}
+          {templateRouteKeys.map((key) => (
+            <Route key={key} path={`/${key}`} element={<TemplatePage routeKey={key} />} />
+          ))}
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
+    </Suspense>
   );
 }
 

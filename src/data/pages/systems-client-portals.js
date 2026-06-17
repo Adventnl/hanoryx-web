@@ -3,7 +3,7 @@ const page = {
   title: 'Client-Facing Portals',
   accent: '#ff3333',
   hero: {
-    scene: 'concentric-gate',
+    scene: 'client-portal-gate',
     intensity: 'hero',
     eyebrow: 'Systems // SYS.06',
     title: 'A controlled gateway between an operation and the people it serves.',
@@ -21,7 +21,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'orbital-node',
+      scene: 'secure-boundary',
       eyebrow: 'Boundary',
       code: 'PRT.01',
       title: 'The line between inside and outside is engineered, not assumed.',
@@ -40,7 +40,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'glass-prism',
+      scene: 'permission-orbit',
       eyebrow: 'Capabilities',
       title: 'What a portal does.',
       intro: 'Four functions define a Hanoryx portal. Each is a control, not a convenience.',
@@ -53,7 +53,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'polar-radar',
+      scene: 'radar-cutaway',
       eyebrow: 'Access Model',
       title: 'How reach is decided.',
       intro: 'Every request is resolved against the same model — identity, role, scope, and record — before a single field is returned.',
@@ -65,7 +65,7 @@ const page = {
         { k: 'AM.05', v: 'Boundary — where reach is denied and logged' },
       ],
     },
-    { type: 'cta', scene: 'concentric-gate', eyebrow: 'Open a channel', title: 'Discuss a client-facing portal.', body: 'Bring an operation that needs to expose a controlled surface to the people it serves.' },
+    { type: 'cta', scene: 'status-pulse-grid', eyebrow: 'Open a channel', title: 'Discuss a client-facing portal.', body: 'Bring an operation that needs to expose a controlled surface to the people it serves.' },
   ],
 };
 

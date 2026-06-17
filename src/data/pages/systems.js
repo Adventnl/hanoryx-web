@@ -15,7 +15,7 @@ const page = {
   title: 'Systems',
   accent: '#ff3333',
   hero: {
-    scene: 'hex-lattice',
+    scene: 'hex-tunnel',
     eyebrow: 'Systems // SYS.NODE',
     title: 'Systems built to reduce operational drag.',
     intro:
@@ -32,7 +32,7 @@ const page = {
   blocks: [
     {
       type: 'cards',
-      scene: 'circuit-trace',
+      scene: 'orbital-command',
       eyebrow: 'Categories',
       title: 'Seven operating surfaces.',
       intro: 'Each category is a controlled surface over the same hardened core.',
@@ -47,7 +47,7 @@ const page = {
     },
     {
       type: 'feature',
-      scene: 'orbital-node',
+      scene: 'dashboard-tiles',
       eyebrow: 'Featured System',
       code: musebase.code,
       name: musebase.name,
@@ -59,7 +59,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'topographic-lines',
+      scene: 'isometric-infra',
       eyebrow: architecture.eyebrow,
       code: 'ARCH.STACK',
       title: architecture.title,
@@ -70,7 +70,7 @@ const page = {
     },
     {
       type: 'redacted',
-      scene: 'redaction-matrix',
+      scene: 'status-pulse-grid',
       eyebrow: 'Research',
       title: 'Experimental online systems.',
       intro: 'Early-stage interface programs and research nodes. Detail is intentionally withheld.',
@@ -80,7 +80,7 @@ const page = {
         { code: 'RES.03', label: 'Redacted research node', note: 'Under review' },
       ],
     },
-    { type: 'cta', scene: 'polar-radar', eyebrow: 'Open a channel', title: 'Discuss a system.' },
+    { type: 'cta', scene: 'architecture-layer', eyebrow: 'Open a channel', title: 'Discuss a system.' },
   ],
 };
 

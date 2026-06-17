@@ -5,7 +5,7 @@ const page = {
   title: 'Musebase',
   accent: '#ff3333',
   hero: {
-    scene: 'orbital-node',
+    scene: 'musebase-coordination',
     intensity: 'hero',
     eyebrow: 'Work // SYS.MB',
     title: 'Musebase is a single controlled environment for coordination that refuses to stay simple.',
@@ -25,7 +25,7 @@ const page = {
   blocks: [
     {
       type: 'feature',
-      scene: 'orbital-node',
+      scene: 'scheduling-grid',
       eyebrow: 'Featured System',
       code: musebase.code,
       name: musebase.name,
@@ -37,7 +37,7 @@ const page = {
     },
     {
       type: 'split',
-      scene: 'wave-interference',
+      scene: 'permission-orbit',
       eyebrow: 'Coordination',
       code: 'MB.COORD',
       title: 'Many roles, one controlled environment.',
@@ -58,7 +58,7 @@ const page = {
     },
     {
       type: 'modules',
-      scene: 'hex-lattice',
+      scene: 'data-interface-wave',
       eyebrow: 'Module Map',
       title: 'The operating layer, broken down.',
       intro: 'Five modules, engineered to function as one. Each is independently controlled, yet bound to the same data core and access model.',
@@ -72,7 +72,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'concentric-gate',
+      scene: 'status-pulse-grid',
       eyebrow: 'Open a channel',
       title: 'Discuss an operating layer of your own.',
       body: 'Bring the coordination problem. We engineer the controlled environment around it.',

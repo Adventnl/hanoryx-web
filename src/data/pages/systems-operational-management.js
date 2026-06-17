@@ -3,7 +3,7 @@ const page = {
   title: 'Operational Management',
   accent: '#ff3333',
   hero: {
-    scene: 'orbital-node',
+    scene: 'workflow-river',
     eyebrow: 'Systems // SYS.01',
     title: 'Operational management platforms.',
     intro: 'Structured operating layers for scheduling, communication, records, and multi-role coordination.',
@@ -14,7 +14,7 @@ const page = {
   blocks: [
     {
       type: 'split',
-      scene: 'wave-interference',
+      scene: 'permission-orbit',
       eyebrow: 'Capability',
       code: 'OPS.01',
       title: 'Coordination, held under control.',
@@ -34,7 +34,7 @@ const page = {
     },
     {
       type: 'process',
-      scene: 'circuit-trace',
+      scene: 'scheduling-grid',
       eyebrow: 'Flow',
       title: 'How an operation moves.',
       steps: [
@@ -46,7 +46,7 @@ const page = {
     },
     {
       type: 'cards',
-      scene: 'hex-lattice',
+      scene: 'musebase-coordination',
       eyebrow: 'Surfaces',
       title: 'Control surfaces.',
       items: [
@@ -55,7 +55,7 @@ const page = {
         { code: 'CS.03', title: 'Records & permissions', body: 'A queryable record under strict, role-based access.' },
       ],
     },
-    { type: 'cta', scene: 'polar-radar', eyebrow: 'Open a channel', title: 'Discuss an operating layer.' },
+    { type: 'cta', scene: 'status-pulse-grid', eyebrow: 'Open a channel', title: 'Discuss an operating layer.' },
   ],
 };
 
