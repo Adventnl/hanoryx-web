@@ -1,0 +1,65 @@
+.section {
+  position: relative;
+}
+
+/* Card grid — generous rhythm under the header. */
+.grid {
+  margin-top: var(--space-12);
+  gap: var(--gutter);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding-block: var(--space-8);
+}
+
+/* Large editorial marker — serif, with the rare red accent. */
+.marker {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--ls-wide);
+  color: var(--c-red);
+  text-shadow: var(--glow-red-soft);
+  margin-bottom: var(--space-5);
+}
+
+.title {
+  margin-bottom: var(--space-3);
+  color: var(--c-text-strong);
+}
+
+.body {
+  color: var(--c-text-dim);
+  line-height: var(--lh-loose);
+  max-width: var(--maxw-text);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    margin-top: var(--space-10);
+  }
+  .marker {
+    font-size: var(--fs-h2);
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-8);
+  }
+  .card {
+    padding-block: var(--space-7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker {
+    text-shadow: none;
+  }
+}

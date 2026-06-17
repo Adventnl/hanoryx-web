@@ -1,0 +1,19 @@
+.magnetic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  will-change: transform;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  pointer-events: none;
+}

@@ -1,0 +1,107 @@
+/* ============================================================
+   LAYOUT — containers, sections, grids, primitives of structure
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: var(--maxw-text);
+}
+
+/* A full section block with vertical rhythm */
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+}
+.section--tight {
+  padding-block: var(--section-pad-sm);
+}
+.section--flush-top { padding-top: 0; }
+.section--flush-bottom { padding-bottom: 0; }
+
+/* Min-height hero stage */
+.stage {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Vertical stacks */
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.stack-2 { gap: var(--space-2); }
+.stack-3 { gap: var(--space-3); }
+.stack-4 { gap: var(--space-4); }
+.stack-5 { gap: var(--space-5); }
+.stack-6 { gap: var(--space-6); }
+.stack-8 { gap: var(--space-8); }
+
+/* Horizontal clusters */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+.cluster--between {
+  justify-content: space-between;
+}
+
+/* Responsive auto grid */
+.grid {
+  display: grid;
+  gap: var(--space-5);
+}
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+.grid--auto {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+.grid--split {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+/* Hairline divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--c-line-strong), transparent);
+}
+.divider--solid {
+  background: var(--c-line);
+}
+
+/* Measure-limited prose */
+.measure { max-width: 62ch; }
+.measure-sm { max-width: 48ch; }
+
+/* Utility spacing */
+.mt-auto { margin-top: auto; }
+.full-bleed { width: 100%; }
+
+/* Responsive collapse */
+@media (max-width: 1024px) {
+  .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  .grid--2,
+  .grid--3,
+  .grid--4,
+  .grid--split {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,86 @@
+.btn {
+  --btn-px: 1.5rem;
+  --btn-py: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: var(--btn-py) var(--btn-px);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--c-white-80);
+  border: 1px solid transparent;
+  transition:
+    color var(--dur-2) var(--ease-out),
+    background var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-3) var(--ease-out);
+}
+
+.label { display: inline-block; }
+
+.icon {
+  transition: transform var(--dur-2) var(--ease-out);
+}
+.btn:hover .icon {
+  transform: translate(2px, -2px);
+}
+
+/* --- Variants --- */
+.primary {
+  background: var(--c-white-05);
+  border-color: var(--c-line-strong);
+  color: var(--c-white);
+}
+.primary:hover {
+  background: var(--c-white-08);
+  border-color: var(--c-red-dim);
+  box-shadow: var(--glow-red-soft);
+}
+
+.outline {
+  background: transparent;
+  border-color: var(--c-line-strong);
+  color: var(--c-white-80);
+}
+.outline:hover {
+  border-color: var(--c-white-40);
+  color: var(--c-white);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--c-white-50);
+}
+.ghost:hover {
+  color: var(--c-white);
+  background: var(--c-white-03);
+}
+
+/* underline link, echoes the original START control */
+.line {
+  padding: 0 0 0.5rem;
+  border-radius: 0;
+  border-bottom: 1px solid var(--c-white-20);
+  color: var(--c-white-50);
+  letter-spacing: 0.4em;
+  transition:
+    color var(--dur-3) var(--ease-out),
+    border-color var(--dur-3) var(--ease-out),
+    letter-spacing var(--dur-3) var(--ease-out);
+}
+.line:hover {
+  color: var(--c-white);
+  border-color: var(--c-white);
+  letter-spacing: 0.55em;
+}
+
+/* --- Sizes --- */
+.sm { --btn-px: 1.1rem; --btn-py: 0.6rem; }
+.md { --btn-px: 1.5rem; --btn-py: 0.85rem; }
+.lg { --btn-px: 2.1rem; --btn-py: 1.1rem; font-size: var(--fs-xs); }

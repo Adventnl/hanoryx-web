@@ -1,0 +1,140 @@
+.section {
+  position: relative;
+}
+
+.matrix {
+  margin-top: var(--space-12);
+  border-top: 1px solid var(--c-line);
+}
+
+/* Each row reads as a telemetry channel: code | label/detail | meter. */
+.row {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: var(--gutter);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.code {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  color: var(--c-text-faint);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  color: var(--c-text-strong);
+}
+
+.detail {
+  max-width: var(--maxw-text);
+}
+
+/* Meter ----------------------------------------------------------------- */
+.meter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.track {
+  position: relative;
+  flex: 1 1 auto;
+  height: 2px;
+  background: var(--c-white-08);
+  border-radius: var(--r-pill);
+  overflow: visible;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(
+    90deg,
+    var(--c-white-40),
+    var(--c-white-80)
+  );
+  border-radius: var(--r-pill);
+  will-change: transform;
+}
+
+/* Red accent glow riding the leading edge of the fill. */
+.edge {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  transform: translate(50%, -50%);
+  border-radius: var(--r-pill);
+  background: var(--c-red);
+  box-shadow: var(--glow-red-soft);
+}
+
+.value {
+  flex: 0 0 auto;
+  min-width: 3.5rem;
+  text-align: right;
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-wide);
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Responsive ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .row {
+    grid-template-columns: 6rem minmax(0, 1fr);
+    grid-template-areas:
+      'code info'
+      'meter meter';
+    row-gap: var(--space-5);
+  }
+
+  .code {
+    grid-area: code;
+  }
+
+  .info {
+    grid-area: info;
+  }
+
+  .meter {
+    grid-area: meter;
+  }
+}
+
+@media (max-width: 720px) {
+  .matrix {
+    margin-top: var(--space-8);
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'code'
+      'info'
+      'meter';
+    gap: var(--space-4);
+    padding-block: var(--space-5);
+  }
+}
+
+/* Continuous transitions are GSAP-driven; nothing here loops, but guard
+   the fill in case animation is suppressed — it is set to final width by JS. */
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    will-change: auto;
+  }
+}

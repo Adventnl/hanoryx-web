@@ -1,0 +1,191 @@
+.section {
+  position: relative;
+}
+
+/* Override grid--split's center alignment so the header pins to the top. */
+.split {
+  align-items: start;
+  gap: var(--space-12);
+}
+
+/* ----- LEFT: framing column ----- */
+.lead {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--space-8));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.accent {
+  margin-block: var(--space-2);
+}
+
+.legend {
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-wider);
+  color: var(--c-text-faint);
+}
+
+/* ----- RIGHT: stacked diagram ----- */
+.stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-left: var(--space-8);
+}
+
+/* Vertical spine running the height of the stack. */
+.spine {
+  position: absolute;
+  top: var(--space-3);
+  bottom: var(--space-3);
+  left: calc(var(--space-8) / 2);
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--c-line-strong) 12%,
+    var(--c-line-strong) 88%,
+    transparent
+  );
+}
+
+.row {
+  position: relative;
+}
+
+/* Node + connector marker sitting on the spine. */
+.marker {
+  position: absolute;
+  left: calc((var(--space-8) / 2) * -1);
+  top: var(--space-6);
+  width: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+}
+
+.node {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--r-pill);
+  background: var(--c-black);
+  border: 1px solid var(--c-line-strong);
+  box-shadow: 0 0 0 4px var(--c-black);
+  z-index: 1;
+  transition: border-color var(--dur-3) var(--ease-out),
+    box-shadow var(--dur-3) var(--ease-out);
+}
+
+/* Short tick descending toward the next lower panel. */
+.connector {
+  position: absolute;
+  top: 100%;
+  width: 1px;
+  height: var(--space-6);
+  background: linear-gradient(180deg, var(--c-line-strong), transparent);
+}
+
+/* ----- Panels ----- */
+.panel {
+  transition: transform var(--dur-3) var(--ease-out),
+    border-color var(--dur-3) var(--ease-out),
+    box-shadow var(--dur-3) var(--ease-out);
+}
+
+.panel:hover {
+  transform: translateX(var(--space-1));
+  border-color: var(--c-line-strong);
+  box-shadow: var(--shadow-lift);
+}
+
+/* Light the marker node when its panel is hovered. */
+.row:hover .node {
+  border-color: var(--c-red);
+  box-shadow: 0 0 0 4px var(--c-black), var(--glow-red-soft);
+}
+
+.layer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: var(--space-5);
+}
+
+.layerCode {
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-wide);
+  color: var(--c-text-faint);
+  padding-top: var(--space-1);
+  white-space: nowrap;
+}
+
+.layerText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.layerTitle {
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  color: var(--c-text-strong);
+}
+
+.layerBody {
+  max-width: 46ch;
+  line-height: var(--lh-normal);
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 1024px) {
+  .split {
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .lead {
+    position: static;
+    top: auto;
+  }
+  .stack {
+    margin-top: var(--space-4);
+  }
+}
+
+@media (max-width: 720px) {
+  .stack {
+    padding-left: var(--space-6);
+  }
+  .spine {
+    left: calc(var(--space-6) / 2);
+  }
+  .marker {
+    left: calc((var(--space-6) / 2) * -1);
+  }
+  .layer {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  .layerCode {
+    padding-top: 0;
+  }
+}
+
+/* Freeze panel/marker transitions for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .node {
+    transition: none;
+  }
+  .panel:hover {
+    transform: none;
+  }
+}

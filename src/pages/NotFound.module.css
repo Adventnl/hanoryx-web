@@ -1,0 +1,177 @@
+/* ============================================================
+   404 — SIGNAL LOST
+   Full-height cinematic stage. Grid drifts behind, content holds
+   center, a faint telemetry readout anchors the lower edge.
+   ============================================================ */
+
+.stage {
+  overflow: hidden;
+  background: var(--c-void);
+  text-align: center;
+}
+
+/* System grid field sits at the very back of the stage */
+.bg {
+  z-index: var(--z-bg);
+  opacity: 0.7;
+}
+
+/* Soft radial darkening so the headline floats out of the void */
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-bg);
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 90% at 50% 42%,
+      transparent 0%,
+      transparent 38%,
+      rgba(2, 2, 3, 0.85) 100%
+    );
+}
+
+.inner {
+  position: relative;
+  z-index: var(--z-content);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  padding-block: var(--section-pad-sm);
+}
+
+.core {
+  align-items: center;
+  max-width: var(--maxw-text);
+}
+
+/* Mono error eyebrow — the single restrained touch of red */
+.eyebrow {
+  color: var(--c-red);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--c-text-strong);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  /* faint red bleed under the type, like a misregistered print */
+  text-shadow: 0 0 60px rgba(255, 51, 51, 0.08);
+}
+
+.intro {
+  margin-inline: auto;
+  color: var(--c-text-dim);
+}
+
+.rule {
+  width: min(100%, 280px);
+  margin-inline: auto;
+}
+
+.actions {
+  justify-content: center;
+}
+
+/* --- Lower telemetry readout --- */
+.telemetry {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border: var(--border-faint);
+  border-radius: var(--r-sm);
+  background: var(--c-white-03);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.key {
+  color: var(--c-text-faint);
+  flex: 0 0 auto;
+}
+
+/* dotted leader between key and value */
+.dots {
+  flex: 1 1 auto;
+  height: 0;
+  border-top: 1px dotted var(--c-line);
+  opacity: 0.6;
+  transform: translateY(2px);
+}
+
+.val {
+  color: var(--c-text-dim);
+  flex: 0 0 auto;
+}
+
+/* A single slow scan pulse over the readout for life */
+.telemetry::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--c-white-05) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  animation: scan var(--dur-6) var(--ease-in-out) infinite;
+}
+
+@keyframes scan {
+  0% {
+    opacity: 0;
+    transform: translateY(-60%);
+  }
+  45% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .inner {
+    gap: var(--space-10);
+  }
+}
+
+@media (max-width: 720px) {
+  .inner {
+    gap: var(--space-8);
+  }
+  .telemetry {
+    max-width: 100%;
+  }
+}
+
+/* --- Reduced motion: freeze any continuous animation --- */
+@media (prefers-reduced-motion: reduce) {
+  .telemetry::after {
+    animation: none;
+    opacity: 0;
+  }
+}

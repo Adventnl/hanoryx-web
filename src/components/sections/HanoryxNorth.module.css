@@ -1,0 +1,99 @@
+/* ============================================================
+   HANORYX NORTH — home preview of the engineering division
+   Engineering-ledger aesthetic: mono codes, hairlines, rail.
+   ============================================================ */
+
+.section {
+  position: relative;
+  overflow: hidden;
+  /* deepen the band so the division reads as its own surface */
+  background:
+    linear-gradient(180deg, transparent, var(--c-white-03) 50%, transparent),
+    var(--c-black);
+  border-block: 1px solid var(--c-line-faint);
+}
+
+/* Faint vertical engineering rail near the left gutter */
+.rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: max(var(--space-6), calc((100% - var(--maxw)) / 2 + var(--space-6)));
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--c-line) 18%,
+    var(--c-line) 82%,
+    transparent
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  max-width: var(--maxw-text);
+  margin-bottom: var(--space-12);
+}
+
+/* --- Pillar rail --- */
+.pillars {
+  position: relative;
+  z-index: 1;
+  gap: var(--gutter);
+}
+
+.pillar {
+  /* hairline that anchors each panel into the engineering ledger */
+  border-top: 1px solid var(--c-line);
+  min-height: 100%;
+}
+
+.title {
+  margin-bottom: var(--space-4);
+  color: var(--c-text-strong);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+}
+
+.body {
+  max-width: var(--measure-sm, 48ch);
+  line-height: var(--lh-loose);
+}
+
+/* --- Foot row: telemetry code + CTA --- */
+.foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--c-line-faint);
+}
+
+.footCode {
+  color: var(--c-text-ghost);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-label);
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .rail { left: var(--gutter); }
+  .header { margin-bottom: var(--space-10); }
+}
+
+@media (max-width: 720px) {
+  .rail { display: none; }
+  .pillars { grid-template-columns: 1fr; }
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+  }
+}

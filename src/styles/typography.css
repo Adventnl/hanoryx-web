@@ -1,0 +1,145 @@
+/* ============================================================
+   TYPOGRAPHY — fonts + reusable text utilities
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+/* --- Families --- */
+.font-serif { font-family: var(--font-serif); }
+.font-sans  { font-family: var(--font-sans); }
+.font-mono  { font-family: var(--font-mono); }
+
+/* --- Display / headings (cinematic serif) --- */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--c-text-strong);
+}
+
+.heading-hero {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--c-text-strong);
+}
+
+.heading-1 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-snug);
+  color: var(--c-text-strong);
+}
+
+.heading-2 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  color: var(--c-text-strong);
+}
+
+.heading-3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  color: var(--c-text-strong);
+}
+
+/* --- Lead / body --- */
+.lead {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-normal);
+  color: var(--c-white-65);
+}
+
+.body {
+  font-weight: 300;
+  font-size: var(--fs-body);
+  line-height: var(--lh-loose);
+  color: var(--c-white-65);
+}
+
+.body-sm {
+  font-weight: 300;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--c-white-50);
+}
+
+/* --- Mono telemetry / labels (the "system" voice) --- */
+.eyebrow,
+.data-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-text-faint);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--c-white-50);
+}
+.eyebrow::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  flex: none;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.12em;
+  color: var(--c-text-faint);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+}
+
+/* --- Color modifiers --- */
+.text-strong { color: var(--c-text-strong); }
+.text-dim    { color: var(--c-text-dim); }
+.text-faint  { color: var(--c-text-faint); }
+.text-red    { color: var(--c-red); }
+
+/* --- Inline live red node (preserves original "flashing-red-dot") --- */
+.node-dot {
+  display: inline-block;
+  width: 0.12em;
+  height: 0.12em;
+  vertical-align: baseline;
+  border-radius: 50%;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  animation: node-pulse 1.5s infinite ease-in-out;
+}
+
+/* --- Gradient ink for select headlines --- */
+.ink-fade {
+  background: linear-gradient(180deg, var(--c-white) 0%, var(--c-white-50) 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

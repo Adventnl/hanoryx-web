@@ -1,0 +1,133 @@
+/* ============================================================
+   SystemsPreview — category grid + featured Musebase panel.
+   ============================================================ */
+
+.section {
+  position: relative;
+}
+
+.grid {
+  margin-top: var(--space-12);
+}
+
+/* Center the "view all" affordance under the preview grid. */
+.cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-12);
+}
+
+/* ---- Featured Musebase panel (full variant) -------------------------- */
+
+.featured {
+  margin-top: var(--space-12);
+}
+
+.mbPanel {
+  padding: var(--space-9);
+}
+
+.mbGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.mbIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.mblogo {
+  display: block;
+  height: var(--space-9);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.6);
+  opacity: 0.92;
+}
+
+.mbWordmark {
+  font-size: var(--fs-h3);
+  font-weight: 300;
+  letter-spacing: var(--ls-wide);
+  line-height: var(--lh-tight);
+  color: var(--c-text-strong);
+}
+
+.mbMeta {
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.mbType {
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--c-text-faint);
+}
+
+.mbSummary {
+  color: var(--c-white-65);
+}
+
+/* k/v module list — quiet mono telemetry, hairline separators. */
+.mbModules {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--c-line-faint);
+}
+
+.mbRow {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--c-line-faint);
+}
+
+.mbKey {
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-label);
+  color: var(--c-red-dim);
+}
+
+.mbVal {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  color: var(--c-white-80);
+  line-height: var(--lh-snug);
+}
+
+/* ---- Responsive ----------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .mbPanel {
+    padding: var(--space-7);
+  }
+  .mbGrid {
+    gap: var(--space-7);
+  }
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-9);
+  }
+  .featured,
+  .cta {
+    margin-top: var(--space-9);
+  }
+  .mbGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}

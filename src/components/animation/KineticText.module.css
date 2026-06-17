@@ -1,0 +1,24 @@
+.kinetic {
+  position: relative;
+}
+
+.unit {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* room so descenders (g, y, p) aren't clipped by overflow:hidden */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.inner {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

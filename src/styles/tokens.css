@@ -1,0 +1,146 @@
+/* ============================================================
+   HANORYX SYSTEMS — DESIGN TOKENS
+   Single source of truth for color, type, space, motion.
+   Every component must reference these variables, never raw values.
+   ============================================================ */
+
+:root {
+  /* --- CORE SURFACES (black system) --- */
+  --c-void: #020203;        /* deepest background */
+  --c-black: #050505;       /* primary background */
+  --c-black-2: #08090b;     /* raised background */
+  --c-black-3: #0c0d10;     /* panel base */
+  --c-panel: #0a0b0d;       /* glass panel fill */
+  --c-panel-2: #101216;     /* hover panel fill */
+
+  /* --- LIGHT --- */
+  --c-white: #ffffff;
+  --c-white-95: rgba(255, 255, 255, 0.95);
+  --c-white-80: rgba(255, 255, 255, 0.80);
+  --c-white-65: rgba(255, 255, 255, 0.65);
+  --c-white-50: rgba(255, 255, 255, 0.50);
+  --c-white-40: rgba(255, 255, 255, 0.40);
+  --c-white-30: rgba(255, 255, 255, 0.30);
+  --c-white-20: rgba(255, 255, 255, 0.20);
+  --c-white-12: rgba(255, 255, 255, 0.12);
+  --c-white-08: rgba(255, 255, 255, 0.08);
+  --c-white-05: rgba(255, 255, 255, 0.05);
+  --c-white-03: rgba(255, 255, 255, 0.03);
+
+  /* --- RED ACCENT (use sparingly) --- */
+  --c-red: #ff3333;
+  --c-red-bright: #ff4d4d;
+  --c-red-dim: rgba(255, 51, 51, 0.55);
+  --c-red-ghost: rgba(255, 51, 51, 0.12);
+  --c-red-faint: rgba(255, 51, 51, 0.06);
+
+  /* --- SEMANTIC TEXT --- */
+  --c-text: var(--c-white-80);
+  --c-text-strong: var(--c-white);
+  --c-text-dim: var(--c-white-50);
+  --c-text-faint: var(--c-white-30);
+  --c-text-ghost: var(--c-white-20);
+
+  /* --- LINES / BORDERS --- */
+  --c-line: var(--c-white-08);
+  --c-line-strong: var(--c-white-12);
+  --c-line-faint: var(--c-white-05);
+  --bw: 1px;
+  --border: var(--bw) solid var(--c-line);
+  --border-faint: var(--bw) solid var(--c-line-faint);
+
+  /* --- TYPOGRAPHY --- */
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* fluid type scale */
+  --fs-display: clamp(2.6rem, 8.5vw, 8.5rem);
+  --fs-hero: clamp(2.4rem, 6vw, 5.5rem);
+  --fs-h1: clamp(2rem, 4.6vw, 3.8rem);
+  --fs-h2: clamp(1.6rem, 3.4vw, 2.8rem);
+  --fs-h3: clamp(1.3rem, 2.2vw, 1.9rem);
+  --fs-h4: clamp(1.1rem, 1.6vw, 1.35rem);
+  --fs-lead: clamp(1.05rem, 1.5vw, 1.3rem);
+  --fs-body: 1rem;
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.75rem;
+  --fs-2xs: 0.65rem;
+  --fs-label: 0.7rem;   /* mono telemetry labels */
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-normal: 1.6;
+  --lh-loose: 1.9;
+
+  --ls-display: -0.02em;
+  --ls-wide: 0.2em;
+  --ls-wider: 0.35em;
+  --ls-label: 0.25em;
+
+  /* --- SPACING --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+  --space-20: 10rem;
+  --space-24: 12rem;
+
+  /* layout rhythm */
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --section-pad: clamp(5rem, 11vw, 11rem);
+  --section-pad-sm: clamp(3rem, 6vw, 6rem);
+  --maxw: 1360px;
+  --maxw-text: 760px;
+  --nav-h: 72px;
+
+  /* --- RADII --- */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* --- Z-INDEX --- */
+  --z-bg: 0;
+  --z-content: 10;
+  --z-overlay: 30;
+  --z-cursor: 60;
+  --z-nav: 100;
+  --z-menu: 200;
+  --z-transition: 500;
+  --z-boot: 9999;
+
+  /* --- SHADOWS / GLOW --- */
+  --shadow-panel: 0 24px 60px -30px rgba(0, 0, 0, 0.9);
+  --shadow-lift: 0 40px 120px -50px rgba(0, 0, 0, 1);
+  --glow-white: 0 0 24px rgba(255, 255, 255, 0.18);
+  --glow-red: 0 0 18px rgba(255, 51, 51, 0.55);
+  --glow-red-soft: 0 0 40px rgba(255, 51, 51, 0.18);
+
+  /* --- MOTION --- */
+  --dur-1: 0.2s;
+  --dur-2: 0.4s;
+  --dur-3: 0.6s;
+  --dur-4: 0.9s;
+  --dur-5: 1.4s;
+  --dur-6: 2.2s;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);     /* signature deceleration */
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-linear: linear;
+
+  /* --- BLUR --- */
+  --blur-nav: 14px;
+  --blur-panel: 20px;
+
+  color-scheme: dark;
+}

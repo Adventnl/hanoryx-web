@@ -1,0 +1,180 @@
+.footer {
+  position: relative;
+  z-index: var(--z-content);
+  padding: var(--section-pad-sm) var(--gutter) var(--space-6);
+  background: linear-gradient(180deg, transparent, var(--c-void) 40%);
+  border-top: var(--border-faint);
+  overflow: hidden;
+}
+.topLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-line-strong), transparent);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1.3fr 1.7fr;
+  gap: var(--space-10);
+  max-width: var(--maxw);
+  margin-inline: auto;
+}
+
+.lead { display: flex; flex-direction: column; gap: var(--space-4); }
+.brandRow { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+.brand {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  color: var(--c-white);
+}
+.division {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.16em;
+  color: var(--c-red);
+}
+.blurb {
+  max-width: 38ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--c-white-50);
+}
+.email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  color: var(--c-white-80);
+  transition: color var(--dur-2) var(--ease-out), gap var(--dur-2) var(--ease-out);
+}
+.email:hover { color: var(--c-red); gap: 0.7em; }
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+.colTitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-white-40);
+  margin-bottom: var(--space-4);
+}
+.colLinks { display: flex; flex-direction: column; gap: var(--space-3); }
+.colLink {
+  font-size: var(--fs-sm);
+  color: var(--c-white-50);
+  transition: color var(--dur-2) var(--ease-out);
+}
+.colLink:hover { color: var(--c-white); }
+
+/* --- Telemetry strip --- */
+.telemetry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  max-width: var(--maxw);
+  margin: var(--space-10) auto var(--space-8);
+  padding-top: var(--space-5);
+  border-top: var(--border-faint);
+}
+.telItem { display: inline-flex; align-items: center; gap: 0.6rem; }
+.telKey {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.16em;
+  color: var(--c-white-30);
+}
+.telVal {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.16em;
+  color: var(--c-white-65);
+}
+.signal {
+  position: relative;
+  width: 34px;
+  height: 2px;
+  overflow: hidden;
+  background: var(--c-white-05);
+}
+.signal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--c-red-dim), transparent);
+  animation: scan-x 3.2s linear infinite;
+}
+
+/* --- Dissolving wordmark --- */
+.wordmarkWrap {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  overflow: hidden;
+  line-height: 0.8;
+}
+.wordmark {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(3rem, 18vw, 15rem);
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, var(--c-white-12), transparent 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --- Bottom bar --- */
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  max-width: var(--maxw);
+  margin: var(--space-6) auto 0;
+  padding-top: var(--space-5);
+  border-top: var(--border-faint);
+}
+.corner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--c-white-30);
+}
+.dial {
+  width: 14px;
+  height: 14px;
+  border: 1px dashed var(--c-white-20);
+  border-radius: 50%;
+  animation: spin 16s linear infinite;
+}
+.copy {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  color: var(--c-white-40);
+}
+
+@media (max-width: 900px) {
+  .inner { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+@media (max-width: 560px) {
+  .columns { grid-template-columns: 1fr 1fr; }
+  .bottom { justify-content: center; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal::before, .dial { animation: none !important; }
+}

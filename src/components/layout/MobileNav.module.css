@@ -1,0 +1,89 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-10);
+  padding: var(--nav-h) var(--gutter) var(--space-8);
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 51, 51, 0.05), transparent 60%),
+    rgba(2, 2, 3, 0.97);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+.row { border-bottom: var(--border-faint); }
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  color: var(--c-white-65);
+  transition: color var(--dur-2) var(--ease-out), padding-left var(--dur-3) var(--ease-out);
+}
+.link:hover,
+.link.active {
+  color: var(--c-white);
+  padding-left: var(--space-3);
+}
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--c-red);
+  letter-spacing: 0.1em;
+}
+.label {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 9vw, 2.6rem);
+  font-weight: 300;
+}
+.arrow {
+  margin-left: auto;
+  opacity: 0.4;
+  transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+}
+.link:hover .arrow { opacity: 1; transform: translate(3px, -3px); }
+.active .arrow { opacity: 0.8; color: var(--c-red); }
+
+.foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.email {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.08em;
+  color: var(--c-white-80);
+}
+.email:hover { color: var(--c-red); }
+.footRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.16em;
+  color: var(--c-white-40);
+}
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+}

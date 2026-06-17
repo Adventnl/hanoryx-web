@@ -1,0 +1,200 @@
+/* ============================================================
+   EFFECTS — glass, scanlines, noise, grids, brackets, redaction
+   Reusable surface treatments that give the "operating system" feel.
+   ============================================================ */
+
+/* --- Glass panel --- */
+.glass {
+  position: relative;
+  background:
+    linear-gradient(180deg, var(--c-white-03), transparent 60%),
+    var(--c-panel);
+  border: var(--border);
+  border-radius: var(--r-md);
+  backdrop-filter: blur(var(--blur-panel));
+  -webkit-backdrop-filter: blur(var(--blur-panel));
+}
+
+.panel {
+  position: relative;
+  background: var(--c-panel);
+  border: var(--border);
+  border-radius: var(--r-md);
+}
+
+.panel-raised {
+  background:
+    linear-gradient(180deg, var(--c-white-03), transparent 50%),
+    var(--c-black-3);
+  border: var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-panel);
+}
+
+/* --- Hairline frame top accent --- */
+.edge-top::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-line-strong) 20%, var(--c-line-strong) 80%, transparent);
+}
+
+/* --- Scanline overlay (CRT feel) --- */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+/* --- Noise grain overlay (data-URI SVG, no asset) --- */
+.noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --- Grid background (faint, drifting) --- */
+.grid-bg {
+  position: relative;
+}
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(0deg, var(--c-white-03) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-white-03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 80%);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 35%, transparent 80%);
+  animation: grid-drift 18s linear infinite;
+}
+
+/* --- Corner brackets (tactical HUD frame) --- */
+.brackets {
+  position: relative;
+}
+.brackets > .bracket {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--c-line-strong);
+  pointer-events: none;
+}
+.brackets > .bracket.tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.brackets > .bracket.tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.brackets > .bracket.bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.brackets > .bracket.br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+/* --- Glow accents --- */
+.glow-red-edge { box-shadow: var(--glow-red-soft); }
+
+/* --- Redaction bar --- */
+.redaction {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  user-select: none;
+  border-radius: var(--r-xs);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.06) 0 6px,
+      rgba(255, 255, 255, 0.02) 6px 12px
+    ),
+    #0b0b0d;
+  border: 1px solid var(--c-line);
+}
+.redaction::after {
+  content: 'REDACTED';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--c-white-20);
+}
+
+/* --- Vertical telemetry text --- */
+.telemetry-v {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-text-ghost);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+/* --- A subtle scanning signal bar (footer/telemetry) --- */
+.signal-bar {
+  position: relative;
+  width: 40px;
+  height: 2px;
+  overflow: hidden;
+  background: var(--c-white-05);
+}
+.signal-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--c-white-40), transparent);
+  animation: scan-x 3s linear infinite;
+}
+
+/* --- Hover trace border for interactive cards --- */
+.trace-border {
+  position: relative;
+  overflow: hidden;
+}
+.trace-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--trace-angle, 0deg),
+    transparent 0deg,
+    var(--c-red) 30deg,
+    transparent 80deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+
+@property --trace-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-bg::before,
+  .signal-bar::before { animation: none !important; }
+}

@@ -1,0 +1,99 @@
+.section {
+  position: relative;
+  background: var(--c-black);
+}
+
+/* Spacing below the SectionHeader before the stream begins. */
+.body {
+  margin-top: var(--space-12);
+}
+
+/* The list owns the coordinate space for the connecting line. */
+.track {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ------------------------------------------------------------------
+   Data-stream rail.
+   The TimelineNode marker column is 64px wide and centers its 13px dot,
+   so the dot center sits at 32px from the left of each <li>. We anchor
+   the rail there. It stops short of the final node's lower padding so
+   the stream reads as terminating at the last marker.
+   ------------------------------------------------------------------ */
+.rail {
+  position: absolute;
+  top: 6px;
+  bottom: var(--space-10);
+  left: 32px;
+  width: 1px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  /* faint resting track the stream fills over */
+  background: linear-gradient(
+    to bottom,
+    var(--c-white-08),
+    var(--c-white-05) 50%,
+    transparent
+  );
+}
+
+/* The lit, scrubbed fill — scaleY driven by ScrollTrigger (origin top). */
+.line {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform: scaleY(0);
+  transform-origin: top center;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--c-white-40) 6%,
+    var(--c-red-dim) 45%,
+    var(--c-white-40) 80%,
+    var(--c-white-12)
+  );
+  background-size: 100% 220%;
+  box-shadow: 0 0 6px var(--c-red-ghost);
+  animation: stream-flow 5.5s linear infinite;
+}
+
+/* Continuous downward drift of the gradient = the "flow". */
+@keyframes stream-flow {
+  from { background-position: 0 0; }
+  to { background-position: 0 -220%; }
+}
+
+/* Preview CTA. */
+.action {
+  margin-top: var(--space-8);
+  padding-left: 64px;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 1024px) {
+  .body { margin-top: var(--space-10); }
+}
+
+@media (max-width: 720px) {
+  .body { margin-top: var(--space-8); }
+  .action {
+    margin-top: var(--space-7);
+    padding-left: 0;
+  }
+}
+
+/* TimelineNode collapses its marker column to 40px at <=560px, putting
+   the dot center at 20px. Keep the rail aligned. */
+@media (max-width: 560px) {
+  .rail { left: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line {
+    transform: scaleY(1);
+    animation: none;
+  }
+}

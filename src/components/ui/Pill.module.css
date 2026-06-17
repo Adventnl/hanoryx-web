@@ -1,0 +1,45 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.32rem 0.7rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-line);
+  background: var(--c-white-03);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.text { display: inline-block; }
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-white-40);
+  flex: none;
+}
+
+.default {}
+
+.red {
+  border-color: var(--c-red-dim);
+  color: var(--c-red);
+  background: var(--c-red-faint);
+}
+.red .dot {
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  animation: node-pulse 1.6s ease-in-out infinite;
+}
+
+.ghost {
+  border-color: var(--c-line-faint);
+  background: transparent;
+  color: var(--c-text-faint);
+}
