@@ -50,20 +50,28 @@ registerScene('hex-tunnel', ({ ctx, width, height, quality, accent, density }) =
       ctx.translate(ox, oy);
       ctx.lineJoin = 'round';
 
-      const flow = (t * 0.32) % 1;           // 0..1 z-progress that loops
-
-      // Concentric white rings: the continuous outward surge.
+      // Concentric white rings: a continuous, SEAMLESS outward surge.
+      // Each ring rides its OWN continuously looping depth phase, staggered by
+      // i/rings so the tunnel always reads as a steady stream. The old code
+      // derived depth from ((i + flow) % rings) where `flow = (t*0.32) % 1`
+      // resetting yanked EVERY ring's depth back one slot at once — the whole
+      // tunnel surged for ~3s then SNAPPED back (the "doesn't loop / jumps"
+      // bug). Now each ring's phase wraps independently while its alpha fades to
+      // ZERO at BOTH ends, so the wrap is invisible and it loops forever.
+      const rate = 0.07; // depth cycles per second (matches the red ring)
       for (let i = 0; i < rings; i++) {
-        // depth d: 0 at vanishing point, 1 at viewer; advanced by flow
-        let d = ((i + flow) % rings) / rings;
-        d = Math.pow(d, 1.7);                 // perspective bunching near centre
+        // ph: 0 at vanishing point, 1 at viewer — continuous, wraps seamlessly
+        const ph = (t * rate + i / rings) % 1;
+        const d = Math.pow(ph, 1.7);          // perspective bunching near centre
         const r = lerp(6, maxR, d);
-        const rot = t * (0.28 - d * 0.18) + i * 0.21;
+        // rotation depends only on t and the FIXED ring index, so it never jumps
+        // when the phase wraps (the ring keeps its identity; only depth loops).
+        const rot = t * 0.22 + i * 0.21;
 
-        // fade in from the far point, fade out as it sweeps past the viewer
-        const near = clamp((d - 0.85) / 0.15, 0, 1);
-        const far = clamp(d / 0.12, 0, 1);
-        const depthAlpha = far * (1 - near * 0.9);
+        // fade in from the far point, fade fully out as it passes the viewer
+        const near = clamp((ph - 0.82) / 0.18, 0, 1);
+        const far = clamp(ph / 0.12, 0, 1);
+        const depthAlpha = far * (1 - near);  // -> 0 at BOTH ends = no seam
 
         const jitter = 0.85 + hash(i * 1.7) * 0.3;
         ctx.lineWidth = lerp(0.6, 1.4, d);

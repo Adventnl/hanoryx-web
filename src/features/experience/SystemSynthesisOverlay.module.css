@@ -2,7 +2,8 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-synthesis, 12000);
-  width: 100vw;
+  /* inset:0 already sizes this to the viewport; an explicit 100vw would be the
+     scrollbar-gutter width too wide and nudge the layout. */
   height: var(--viewport-h, 100svh);
   overflow: hidden;
   background: #020203;

@@ -103,7 +103,7 @@ export function PageBlock({ block, accent }) {
                 ))}
               </RevealGroup>
             </div>
-            <Reveal profile="diagonalSlice" as="div" className={styles.splitAside}>
+            <Reveal profile="depthRise" as="div" className={styles.splitAside}>
               <DataPanel label={block.asideLabel || 'PARAMETERS'} code={block.asideCode || 'P.01'}>
                 {block.points?.length > 0 ? (
                   <dl className={styles.kv}>

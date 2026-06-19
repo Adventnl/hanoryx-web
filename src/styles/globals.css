@@ -13,6 +13,16 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: auto; /* smooth scrolling handled by Lenis, not native */
+  /* Reserve the scrollbar gutter permanently so locking scroll (boot gate,
+     mobile menu, synthesis overlay) never changes the content width — that
+     toggle was the cause of the whole layout "shifting left/right". */
+  scrollbar-gutter: stable;
+  /* The viewport scroller / horizontal clip lives on `html` ONLY. Putting
+     overflow-x:hidden on `body` too makes its computed overflow-y resolve to
+     `auto`, so body becomes a second scroll container — at the boot handoff it
+     briefly grew its OWN vertical scrollbar next to html's (the snap/flash the
+     user saw) until Lenis set body height:auto. Keeping it off body fixes it. */
+  overflow-x: hidden;
 }
 
 html,
@@ -28,7 +38,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
 #root {

@@ -1,32 +1,34 @@
-import { Children, createElement, isValidElement, useSyncExternalStore } from 'react';
+import { Children, createElement, isValidElement, useMemo } from 'react';
 import { motion } from 'motion/react';
 import clsx from 'clsx';
 import { revealProfiles, staggerContainer, withDelay } from './revealProfiles';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
-import { getPerformanceMode, subscribePerformanceMode } from '../../performance/performanceMode';
 
-/* A cheap opacity-only variant used while the user is flinging the page: a
-   reveal that enters view then appears immediately instead of stacking an
-   expensive blur/transform tween onto an already-busy frame. */
-const INSTANT = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.12 } },
-};
-
-/* Live fast-scroll flag via the external performance store (lint-clean,
-   no setState-in-effect, no ref reads during render). */
-function useFastScroll() {
-  return useSyncExternalStore(
-    subscribePerformanceMode,
-    () => getPerformanceMode() === 'fast-scroll',
-    () => false
-  );
+/* Declare `will-change` for ONLY the properties a profile actually animates.
+   Declaring `transform` for a clip-path-only reveal promotes a transform layer
+   that desyncs from the animating clip on Firefox — the reveal "jumps". Matching
+   will-change to the real animated props keeps the compositor honest. */
+const WILL_CHANGE_PROP = { opacity: 'opacity', clipPath: 'clip-path', filter: 'filter' };
+function willChangeFor(variant) {
+  const hidden = (variant && variant.hidden) || {};
+  const props = new Set();
+  for (const key of Object.keys(hidden)) props.add(WILL_CHANGE_PROP[key] || 'transform');
+  return props.size ? [...props].join(', ') : 'auto';
 }
 
 /**
  * Reveal — animate a single element into view with a named profile.
  *   <Reveal profile="slideLeft" as="p">…</Reveal>
- * Honours reduced motion (static) and the fast-scroll governor (snaps in).
+ * Honours reduced motion (static).
+ *
+ * IMPORTANT: this component must NOT re-render on scroll. It used to subscribe
+ * to the fast-scroll governor and swap its `variants`/`viewport` objects on
+ * every scroll burst — which made Framer Motion tear down and recreate the
+ * `whileInView` observer, replaying the entrance over and over (sections
+ * visibly "collapsing and reappearing" while scrolling). The variants and
+ * viewport config are memoised here so their identity is stable; with
+ * `once: true` Motion keeps the original observer, fires the entrance exactly
+ * once, then disconnects.
  */
 export function Reveal({
   profile = 'fadeUp',
@@ -40,23 +42,28 @@ export function Reveal({
   ...rest
 }) {
   const reduced = usePrefersReducedMotion();
-  const fast = useFastScroll();
+
+  const variants = useMemo(
+    () => withDelay(revealProfiles[profile] || revealProfiles.fadeUp, delay),
+    [profile, delay]
+  );
+  const viewport = useMemo(() => ({ once, amount }), [once, amount]);
+  const mStyle = useMemo(() => ({ willChange: willChangeFor(variants), ...style }), [variants, style]);
 
   if (reduced) {
     return createElement(as, { className, style, ...rest }, children);
   }
 
-  const variant = fast ? INSTANT : withDelay(revealProfiles[profile] || revealProfiles.fadeUp, delay);
   const Tag = motion[as] || motion.div;
 
   return (
     <Tag
       className={className}
-      style={{ willChange: 'transform, opacity', ...style }}
-      variants={variant}
+      style={mStyle}
+      variants={variants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, amount }}
+      viewport={viewport}
       {...rest}
     >
       {children}
@@ -66,8 +73,8 @@ export function Reveal({
 
 /**
  * RevealGroup — staggers its children, each entering with the same per-item
- * profile. While fast-scrolling the whole group snaps in cheaply (no stagger,
- * no blur) so a screenful of reveals can't pile up.
+ * profile. Like Reveal, this does not re-render on scroll: the container and
+ * item variants are stable so the staggered entrance plays once.
  */
 export function RevealGroup({
   profile = 'fadeUp',
@@ -83,8 +90,18 @@ export function RevealGroup({
   ...rest
 }) {
   const reduced = usePrefersReducedMotion();
-  const fast = useFastScroll();
   const items = Children.toArray(children).filter(isValidElement);
+
+  const itemVariant = useMemo(
+    () => revealProfiles[profile] || revealProfiles.fadeUp,
+    [profile]
+  );
+  const container = useMemo(
+    () => staggerContainer(stagger, delayChildren),
+    [stagger, delayChildren]
+  );
+  const viewport = useMemo(() => ({ once, amount }), [once, amount]);
+  const itemStyle = useMemo(() => ({ willChange: willChangeFor(itemVariant) }), [itemVariant]);
 
   if (reduced) {
     return createElement(
@@ -94,8 +111,6 @@ export function RevealGroup({
     );
   }
 
-  const itemVariant = fast ? INSTANT : revealProfiles[profile] || revealProfiles.fadeUp;
-  const container = staggerContainer(fast ? 0 : stagger, fast ? 0 : delayChildren);
   const Container = motion[as] || motion.div;
   const Item = motion[itemAs] || motion.div;
 
@@ -105,7 +120,7 @@ export function RevealGroup({
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, amount }}
+      viewport={viewport}
       {...rest}
     >
       {items.map((child, i) => (
@@ -113,7 +128,7 @@ export function RevealGroup({
           key={i}
           className={clsx(itemClassName)}
           variants={itemVariant}
-          style={{ willChange: 'transform, opacity' }}
+          style={itemStyle}
         >
           {child}
         </Item>

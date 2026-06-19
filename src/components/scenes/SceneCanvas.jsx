@@ -53,16 +53,38 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
     let height = 0;
     let quality = 'medium';
 
-    const build = () => {
-      if (!factory) return;
+    // Per-canvas SMOOTHED pointer, in canvas-local px. Scenes read THIS (not the
+    // raw global target) so cursor-reactive backgrounds EASE toward the pointer
+    // instead of snapping to it. Because it only advances on drawn frames, a
+    // scene paused off-screen freezes it and then eases back to the live cursor
+    // when it resumes — no teleport. `influence` eases 0..1 so leaving the
+    // window relaxes the effect to its neutral (centred) state instead of
+    // cutting out in a single frame.
+    const sp = { x: 0, y: 0, nx: 0, ny: 0, active: false, influence: 0 };
+    let spInit = false;
+
+    // Measure the canvas box and (re)size the backing store + ctx ONLY when the
+    // integer size actually changed. Returns true if it changed. Resizing the
+    // backing store clears the bitmap, so we never touch it on a no-op fire —
+    // that was making a block scrolled into view needlessly rebuild/reshuffle.
+    const applySize = () => {
       const rect = canvas.getBoundingClientRect();
-      width = Math.max(1, Math.round(rect.width));
-      height = Math.max(1, Math.round(rect.height));
+      const w = Math.max(1, Math.round(rect.width));
+      const h = Math.max(1, Math.round(rect.height));
+      if (w === width && h === height && canvas.width) return false;
+      width = w;
+      height = h;
       const dpr = maxDpr();
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       quality = resolveQuality(cost);
+      return true;
+    };
+    const build = () => {
+      if (!factory) return;
+      applySize();
+      if (!spInit) { sp.x = width / 2; sp.y = height / 2; spInit = true; }
       if (scene && scene.dispose) scene.dispose();
       scene = factory({ ctx, width, height, quality, reduced, accent, density, pointer: getPointer, audio: getAudio });
       built = true;
@@ -70,9 +92,38 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
     const ensureBuilt = () => {
       if (!built) build();
     };
+    // Ease the smoothed pointer toward the live cursor (mapped into this
+    // canvas's local space). `step` ms keeps the easing frame-rate independent.
+    const updatePointer = (step) => {
+      const tgt = getPointer();
+      const on = !!(tgt && tgt.active) && !fastScroll;
+      let lx;
+      let ly;
+      let lnx;
+      let lny;
+      if (on) {
+        const rect = canvas.getBoundingClientRect();
+        lx = tgt.x - rect.left;
+        ly = tgt.y - rect.top;
+        lnx = width ? (lx / width) * 2 - 1 : 0;
+        lny = height ? (ly / height) * 2 - 1 : 0;
+      } else {
+        lx = width / 2;
+        ly = height / 2;
+        lnx = 0;
+        lny = 0;
+      }
+      const k = 1 - Math.pow(0.86, step / 16.67); // ≈0.14 / 60fps-frame
+      sp.x += (lx - sp.x) * k;
+      sp.y += (ly - sp.y) * k;
+      sp.nx += (lnx - sp.nx) * k;
+      sp.ny += (lny - sp.ny) * k;
+      sp.influence += ((on ? 1 : 0) - sp.influence) * k;
+      sp.active = sp.influence > 0.02;
+    };
     const drawStill = () => {
       if (!scene) return;
-      scene.draw({ time: sceneTime, delta: 16.7, width, height, quality, pointer: getPointer(), audio: getAudio(), still: true });
+      scene.draw({ time: sceneTime, delta: 16.7, width, height, quality, pointer: sp, audio: getAudio(), still: true });
       hasFrame = true;
     };
     const frame = (now, delta) => {
@@ -86,7 +137,8 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       const step = lastDraw ? Math.min(now - lastDraw, 64) : 16.7;
       lastDraw = now;
       sceneTime += step;
-      scene.draw({ time: sceneTime, delta, width, height, quality, pointer: getPointer(), audio: getAudio() });
+      updatePointer(step);
+      scene.draw({ time: sceneTime, delta, width, height, quality, pointer: sp, audio: getAudio() });
       hasFrame = true;
     };
     const startLoop = () => {
@@ -110,7 +162,7 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       run(on) {
         if (on) {
           ensureBuilt();
-          if (!fastScroll) startLoop();
+          startLoop(); // keep animating even while scrolling
         } else {
           stopLoop();
           ensureBuilt();
@@ -127,9 +179,8 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
         (entries) => {
           const e = entries[entries.length - 1];
           const ratio = e.isIntersecting ? e.intersectionRatio : 0;
-          if (ratio > 0 && !hasFrame && !fastScroll) {
-            // first time on screen -> build + paint ONE static frame (cheap, once).
-            // Skipped while flinging: don't pay to paint scenes flown past.
+          if (ratio > 0 && !hasFrame) {
+            // first time on screen -> build + paint ONE static frame (cheap, once)
             ensureBuilt();
             if (!controller.running) drawStill();
           }
@@ -139,25 +190,26 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       );
       io.observe(canvas);
 
-      // React to the fast-scroll governor: freeze on a flick, resume on settle.
+      // Scenes keep animating while scrolling (the scene budget + ~30fps
+      // throttle already bound the cost). We still track the fast-scroll flag so
+      // POINTER reactivity pauses during a hard fling — but the background
+      // motion itself no longer freezes (that "stops while scrolling, resumes
+      // when you stop" behaviour was the governor halting the loop).
       unsubMode = subscribePerformanceMode((m) => {
         fastScroll = m === 'fast-scroll';
-        if (fastScroll) {
-          stopLoop();
-        } else {
-          if (!hasFrame && controller.ratio > 0) {
-            ensureBuilt();
-            if (!controller.running) drawStill();
-          }
-          if (controller.running) startLoop();
-        }
       });
 
       ro = new ResizeObserver(() => {
         cancelAnimationFrame(resizeRaf);
         resizeRaf = requestAnimationFrame(() => {
           if (!built) return;
-          build();
+          // Skip no-op fires (sub-pixel / re-observe). On a real size change,
+          // resize the scene IN PLACE (preserving its geometry/seed/phase)
+          // instead of disposing + recreating it — recreating is what made
+          // particle scenes teleport on resize.
+          if (!applySize()) return;
+          if (scene && scene.resize) scene.resize(width, height, quality);
+          else build();
           if (!unsub) drawStill();
         });
       });

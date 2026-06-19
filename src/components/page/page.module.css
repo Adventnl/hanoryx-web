@@ -15,9 +15,13 @@
   min-height: var(--viewport-h, 100svh);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-top: calc(var(--nav-h) + var(--space-10));
-  padding-bottom: var(--space-12);
+  /* Center the hero content in the stage rather than pinning it to the bottom.
+     The top padding clears the fixed navbar; the slightly larger top vs bottom
+     padding lands the optical centre just below the true middle so the nav
+     doesn't crowd it. */
+  justify-content: center;
+  padding-top: calc(var(--nav-h) + var(--space-8));
+  padding-bottom: var(--space-10);
   border-bottom: var(--border-faint);
   overflow: clip;
 }
