@@ -11,6 +11,7 @@ import { maxActiveScenes } from './motionBudget';
 
 const controllers = new Set();
 let raf = 0;
+let paused = false; // hard pause-all (e.g. while the synthesis overlay owns the screen)
 
 function schedule() {
   if (raf) return;
@@ -21,7 +22,9 @@ function schedule() {
 }
 
 function rebalance() {
-  const k = maxActiveScenes();
+  // When globally paused, no scene animates — the overlay is the only thing
+  // that should be painting.
+  const k = paused ? 0 : maxActiveScenes();
   const visible = Array.from(controllers)
     .filter((c) => c.ratio > 0.01)
     .sort((a, b) => b.ratio - a.ratio);
@@ -37,6 +40,14 @@ function rebalance() {
       c.run(false);
     }
   }
+}
+
+/** Pause/resume ALL background scenes at once (overlay/route-transition takeover). */
+export function setScenesPaused(value) {
+  const next = !!value;
+  if (paused === next) return;
+  paused = next;
+  schedule();
 }
 
 /**

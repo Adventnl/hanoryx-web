@@ -14,6 +14,7 @@ import { MarqueeRail } from '../ui/MarqueeRail';
 import { KineticText } from '@/animation/reveal/KineticText';
 import { RedactionReveal } from '@/animation/reveal/RedactionReveal';
 import { Reveal, RevealGroup } from '@/animation/reveal/Reveal';
+import { useExperience } from '../../app/providers/experience-context';
 import { musebaseLogo, hasMusebaseLogo } from '../../utils/assetResolver';
 import styles from './page.module.css';
 
@@ -33,6 +34,7 @@ function Shell({ block, accent, className, children }) {
 
 /* ---------------- Hero ---------------- */
 export function PageHeroBlock({ hero, accent }) {
+  const { openSynthesis } = useExperience();
   return (
     <SectionScene
       scene={hero.scene}
@@ -54,11 +56,17 @@ export function PageHeroBlock({ hero, accent }) {
         )}
         {hero.actions?.length > 0 && (
           <Reveal profile="depthRise" as="div" delay={0.22} className={clsx('cluster', styles.heroActions)}>
-            {hero.actions.map((a) => (
-              <Button key={a.label} to={a.to} href={a.href} variant={a.variant || 'primary'} icon={a.variant === 'outline' ? undefined : ArrowUpRight}>
-                {a.label}
-              </Button>
-            ))}
+            {hero.actions.map((a) =>
+              a.action === 'system-synthesis' ? (
+                <Button key={a.label} onClick={openSynthesis} variant={a.variant || 'primary'}>
+                  {a.label}
+                </Button>
+              ) : (
+                <Button key={a.label} to={a.to} href={a.href} variant={a.variant || 'primary'} icon={a.variant === 'outline' ? undefined : ArrowUpRight}>
+                  {a.label}
+                </Button>
+              )
+            )}
           </Reveal>
         )}
         {hero.metrics?.length > 0 && (

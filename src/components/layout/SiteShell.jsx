@@ -15,6 +15,7 @@ import { HanoryxCursor } from '@/features/cursor/HanoryxCursor';
 import { ScanlineOverlay } from '../effects/ScanlineOverlay';
 import { NoiseOverlay } from '../effects/NoiseOverlay';
 import { PerfDebug } from '../effects/PerfDebug';
+import { TransitionOverlay } from '@/features/transitions/TransitionOverlay';
 import styles from './SiteShell.module.css';
 
 function readBooted() {
@@ -70,6 +71,13 @@ export function SiteShell({ children }) {
     }
   }, [menuOpen, booted, lenis]);
 
+  // Any full-screen overlay (synthesis / route transition) closes open menus.
+  useEffect(() => {
+    const onOverlay = () => setMenuOpen(false);
+    window.addEventListener('hanoryx:overlay-start', onOverlay);
+    return () => window.removeEventListener('hanoryx:overlay-start', onOverlay);
+  }, []);
+
   const handleBootComplete = () => {
     try {
       sessionStorage.setItem(STORAGE_KEYS.bootComplete, '1');
@@ -108,6 +116,7 @@ export function SiteShell({ children }) {
 
       <AdvancedNavbar menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((v) => !v)} />
       <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <TransitionOverlay />
 
       <div className={styles.content} ref={contentRef}>
         <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>

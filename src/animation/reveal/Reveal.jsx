@@ -1,16 +1,32 @@
-import { Children, createElement, isValidElement } from 'react';
+import { Children, createElement, isValidElement, useSyncExternalStore } from 'react';
 import { motion } from 'motion/react';
 import clsx from 'clsx';
 import { revealProfiles, staggerContainer, withDelay } from './revealProfiles';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import { getPerformanceMode, subscribePerformanceMode } from '../../performance/performanceMode';
+
+/* A cheap opacity-only variant used while the user is flinging the page: a
+   reveal that enters view then appears immediately instead of stacking an
+   expensive blur/transform tween onto an already-busy frame. */
+const INSTANT = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.12 } },
+};
+
+/* Live fast-scroll flag via the external performance store (lint-clean,
+   no setState-in-effect, no ref reads during render). */
+function useFastScroll() {
+  return useSyncExternalStore(
+    subscribePerformanceMode,
+    () => getPerformanceMode() === 'fast-scroll',
+    () => false
+  );
+}
 
 /**
  * Reveal — animate a single element into view with a named profile.
- *
  *   <Reveal profile="slideLeft" as="p">…</Reveal>
- *
- * The profile is one of revealProfiles (slideLeft, scanX, glassMaterialize,
- * realityAssemble, …). Honours reduced motion (renders the element statically).
+ * Honours reduced motion (static) and the fast-scroll governor (snaps in).
  */
 export function Reveal({
   profile = 'fadeUp',
@@ -24,12 +40,14 @@ export function Reveal({
   ...rest
 }) {
   const reduced = usePrefersReducedMotion();
-  const variant = withDelay(revealProfiles[profile] || revealProfiles.fadeUp, delay);
-  const Tag = motion[as] || motion.div;
+  const fast = useFastScroll();
 
   if (reduced) {
     return createElement(as, { className, style, ...rest }, children);
   }
+
+  const variant = fast ? INSTANT : withDelay(revealProfiles[profile] || revealProfiles.fadeUp, delay);
+  const Tag = motion[as] || motion.div;
 
   return (
     <Tag
@@ -47,18 +65,9 @@ export function Reveal({
 }
 
 /**
- * RevealGroup — staggers its children, each entering with the SAME per-item
- * profile but offset in time. Children are wrapped in a motion element
- * (`itemAs`, default 'div') so callers can pass plain components (Card, panels,
- * list content) without making them motion-aware.
- *
- *   <RevealGroup profile="dataMaterialize" stagger={0.07} className="grid">
- *     {cards}
- *   </RevealGroup>
- *
- *   <RevealGroup as="ol" itemAs="li" profile="stepActivate" itemClassName={styles.step}>
- *     {steps.map(s => <>…</>)}
- *   </RevealGroup>
+ * RevealGroup — staggers its children, each entering with the same per-item
+ * profile. While fast-scrolling the whole group snaps in cheaply (no stagger,
+ * no blur) so a screenful of reveals can't pile up.
  */
 export function RevealGroup({
   profile = 'fadeUp',
@@ -74,9 +83,7 @@ export function RevealGroup({
   ...rest
 }) {
   const reduced = usePrefersReducedMotion();
-  const Container = motion[as] || motion.div;
-  const Item = motion[itemAs] || motion.div;
-  const variant = revealProfiles[profile] || revealProfiles.fadeUp;
+  const fast = useFastScroll();
   const items = Children.toArray(children).filter(isValidElement);
 
   if (reduced) {
@@ -87,10 +94,15 @@ export function RevealGroup({
     );
   }
 
+  const itemVariant = fast ? INSTANT : revealProfiles[profile] || revealProfiles.fadeUp;
+  const container = staggerContainer(fast ? 0 : stagger, fast ? 0 : delayChildren);
+  const Container = motion[as] || motion.div;
+  const Item = motion[itemAs] || motion.div;
+
   return (
     <Container
       className={className}
-      variants={staggerContainer(stagger, delayChildren)}
+      variants={container}
       initial="hidden"
       whileInView="show"
       viewport={{ once, amount }}
@@ -100,7 +112,7 @@ export function RevealGroup({
         <Item
           key={i}
           className={clsx(itemClassName)}
-          variants={variant}
+          variants={itemVariant}
           style={{ willChange: 'transform, opacity' }}
         >
           {child}

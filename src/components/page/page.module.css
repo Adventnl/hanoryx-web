@@ -5,18 +5,21 @@
 
 .block { padding-block: var(--section-pad); }
 
-/* ---------------- Hero ---------------- */
+/* ---------------- Hero ----------------
+   A true full-screen stage: fills the measured viewport so the next block
+   never peeks on load (no "1.5 blocks" on large screens). Uses the
+   viewportDirector's --viewport-h with an svh fallback. */
 .hero {
   position: relative;
-  min-height: 78vh;
-  min-height: 78svh;
+  min-height: 100svh;
+  min-height: var(--viewport-h, 100svh);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding-top: calc(var(--nav-h) + var(--space-10));
   padding-bottom: var(--space-12);
   border-bottom: var(--border-faint);
-  overflow: hidden;
+  overflow: clip;
 }
 .heroInner { position: relative; display: flex; flex-direction: column; gap: var(--space-5); }
 .heroEyebrow { color: var(--c-white-50); }

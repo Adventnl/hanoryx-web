@@ -18,7 +18,7 @@ function hash(n) {
   return s - Math.floor(s);
 }
 
-const QSCALE = { high: 1, medium: 0.7, low: 0.45 };
+const QSCALE = { high: 1.4, medium: 0.95, low: 0.5 };
 
 /**
  * SynthesisCanvas — the heavy, procedural half of the cinematic. A single
@@ -476,12 +476,61 @@ export const SynthesisCanvas = forwardRef(function SynthesisCanvas(
       }
     }
 
+    // CONSTANT MOTION — fast radial speed-lines so no second of the sequence
+    // is ever static. Runs the whole way through; intensifies around the core
+    // ignition and collapse.
+    function layerStreaks(t) {
+      const e = env(t, 0.4, 20, 0.6, 0.8);
+      if (e <= 0.01) return;
+      const cx = W / 2;
+      const cy = H / 2;
+      const R = Math.hypot(W, H) * 0.6;
+      const n = Math.round(46 * qScale);
+      const burst = 0.5 + segSmooth(t, 1.2, 2.6) * 1.2 + segSmooth(t, 15.0, 17.5) * 1.0;
+      const spin = t * 0.5;
+      for (let i = 0; i < n; i += 1) {
+        const a = hash(i) * TAU + spin * (0.4 + hash(i * 3.1) * 0.8);
+        // travelling head along the ray (fast)
+        const f = (t * (0.5 + hash(i * 1.7) * 1.4) + hash(i)) % 1;
+        const r0 = R * f * burst;
+        const r1 = r0 + 30 + hash(i * 5.3) * 70;
+        const x0 = cx + Math.cos(a) * r0;
+        const y0 = cy + Math.sin(a) * r0;
+        const x1 = cx + Math.cos(a) * r1;
+        const y1 = cy + Math.sin(a) * r1;
+        ctx.strokeStyle = i % 8 === 0 ? A(0.5 * e * f) : white(0.18 * e * f);
+        ctx.lineWidth = i % 8 === 0 ? 1.6 : 1;
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y1);
+        ctx.stroke();
+      }
+    }
+
     function render(t) {
       const time = Math.min(Math.max(t, 0), TOTAL);
       ctx.clearRect(0, 0, W, H);
       // global release fade so nothing cuts hard at the end
       const globalFade = 1 - seg(time, 19.4, 20) * 0.85;
+
+      // CAMERA — a slow cinematic push-in with sharp punches at the ignition
+      // and collapse beats, so the whole field feels like it's being flown
+      // through rather than sitting still.
+      const zoom =
+        1 +
+        0.06 * segSmooth(time, 0.4, 18) +
+        0.05 * env(time, 1.2, 2.8, 0.3, 0.8) +
+        0.06 * env(time, 12.5, 15.0, 0.4, 0.6) +
+        0.02 * Math.sin(time * 0.9);
+      const cx = W / 2;
+      const cy = H / 2;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(zoom, zoom);
+      ctx.translate(-cx, -cy);
+
       ctx.globalAlpha = 1;
+      layerStreaks(time);
       layerGrid(time);
       layerIgnition(time);
       layerFragments(time);
@@ -493,6 +542,8 @@ export const SynthesisCanvas = forwardRef(function SynthesisCanvas(
       layerLock(time);
       layerRelease(time);
       layerCore(time);
+      ctx.restore();
+
       // dim pass for release
       if (globalFade < 1) {
         ctx.fillStyle = `rgba(2,2,3,${(1 - globalFade) * 0.6})`;

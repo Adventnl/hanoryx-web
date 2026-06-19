@@ -7,6 +7,7 @@ import { resolveQuality, maxDpr, getMotionState, sceneFrameInterval } from '../.
 import { registerScene as registerBudget, reportVisibility } from '../../animation/sceneBudget';
 import { getPointer } from '../../animation/pointer';
 import { getAudio } from '../../animation/audioBridge';
+import { getPerformanceMode, subscribePerformanceMode } from '../../performance/performanceMode';
 import styles from './SceneCanvas.module.css';
 
 /**
@@ -40,6 +41,10 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
     let ro = null;
     let resizeRaf = 0;
     let lastDraw = 0;
+    let unsubMode = null;
+    // During a fast flick the scene freezes its last frame instead of trying to
+    // animate (and we skip eager static painting of scenes flown past).
+    let fastScroll = getPerformanceMode() === 'fast-scroll';
     // Per-scene clock: advances only on frames this canvas actually draws, so
     // pausing off-screen (scene budget) and resuming is seamless. See `frame`.
     let sceneTime = 0;
@@ -105,7 +110,7 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       run(on) {
         if (on) {
           ensureBuilt();
-          startLoop();
+          if (!fastScroll) startLoop();
         } else {
           stopLoop();
           ensureBuilt();
@@ -122,8 +127,9 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
         (entries) => {
           const e = entries[entries.length - 1];
           const ratio = e.isIntersecting ? e.intersectionRatio : 0;
-          if (ratio > 0 && !hasFrame) {
-            // first time on screen -> build + paint ONE static frame (cheap, once)
+          if (ratio > 0 && !hasFrame && !fastScroll) {
+            // first time on screen -> build + paint ONE static frame (cheap, once).
+            // Skipped while flinging: don't pay to paint scenes flown past.
             ensureBuilt();
             if (!controller.running) drawStill();
           }
@@ -132,6 +138,20 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
         { threshold: [0, 0.4, 0.9], rootMargin: '40px 0px' }
       );
       io.observe(canvas);
+
+      // React to the fast-scroll governor: freeze on a flick, resume on settle.
+      unsubMode = subscribePerformanceMode((m) => {
+        fastScroll = m === 'fast-scroll';
+        if (fastScroll) {
+          stopLoop();
+        } else {
+          if (!hasFrame && controller.ratio > 0) {
+            ensureBuilt();
+            if (!controller.running) drawStill();
+          }
+          if (controller.running) startLoop();
+        }
+      });
 
       ro = new ResizeObserver(() => {
         cancelAnimationFrame(resizeRaf);
@@ -154,6 +174,7 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
     return () => {
       disposed = true;
       stopLoop();
+      if (unsubMode) unsubMode();
       if (unregister) unregister();
       if (io) io.disconnect();
       if (ro) ro.disconnect();

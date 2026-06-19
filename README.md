@@ -2,14 +2,14 @@
 
 The corporate website for **Hanoryx Systems** — an advanced software company that builds online systems, management platforms, commerce infrastructure, automation tools, and digital operating environments. The software division is **Hanoryx North**.
 
-The site is a cinematic, **multi-page (31 routes), animation-heavy** experience built to feel like a real-time digital operating environment — a set of distinct technical chambers, not one long page. Deep black surfaces, white typography, a single restrained red accent. Every section declares **its own animated scene**; there is no single global background. Components are animated too — entrances, hovers, idle micro-motion — so almost nothing is ever fully static, while a performance-first engine keeps it frame-consistent and light on weaker devices.
+The site is a cinematic, **multi-page (30 routes), animation-heavy** experience built to feel like a real-time digital operating environment — a set of distinct technical chambers, not one long page. Deep black surfaces, white typography, a single restrained red accent. Every section declares **its own animated scene**; there is no single global background. Components are animated too — entrances, hovers, idle micro-motion — so almost nothing is ever fully static, while a performance-first engine keeps it frame-consistent and light on weaker devices.
 
 ---
 
 ## Stack
 
 - **React 19** + **Vite 8 (rolldown)** — framework & build (route-level code splitting)
-- **react-router-dom 7** — routing (31 real routes, all lazy-loaded)
+- **react-router-dom 7** — routing (30 real routes, all lazy-loaded)
 - **GSAP 3** + **@gsap/react** + **ScrollTrigger** — scroll-linked & timeline motion
 - **Lenis** — smooth scrolling
 - **motion** (Framer Motion) — page/menu transitions + component reveals
@@ -50,7 +50,7 @@ src/
     cursor/        #   HanoryxCursor
     contact/       #   ContactSection (channel + form)
     timeline/      #   TimelineSection (roadmap)
-    experience/    #   SystemSynthesis — 20s pure-code cinematic
+    experience/    #   System Synthesis — full-screen cinematic OVERLAY (no route)
   components/       # shared, presentational
     ui/            #   Button · Card · DataPanel · StatBlock · SectionHeader · Pill · …
     layout/        #   SiteShell · Footer · PageTransition · RouteFallback · ErrorBoundary
@@ -89,7 +89,7 @@ src/animation/                # the animation ENGINE (kernel + scenes + reveal +
     textMotions.jsx     # <RevealText variant=…>  ScrollReveal.jsx · KineticText.jsx · RedactionReveal.jsx
     cardMotions.js · buttonMotions.js · formMotions.js · listMotions.js · diagramMotions.js · navMotions.js
   catalog/
-    inventory.js        # canonical catalogue of every animation system (172 entries)
+    inventory.js        # canonical catalogue of every animation system (189 entries)
 ```
 
 - **Single RAF scheduler.** Every scene/visualizer subscribes to one loop — no uncontrolled `requestAnimationFrame` stacking. The loop stops when nothing is subscribed and resets on tab hide/restore.
@@ -111,7 +111,7 @@ Add a scene by dropping a self-registering module into `scenes/` or `scenes/pres
 
 ### Animation inventory
 
-`src/animation/catalog/inventory.js` catalogues **172 distinct animation systems** (67 canvas backgrounds + 94 component/text/nav/form/cursor/transition/overlay/audio + 11 cinematic phases). It is a guard against regressions — extend it, never collapse the variety back into a single fade-up. It is never rendered in production.
+`src/animation/catalog/inventory.js` catalogues **189 distinct animation systems** (67 canvas backgrounds + component/text/nav/form/cursor/transition/overlay/audio + 13 cinematic phases + 6 performance systems + 8 route/category transitions). It is a guard against regressions — extend it, never collapse the variety back into a single fade-up. It is never rendered in production.
 
 ### Per-block component motion (no shared fade-up)
 
@@ -124,14 +124,26 @@ Every page block declares its **own** profile per slot, so no two block types sh
 
 ---
 
-## System Synthesis — 20-second pure-code cinematic
+## System Synthesis — full-screen cinematic overlay
 
-`/experience/system-synthesis` (and a **Play System Sequence** button on the Home hero) opens a **twenty-second, pure-code cinematic** that assembles the Hanoryx Systems identity in real time — no video, no MP4, no pre-render.
+There is **no `/experience/system-synthesis` route.** The **Play System Sequence** button on the Home hero opens a **full-screen takeover overlay** (`features/experience/SystemSynthesisOverlay.jsx`) — a twenty-second, pure-code cinematic that assembles the Hanoryx Systems identity in real time. No video, no MP4, no pre-render.
 
-- **One master clock.** A single paused **GSAP timeline** (`SystemSynthesisExperience.jsx`) is the only clock: it choreographs the lightweight DOM overlay (telemetry stream, route/module chips, convergence headline, wordmark lock-in) and, in its `onUpdate`, drives the procedural canvas via `render(t)`. Canvas + DOM stay frame-perfect and teardown is a single `tl.kill()`.
-- **One canvas, eleven phases.** `SynthesisCanvas.jsx` paints every particle/ring/grid/module/timeline/signal layer procedurally (phases defined in `synthesisTimeline.js`): Black Start → Core Ignition → Grid Construction → Fragment Assembly → North Activation → Systems Expansion → Project Timeline Pull → Interface Convergence → Signal Wall → System Lock → Release. Layers cross-fade with trapezoid envelopes so nothing cuts hard.
-- **Controls.** Never autoplays. Play / Pause / Restart / Skip + a clickable scrubber with per-phase ticks and a live phase/time HUD. The Signal Wall phase reacts to live audio (via the audio bridge) and idles procedurally when silent.
-- **Safeguards.** Respects `prefers-reduced-motion` (renders a static identity poster, no loop); mobile/coarse-pointer gets a reduced quality tier (fewer particles, DPR cap); it's a normal scrolling route so it never traps scroll; all observers/timelines are cleaned up on unmount.
+- **Takeover, not a player.** `ExperienceProvider` (`app/providers/`) opens it: it pauses every page scene (`setScenesPaused`), stops Lenis, locks scroll, and hides the nav + cursor (via the `synthesis-active` document class). The overlay is `position: fixed; inset: 0; z: var(--z-synthesis)`, autoplays on open, and exposes only a minimal `SKIP` + a subtle system HUD (phase code + thin progress line) — no scrubber, no controls, no card, no page chrome. Escape also skips. The overlay component is **lazy-loaded** on first Play.
+- **One master clock.** A single GSAP timeline choreographs the lightweight DOM overlay (telemetry, route/module chips, wordmark lock-in) and, in `onUpdate`, drives the procedural `SynthesisCanvas`. Eleven phases (Black Start → Core Ignition → Grid Construction → Fragment Assembly → North Activation → Systems Expansion → Timeline Pull → Interface Convergence → Signal Wall → System Lock → Release), cross-faded so nothing cuts hard. A camera push-in + constant radial speed-lines keep every second in motion.
+- **Release.** On completion (or skip) the overlay dissolves and `closeSynthesis` restores scenes, Lenis, scroll, nav, and refreshes ScrollTrigger — releasing back into the live home page.
+- **Safeguards.** `prefers-reduced-motion` gets a short (~1.6s) simplified lock-in; mobile/coarse-pointer drops to a reduced quality tier (fewer particles, DPR cap); full cleanup on unmount.
+
+---
+
+## Performance architecture (smooth on fast scroll)
+
+The site is built so heavy motion only runs when it owns the screen; everything else degrades automatically.
+
+- **Fast-scroll governor** (`performance/performanceMode.js`) — one scroll listener tracks velocity and broadcasts a mode (`normal` / `fast-scroll` / `reduced`). While flinging the page: background scenes **freeze their last frame**, scenes you fly past are **not eagerly painted**, and component reveals **snap in cheaply** (a 0.12s opacity, no blur/stagger backlog). Settles back ~180ms after the flick.
+- **Scene budget + pause** (`animation/sceneBudget.js`) — only the few most-visible canvases animate; the rest hold a static frame. `setScenesPaused(true)` stops **all** page scenes during the synthesis overlay and route transitions.
+- **Viewport director** (`performance/viewportDirector.js`) — writes a measured `--viewport-h` (from `visualViewport`) that full-screen stages read, debounced, with a `hanoryx:layout-settled` event + ScrollTrigger refresh. Fixes the "1.5 blocks on load" and resize-glitch bugs; the hero is now a true full-screen stage.
+- **Route/category transitions** (`features/transitions/`) — a short (~0.6s) bold full-screen sweep on navigation, one motif per category (systems grid-slam, north code-rails, work diagonal-redaction, company prism-fold, timeline line-draw, contact signal-ring, home core-pulse). Pure CSS keyframes (GPU transform/clip), `pointer-events: none` so they never block, self-unmounting, skipped under reduced motion.
+- **Audio** stays `preload="none"` and only builds its Web Audio graph on the first user gesture — the 6.9 MB asset never blocks load.
 
 ---
 
@@ -153,7 +165,7 @@ Every page block declares its **own** profile per slot, so no two block types sh
 - **Bespoke pages:** Home, Contact, Timeline, 404 — each lazy-loaded.
 - **Data-driven pages:** every other route renders through **`TemplatePage` → `PageTemplate`** from a data object in `src/data/pages/<route>.js` (one file per route, auto-combined). Each page = a scene-backed hero + ordered **blocks** (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`, `feature`, `redacted`, `cta`), each block with its **own distinct scene preset**. Scenes are assigned thematically per page (operational pages get workflow/permission/scheduling scenes; commerce gets pipeline/transaction; research gets redaction/silhouette; etc.) so no two pages feel cloned.
 
-**Routes (31):** `/` · `/systems` (+7 sub) · `/north` (+5 sub) · `/work` (+5 sub incl. Musebase) · `/company` (+3 sub) · `/timeline` · `/experience/system-synthesis` · `/contact` · `/legal/privacy` · `/legal/terms` · `*`.
+**Routes (30):** `/` · `/systems` (+7 sub) · `/north` (+5 sub) · `/work` (+5 sub incl. Musebase) · `/company` (+3 sub) · `/timeline` · `/contact` · `/legal/privacy` · `/legal/terms` · `*`.
 
 ---
 

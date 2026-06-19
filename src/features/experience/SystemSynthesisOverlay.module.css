@@ -1,0 +1,118 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-synthesis, 12000);
+  width: 100vw;
+  height: var(--viewport-h, 100svh);
+  overflow: hidden;
+  background: #020203;
+  isolation: isolate;
+  animation: overlayIn 0.32s ease both;
+}
+
+@keyframes overlayIn {
+  from { clip-path: inset(50% 0 50% 0); opacity: 0.4; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---- DOM choreography layer ---- */
+.dom {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+.telemetry {
+  position: absolute;
+  left: clamp(16px, 4vw, 56px);
+  bottom: clamp(72px, 14vh, 140px);
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 4px;
+  font-size: 11px; letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.routeChips, .moduleChips {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  max-width: min(82%, 780px);
+}
+.routeChips { top: 23%; }
+.moduleChips { top: 70%; }
+.routeChips li, .moduleChips li {
+  font-size: 10px; letter-spacing: 0.14em; color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 51, 51, 0.4); background: rgba(255, 51, 51, 0.05);
+  padding: 4px 9px; border-radius: 3px; white-space: nowrap;
+}
+
+.converge {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font-size: clamp(20px, 4.6vw, 46px); letter-spacing: 0.2em; color: #fff;
+  font-weight: 600; text-align: center;
+}
+
+.lockGroup {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;
+}
+.wordmark {
+  display: inline-flex; align-items: center; gap: 0.18em;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(30px, 8vw, 84px); font-weight: 600; letter-spacing: 0.04em;
+  color: #fff; line-height: 1; white-space: nowrap;
+}
+.locknode {
+  display: inline-block; width: 0.32em; height: 0.32em; border-radius: 50%;
+  background: var(--red, #ff3333); box-shadow: 0 0 22px rgba(255, 51, 51, 0.95);
+}
+.tagline {
+  font-family: var(--font-mono, monospace); font-size: 11px;
+  letter-spacing: 0.34em; color: rgba(255, 255, 255, 0.6);
+}
+
+/* ---- minimal HUD (system, not player) ---- */
+.hud {
+  position: absolute; top: 20px; left: clamp(16px, 4vw, 32px);
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: 0.12em;
+}
+.hudCode { color: var(--red, #ff3333); }
+.hudPhase { color: rgba(255, 255, 255, 0.8); text-transform: uppercase; }
+
+.progress {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.progressFill {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
+  background: linear-gradient(90deg, rgba(255, 51, 51, 0.5), var(--red, #ff3333));
+}
+
+.skip {
+  position: absolute; top: 18px; right: clamp(16px, 4vw, 32px);
+  font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: 0.24em;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 7px 16px; border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px; background: rgba(5, 5, 8, 0.4); cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.skip:hover { color: #fff; border-color: rgba(255, 51, 51, 0.7); }
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay { animation: none; }
+}

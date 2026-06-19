@@ -1,0 +1,168 @@
+/* Short, bold full-screen route transitions. Pointer-events:none — purely
+   visual, never blocks. Each category overrides --accent + the sweep motif. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-route-transition, 600);
+  pointer-events: none;
+  overflow: hidden;
+  --accent: #ff3333;
+}
+
+/* base sweep: an opaque panel that covers then uncovers (reveals the new page) */
+.sweep {
+  position: absolute;
+  inset: 0;
+  background: #020203;
+  transform-origin: top;
+  animation: sweepCover 0.62s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+/* a fast accent beam that streaks across as the cover passes */
+.beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 16vw;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  filter: blur(6px);
+  opacity: 0;
+  animation: beamStreak 0.62s ease-out both;
+}
+.label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+  opacity: 0;
+  animation: labelFlash 0.62s ease both;
+}
+
+@keyframes sweepCover {
+  0% { clip-path: inset(0 0 100% 0); }
+  42% { clip-path: inset(0 0 0 0); }
+  58% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(100% 0 0 0); }
+}
+@keyframes beamStreak {
+  0% { transform: translateX(-20vw); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: translateX(120vw); opacity: 0; }
+}
+@keyframes labelFlash {
+  0%, 100% { opacity: 0; }
+  45%, 55% { opacity: 0.9; }
+}
+
+/* ---- per-category motifs (distinct sweep geometry + accent) ---- */
+
+/* SYSTEMS — hex/ grid slam from the right, red circuit accent */
+.systems .sweep { animation-name: slamRight; }
+.systems .beam { background: repeating-linear-gradient(90deg, transparent 0 22px, rgba(255,51,51,0.5) 22px 24px); filter: none; width: 100vw; }
+
+/* NORTH — vertical code rails sweep down, blueprint feel */
+.north { --accent: #ff4d4d; }
+.north .sweep { animation-name: railsDown; }
+.north .beam { left: 0; right: 0; width: 100vw; top: -40vh; bottom: auto; height: 40vh; background: repeating-linear-gradient(0deg, transparent 0 30px, rgba(255,255,255,0.06) 30px 32px); animation-name: railsBeam; }
+
+/* WORK — diagonal redacted bars wipe */
+.work .sweep { animation-name: diagWipe; }
+.work .beam { background: repeating-linear-gradient(120deg, #050505 0 40px, #0c0c0c 40px 80px); filter: none; width: 130vw; transform: skewX(-12deg); animation-name: diagBeam; }
+
+/* COMPANY — prism panels fold open from center */
+.company .sweep { animation-name: prismFold; }
+
+/* TIMELINE — a red line draws across, then the cover clears */
+.timeline .sweep { animation-name: lineClear; }
+.timeline .beam { top: 50%; height: 2px; bottom: auto; width: 0; background: var(--accent); filter: none; animation-name: lineDraw; }
+
+/* CONTACT — signal ring expands from center */
+.contact .sweep { animation-name: ringClear; }
+.contact .beam {
+  left: 50%; top: 50%; width: 10px; height: 10px; bottom: auto;
+  border: 2px solid var(--accent); border-radius: 50%; background: none; filter: none;
+  transform: translate(-50%, -50%); animation-name: ringExpand;
+}
+
+/* HOME — core pulse + radial clear */
+.home .sweep { animation-name: radialClear; }
+.home .beam {
+  left: 50%; top: 50%; width: 12px; height: 12px; bottom: auto;
+  border-radius: 50%; background: var(--accent); filter: blur(2px);
+  transform: translate(-50%, -50%); box-shadow: 0 0 40px var(--accent);
+  animation-name: corePulse;
+}
+
+@keyframes slamRight {
+  0% { clip-path: inset(0 0 0 100%); }
+  44% { clip-path: inset(0 0 0 0); }
+  58% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
+}
+@keyframes railsDown {
+  0% { clip-path: inset(0 0 100% 0); }
+  44% { clip-path: inset(0 0 0 0); }
+  58% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+@keyframes railsBeam {
+  0% { transform: translateY(0); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(140vh); opacity: 0; }
+}
+@keyframes diagWipe {
+  0% { clip-path: polygon(0 0, 0 0, -40% 100%, 0 100%); }
+  44% { clip-path: polygon(0 0, 140% 0, 100% 100%, 0 100%); }
+  58% { clip-path: polygon(0 0, 140% 0, 100% 100%, 0 100%); }
+  100% { clip-path: polygon(140% 0, 140% 0, 140% 100%, 100% 100%); }
+}
+@keyframes diagBeam {
+  0% { transform: translateX(-130vw) skewX(-12deg); }
+  100% { transform: translateX(130vw) skewX(-12deg); }
+}
+@keyframes prismFold {
+  0% { clip-path: inset(0 50% 0 50%); }
+  44% { clip-path: inset(0 0 0 0); }
+  58% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 50% 0 50%); opacity: 0; }
+}
+@keyframes lineClear {
+  0% { clip-path: inset(50% 0 50% 0); }
+  44% { clip-path: inset(0 0 0 0); }
+  60% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@keyframes lineDraw {
+  0% { width: 0; opacity: 1; }
+  45% { width: 100vw; opacity: 1; }
+  100% { width: 100vw; opacity: 0; }
+}
+@keyframes ringClear {
+  0% { clip-path: circle(0% at 50% 50%); }
+  46% { clip-path: circle(75% at 50% 50%); }
+  60% { clip-path: circle(75% at 50% 50%); }
+  100% { clip-path: circle(0% at 50% 50%); opacity: 0; }
+}
+@keyframes ringExpand {
+  0% { width: 10px; height: 10px; opacity: 1; }
+  100% { width: 150vmax; height: 150vmax; opacity: 0; }
+}
+@keyframes radialClear {
+  0% { clip-path: circle(0% at 50% 50%); }
+  46% { clip-path: circle(75% at 50% 50%); }
+  58% { clip-path: circle(75% at 50% 50%); }
+  100% { clip-path: circle(0% at 50% 50%); }
+}
+@keyframes corePulse {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(3); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay { display: none; }
+}

@@ -196,3 +196,11 @@ html.hnx-cursor-active textarea {
     scroll-behavior: auto !important;
   }
 }
+
+/* --- Full-screen takeover (System Synthesis overlay) --- */
+html.synthesis-active [data-chrome] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.25s ease;
+}
+html.synthesis-active { cursor: none; }

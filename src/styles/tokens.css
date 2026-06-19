@@ -115,8 +115,14 @@
   --z-nav: 100;
   --z-menu: 200;
   --z-transition: 500;
+  --z-route-transition: 600;
   --z-boot: 9999;
+  --z-synthesis: 12000; /* full-screen takeover — above nav, menus, boot */
   --z-cursor: 100000; /* always on top — above nav, menus, and the boot overlay */
+
+  /* --- VIEWPORT (written by viewportDirector; fallbacks for first paint) --- */
+  --viewport-h: 100svh;
+  --vh: 1svh;
 
   /* --- SHADOWS / GLOW --- */
   --shadow-panel: 0 24px 60px -30px rgba(0, 0, 0, 0.9);

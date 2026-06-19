@@ -194,18 +194,39 @@ const OTHER = [
   ['overlay-scanline', 'overlay', 'Global scanline overlay', ['site']],
   ['overlay-noise', 'overlay', 'Global film-grain noise', ['site']],
   ['audio-nav-visualizer', 'audio', 'Nav mini audio visualizer', ['header']],
-  // 20-second System Synthesis cinematic — one phase per entry
-  ['synth-black-start', 'cinematic', 'Synthesis P1 — black start core + telemetry', ['system-synthesis']],
-  ['synth-core-ignition', 'cinematic', 'Synthesis P2 — concentric ring ignition + orbit nodes', ['system-synthesis']],
-  ['synth-grid-construction', 'cinematic', 'Synthesis P3 — architectural grid construction', ['system-synthesis']],
-  ['synth-fragment-assembly', 'cinematic', 'Synthesis P4 — fragments pulled inward', ['system-synthesis']],
-  ['synth-north-activation', 'cinematic', 'Synthesis P5 — Hanoryx North + route orbit', ['system-synthesis']],
-  ['synth-systems-expansion', 'cinematic', 'Synthesis P6 — system modules with micro-motifs', ['system-synthesis']],
-  ['synth-timeline-pull', 'cinematic', 'Synthesis P7 — project timeline + redacted silhouettes', ['system-synthesis']],
-  ['synth-interface-convergence', 'cinematic', 'Synthesis P8 — panels converge + radial menu flash', ['system-synthesis']],
-  ['synth-signal-wall', 'cinematic', 'Synthesis P9 — full-screen audio/signal wall', ['system-synthesis']],
-  ['synth-system-lock', 'cinematic', 'Synthesis P10 — compression + wordmark lock-in', ['system-synthesis']],
-  ['synth-release', 'cinematic', 'Synthesis P11 — release dissolve into the site', ['system-synthesis']],
+  // 20-second System Synthesis cinematic — full-screen takeover OVERLAY (not a page)
+  ['synth-camera-push', 'cinematic', 'Synthesis camera push-in + ignition/collapse punches', ['synthesis-overlay']],
+  ['synth-streaks', 'cinematic', 'Synthesis constant radial speed-lines', ['synthesis-overlay']],
+  ['synth-black-start', 'cinematic', 'Synthesis P1 — black start core + telemetry', ['synthesis-overlay']],
+  ['synth-core-ignition', 'cinematic', 'Synthesis P2 — concentric ring ignition + orbit nodes', ['synthesis-overlay']],
+  ['synth-grid-construction', 'cinematic', 'Synthesis P3 — architectural grid construction', ['synthesis-overlay']],
+  ['synth-fragment-assembly', 'cinematic', 'Synthesis P4 — fragments pulled inward', ['synthesis-overlay']],
+  ['synth-north-activation', 'cinematic', 'Synthesis P5 — Hanoryx North + route orbit', ['synthesis-overlay']],
+  ['synth-systems-expansion', 'cinematic', 'Synthesis P6 — system modules with micro-motifs', ['synthesis-overlay']],
+  ['synth-timeline-pull', 'cinematic', 'Synthesis P7 — project timeline + redacted silhouettes', ['synthesis-overlay']],
+  ['synth-interface-convergence', 'cinematic', 'Synthesis P8 — panels converge + radial menu flash', ['synthesis-overlay']],
+  ['synth-signal-wall', 'cinematic', 'Synthesis P9 — full-screen audio/signal wall', ['synthesis-overlay']],
+  ['synth-system-lock', 'cinematic', 'Synthesis P10 — compression + wordmark lock-in', ['synthesis-overlay']],
+  ['synth-release', 'cinematic', 'Synthesis P11 — release dissolve into the live home', ['synthesis-overlay']],
+  ['synth-overlay-seizure', 'cinematic', 'Full-screen overlay clip-in viewport seizure', ['synthesis-overlay']],
+
+  // performance systems
+  ['perf-fast-scroll-governor', 'performance', 'Fast-scroll governor (scene/reveal/cursor mode)', ['site-wide']],
+  ['perf-scene-fast-freeze', 'performance', 'Scenes freeze last frame during fast scroll', ['backgrounds']],
+  ['perf-scene-eager-skip', 'performance', 'Skip painting scenes flown past', ['backgrounds']],
+  ['perf-reveal-snap', 'performance', 'Reveals snap in cheaply during fast scroll', ['components']],
+  ['perf-scenes-global-pause', 'performance', 'Pause all page scenes during overlays', ['backgrounds']],
+  ['perf-viewport-director', 'performance', 'Measured --viewport-h + layout-settled refresh', ['stages']],
+
+  // route / category transitions
+  ['xtn-home', 'transition', 'Home route transition — core pulse + radial clear', ['/']],
+  ['xtn-systems', 'transition', 'Systems transition — grid slam + circuit beam', ['/systems']],
+  ['xtn-north', 'transition', 'North transition — code rails sweep down', ['/north']],
+  ['xtn-work', 'transition', 'Work transition — diagonal redacted bars', ['/work']],
+  ['xtn-company', 'transition', 'Company transition — prism panels fold', ['/company']],
+  ['xtn-timeline', 'transition', 'Timeline transition — red line draw', ['/timeline']],
+  ['xtn-contact', 'transition', 'Contact transition — signal ring expand', ['/contact']],
+  ['xtn-legal', 'transition', 'Legal/doc transition — document open', ['/legal/*']],
 ];
 
 export const animationInventory = [

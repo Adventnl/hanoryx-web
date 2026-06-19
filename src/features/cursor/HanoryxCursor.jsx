@@ -94,7 +94,7 @@ export function HanoryxCursor() {
 
   return (
     <>
-      <div ref={ring} className={styles.ring} aria-hidden="true">
+      <div ref={ring} data-chrome className={styles.ring} aria-hidden="true">
         <span className={styles.reticle} />
         <span className={clsxCorner('tl')} />
         <span className={clsxCorner('tr')} />
@@ -103,7 +103,7 @@ export function HanoryxCursor() {
         <span className={styles.scan} />
         <span className={styles.orbit} />
       </div>
-      <div ref={dot} className={styles.dot} aria-hidden="true" />
+      <div ref={dot} data-chrome className={styles.dot} aria-hidden="true" />
     </>
   );
 }

@@ -92,6 +92,7 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu }) {
   return (
     <header
       ref={headerRef}
+      data-chrome
       className={clsx(styles.nav, scrolled && styles.scrolled, openMulti && styles.menuActive)}
       onMouseMove={trackVelocity}
       onMouseLeave={() => scheduleClose()}
