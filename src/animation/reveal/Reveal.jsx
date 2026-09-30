@@ -1,20 +1,7 @@
 import { Children, createElement, isValidElement, useMemo } from 'react';
 import { motion } from 'motion/react';
-import clsx from 'clsx';
 import { revealProfiles, staggerContainer, withDelay } from './revealProfiles';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
-
-/* Declare `will-change` for ONLY the properties a profile actually animates.
-   Declaring `transform` for a clip-path-only reveal promotes a transform layer
-   that desyncs from the animating clip on Firefox — the reveal "jumps". Matching
-   will-change to the real animated props keeps the compositor honest. */
-const WILL_CHANGE_PROP = { opacity: 'opacity', clipPath: 'clip-path', filter: 'filter' };
-function willChangeFor(variant) {
-  const hidden = (variant && variant.hidden) || {};
-  const props = new Set();
-  for (const key of Object.keys(hidden)) props.add(WILL_CHANGE_PROP[key] || 'transform');
-  return props.size ? [...props].join(', ') : 'auto';
-}
 
 /**
  * Reveal — animate a single element into view with a named profile.
@@ -29,6 +16,9 @@ function willChangeFor(variant) {
  * viewport config are memoised here so their identity is stable; with
  * `once: true` Motion keeps the original observer, fires the entrance exactly
  * once, then disconnects.
+ *
+ * `will-change` / `filter` / `clip-path` housekeeping lives in the profiles
+ * themselves (see `withHousekeeping` in revealProfiles.js).
  */
 export function Reveal({
   profile = 'fadeUp',
@@ -48,7 +38,6 @@ export function Reveal({
     [profile, delay]
   );
   const viewport = useMemo(() => ({ once, amount }), [once, amount]);
-  const mStyle = useMemo(() => ({ willChange: willChangeFor(variants), ...style }), [variants, style]);
 
   if (reduced) {
     return createElement(as, { className, style, ...rest }, children);
@@ -59,7 +48,7 @@ export function Reveal({
   return (
     <Tag
       className={className}
-      style={mStyle}
+      style={style}
       variants={variants}
       initial="hidden"
       whileInView="show"
@@ -101,7 +90,6 @@ export function RevealGroup({
     [stagger, delayChildren]
   );
   const viewport = useMemo(() => ({ once, amount }), [once, amount]);
-  const itemStyle = useMemo(() => ({ willChange: willChangeFor(itemVariant) }), [itemVariant]);
 
   if (reduced) {
     return createElement(
@@ -124,12 +112,7 @@ export function RevealGroup({
       {...rest}
     >
       {items.map((child, i) => (
-        <Item
-          key={i}
-          className={clsx(itemClassName)}
-          variants={itemVariant}
-          style={itemStyle}
-        >
+        <Item key={i} className={itemClassName} variants={itemVariant}>
           {child}
         </Item>
       ))}

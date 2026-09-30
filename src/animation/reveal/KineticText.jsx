@@ -44,6 +44,10 @@ export function KineticText({
       const inners = ref.current.querySelectorAll('[data-knt]');
       if (!inners.length) return;
 
+      // Hold the compositor hint only while the words are actually moving; a
+      // permanent `will-change` made every word of every headline its own layer.
+      const setHint = (on) => inners.forEach((el) => { el.style.willChange = on ? 'transform, opacity' : ''; });
+
       const tween = {
         yPercent: 0,
         opacity: 1,
@@ -51,6 +55,8 @@ export function KineticText({
         delay,
         ease: 'power3.out',
         stagger: autoStagger,
+        onStart: () => setHint(true),
+        onComplete: () => setHint(false),
       };
       if (!immediate) {
         tween.scrollTrigger = { trigger: ref.current, start };

@@ -8,13 +8,17 @@
    the renderer animates with it.
 
    These are one-shot, in-view entrances (not loops) so transforms / clip / a
-   little filter are cheap. Catalogued in catalog/inventory.js.
+   little filter are cheap — PROVIDED they leave nothing behind. See
+   `withHousekeeping` at the bottom: every profile is wrapped so that once its
+   entrance finishes, `filter` / `clip-path` / `will-change` are reset instead of
+   staying on the element for the life of the page. Catalogued in
+   catalog/inventory.js.
    ============================================================ */
 import { EASE, EASE_SMOOTH, SPRING } from './motionProfiles';
 
 const T = (over = {}) => ({ duration: 0.78, ease: EASE, ...over });
 
-export const revealProfiles = {
+const PROFILES = {
   /* ---------- baseline (kept as an explicit fallback only) ---------- */
   fadeUp: {
     hidden: { opacity: 0, y: 28, filter: 'blur(8px)' },
@@ -166,13 +170,41 @@ export const revealProfiles = {
   },
 };
 
+/* ---------- housekeeping ----------
+   Motion leaves the LAST animated value inline on the element. Without this
+   every revealed card/paragraph would keep `filter: blur(0px)`,
+   `clip-path: inset(0%)` and a `will-change` hint forever — each one a separate
+   compositor layer / filter surface (145 layers on the Home page before this).
+   The hint is held only while the element is hidden or animating, and
+   `transitionEnd` swaps the rest for their "off" values the moment the
+   entrance completes. `none` is visually identical to the settled state. */
+const WILL_CHANGE_PROP = { opacity: 'opacity', clipPath: 'clip-path', filter: 'filter' };
+
+/* will-change for ONLY the properties a profile actually animates. Declaring
+   `transform` for a clip-path-only reveal promotes a transform layer that
+   desyncs from the animating clip on Firefox — the reveal "jumps". */
+const willChangeFor = (hidden) =>
+  [...new Set(Object.keys(hidden).map((key) => WILL_CHANGE_PROP[key] || 'transform'))].join(', ');
+
+function withHousekeeping({ hidden, show }) {
+  const done = { willChange: 'auto' };
+  if ('filter' in hidden) done.filter = 'none';
+  if ('clipPath' in hidden) done.clipPath = 'none';
+  return {
+    hidden: { ...hidden, willChange: willChangeFor(hidden) },
+    show: { ...show, transitionEnd: done },
+  };
+}
+
+export const revealProfiles = Object.fromEntries(
+  Object.entries(PROFILES).map(([name, profile]) => [name, withHousekeeping(profile)])
+);
+
 /* Stagger container — generic; per-block tuning via props. */
 export const staggerContainer = (stagger = 0.08, delayChildren = 0.05) => ({
   hidden: {},
   show: { transition: { staggerChildren: stagger, delayChildren } },
 });
-
-export const REVEAL_PROFILE_NAMES = Object.keys(revealProfiles);
 
 /* Apply a per-instance delay without losing the profile's own easing. */
 export function withDelay(variant, delay = 0) {

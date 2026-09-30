@@ -40,48 +40,48 @@ registerScene('split-prism', ({ ctx, width, height, quality, accent, density }) 
 
       // each pane gets a stable texture type: 0 = fine lines, 1 = dots, 2 = blank
       const texOf = (i) => Math.floor(hash(i * 3.7 + 1) * 3) % 3;
+      const ang = diag / H;            // slope of the seams (dx per dy)
 
-      // draw each pane: clip to the slanted strip between seam i and seam i+1
+      // Each pane is the slanted strip between seam i and seam i+1. Everything is
+      // drawn directly inside that strip — no clip() masks (six anti-aliased clips
+      // plus full-canvas fills per frame were the scene's entire cost).
       for (let i = 0; i < panes + 1; i += 1) {
         const lx0 = seamX(i, 0, t);
         const lx1 = seamX(i, H, t);
         const rx0 = seamX(i + 1, 0, t);
         const rx1 = seamX(i + 1, H, t);
 
-        ctx.save();
+        // faint base tint per pane so facets read as distinct planes
+        ctx.fillStyle = white(0.012 + hash(i * 1.9) * 0.022);
         ctx.beginPath();
         ctx.moveTo(lx0, 0);
         ctx.lineTo(rx0, 0);
         ctx.lineTo(rx1, H);
         ctx.lineTo(lx1, H);
         ctx.closePath();
-        ctx.clip();
-
-        // faint base tint per pane so facets read as distinct planes
-        const tint = 0.012 + hash(i * 1.9) * 0.022;
-        ctx.fillStyle = white(tint);
-        ctx.fillRect(0, 0, W, H);
+        ctx.fill();
 
         const tex = texOf(i);
-        const ang = diag / H;            // slope of the seams (dx per dy)
-
         if (tex === 0) {
-          // fine lines running PARALLEL to the seams (diagonal hatching)
+          // fine lines running PARALLEL to the seams (diagonal hatching). They share
+          // the seams' slope, so a line starting inside [lx0, rx0] stays in the pane.
           const lineGap = 26;
           ctx.lineWidth = 1;
           ctx.strokeStyle = white(0.05);
-          const start = lx0 - lineGap;
-          for (let x = start; x < rx0 + diag + lineGap; x += lineGap) {
-            ctx.beginPath();
+          ctx.beginPath();
+          for (let x = lx0; x <= rx0; x += lineGap) {
             ctx.moveTo(x, 0);
             ctx.lineTo(x + diag, H);
-            ctx.stroke();
           }
+          ctx.stroke();
         } else if (tex === 1) {
-          // dot lattice with a slow pulse sweeping diagonally
+          // dot lattice with a slow pulse sweeping diagonally (only the pane's cells)
           const cell = 30;
           for (let y = cell * 0.5; y < H; y += cell) {
-            for (let x = -cell; x < W + cell; x += cell) {
+            const f = y / H;
+            const xMin = lx0 + f * (lx1 - lx0) - 2;
+            const xMax = rx0 + f * (rx1 - rx0) + 2;
+            for (let x = -cell + Math.ceil((xMin + cell) / cell) * cell; x <= xMax; x += cell) {
               const d = Math.sin(t * 1.4 - (x - y * ang) * 0.012) * 0.5 + 0.5;
               const r = 0.7 + d * 1.2;
               ctx.fillStyle = d > 0.9 ? A(0.5) : white(0.05 * (0.4 + d * 0.6));
@@ -92,8 +92,6 @@ registerScene('split-prism', ({ ctx, width, height, quality, accent, density }) 
           }
         }
         // tex === 2: blank pane (just the tint) — gives breathing room
-
-        ctx.restore();
       }
 
       // seam lines + travelling edge highlight along each seam
