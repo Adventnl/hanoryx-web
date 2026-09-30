@@ -31,8 +31,13 @@ npm run dev      # http://localhost:5173
 npm run build    # production build -> dist/
 npm run preview
 npm run lint
+npm run deploy   # build + wrangler deploy (Cloudflare Workers static assets)
 node qa/scene-smoke.mjs   # validate every scene with a mock 2D context (no browser)
 ```
+
+Deployment runs on Cloudflare Workers Builds on push to `main`. `wrangler.jsonc` serves `dist/`
+as static assets with SPA fallback; keep it committed, or Workers Builds falls back to wrangler
+autoconfig, which currently fails to parse `vite.config.js`.
 
 ---
 

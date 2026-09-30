@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hanoryx-web",
+  "compatibility_date": "2026-09-30",
+  // Static SPA: no Worker script, just the Vite build output. Committing this
+  // file stops Workers Builds from running wrangler autoconfig on every deploy.
+  "assets": {
+    "directory": "./dist",
+    // BrowserRouter handles routing client-side, so unknown paths serve index.html.
+    "not_found_handling": "single-page-application"
+  }
+}
