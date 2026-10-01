@@ -18,6 +18,8 @@ import { useExperience } from '../../app/providers/experience-context';
 import { musebaseLogo, hasMusebaseLogo } from '../../utils/assetResolver';
 import styles from './page.module.css';
 
+const unsupportedOperationalStatuses = new Set(['OPERATIONAL', 'ONLINE', 'ACTIVE', 'CLASSIFIED']);
+
 /* Section wrapper: each block owns its own scene background + container. */
 function Shell({ block, accent, className, children }) {
   return (
@@ -35,9 +37,14 @@ function Shell({ block, accent, className, children }) {
 /* ---------------- Hero ---------------- */
 export function PageHeroBlock({ hero, accent }) {
   const { openSynthesis } = useExperience();
+  const visibleMetrics = hero.metricsSource ? hero.metrics : [];
+  const status = unsupportedOperationalStatuses.has(hero.status)
+    ? 'OVERVIEW'
+    : hero.status;
   return (
     <SectionScene
       scene={hero.scene}
+      sceneData={hero.sceneData}
       intensity={hero.intensity || 'hero'}
       accent={accent}
       className={clsx(styles.hero)}
@@ -69,9 +76,9 @@ export function PageHeroBlock({ hero, accent }) {
             )}
           </Reveal>
         )}
-        {hero.metrics?.length > 0 && (
+        {visibleMetrics?.length > 0 && (
           <RevealGroup profile="countRise" className={styles.heroMetrics} stagger={0.08} delayChildren={0.3}>
-            {hero.metrics.map((m) => (
+            {visibleMetrics.map((m) => (
               <StatBlock key={m.label} value={m.value} suffix={m.suffix} label={m.label} />
             ))}
           </RevealGroup>
@@ -80,7 +87,7 @@ export function PageHeroBlock({ hero, accent }) {
       <div className={styles.heroTelemetry} aria-hidden="true">
         <span className="mono">{hero.code}</span>
         <span className={styles.heroDot} />
-        <span className="mono">{hero.status}</span>
+        <span className="mono">{status}</span>
       </div>
     </SectionScene>
   );
@@ -131,7 +138,7 @@ export function PageBlock({ block, accent }) {
             {block.items.map((it) =>
               it.redacted ? (
                 <DataPanel key={it.title} code={it.code} tone="redacted" interactive>
-                  <RedactedTag label="CLASSIFIED" lock />
+                  <RedactedTag label="DETAILS LIMITED" lock />
                   <h3 className={clsx('heading-3', styles.redName)}>{it.title}</h3>
                   <p className="body-sm">{it.body}</p>
                 </DataPanel>
@@ -143,7 +150,7 @@ export function PageBlock({ block, accent }) {
                   title={it.title}
                   description={it.body}
                   tags={it.tags}
-                  status={it.status}
+                  status={unsupportedOperationalStatuses.has(it.status) ? 'CAPABILITY' : it.status}
                   to={it.to}
                 />
               )
@@ -280,8 +287,8 @@ export function PageBlock({ block, accent }) {
             {block.items.map((it, i) => (
               <DataPanel key={it.code} tone="redacted" code={it.code} interactive>
                 <div className={clsx('cluster', styles.redactedHead)}>
-                  <RedactedTag label="CLASSIFIED" lock />
-                  {i === 0 && <Pill variant="red">RESTRICTED</Pill>}
+                  <RedactedTag label="DETAILS LIMITED" lock />
+                  {i === 0 && <Pill variant="red">OVERVIEW</Pill>}
                 </div>
                 <RedactionReveal as="p" label="DECRYPTING" className={styles.redactedLabel}>
                   {it.label}

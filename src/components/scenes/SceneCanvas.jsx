@@ -20,7 +20,7 @@ import styles from './SceneCanvas.module.css';
  *  - a single static frame under reduced motion, never loops
  *  - fully torn down (loop, budget, observers, scene.dispose) on unmount
  */
-export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent = '#ff3333', className }) {
+export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density = 1, accent = '#ff3333', className }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       applySize();
       if (!spInit) { sp.x = width / 2; sp.y = height / 2; spInit = true; }
       if (scene && scene.dispose) scene.dispose();
-      scene = factory({ ctx, width, height, quality, reduced, accent, density, pointer: getPointer, audio: getAudio });
+      scene = factory({ ctx, width, height, quality, reduced, accent, density, sceneData, pointer: getPointer, audio: getAudio });
       built = true;
     };
     const ensureBuilt = () => {
@@ -121,9 +121,13 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       sp.influence += ((on ? 1 : 0) - sp.influence) * k;
       sp.active = sp.influence > 0.02;
     };
+    const getProgress = () => {
+      const rect = canvas.getBoundingClientRect();
+      return Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+    };
     const drawStill = () => {
       if (!scene) return;
-      scene.draw({ time: sceneTime, delta: 16.7, width, height, quality, pointer: sp, audio: getAudio(), still: true });
+      scene.draw({ time: sceneTime, delta: 16.7, width, height, quality, progress: getProgress(), pointer: sp, audio: getAudio(), still: true });
       hasFrame = true;
     };
     const frame = (now, delta) => {
@@ -138,7 +142,7 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       lastDraw = now;
       sceneTime += step;
       updatePointer(step);
-      scene.draw({ time: sceneTime, delta, width, height, quality, pointer: sp, audio: getAudio() });
+      scene.draw({ time: sceneTime, delta, width, height, quality, progress: getProgress(), pointer: sp, audio: getAudio() });
       hasFrame = true;
     };
     const startLoop = () => {
@@ -234,7 +238,7 @@ export function SceneCanvas({ scene: name, cost = 'medium', density = 1, accent 
       if (scene && scene.dispose) scene.dispose();
       scene = null;
     };
-  }, [name, cost, density, accent]);
+  }, [name, sceneData, cost, density, accent]);
 
   return <canvas ref={canvasRef} className={clsx(styles.canvas, className)} aria-hidden="true" />;
 }

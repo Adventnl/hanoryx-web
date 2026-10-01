@@ -1,6 +1,4 @@
-import { projects } from '../systems';
-
-const record = projects.find((p) => p.id === 'pr-01');
+import { commerceSystemRecord as record } from '../systems';
 
 const page = {
   key: 'work/commerce-system-i',
@@ -10,19 +8,14 @@ const page = {
     scene: 'commerce-pipeline',
     intensity: 'hero',
     eyebrow: `Work // ${record.code}`,
-    title: 'The first Hanoryx system — commerce infrastructure, shipped and held under load.',
+    title: 'A commerce system in the public concept record.',
     intro:
-      'Commerce System I joined catalog, transactions, and payment workflows into one deployed surface. It is the reference build every later commerce node inherits.',
+      'This existing page describes a commerce architecture spanning catalog, transactions, and payment workflows. Its deployment status is not publicly verified.',
     code: 'NODE.CS1',
-    status: 'OPERATIONAL',
+    status: 'DESCRIBED',
     actions: [
       { label: 'All work', to: '/work', variant: 'outline' },
       { label: 'Commerce infrastructure', to: '/systems/commerce-infrastructure' },
-    ],
-    metrics: [
-      { value: 1, label: 'First system' },
-      { value: 4, label: 'Pipeline stages' },
-      { value: 100, suffix: '%', label: 'Auditable orders' },
     ],
   },
   blocks: [
@@ -31,10 +24,10 @@ const page = {
       scene: 'transaction-wave',
       eyebrow: 'What it is',
       code: 'CS1.01',
-      title: 'A storefront on the surface, a settlement engine underneath.',
+      title: 'The proposed commerce layers.',
       body: [
-        'Commerce System I models the catalog as structured records — products, variants, and pricing held as data rather than scattered configuration, so availability and price resolve the same way on every request.',
-        'Transactions and payment workflows sit on the same connected core. A checkout is the visible edge of an engineered settlement path: authorise, capture, and reconcile are explicit states, never assumptions made after the fact.',
+        'The public description models a catalog as structured product, variant, and pricing records.',
+        'Its workflow diagram shows an intended path from checkout through authorisation, capture, and reconciliation. The diagram is illustrative, not a report on a live deployment.',
       ],
       asideLabel: 'CORE',
       asideCode: 'CS1.MAP',
@@ -50,9 +43,9 @@ const page = {
       type: 'process',
       scene: 'dashboard-tiles',
       eyebrow: 'Order pipeline',
-      title: 'How an order moves through the system.',
+      title: 'An illustrative order workflow.',
       intro:
-        'Every order travels one path. No stage is skipped, and each transition is written down before the next begins.',
+        'Four stages describe the proposed state model. They should not be read as verified production behavior.',
       steps: [
         {
           step: '01',
@@ -82,7 +75,7 @@ const page = {
       eyebrow: 'System summary',
       title: 'The record at a glance.',
       intro:
-        'Commerce System I as it stands in the work codex — the build that set the architecture the commerce line still runs on.',
+        'A summary of the existing public concept description. Implementation details and operational status are not public.',
       rows: [
         { k: 'CODE', v: record.code },
         { k: 'NAME', v: record.name },
@@ -92,7 +85,7 @@ const page = {
         { k: 'PIPELINE', v: 'Four-stage order path: intake, validate, fulfil, settle' },
         { k: 'PAYMENTS', v: 'Explicit authorise, capture, and reconcile states' },
         { k: 'LEDGER', v: 'Single settlement ledger reconciled per order' },
-        { k: 'LINEAGE', v: 'Reference architecture for later commerce nodes' },
+        { k: 'SOURCE', v: 'Existing public site description' },
       ],
     },
     {

@@ -21,6 +21,7 @@ const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`;
  *   variant="full"  the Contact page: header, email row, inquiry cards, form.
  */
 export function ContactSection({ variant = 'cta' }) {
+  const [copyState, setCopyState] = useState('Copy email');
   // Controlled form state. setState is only ever called from event handlers.
   const [form, setForm] = useState({
     name: '',
@@ -46,6 +47,10 @@ export function ContactSection({ variant = 'cta' }) {
     ].join('\n');
     const href = `${CONTACT_HREF}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = href;
+  };
+  const copyEmail = async () => {
+    try { await navigator.clipboard.writeText(CONTACT_EMAIL); setCopyState('Email copied'); }
+    catch { setCopyState('Copy unavailable'); }
   };
 
   /* ---------------------------------------------------------------- CTA --- */
@@ -94,6 +99,7 @@ export function ContactSection({ variant = 'cta' }) {
           eyebrow={contact.eyebrow}
           title={contact.title}
           intro={contact.body}
+          as="h1"
           size="hero"
           variant="scan"
         />
@@ -109,6 +115,7 @@ export function ContactSection({ variant = 'cta' }) {
           <Button href={CONTACT_HREF} variant="primary" icon={ArrowUpRight}>
             Email Hanoryx
           </Button>
+          <button type="button" className={styles.copyEmail} onClick={copyEmail} aria-live="polite">{copyState}</button>
         </Reveal>
 
         {/* 3 — Inquiry type cards */}
@@ -135,7 +142,7 @@ export function ContactSection({ variant = 'cta' }) {
             <span className={clsx('mono', styles.formCode)}>TX.COMPOSE</span>
           </div>
 
-          <form className={styles.form} onSubmit={handleSubmit} noValidate>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.fields}>
               <div className={styles.field}>
                 <label htmlFor="contact-name" className={clsx('data-label', styles.fieldLabel)}>

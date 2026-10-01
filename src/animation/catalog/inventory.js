@@ -10,7 +10,7 @@
    Not rendered in production. Imported by the dev overlay / docs only.
    ============================================================ */
 
-/* ---- 67 distinct canvas background scenes ---- */
+/* ---- 68 distinct canvas background scenes ---- */
 const BACKGROUND_SCENES = [
   ['home-core', 'Home Core composite (arcs + particles + grid)'],
   ['audio-signal-wall', 'Audio Signal Wall (full-width spectrum)'],
@@ -47,6 +47,7 @@ const BACKGROUND_SCENES = [
   ['compass-vector', 'Compass Vector field'],
   ['heatmap-control', 'Operational Heatmap'],
   ['dependency-graph', 'Dependency Graph DAG'],
+  ['public-repositories', 'Public repository language connections'],
   ['build-pipeline', 'Build Pipeline stages'],
   ['scheduling-grid', 'Scheduling Grid'],
   ['transaction-wave', 'Transaction Wave ticker'],

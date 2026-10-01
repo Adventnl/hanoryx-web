@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { STORAGE_KEYS } from '../../utils/constants';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
-import { useAudio } from '../../app/providers/audio-context';
 import { useLenis } from '../../app/providers/lenis-context';
 import { AdvancedNavbar } from '@/features/navigation/AdvancedNavbar';
 import { MobileNav } from '@/features/navigation/MobileNav';
@@ -16,6 +15,8 @@ import { ScanlineOverlay } from '../effects/ScanlineOverlay';
 import { NoiseOverlay } from '../effects/NoiseOverlay';
 import { PerfDebug } from '../effects/PerfDebug';
 import { TransitionOverlay } from '@/features/transitions/TransitionOverlay';
+import { CommandPalette } from '@/features/search/CommandPalette';
+import { ScrollProgress } from '@/features/navigation/ScrollProgress';
 import styles from './SiteShell.module.css';
 
 function readBooted() {
@@ -30,7 +31,7 @@ function readBooted() {
  * Top-level frame. Owns the boot gate, scroll-lock, designed cursor, light
  * global overlays, navigation, and footer. There is NO global animated
  * background — every section declares its own scene (SectionScene). Audio
- * lives in AudioProvider; boot START triggers it.
+ * lives in AudioProvider and only starts through the explicit audio control.
  */
 export function SiteShell({ children }) {
   const [booted, setBooted] = useState(readBooted);
@@ -40,7 +41,6 @@ export function SiteShell({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const contentRef = useRef(null);
   const reduced = usePrefersReducedMotion();
-  const { start: startAudio } = useAudio();
   const lenis = useLenis();
   const { pathname } = useLocation();
 
@@ -115,8 +115,10 @@ export function SiteShell({ children }) {
       <HanoryxCursor />
 
       <AdvancedNavbar menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((v) => !v)} />
+      <ScrollProgress />
       <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
       <TransitionOverlay />
+      <CommandPalette />
 
       <div className={styles.content} ref={contentRef}>
         <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>
@@ -127,7 +129,6 @@ export function SiteShell({ children }) {
         <BootSequence
           onComplete={handleBootComplete}
           onExited={() => setBootMounted(false)}
-          onStart={startAudio}
         />
       )}
       {import.meta.env.DEV && <PerfDebug />}

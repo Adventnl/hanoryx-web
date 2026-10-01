@@ -52,6 +52,8 @@ export default function NotFound() {
               <Button to="/" variant="primary" icon={ArrowLeft}>
                 Return to base
               </Button>
+              <Button to="/projects" variant="outline">Explore projects</Button>
+              <button type="button" className={styles.searchButton} onClick={() => window.dispatchEvent(new Event('hanoryx:search'))}>Search site</button>
             </div>
           </div>
 

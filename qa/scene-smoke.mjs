@@ -4,13 +4,13 @@
    missing helpers) that a Vite build cannot. Run: node qa/scene-smoke.mjs */
 import fs from 'node:fs';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 
 // Allow Vite-style extensionless relative imports in the scene modules.
 register('./ext-loader.mjs', import.meta.url);
 
-const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
+const ROOT = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const SCENE_DIRS = [
   path.join(ROOT, 'src/animation/scenes'),
   path.join(ROOT, 'src/animation/scenes/presets'),

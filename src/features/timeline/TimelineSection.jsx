@@ -11,7 +11,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import styles from './TimelineSection.module.css';
 
 /**
- * Animated roadmap timeline. A vertical connecting line behind the marker dots
+ * Animated public chronology. A vertical connecting line behind the marker dots
  * "flows like a data stream" — its scaleY is scrubbed from 0 -> 1 as the list
  * passes through the viewport, so the stream fills downward as you read.
  *
@@ -67,26 +67,27 @@ export function TimelineSection({ variant = 'full' }) {
         />
 
         <div ref={ref} className={styles.body}>
-          <ul className={styles.track}>
-            {/* Flowing data-stream line, centered under the marker dots. */}
+          <div className={styles.trackWrap}>
             <span className={styles.rail} aria-hidden="true">
               <span className={styles.line} />
             </span>
-
-            {nodes.map((node, i) => (
-              <TimelineNode
-                key={node.id}
-                index={i + 1}
-                code={node.code}
-                phase={node.phase}
-                title={node.title}
-                body={node.body}
-                status={node.status}
-                redacted={node.redacted}
-                active={node.status === 'ACTIVE'}
-              />
-            ))}
-          </ul>
+            <ul className={styles.track}>
+              {nodes.map((node, i) => (
+                <TimelineNode
+                  key={node.id}
+                  index={i + 1}
+                  code={node.code}
+                  phase={node.phase}
+                  title={node.title}
+                  body={node.body}
+                  status={node.status}
+                  redacted={node.redacted}
+                  active={node.status === 'ACTIVE'}
+                  to={node.to}
+                />
+              ))}
+            </ul>
+          </div>
 
           {isPreview && (
             <div className={styles.action}>

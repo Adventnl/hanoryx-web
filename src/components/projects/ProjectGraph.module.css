@@ -1,0 +1,43 @@
+.section { padding-block: var(--section-pad); background: var(--c-black-2); border-block: var(--border); }
+.header { max-width: 780px; margin-bottom: var(--space-8); }
+.header h2 { margin-block: var(--space-4); }
+.header p { color: var(--c-white-65); }
+.picker { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-8); }
+.picker button { min-height: 38px; padding: 0 var(--space-3); border: var(--border); border-radius: var(--r-pill); color: var(--c-white-65); background: transparent; cursor: pointer; transition: border-color var(--dur-1), color var(--dur-1), background var(--dur-1); }
+.picker button:hover, .picker button[aria-pressed='true'] { color: var(--c-white); border-color: var(--c-red); background: var(--c-red-faint); }
+.picker button:focus-visible, .stage a:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
+.summary { display: flex; justify-content: space-between; gap: var(--space-4); padding-block: var(--space-3); border-top: var(--border); color: var(--c-white-50); font: .7rem var(--font-mono); letter-spacing: .09em; text-transform: uppercase; }
+.summary span:first-child { color: var(--c-white); }
+.stage { position: relative; min-height: 560px; overflow: hidden; border: 1px solid var(--c-line-strong); background: radial-gradient(circle at 48% 50%, var(--c-red-faint), transparent 48%), var(--c-black); }
+.stage::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(var(--c-white-03) 1px, transparent 1px), linear-gradient(90deg, var(--c-white-03) 1px, transparent 1px); background-size: 52px 52px; opacity: .5; }
+.edges { position: absolute; inset: 20px 0; width: 100%; height: 520px; overflow: visible; fill: none; pointer-events: none; }
+.rootEdge { stroke: var(--c-red); stroke-width: 1.2; opacity: .52; }
+.relatedEdge { stroke: var(--c-white-50); stroke-width: 1; opacity: .28; }
+.focus, .languageList li, .relatedList li { border: 1px solid var(--c-line-strong); background: var(--c-black-3); }
+.focus { position: absolute; left: 4%; top: 50%; width: 27%; max-width: 255px; padding: var(--space-5); transform: translateY(-50%); border-color: var(--c-red-dim); }
+.focus strong { display: block; margin-top: var(--space-3); font: 400 clamp(1.4rem, 2vw, 2rem)/1.1 var(--font-serif); overflow-wrap: anywhere; }
+.focus p { margin-block: var(--space-4); color: var(--c-white-65); font-size: .88rem; line-height: 1.5; }
+.focus a { color: var(--c-white); font: .68rem var(--font-mono); text-decoration: none; text-transform: uppercase; letter-spacing: .08em; }
+.focus a span { color: var(--c-red); }
+.nodeLabel { display: block; color: var(--c-white-50); font: .59rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; overflow-wrap: anywhere; }
+.languageList, .relatedList { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none; }
+.languageList li, .relatedList li { position: absolute; top: var(--node-top); transform: translateY(-50%); min-width: 0; pointer-events: auto; }
+.languageList li { left: 43%; width: 15%; padding: var(--space-3); border-left-color: var(--c-red); }
+.languageList strong { display: block; margin-top: 4px; font: 500 .88rem var(--font-sans); overflow-wrap: anywhere; }
+.relatedList li { left: 72%; width: 25%; }
+.relatedList a { position: relative; display: block; padding: var(--space-3); color: var(--c-white); text-decoration: none; }
+.relatedList a:hover { background: var(--c-red-faint); }
+.relatedList strong { display: block; margin-top: 4px; padding-right: 14px; font: 500 .92rem var(--font-sans); overflow-wrap: anywhere; }
+.nodeArrow { position: absolute; right: var(--space-3); top: var(--space-3); color: var(--c-red); }
+.relatedList .noConnections { padding: var(--space-4); color: var(--c-white-65); }
+@media (max-width: 900px) {
+  .summary { flex-direction: column; }
+  .stage { display: grid; gap: var(--space-6); min-height: 0; padding: var(--space-4); }
+  .edges { display: none; }
+  .focus, .languageList, .relatedList, .languageList li, .relatedList li { position: static; width: auto; max-width: none; transform: none; }
+  .focus { padding: var(--space-5); }
+  .languageList, .relatedList { display: grid; gap: var(--space-2); pointer-events: auto; }
+  .languageList { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+  .relatedList { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .picker button { transition: none; } }

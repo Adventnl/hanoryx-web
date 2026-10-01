@@ -1,4 +1,5 @@
-import { company, metrics } from '../company';
+import { company } from '../company';
+import { publicMetrics } from '../publicMetrics';
 
 const page = {
   key: 'company',
@@ -7,20 +8,19 @@ const page = {
   hero: {
     scene: 'orbital-command',
     intensity: 'hero',
-    eyebrow: 'Company // NODE.HQ',
-    title: 'Hanoryx Systems is the system behind the systems.',
+    eyebrow: 'Company / Hanoryx Systems',
+    title: 'Software systems, built with intent.',
     intro:
-      'A controlled environment for serious operations — software infrastructure, management platforms, and interface systems held under one design language. This is the node the others run from.',
-    code: 'NODE.HQ',
-    status: 'ONLINE',
+      'Hanoryx Systems builds platforms and interfaces. Hanoryx North is its engineering identity; this site and the linked public repositories show part of the work.',
+    code: 'HANORYX',
+    status: 'SOFTWARE ENGINEERING',
+    metricsSource: 'github-public',
     actions: [
       { label: 'Enter Systems', to: '/systems' },
-      { label: 'Hanoryx North', to: '/north', variant: 'outline' },
+      { label: 'Public projects', to: '/projects', variant: 'outline' },
     ],
     metrics: [
-      { value: 3, label: 'Operating nodes' },
-      { value: 2, label: 'Platforms in development' },
-      { value: 1, label: 'Engineering division' },
+      ...publicMetrics.map(({ value, label }) => ({ value, label })),
     ],
   },
   blocks: [
@@ -37,16 +37,16 @@ const page = {
         { k: 'NAME', v: company.name },
         { k: 'DIVISION', v: company.division },
         { k: 'STATUS', v: company.status },
-        { k: 'NODE', v: company.locationCode },
+        { k: 'PUBLIC WORK', v: 'Curated GitHub repositories' },
       ],
     },
     {
       type: 'cards',
       scene: 'topology-pulse',
-      eyebrow: 'Topology',
-      title: 'Three nodes, one system.',
+      eyebrow: 'Explore Hanoryx',
+      title: 'Three ways into the work.',
       intro:
-        'The company resolves into three connected surfaces. Systems is what is built, North is who builds it, and Work is the record of what has shipped. Each opens its own node.',
+        'Explore software capabilities, engineering practice, and public source. Each view answers a different question.',
       items: [
         {
           code: 'NODE.SYS',
@@ -54,7 +54,7 @@ const page = {
           title: 'What the company builds.',
           body: 'Management layers, commerce infrastructure, automation, dashboards, data interfaces, and client-facing portals — engineered as one operating environment over a hardened core.',
           tags: ['platforms', 'infrastructure', 'interface'],
-          status: 'ONLINE',
+          status: 'CAPABILITIES',
           to: '/systems',
         },
         {
@@ -63,16 +63,16 @@ const page = {
           title: 'The engineering division.',
           body: 'The software development division that designs the architecture, interface systems, orchestration, and tooling everything else stands on. Production-minded, tightly scoped, released deliberately.',
           tags: ['architecture', 'orchestration', 'tooling'],
-          status: 'ACTIVE',
+          status: 'ENGINEERING',
           to: '/north',
         },
         {
           code: 'NODE.WRK',
           label: 'Work',
-          title: 'The record of what shipped.',
-          body: 'A registry of systems built, deployed, or sealed. Cleared entries open to a record; classified entries hold their surface and stay closed behind the gate.',
-          tags: ['codex', 'registry', 'record'],
-          status: 'OPERATIONAL',
+          title: 'Public work and source.',
+          body: 'A curated record of public repositories, implementation languages, and development dates.',
+          tags: ['repositories', 'projects', 'source'],
+          status: 'PUBLIC',
           to: '/work',
         },
       ],
@@ -81,7 +81,7 @@ const page = {
       type: 'stats',
       eyebrow: 'Company Telemetry',
       title: 'The node at a glance.',
-      items: metrics.map((m) => ({
+      items: publicMetrics.map((m) => ({
         value: m.value,
         suffix: m.suffix,
         label: m.label,

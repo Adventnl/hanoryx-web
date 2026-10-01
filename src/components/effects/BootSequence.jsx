@@ -12,7 +12,7 @@ import styles from './BootSequence.module.css';
  *   done   -> overlay dissolves and the site is revealed (onComplete)
  *
  * Plays at most once per session (the shell decides whether to mount it).
- * START triggers audio (onStart). A Skip control is always available so
+ * Audio is controlled separately by the explicit audio button. A Skip control is always available so
  * the user is never trapped. Reduced motion collapses to a quiet fade.
  *
  * onComplete fires the moment the reveal begins (so the shell can animate
@@ -20,9 +20,9 @@ import styles from './BootSequence.module.css';
  * lifted away and is safe to unmount — together they replace the old hard
  * cut with a crossfade.
  *
- * Props: onComplete(), onExited(), onStart()
+ * Props: onComplete(), onExited()
  */
-export function BootSequence({ onComplete, onExited, onStart }) {
+export function BootSequence({ onComplete, onExited }) {
   const root = useRef(null);
   const tl = useRef(null);
   const [phase, setPhase] = useState('intro');
@@ -59,8 +59,6 @@ export function BootSequence({ onComplete, onExited, onStart }) {
   );
 
   const handleStart = () => {
-    onStart?.();
-
     if (reduced) {
       finish();
       return;

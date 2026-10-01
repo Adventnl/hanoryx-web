@@ -1,15 +1,16 @@
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 import { useElementInView } from '../../hooks/useElementInView';
 import { Pill } from './Pill';
 import styles from './TimelineNode.module.css';
 
 /**
- * One node on the animated roadmap. Marker dot + phase / title / body.
+ * One node on the animated chronology. Marker dot + phase / title / body.
  * Redacted nodes blur their detail and show a RESTRICTED tag.
  *
- * Props: code, phase, title, body, status, redacted, index, active
+ * Props: code, phase, title, body, status, redacted, index, active, to
  */
-export function TimelineNode({ code, phase, title, body, status, redacted = false, index, active = false }) {
+export function TimelineNode({ code, phase, title, body, status, redacted = false, index, active = false, to }) {
   const [ref, inView] = useElementInView({ threshold: 0.35 });
 
   return (
@@ -32,6 +33,7 @@ export function TimelineNode({ code, phase, title, body, status, redacted = fals
         {phase && <span className={styles.phase}>{phase}</span>}
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.body}>{body}</p>
+        {to && <Link className={styles.link} to={to}>View repository <span aria-hidden="true">↗</span></Link>}
         {redacted && <span className={styles.restricted}>// RESTRICTED DETAIL</span>}
       </div>
     </li>

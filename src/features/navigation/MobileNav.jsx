@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, Plus } from 'lucide-react';
@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { navGroups } from '../../app/routeConfig';
 import { company } from '../../data/company';
 import { AudioSignalButton } from '../audio/AudioSignalButton';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import styles from './MobileNav.module.css';
 
 const panelV = {
@@ -22,17 +23,37 @@ const itemV = {
 /** Full-screen mobile menu: expandable route groups + live audio + status. */
 export function MobileNav({ open, onClose }) {
   const [expanded, setExpanded] = useState(null);
+  const overlayRef = useRef(null);
+  const closeRef = useRef(null);
+  const reduced = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const previous = document.activeElement;
+    requestAnimationFrame(() => closeRef.current?.focus());
+    const onKey = (event) => {
+      if (event.key === 'Escape') { event.preventDefault(); onClose(); }
+      if (event.key !== 'Tab') return;
+      const focusable = [...overlayRef.current.querySelectorAll('a[href], button:not([disabled])')];
+      if (!focusable.length) return;
+      if (event.shiftKey && document.activeElement === focusable[0]) { event.preventDefault(); focusable.at(-1).focus(); }
+      else if (!event.shiftKey && document.activeElement === focusable.at(-1)) { event.preventDefault(); focusable[0].focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('keydown', onKey); previous?.focus?.(); };
+  }, [open, onClose]);
 
   return (
     <AnimatePresence>
       {open && (
-        <motion.div className={styles.overlay} variants={panelV} initial="hidden" animate="show" exit="exit">
+        <motion.div ref={overlayRef} className={styles.overlay} variants={reduced ? undefined : panelV} initial={reduced ? false : 'hidden'} animate={reduced ? undefined : 'show'} exit={reduced ? undefined : 'exit'}>
+          <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label="Close mobile navigation">×</button>
           <nav className={styles.menu} aria-label="Mobile">
             {navGroups.map((g, i) => {
               const multi = g.children.length > 1;
               const isOpen = expanded === g.id;
               return (
-                <motion.div key={g.id} variants={itemV} className={styles.group}>
+                <motion.div key={g.id} variants={reduced ? undefined : itemV} className={styles.group}>
                   <div className={styles.groupHead}>
                     <NavLink to={g.to} onClick={onClose} className={styles.groupLink}>
                       <span className={styles.index}>{String(i + 1).padStart(2, '0')}</span>
@@ -55,10 +76,10 @@ export function MobileNav({ open, onClose }) {
                     {multi && isOpen && (
                       <motion.ul
                         className={styles.sub}
-                        initial={{ height: 0, opacity: 0 }}
+                        initial={reduced ? false : { height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+                        exit={reduced ? undefined : { height: 0, opacity: 0 }}
+                        transition={{ duration: reduced ? 0 : 0.34, ease: [0.16, 1, 0.3, 1] }}
                       >
                         {g.children.map((c) => (
                           <li key={c.to + c.label}>
@@ -76,7 +97,7 @@ export function MobileNav({ open, onClose }) {
             })}
           </nav>
 
-          <motion.div className={styles.foot} variants={itemV}>
+          <motion.div className={styles.foot} variants={reduced ? undefined : itemV}>
             <Link to="/contact" onClick={onClose} className={styles.channel}>
               Open Channel <ArrowUpRight size={16} strokeWidth={1.5} />
             </Link>

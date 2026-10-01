@@ -13,6 +13,10 @@ const Contact = lazy(() => import('../pages/Contact'));
 const Timeline = lazy(() => import('../pages/Timeline'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const TemplatePage = lazy(() => import('../pages/TemplatePage'));
+const PublicProjects = lazy(() => import('../pages/PublicProjects'));
+const PublicProjectDetail = lazy(() => import('../pages/PublicProjectDetail'));
+const Engineering = lazy(() => import('../pages/Engineering'));
+const Lab = lazy(() => import('../pages/Lab'));
 
 /**
  * 30 real routes. Bespoke pages (Home, Contact, Timeline, 404) are wired
@@ -30,6 +34,10 @@ export function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/timeline" element={<Timeline />} />
+          <Route path="/projects" element={<PublicProjects />} />
+          <Route path="/projects/:id" element={<PublicProjectDetail />} />
+          <Route path="/engineering" element={<Engineering />} />
+          <Route path="/lab" element={<Lab />} />
 
           {templateRouteKeys.map((key) => (
             <Route key={key} path={`/${key}`} element={<TemplatePage routeKey={key} />} />

@@ -7,8 +7,7 @@ export const company = {
   shortName: 'Hanoryx',
   division: 'Hanoryx North',
   email: 'contact@hanoryx.com',
-  status: 'NORTH NODE // ONLINE',
-  locationCode: 'LAT.42.083',
+  status: 'SOFTWARE ENGINEERING',
 
   hero: {
     title: 'HANORYX SYSTEMS',
@@ -72,14 +71,6 @@ export const north = {
     ],
   },
 };
-
-/* Abstract, self-referential telemetry — no fake clients, no fake awards. */
-export const metrics = [
-  { id: 'm-01', value: 6, suffix: '', label: 'Systems mapped', note: 'across the active roadmap' },
-  { id: 'm-02', value: 2, suffix: '', label: 'Platforms in development', note: 'commerce + management layer' },
-  { id: 'm-03', value: 99.9, suffix: '%', label: 'Operational telemetry target', note: 'continuous monitoring' },
-  { id: 'm-04', value: 1, suffix: '', label: 'Engineering division', note: 'Hanoryx North' },
-];
 
 /* Manifesto fragment — used on panels and the home closing band. */
 export const manifesto = {

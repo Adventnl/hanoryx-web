@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/generate-sitemap.mjs && vite build",
     "lint": "eslint .",
+    "sync:github": "node scripts/sync-github.mjs",
+    "test:data": "node qa/public-data.mjs",
+    "render:social": "node scripts/render-social.mjs",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy"
   },

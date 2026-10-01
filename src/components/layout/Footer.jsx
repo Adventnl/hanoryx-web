@@ -11,7 +11,7 @@ import styles from './Footer.module.css';
  * scanning lines keep it quietly alive.
  */
 export function Footer() {
-  const year = 2026;
+  const year = new Date().getFullYear();
 
   return (
     <footer className={styles.footer}>
@@ -24,10 +24,10 @@ export function Footer() {
             <span className={styles.division}>// {company.division}</span>
           </div>
           <p className={styles.blurb}>{footer.blurb}</p>
-          <Link to="/contact" className={styles.email}>
+          <a href={`mailto:${company.email}`} className={styles.email}>
             {company.email}
             <ArrowUpRight size={15} strokeWidth={1.5} />
-          </Link>
+          </a>
         </RevealGroup>
 
         <RevealGroup as="nav" profile="riseRotate" className={styles.columns} stagger={0.1} aria-label="Footer">
@@ -67,11 +67,11 @@ export function Footer() {
       <div className={styles.bottom}>
         <span className={styles.corner} aria-hidden="true">
           <span className={styles.dial} />
-          NET.SYS_CONNECTED
+          HANORYX SYSTEMS
         </span>
         <p className={styles.copy}>© {year} Hanoryx Systems. All rights reserved.</p>
         <span className={styles.corner} aria-hidden="true">
-          DATA_STREAM_IDLE
+          PUBLIC SITE
           <span className={styles.signal} />
         </span>
       </div>

@@ -7,7 +7,7 @@ const page = {
     intensity: 'hero',
     eyebrow: 'Systems // SYS.06',
     title: 'A controlled gateway between an operation and the people it serves.',
-    intro: 'Client-facing portals expose exactly the surface a person is meant to see — scoped by role, bounded by permission, and held under the same access discipline as the core.',
+    intro: 'A design model for role-aware access to records and workflows. The examples below describe proposed boundaries, not a deployed portal or verified security controls.',
     code: 'SYS.06',
     status: 'ACTIVE',
     actions: [
@@ -26,8 +26,8 @@ const page = {
       code: 'PRT.01',
       title: 'The line between inside and outside is engineered, not assumed.',
       body: [
-        'An operation holds far more state than any single person it serves should ever see. A portal is the deliberate membrane between the two — it grants a scoped view onto live records without opening the system behind it.',
-        'Each role is modelled from the first commit: what it can read, what it can act on, and where its reach stops. Nothing leaks across the boundary by accident, because the boundary is part of the architecture.',
+        'An operation can hold far more state than any one visitor should see. A portal should define a narrow view of relevant records and actions without exposing the underlying system.',
+        'The design starts by asking what each role can read, change, and request. The boundary must be implemented and tested in the backend; an interface alone cannot enforce it.',
       ],
       asideLabel: 'BOUNDARY',
       asideCode: 'PRT.MAP',
@@ -43,12 +43,12 @@ const page = {
       scene: 'permission-orbit',
       eyebrow: 'Capabilities',
       title: 'What a portal does.',
-      intro: 'Four functions define a Hanoryx portal. Each is a control, not a convenience.',
+      intro: 'Four responsibilities to address when designing a portal. Their presence here is not evidence that a particular deployment has these controls.',
       items: [
-        { code: 'PC.01', title: 'Scoped views', body: 'A person sees a projection of live operational data shaped to their role — current records, status, and history, with everything outside their scope simply absent rather than hidden.', tags: ['Projection', 'Live'] },
-        { code: 'PC.02', title: 'Secure handoff', body: 'Documents, approvals, and payment-relevant records cross the boundary through controlled handoff points with a full audit trail, never through open channels.', tags: ['Audit', 'Transfer'] },
-        { code: 'PC.03', title: 'Role access', body: 'Permission is granted per role and per record, resolved at request time. A change to a role updates every surface that role touches, with no stale access left behind.', tags: ['Permission', 'Roles'] },
-        { code: 'PC.04', title: 'Controlled boundary', body: 'The portal is sealed against the operational core. It can read what it is allowed to read and write only through sanctioned paths — the system behind it stays out of reach.', tags: ['Sealed', 'Bounded'] },
+        { code: 'PC.01', title: 'Scoped views', body: 'Define the records and fields a visitor needs for a task. Filter at the data boundary, then present the resulting view clearly.', tags: ['Projection', 'Scope'] },
+        { code: 'PC.02', title: 'Handoff', body: 'Plan how documents, approvals, and payment-related records move between parties, including who can see a transfer and how it is recorded.', tags: ['Trace', 'Transfer'] },
+        { code: 'PC.03', title: 'Role access', body: 'Resolve permissions against identity, role, and record on each request. Test what happens when a role changes or access is revoked.', tags: ['Permission', 'Roles'] },
+        { code: 'PC.04', title: 'System boundary', body: 'Put reads and writes behind explicit service rules. Review the routes that could bypass the intended scope.', tags: ['Boundary', 'Review'] },
       ],
     },
     {
@@ -56,7 +56,7 @@ const page = {
       scene: 'radar-cutaway',
       eyebrow: 'Access Model',
       title: 'How reach is decided.',
-      intro: 'Every request is resolved against the same model — identity, role, scope, and record — before a single field is returned.',
+      intro: 'A request model to specify and test before returning a record or accepting a change.',
       rows: [
         { k: 'AM.01', v: 'Identity — who is making the request' },
         { k: 'AM.02', v: 'Role — the function they hold in the operation' },

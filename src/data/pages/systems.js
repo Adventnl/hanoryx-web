@@ -17,11 +17,11 @@ const page = {
   hero: {
     scene: 'hex-tunnel',
     eyebrow: 'Systems // SYS.NODE',
-    title: 'Systems built to reduce operational drag.',
+    title: 'Systems designed to reduce operational drag.',
     intro:
-      'Management layers, commerce infrastructure, automation, dashboards, data interfaces, and client-facing portals — engineered as one operating environment.',
+      'Management layers, commerce infrastructure, automation, dashboards, data interfaces, and client-facing portals — a set of related software design capabilities.',
     code: 'NODE.SYS',
-    status: 'ONLINE',
+    status: 'CAPABILITY AREAS',
     actions: [{ label: 'Enter Hanoryx North', to: '/north', variant: 'outline' }],
     metrics: [
       { value: 7, label: 'System categories' },
@@ -34,8 +34,8 @@ const page = {
       type: 'cards',
       scene: 'orbital-command',
       eyebrow: 'Categories',
-      title: 'Seven operating surfaces.',
-      intro: 'Each category is a controlled surface over the same hardened core.',
+      title: 'Seven design areas.',
+      intro: 'Explore the workflow and interface questions each category addresses. These are capability descriptions, not a count of deployed products.',
       items: systemCategories.map((c) => ({
         code: c.code,
         title: c.title,
@@ -69,15 +69,15 @@ const page = {
       points: architecture.layers.map((l) => ({ k: l.code, v: l.title })),
     },
     {
-      type: 'redacted',
+      type: 'cards',
       scene: 'status-pulse-grid',
-      eyebrow: 'Research',
-      title: 'Experimental online systems.',
-      intro: 'Early-stage interface programs and research nodes. Detail is intentionally withheld.',
+      eyebrow: 'Public studies',
+      title: 'Experiments you can inspect.',
+      intro: 'The site exposes its interface research through working scenes, engineering notes, and public source.',
       items: [
-        { code: 'RES.01', label: 'Experimental interface program', note: 'Surface withheld' },
-        { code: 'RES.02', label: 'Unknown online system', note: 'Access scoped' },
-        { code: 'RES.03', label: 'Redacted research node', note: 'Under review' },
+        { code: 'RES.01', title: 'Visual Lab', body: 'Switch among selected Canvas scenes and adjust rendering density.', tags: ['Canvas', 'Interaction'], status: 'PUBLIC', to: '/lab' },
+        { code: 'RES.02', title: 'Site engineering', body: 'Inspect how the scene scheduler, motion budget, and route layers fit together.', tags: ['Architecture', 'Motion'], status: 'PUBLIC', to: '/engineering' },
+        { code: 'RES.03', title: 'Public repositories', body: 'Browse projects backed by reviewed source descriptions and GitHub metadata.', tags: ['Source', 'Projects'], status: 'PUBLIC', to: '/projects' },
       ],
     },
     { type: 'cta', scene: 'architecture-layer', eyebrow: 'Open a channel', title: 'Discuss a system.' },

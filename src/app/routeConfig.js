@@ -33,6 +33,8 @@ export const navGroups = [
     children: [
       { label: 'Overview', to: '/north', code: 'NTH.00' },
       { label: 'Engineering', to: '/north/engineering', code: 'NTH.01' },
+      { label: 'Engineering / Site', to: '/engineering', code: 'ENG.01' },
+      { label: 'Visual Lab', to: '/lab', code: 'LAB.01' },
       { label: 'Interface Lab', to: '/north/interface-lab', code: 'NTH.02' },
       { label: 'Motion Systems', to: '/north/motion-systems', code: 'NTH.03' },
       { label: 'Architecture', to: '/north/architecture', code: 'NTH.04' },
@@ -44,14 +46,11 @@ export const navGroups = [
     label: 'Work',
     code: 'WRK',
     to: '/work',
-    blurb: 'Selected systems. Some active, some withheld.',
+    blurb: 'Public repositories and selected system work.',
     children: [
-      { label: 'Codex', to: '/work', code: 'WRK.00' },
-      { label: 'Commerce System I', to: '/work/commerce-system-i', code: 'WRK.01' },
+      { label: 'Overview', to: '/work', code: 'WRK.00' },
+      { label: 'Public repositories', to: '/projects', code: 'GH.00' },
       { label: 'Musebase', to: '/work/musebase', code: 'WRK.02' },
-      { label: 'North Console', to: '/work/north-console', code: 'WRK.03' },
-      { label: 'Unknown System 03', to: '/work/unknown-system-03', code: 'WRK.04' },
-      { label: 'Experimental Interface Program', to: '/work/experimental-interface-program', code: 'WRK.05' },
     ],
   },
   {
@@ -59,12 +58,12 @@ export const navGroups = [
     label: 'Company',
     code: 'CMP',
     to: '/company',
-    blurb: 'The system behind the systems.',
+    blurb: 'Hanoryx Systems, its principles, and public development.',
     children: [
       { label: 'Overview', to: '/company', code: 'CMP.00' },
       { label: 'Principles', to: '/company/principles', code: 'CMP.01' },
       { label: 'Security', to: '/company/security', code: 'CMP.02' },
-      { label: 'Status', to: '/company/status', code: 'CMP.03' },
+      { label: 'Public Development', to: '/company/status', code: 'CMP.03' },
     ],
   },
   {
@@ -72,8 +71,8 @@ export const navGroups = [
     label: 'Timeline',
     code: 'TIME',
     to: '/timeline',
-    blurb: 'The system roadmap.',
-    children: [{ label: 'Roadmap', to: '/timeline', code: 'TIME.00' }],
+    blurb: 'A chronology of public repositories.',
+    children: [{ label: 'Public Timeline', to: '/timeline', code: 'TIME.00' }],
   },
   {
     id: 'contact',
@@ -116,5 +115,3 @@ export const templateRouteKeys = [
   'legal/privacy',
   'legal/terms',
 ];
-
-export const ALL_ROUTE_COUNT = templateRouteKeys.length + 4; // + home, contact, timeline, 404

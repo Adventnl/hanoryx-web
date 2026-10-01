@@ -1,0 +1,656 @@
+{
+  "source": "github-public",
+  "owner": "Adventnl",
+  "generatedAt": "2026-10-01T03:24:31.107Z",
+  "repositories": [
+    {
+      "id": "yk-engine",
+      "name": "YK-Engine",
+      "category": "Engine",
+      "summary": "A C++20 game engine, editor, player, and project export tools.",
+      "highlights": [
+        "Entity and component data can run in both editor and standalone player.",
+        "The editor provides scene hierarchy, inspector, debugging, and profiling surfaces.",
+        "Two data-only demos exercise reusable engine systems."
+      ],
+      "url": "https://github.com/Adventnl/YK-Engine",
+      "homepageUrl": null,
+      "primaryLanguage": "C++",
+      "languages": [
+        {
+          "name": "C++",
+          "bytes": 1974558
+        },
+        {
+          "name": "Python",
+          "bytes": 141220
+        },
+        {
+          "name": "CMake",
+          "bytes": 62536
+        },
+        {
+          "name": "Shell",
+          "bytes": 16352
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 22,
+      "rootEntries": [
+        {
+          "name": "cmake",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/cmake"
+        },
+        {
+          "name": "docs",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/docs"
+        },
+        {
+          "name": "editor",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/editor"
+        },
+        {
+          "name": "include",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/include"
+        },
+        {
+          "name": "LICENSES",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/LICENSES"
+        },
+        {
+          "name": "packaging",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/packaging"
+        },
+        {
+          "name": "player",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/player"
+        },
+        {
+          "name": "scripts",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/scripts"
+        },
+        {
+          "name": "src",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/src"
+        },
+        {
+          "name": "tests",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/tests"
+        },
+        {
+          "name": "third_party",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/third_party"
+        },
+        {
+          "name": "tools",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/tools"
+        },
+        {
+          "name": "YK-DemoGame",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/YK-DemoGame"
+        },
+        {
+          "name": "YK-ExplorationDemo",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/YK-Engine/tree/main/YK-ExplorationDemo"
+        },
+        {
+          "name": "CMakeLists.txt",
+          "type": "file",
+          "url": "https://github.com/Adventnl/YK-Engine/blob/main/CMakeLists.txt"
+        },
+        {
+          "name": "CMakePresets.json",
+          "type": "file",
+          "url": "https://github.com/Adventnl/YK-Engine/blob/main/CMakePresets.json"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/YK-Engine/blob/main/README.md"
+        }
+      ],
+      "createdAt": "2026-09-27T03:40:11Z",
+      "pushedAt": "2026-10-01T03:23:52Z",
+      "updatedAt": "2026-09-30T23:35:01Z",
+      "latestRelease": null
+    },
+    {
+      "id": "hanoryx-web",
+      "name": "hanoryx-web",
+      "category": "Web",
+      "summary": "The Hanoryx Systems website and its Canvas scene system.",
+      "highlights": [
+        "React and Vite route shell with lazy page chunks.",
+        "A shared frame scheduler and visibility budget govern Canvas scenes.",
+        "Reduced-motion rendering preserves a still visual state."
+      ],
+      "url": "https://github.com/Adventnl/hanoryx-web",
+      "homepageUrl": null,
+      "primaryLanguage": "JavaScript",
+      "languages": [
+        {
+          "name": "JavaScript",
+          "bytes": 759754
+        },
+        {
+          "name": "CSS",
+          "bytes": 103122
+        },
+        {
+          "name": "HTML",
+          "bytes": 1176
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 12,
+      "rootEntries": [
+        {
+          "name": "public",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/hanoryx-web/tree/main/public"
+        },
+        {
+          "name": "qa",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/hanoryx-web/tree/main/qa"
+        },
+        {
+          "name": "src",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/hanoryx-web/tree/main/src"
+        },
+        {
+          "name": "package.json",
+          "type": "file",
+          "url": "https://github.com/Adventnl/hanoryx-web/blob/main/package.json"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/hanoryx-web/blob/main/README.md"
+        },
+        {
+          "name": "vite.config.js",
+          "type": "file",
+          "url": "https://github.com/Adventnl/hanoryx-web/blob/main/vite.config.js"
+        },
+        {
+          "name": "wrangler.jsonc",
+          "type": "file",
+          "url": "https://github.com/Adventnl/hanoryx-web/blob/main/wrangler.jsonc"
+        }
+      ],
+      "createdAt": "2026-05-23T06:46:47Z",
+      "pushedAt": "2026-09-30T23:44:37Z",
+      "updatedAt": "2026-09-30T23:44:42Z",
+      "latestRelease": null
+    },
+    {
+      "id": "task-set",
+      "name": "task-set",
+      "category": "Product",
+      "summary": "A notes and task application with voice capture, calendar, and live sync.",
+      "highlights": [
+        "Notes and tasks are separate, with AI task suggestions controlled by the user.",
+        "Offline notes persist locally and synchronize when connectivity returns.",
+        "The README states the Cloudflare deployment has not happened yet."
+      ],
+      "url": "https://github.com/Adventnl/task-set",
+      "homepageUrl": null,
+      "primaryLanguage": "TypeScript",
+      "languages": [
+        {
+          "name": "TypeScript",
+          "bytes": 354725
+        },
+        {
+          "name": "CSS",
+          "bytes": 44922
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 9665
+        },
+        {
+          "name": "HTML",
+          "bytes": 1122
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 19,
+      "rootEntries": [
+        {
+          "name": "docs",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/task-set/tree/main/docs"
+        },
+        {
+          "name": "public",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/task-set/tree/main/public"
+        },
+        {
+          "name": "scripts",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/task-set/tree/main/scripts"
+        },
+        {
+          "name": "src",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/task-set/tree/main/src"
+        },
+        {
+          "name": "tests",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/task-set/tree/main/tests"
+        },
+        {
+          "name": "worker",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/task-set/tree/main/worker"
+        },
+        {
+          "name": "package.json",
+          "type": "file",
+          "url": "https://github.com/Adventnl/task-set/blob/main/package.json"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/task-set/blob/main/README.md"
+        },
+        {
+          "name": "vite.config.ts",
+          "type": "file",
+          "url": "https://github.com/Adventnl/task-set/blob/main/vite.config.ts"
+        },
+        {
+          "name": "wrangler.jsonc",
+          "type": "file",
+          "url": "https://github.com/Adventnl/task-set/blob/main/wrangler.jsonc"
+        }
+      ],
+      "createdAt": "2026-09-24T04:23:01Z",
+      "pushedAt": "2026-09-30T21:06:46Z",
+      "updatedAt": "2026-09-30T21:06:50Z",
+      "latestRelease": null
+    },
+    {
+      "id": "rune",
+      "name": "Rune",
+      "category": "Research",
+      "summary": "A small statically typed systems language with a typed core IR and interpreter.",
+      "highlights": [
+        "Source passes through lexer, parser, AST, and typed core IR.",
+        "The interpreter runs the language described in the README.",
+        "HDL analysis exists; hardware generation is described as a future target."
+      ],
+      "url": "https://github.com/Adventnl/Rune",
+      "homepageUrl": null,
+      "primaryLanguage": "Rust",
+      "languages": [
+        {
+          "name": "Rust",
+          "bytes": 417811
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 8,
+      "rootEntries": [
+        {
+          "name": "crates",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/Rune/tree/main/crates"
+        },
+        {
+          "name": "docs",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/Rune/tree/main/docs"
+        },
+        {
+          "name": "examples",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/Rune/tree/main/examples"
+        },
+        {
+          "name": "std",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/Rune/tree/main/std"
+        },
+        {
+          "name": "Cargo.toml",
+          "type": "file",
+          "url": "https://github.com/Adventnl/Rune/blob/main/Cargo.toml"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/Rune/blob/main/README.md"
+        }
+      ],
+      "createdAt": "2026-06-25T07:44:05Z",
+      "pushedAt": "2026-06-25T12:53:41Z",
+      "updatedAt": "2026-06-25T12:53:48Z",
+      "latestRelease": null
+    },
+    {
+      "id": "mocha-browser",
+      "name": "mocha-browser",
+      "category": "Tool",
+      "summary": "An experimental Rust browser engine with a limited HTML, CSS, and JavaScript subset.",
+      "highlights": [
+        "The public status describes a basic HTML, CSS, layout, and scripting subset.",
+        "The repository documents HTTP and HTTPS networking foundations.",
+        "Its README says it is not safe for general browsing yet."
+      ],
+      "url": "https://github.com/Adventnl/mocha-browser",
+      "homepageUrl": null,
+      "primaryLanguage": "Rust",
+      "languages": [
+        {
+          "name": "Rust",
+          "bytes": 1351647
+        },
+        {
+          "name": "HTML",
+          "bytes": 11036
+        },
+        {
+          "name": "PowerShell",
+          "bytes": 2019
+        },
+        {
+          "name": "CSS",
+          "bytes": 237
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 192
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 13,
+      "rootEntries": [
+        {
+          "name": "crates",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/mocha-browser/tree/main/crates"
+        },
+        {
+          "name": "docs",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/mocha-browser/tree/main/docs"
+        },
+        {
+          "name": "examples",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/mocha-browser/tree/main/examples"
+        },
+        {
+          "name": "scripts",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/mocha-browser/tree/main/scripts"
+        },
+        {
+          "name": "tests",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/mocha-browser/tree/main/tests"
+        },
+        {
+          "name": "Cargo.toml",
+          "type": "file",
+          "url": "https://github.com/Adventnl/mocha-browser/blob/main/Cargo.toml"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/mocha-browser/blob/main/README.md"
+        }
+      ],
+      "createdAt": "2026-06-10T03:03:10Z",
+      "pushedAt": "2026-06-25T05:49:25Z",
+      "updatedAt": "2026-06-25T05:49:29Z",
+      "latestRelease": null
+    },
+    {
+      "id": "hnx-x86",
+      "name": "HNX-x86",
+      "category": "Research",
+      "summary": "An x86-64 operating-system research repository focused on kernel and systems foundations.",
+      "highlights": [
+        "The README describes an intended desktop and server operating-system direction.",
+        "Its roadmap spans memory, scheduling, filesystems, drivers, and tooling.",
+        "Treat the listed subsystems as goals unless the source documents completion."
+      ],
+      "url": "https://github.com/Adventnl/HNX-x86",
+      "homepageUrl": null,
+      "primaryLanguage": "C",
+      "languages": [
+        {
+          "name": "C",
+          "bytes": 1074975
+        },
+        {
+          "name": "Python",
+          "bytes": 79811
+        },
+        {
+          "name": "Makefile",
+          "bytes": 29030
+        },
+        {
+          "name": "Assembly",
+          "bytes": 14672
+        },
+        {
+          "name": "Linker Script",
+          "bytes": 1550
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 3,
+      "rootEntries": [
+        {
+          "name": "myos",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/HNX-x86/tree/main/myos"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/HNX-x86/blob/main/README.md"
+        }
+      ],
+      "createdAt": "2026-06-12T02:27:15Z",
+      "pushedAt": "2026-06-15T23:31:38Z",
+      "updatedAt": "2026-06-15T23:31:44Z",
+      "latestRelease": null
+    },
+    {
+      "id": "h3d",
+      "name": "H3D",
+      "category": "Engine",
+      "summary": "Forge3D: a C++23 application foundation and editor framework; viewport and rendering work remain future phases.",
+      "highlights": [
+        "The current repository covers foundational libraries and an application shell.",
+        "Operator, command, undo, and workspace models are documented.",
+        "The README explicitly places the viewport and renderer in later phases."
+      ],
+      "url": "https://github.com/Adventnl/H3D",
+      "homepageUrl": null,
+      "primaryLanguage": "C++",
+      "languages": [
+        {
+          "name": "C++",
+          "bytes": 443178
+        },
+        {
+          "name": "CMake",
+          "bytes": 16826
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 16,
+      "rootEntries": [
+        {
+          "name": "app",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/app"
+        },
+        {
+          "name": "apps",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/apps"
+        },
+        {
+          "name": "benchmarks",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/benchmarks"
+        },
+        {
+          "name": "cmake",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/cmake"
+        },
+        {
+          "name": "docs",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/docs"
+        },
+        {
+          "name": "foundation",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/foundation"
+        },
+        {
+          "name": "tests",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/tests"
+        },
+        {
+          "name": "tools",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/tools"
+        },
+        {
+          "name": "ui",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/H3D/tree/main/ui"
+        },
+        {
+          "name": "CMakeLists.txt",
+          "type": "file",
+          "url": "https://github.com/Adventnl/H3D/blob/main/CMakeLists.txt"
+        },
+        {
+          "name": "CMakePresets.json",
+          "type": "file",
+          "url": "https://github.com/Adventnl/H3D/blob/main/CMakePresets.json"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/H3D/blob/main/README.md"
+        }
+      ],
+      "createdAt": "2026-06-12T09:07:30Z",
+      "pushedAt": "2026-06-13T00:01:52Z",
+      "updatedAt": "2026-06-13T00:01:57Z",
+      "latestRelease": null
+    },
+    {
+      "id": "orbit-cloud",
+      "name": "orbit-cloud",
+      "category": "Platform",
+      "summary": "Infrastructure as code for a bare-metal cloud platform.",
+      "highlights": [
+        "The public repository contains Ansible provisioning and Kubernetes configuration.",
+        "MinIO supplies the documented object-storage layer.",
+        "Setup scripts and a web UI are included in the repository structure."
+      ],
+      "url": "https://github.com/Adventnl/orbit-cloud",
+      "homepageUrl": null,
+      "primaryLanguage": "PowerShell",
+      "languages": [
+        {
+          "name": "PowerShell",
+          "bytes": 9832
+        },
+        {
+          "name": "Shell",
+          "bytes": 6453
+        },
+        {
+          "name": "JavaScript",
+          "bytes": 3255
+        },
+        {
+          "name": "Inno Setup",
+          "bytes": 1555
+        }
+      ],
+      "topics": [],
+      "rootEntryCount": 9,
+      "rootEntries": [
+        {
+          "name": "ansible",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/orbit-cloud/tree/main/ansible"
+        },
+        {
+          "name": "installer",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/orbit-cloud/tree/main/installer"
+        },
+        {
+          "name": "kubernetes",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/orbit-cloud/tree/main/kubernetes"
+        },
+        {
+          "name": "scripts",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/orbit-cloud/tree/main/scripts"
+        },
+        {
+          "name": "setup-wizard",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/orbit-cloud/tree/main/setup-wizard"
+        },
+        {
+          "name": "ui",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/orbit-cloud/tree/main/ui"
+        },
+        {
+          "name": "vagrant",
+          "type": "dir",
+          "url": "https://github.com/Adventnl/orbit-cloud/tree/main/vagrant"
+        },
+        {
+          "name": "README.md",
+          "type": "file",
+          "url": "https://github.com/Adventnl/orbit-cloud/blob/main/README.md"
+        }
+      ],
+      "createdAt": "2026-05-13T21:34:46Z",
+      "pushedAt": "2026-05-28T07:26:57Z",
+      "updatedAt": "2026-05-28T07:27:01Z",
+      "latestRelease": null
+    }
+  ]
+}

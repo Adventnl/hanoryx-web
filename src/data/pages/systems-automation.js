@@ -6,11 +6,11 @@ const page = {
     scene: 'trigger-action-pulse',
     intensity: 'hero',
     eyebrow: 'Systems // SYS.03',
-    title: 'Automation that holds operational state predictable.',
+    title: 'Automation designed for predictable state.',
     intro:
-      'Rule-based orchestration that removes manual steps, enforces sequence, and writes a record of every run. Work moves on defined conditions, not on memory.',
+      'A design model for rule-based orchestration: explicit triggers, guarded conditions, scoped actions, and inspectable results. This page describes an approach, not a running automation service.',
     code: 'NODE.AUTO',
-    status: 'ACTIVE',
+    status: 'CAPABILITY MODEL',
     actions: [{ label: 'All systems', to: '/systems', variant: 'outline' }],
     metrics: [
       { value: 4, label: 'Execution stages' },
@@ -45,7 +45,7 @@ const page = {
       scene: 'build-pipeline',
       eyebrow: 'Flow',
       title: 'How a rule resolves.',
-      intro: 'Every automated action follows the same four-stage path. No stage is skipped, and each one is observable.',
+      intro: 'A proposed four-stage path makes the requirements visible. An implementation would need to verify each stage against its actual workflow.',
       steps: [
         {
           step: '01',

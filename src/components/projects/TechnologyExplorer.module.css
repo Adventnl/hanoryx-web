@@ -1,0 +1,23 @@
+.section { padding-block: var(--section-pad); background: var(--c-black-2); border-block: var(--border); }
+.heading { max-width: 760px; margin-bottom: var(--space-10); }
+.heading h2 { margin-block: var(--space-4); }
+.heading p { color: var(--c-white-65); }
+.layout { display: grid; grid-template-columns: minmax(230px, 0.7fr) minmax(0, 1.3fr); gap: var(--space-8); }
+.languages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: var(--space-2); }
+.languages button { display: flex; justify-content: space-between; gap: var(--space-2); padding: var(--space-4); min-height: 54px; border: 1px solid var(--c-line-strong); background: var(--c-black-3); color: var(--c-white-65); cursor: pointer; text-align: left; }
+.languages button:hover, .languages button[aria-pressed='true'] { color: var(--c-white); border-color: var(--c-red); background: var(--c-red-faint); }
+.languages button:focus-visible, .results a:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
+.languages button span:last-child { color: var(--c-red); font: 0.65rem var(--font-mono); }
+.results { border-top: 1px solid var(--c-red); }
+.resultHead { display: flex; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) 0; color: var(--c-white-50); font: 0.68rem var(--font-mono); text-transform: uppercase; letter-spacing: 0.13em; }
+.resultHead span:first-child { color: var(--c-red); }
+.results ul { padding: 0; margin: 0; list-style: none; }
+.results li { border-top: var(--border); }
+.results a { display: flex; justify-content: space-between; gap: var(--space-4); align-items: center; padding: var(--space-5) var(--space-3); color: var(--c-white); text-decoration: none; }
+.results a:hover { background: var(--c-white-03); }
+.results a span:first-child { display: grid; gap: var(--space-2); }
+.results small { color: var(--c-white-50); font: 0.66rem var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; }
+.results strong { font: 400 var(--fs-h3) var(--font-serif); overflow-wrap: anywhere; }
+.results a span:last-child { color: var(--c-red); }
+@media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .languages { grid-template-columns: 1fr 1fr; } .languages button { padding: var(--space-3); font-size: 0.8rem; } }

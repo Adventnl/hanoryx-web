@@ -12,6 +12,9 @@
     radial-gradient(130% 75% at 50% -8%, rgba(255, 51, 51, 0.08), transparent 55%),
     linear-gradient(180deg, var(--c-black-2), var(--c-void) 60%);
 }
+.close { position: absolute; top: var(--space-4); right: var(--gutter); display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--c-line-strong); border-radius: 50%; background: var(--c-black-3); color: var(--c-white); font: 1.5rem var(--font-sans); cursor: pointer; }
+.close:hover { border-color: var(--c-red); }
+.close:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
 
 /* command-surface rail running down the left edge of the stack */
 .menu {

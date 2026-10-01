@@ -9,6 +9,7 @@
 }
 
 /* The list owns the coordinate space for the connecting line. */
+.trackWrap { position: relative; }
 .track {
   position: relative;
   list-style: none;

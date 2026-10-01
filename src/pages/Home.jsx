@@ -2,22 +2,24 @@ import { PageTransition } from '../components/layout/PageTransition';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { PageHeroBlock, PageBlock } from '../components/page/PageBlocks';
 import { TimelineSection } from '@/features/timeline/TimelineSection';
-import { systemCategories, projects } from '../data/systems';
-import { metrics, manifesto } from '../data/company';
+import { systemCategories } from '../data/systems';
+import { manifesto } from '../data/company';
+import { publicMetrics } from '../data/publicMetrics';
+import { PublicWorkPreview } from '../components/projects/PublicWorkPreview';
 
 const ACCENT = '#ff3333';
 
 const hero = {
   scene: 'home-core',
   intensity: 'hero',
-  eyebrow: 'Hanoryx Systems // NORTH NODE ONLINE',
-  title: 'Online systems for controlled digital operations.',
+  eyebrow: 'Hanoryx Systems / Software engineering',
+  title: 'Software systems, made visible.',
   intro:
-    'Software infrastructure, management platforms, and interface systems designed for operational clarity.',
+    'We build software platforms and interfaces. Explore the systems behind the work, and inspect public code from the people building it.',
   code: 'SYS.CORE',
-  status: 'ONLINE',
+  status: 'HANORYX SYSTEMS',
   actions: [
-    { label: 'Enter systems', to: '/systems' },
+    { label: 'Explore public work', to: '/projects' },
     { label: 'Play System Sequence', action: 'system-synthesis', variant: 'outline' },
     { label: 'Open a channel', to: '/contact', variant: 'outline' },
   ],
@@ -48,8 +50,8 @@ const stats = {
   type: 'stats',
   scene: 'status-pulse-grid',
   intensity: 'low',
-  eyebrow: '// System status',
-  items: metrics.map((m) => ({ value: m.value, suffix: m.suffix, label: m.label, note: m.note })),
+  eyebrow: '// Public development',
+  items: publicMetrics.map((m) => ({ value: m.value, suffix: m.suffix, label: m.label, note: m.note })),
 };
 
 const systems = {
@@ -90,36 +92,6 @@ const north = {
   ],
 };
 
-const work = {
-  type: 'cards',
-  scene: 'node-compression',
-  eyebrow: 'Work',
-  title: 'Selected systems.',
-  intro: 'A controlled record. Some active, some withheld.',
-  items: projects.map((p) => ({
-    code: p.code,
-    label: p.type,
-    title: p.name,
-    body: p.summary,
-    status: p.status,
-    to: '/work',
-    redacted: p.classified,
-  })),
-};
-
-const unknown = {
-  type: 'redacted',
-  scene: 'research-blackout',
-  eyebrow: 'Classified Branches',
-  title: 'Systems below the surface.',
-  intro: 'Future modules exist. Detail is withheld until the architecture is ready to hold them.',
-  items: [
-    { code: 'NODE.07', label: 'Classified system branch', note: 'Architecture in progress' },
-    { code: 'NODE.08', label: 'Unannounced interface program', note: 'Surface withheld' },
-    { code: 'NODE.09', label: 'Redacted research node', note: 'Access scoped' },
-  ],
-};
-
 const doctrine = {
   type: 'manifesto',
   scene: 'topology-pulse',
@@ -146,11 +118,10 @@ export default function Home() {
       <PageHeroBlock hero={hero} accent={ACCENT} />
       <PageBlock block={signal} accent={ACCENT} />
       <PageBlock block={stats} accent={ACCENT} />
+      <PublicWorkPreview />
       <PageBlock block={systems} accent={ACCENT} />
       <PageBlock block={north} accent={ACCENT} />
-      <PageBlock block={work} accent={ACCENT} />
       <TimelineSection variant="preview" />
-      <PageBlock block={unknown} accent={ACCENT} />
       <PageBlock block={doctrine} accent={ACCENT} />
       <PageBlock block={contactCta} accent={ACCENT} />
     </PageTransition>

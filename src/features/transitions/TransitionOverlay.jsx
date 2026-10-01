@@ -15,15 +15,13 @@ import styles from './TransitionOverlay.module.css';
 export function TransitionOverlay() {
   const { pathname } = useLocation();
   const reduced = usePrefersReducedMotion();
-  const firstRef = useRef(true);
+  const previousPath = useRef(pathname);
   const [run, setRun] = useState(null); // { key, preset }
 
   useEffect(() => {
     if (reduced) return undefined;
-    if (firstRef.current) {
-      firstRef.current = false; // never play on initial load
-      return undefined;
-    }
+    if (previousPath.current === pathname) return undefined;
+    previousPath.current = pathname;
     const preset = presetFor(pathname);
     setRun({ key: pathname + Date.now(), preset });
     setScenesPaused(true);

@@ -2,14 +2,14 @@
 
 The corporate website for **Hanoryx Systems** — an advanced software company that builds online systems, management platforms, commerce infrastructure, automation tools, and digital operating environments. The software division is **Hanoryx North**.
 
-The site is a cinematic, **multi-page (30 routes), animation-heavy** experience built to feel like a real-time digital operating environment — a set of distinct technical chambers, not one long page. Deep black surfaces, white typography, a single restrained red accent. Every section declares **its own animated scene**; there is no single global background. Components are animated too — entrances, hovers, idle micro-motion — so almost nothing is ever fully static, while a performance-first engine keeps it frame-consistent and light on weaker devices.
+The site is a cinematic, multi-page Hanoryx Systems experience with public project records, engineering content, and a visual lab. Deep black surfaces, white typography, and a restrained red accent frame its Canvas scene system. Scenes share a scheduler and performance budget; reduced-motion settings receive intentional still states.
 
 ---
 
 ## Stack
 
 - **React 19** + **Vite 8 (rolldown)** — framework & build (route-level code splitting)
-- **react-router-dom 7** — routing (30 real routes, all lazy-loaded)
+- **react-router-dom 7** — routing (lazy-loaded pages and public project details)
 - **GSAP 3** + **@gsap/react** + **ScrollTrigger** — scroll-linked & timeline motion
 - **Lenis** — smooth scrolling
 - **motion** (Framer Motion) — page/menu transitions + component reveals
@@ -31,6 +31,8 @@ npm run dev      # http://localhost:5173
 npm run build    # production build -> dist/
 npm run preview
 npm run lint
+npm run sync:github      # refresh the reviewed public GitHub snapshot
+npm run test:data        # validate the public-only snapshot
 npm run deploy   # build + wrangler deploy (Cloudflare Workers static assets)
 node qa/scene-smoke.mjs   # validate every scene with a mock 2D context (no browser)
 ```
@@ -54,9 +56,10 @@ src/
     audio/         #   AudioVisualizer · AudioSignalButton
     cursor/        #   HanoryxCursor
     contact/       #   ContactSection (channel + form)
-    timeline/      #   TimelineSection (roadmap)
+    timeline/      #   TimelineSection (public repository chronology)
     experience/    #   System Synthesis — full-screen cinematic OVERLAY (no route)
   components/       # shared, presentational
+    projects/      #   project cards, explorer, language views, work preview
     ui/            #   Button · Card · DataPanel · StatBlock · SectionHeader · Pill · …
     layout/        #   SiteShell · Footer · PageTransition · RouteFallback · ErrorBoundary
     page/          #   PageBlocks (block dispatcher) · PageTemplate
@@ -93,7 +96,7 @@ src/animation/                # the animation ENGINE (kernel + scenes + reveal +
     motionProfiles.js   # easings, springs, base reveal variants
     KineticText.jsx · RedactionReveal.jsx   # split-text headline + redaction-bar reveals
   catalog/
-    inventory.js        # canonical catalogue of every animation system (189 entries)
+    inventory.js        # canonical catalogue of every animation system (190 entries)
 ```
 
 - **Single RAF scheduler.** Every scene/visualizer subscribes to one loop — no uncontrolled `requestAnimationFrame` stacking. The loop stops when nothing is subscribed and resets on tab hide/restore.
@@ -105,9 +108,9 @@ src/animation/                # the animation ENGINE (kernel + scenes + reveal +
 - **Audio bridge.** `AudioProvider` samples the `AnalyserNode` once per frame into `audioBridge`; audio-reactive scenes (`audio-signal-wall`, `radial-audio-core`, `signal-spectrum-field`) read the shared snapshot and fall back to procedural idle motion when nothing is playing.
 - **Reduced motion.** Scenes render a single static frame and never loop; component reveals/idle motion are disabled via media queries; the boot resolves instantly; the cursor and Lenis are disabled.
 
-### Scene library (67)
+### Scene library (68)
 
-**42 new presets** — `home-core · audio-signal-wall · radial-audio-core · signal-spectrum-field · orbital-command · hex-tunnel · polar-status · topology-pulse · commerce-pipeline · workflow-river · permission-orbit · data-interface-wave · client-portal-gate · research-blackout · motion-curve-field · interface-lab-shape · architecture-layer · tooling-console · musebase-coordination · unknown-silhouette · contact-transmission · status-pulse-grid · privacy-quiet-grid · error-signal-lost · magnetic-vector · radar-cutaway · isometric-infra · redacted-timeline-branch · liquid-glass-operational · node-compression · split-prism · glyph-compiler · compass-vector · heatmap-control · dependency-graph · build-pipeline · scheduling-grid · transaction-wave · trigger-action-pulse · dashboard-tiles · data-stream-ribbons · secure-boundary`
+**43 presets** — the original 42 plus `public-repositories`, whose links are derived from shared languages in curated public repository data.
 
 **25 retained base scenes** — `flow-field · orbital-node · hex-lattice · topographic-lines · polar-radar · wave-interference · spline-ribbon · concentric-gate · network-constellation · data-rain · circuit-trace · redaction-matrix · voronoi-cell · glass-prism · command-terminal · timeline-pulse · liquid-metal · architectural-grid · signal-wave · isometric-module · glyph-field · magnetic-particles · blackout-silhouette · vector-compass · heatmap-grid`
 
@@ -115,7 +118,7 @@ Add a scene by dropping a self-registering module into `scenes/` or `scenes/pres
 
 ### Animation inventory
 
-`src/animation/catalog/inventory.js` catalogues **189 distinct animation systems** (67 canvas backgrounds + component/text/nav/form/cursor/transition/overlay/audio + 13 cinematic phases + 6 performance systems + 8 route/category transitions). It is a guard against regressions — extend it, never collapse the variety back into a single fade-up. It is never rendered in production.
+`src/animation/catalog/inventory.js` catalogues **190 animation entries** (68 canvas backgrounds plus component/text/nav/form/cursor/transition/overlay/audio and cinematic systems). It is a guard against regressions. It is never rendered in production.
 
 ### Per-block component motion (no shared fade-up)
 
@@ -172,10 +175,10 @@ The site is built so heavy motion only runs when it owns the screen; everything 
 
 `src/app/routeConfig.js` is the source of truth: `navGroups` drives the radial menu, `templateRouteKeys` drives the data-routed pages.
 
-- **Bespoke pages:** Home, Contact, Timeline, 404 — each lazy-loaded.
-- **Data-driven pages:** every other route renders through **`TemplatePage` → `PageTemplate`** from a data object in `src/data/pages/<route>.js` (one file per route, auto-combined). Each page = a scene-backed hero + ordered **blocks** (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`, `feature`, `redacted`, `cta`), each block with its **own distinct scene preset**. Scenes are assigned thematically per page (operational pages get workflow/permission/scheduling scenes; commerce gets pipeline/transaction; research gets redaction/silhouette; etc.) so no two pages feel cloned.
+- **Bespoke pages:** Home, Contact, Timeline, Public Projects, Project Detail, Engineering, Lab, and 404 are lazy-loaded.
+- **Data-driven legacy pages:** established deep routes render through **`TemplatePage` → `PageTemplate`** from a data object in `src/data/pages/<route>.js` (one file per route, auto-combined). Each page has a scene-backed hero + ordered **blocks** (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`, `feature`, `redacted`, `cta`). This shared vocabulary is useful but repetitive; see `SITE-AUDIT.md` for the remaining editorial and architecture work.
 
-**Routes (30):** `/` · `/systems` (+7 sub) · `/north` (+5 sub) · `/work` (+5 sub incl. Musebase) · `/company` (+3 sub) · `/timeline` · `/contact` · `/legal/privacy` · `/legal/terms` · `*`.
+**Routes:** the established `/`, `/systems`, `/north`, `/work`, `/company`, `/timeline`, `/contact`, and `/legal/*` routes remain. `/projects` adds a public repository explorer, an interactive shared-language graph, and eight generated `/projects/:id` profiles with curated source-tree previews; `/engineering` and `/lab` expose the site's own implementation and scenes. These new routes are bespoke and lazy-loaded; the established deep routes still use the shared PageTemplate block vocabulary. Unknown routes use the 404 experience.
 
 ---
 
@@ -189,10 +192,12 @@ The site is built so heavy motion only runs when it owns the screen; everything 
 
 ---
 
-## QA tooling (`qa/`, dev only — excluded from lint)
+## QA tooling (`qa/`)
 
 - `qa/scene-smoke.mjs` — imports every scene with a mock 2D context and draws frames at all qualities/pointer/audio states; catches runtime errors a build can't.
-- `qa/qa.mjs`, `qa/nav-behavior.mjs`, `qa/shots2.mjs` — headless Chrome (playwright-core) route screenshots, nav interaction assertions, console-error capture, mobile + reduced-motion checks.
+- `qa/public-data.mjs` validates the generated public snapshot and project filtering.
+- `qa/website-smoke.mjs` checks all routes at ten widths for load errors, overflow, broken local links, and duplicate titles. `qa/interactions.mjs` exercises project, technology, Lab, search, mobile navigation, and boot audio behavior. `qa/visual-review.mjs` captures settled desktop and mobile states. Start Vite on `http://127.0.0.1:5174` or set `QA_BASE`; set `CHROME_PATH` if Chrome or Edge is not in a standard location.
+- Older one-off scripts such as `qa/qa.mjs` and `qa/shots2.mjs` remain as historical tools; several contain developer-machine browser paths. Use the newer suites for portable route and interaction coverage.
 
 ---
 
@@ -203,5 +208,5 @@ The site is built so heavy motion only runs when it owns the screen; everything 
 
 ## Content notes
 
-Hanoryx Systems is presented as a serious, advanced, deliberately private software company. Unreleased systems are withheld (redacted/classified nodes). **Musebase** is described only as an *advanced management / coordination platform* and is one node in a broader roadmap, never the focus, and its industry is never revealed. The contact form composes a `mailto:` to **contact@hanoryx.com** (no backend). No fake clients, awards, offices, certifications, or company history.
+The public project explorer uses `src/data/github.generated.json`, produced by `npm run sync:github`. The sync script curates named repositories from the authenticated GitHub user's public list, checks visibility/fork/archive status, and writes only reviewed display fields plus selected public root entries. The checked-in snapshot is the fallback when synchronization is unavailable; no GitHub token enters the browser. Public GitHub work is identified as associated with the repository owner, without attributing every personal project to Hanoryx Systems. The contact form composes a local `mailto:` draft and has no submission backend.
 ```

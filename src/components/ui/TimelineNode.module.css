@@ -80,6 +80,10 @@
   line-height: var(--lh-normal);
   color: var(--c-white-50);
 }
+.link { align-self: flex-start; margin-top: var(--space-2); color: var(--c-white); font: .65rem var(--font-mono); letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+.link span { color: var(--c-red); }
+.link:hover { color: var(--c-red); }
+.link:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
 .restricted {
   font-family: var(--font-mono);
   font-size: var(--fs-2xs);

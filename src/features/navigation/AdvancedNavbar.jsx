@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import clsx from 'clsx';
 import { navGroups } from '../../app/routeConfig';
 import { company } from '../../data/company';
@@ -134,6 +135,7 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu }) {
         </nav>
 
         <div className={styles.right}>
+          <button type="button" className={styles.search} onClick={() => window.dispatchEvent(new Event('hanoryx:search'))} aria-label="Search site"><Search size={17} /><span>⌘ K</span></button>
           <span className={styles.status} aria-hidden="true">
             <span className={styles.statusDot} />
             {company.status}

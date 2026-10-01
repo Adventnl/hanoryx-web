@@ -75,6 +75,9 @@
 .actions {
   justify-content: center;
 }
+.searchButton { min-height: 44px; padding-inline: var(--space-5); border: var(--border); background: var(--c-black-3); color: var(--c-white); cursor: pointer; }
+.searchButton:hover { border-color: var(--c-red); }
+.searchButton:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
 
 /* --- Lower telemetry readout --- */
 .telemetry {

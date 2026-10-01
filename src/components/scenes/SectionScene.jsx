@@ -32,6 +32,7 @@ const INTENSITY_DENSITY = {
  */
 export function SectionScene({
   scene,
+  sceneData,
   intensity = 'medium',
   accent = '#ff3333',
   density = 1,
@@ -47,6 +48,7 @@ export function SectionScene({
         <div className={clsx(styles.sceneLayer, fade && styles.fade)} aria-hidden="true">
           <SceneCanvas
             scene={scene}
+            sceneData={sceneData}
             cost={INTENSITY_COST[intensity] || 'medium'}
             density={(INTENSITY_DENSITY[intensity] || 1) * density}
             accent={accent}

@@ -1,0 +1,29 @@
+.section { padding-block: var(--section-pad); background: var(--c-black-2); border-block: var(--border); }
+.heading { max-width: 780px; margin-bottom: var(--space-8); }
+.heading h2 { margin-block: var(--space-4); }
+.heading p, .context p { color: var(--c-white-65); }
+.layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(260px, .7fr); gap: var(--space-6); align-items: start; }
+.tree, .context { border: 1px solid var(--c-line-strong); background: var(--c-black-3); }
+.treeHead { display: flex; justify-content: space-between; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-bottom: var(--border); color: var(--c-white-50); font: .65rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+.treeHead span:first-child { color: var(--c-white); }
+.tree ul { margin: 0; padding: 0; list-style: none; }
+.tree li + li { border-top: var(--border); }
+.tree li a { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto 16px; gap: var(--space-3); align-items: center; min-height: 57px; padding: var(--space-3) var(--space-5); color: var(--c-white); text-decoration: none; }
+.tree li a:hover { background: var(--c-red-faint); }
+.tree li a:focus-visible, .more:focus-visible, .context a:focus-visible { outline: 2px solid var(--c-red); outline-offset: -2px; }
+.tree li svg:first-child { color: var(--c-red); }
+.tree li span:nth-child(2) { overflow-wrap: anywhere; }
+.kind { color: var(--c-white-50); font: .59rem var(--font-mono); text-transform: uppercase; }
+.empty { padding: var(--space-6); color: var(--c-white-65); }
+.more { width: 100%; min-height: 54px; padding-inline: var(--space-5); border: 0; border-top: var(--border); background: var(--c-black-2); color: var(--c-white); text-align: left; cursor: pointer; font: .65rem var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+.more:hover { color: var(--c-red); }
+.context { padding: var(--space-6); }
+.context dl { margin-block: var(--space-6); }
+.context dl div { display: flex; justify-content: space-between; gap: var(--space-3); padding-block: var(--space-3); border-bottom: var(--border); }
+.context dt { color: var(--c-white-50); }
+.context dd { margin: 0; text-align: right; }
+.context p { line-height: 1.6; }
+.context a { display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-6); color: var(--c-white); text-decoration: none; }
+.context a svg { color: var(--c-red); }
+@media (max-width: 850px) { .layout { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .treeHead { flex-direction: column; } .tree li a { grid-template-columns: 20px minmax(0, 1fr) 16px; } .kind { display: none; } }
