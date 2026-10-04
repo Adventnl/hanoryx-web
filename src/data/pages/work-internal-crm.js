@@ -10,7 +10,7 @@ const page = {
   accent: '#ff3333',
   aliases: ['crm', 'data system', 'large data sets', 'internal system', 'supporting study'],
   hero: {
-    scene: 'heatmap-control',
+    scene: 'data-rain',
     intensity: 'hero',
     eyebrow: 'Work / 04 · Supporting study',
     title: 'Built for very large data sets.',
@@ -72,7 +72,7 @@ const page = {
     },
     {
       type: 'cta',
-      scene: 'heatmap-control',
+      scene: 'data-stream-ribbons',
       eyebrow: 'Next',
       title: 'Discuss a data problem.',
       body: 'If your data outgrew its interface, the conversation starts on the contact page.',

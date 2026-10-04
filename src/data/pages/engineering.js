@@ -4,7 +4,7 @@ const page = {
   accent: '#ff3333',
   aliases: ['scene registry', 'animation scheduler', 'code splitting', 'performance', 'how this site is built'],
   hero: {
-    scene: 'architecture-layer',
+    scene: 'network-constellation',
     intensity: 'hero',
     eyebrow: 'Development / Site engineering',
     title: 'Engineering, visible in the system.',

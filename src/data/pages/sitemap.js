@@ -4,7 +4,7 @@ const page = {
   accent: '#ff3333',
   aliases: ['directory', 'all pages', 'index', 'map'],
   hero: {
-    scene: 'hex-lattice',
+    scene: 'voronoi-cell',
     intensity: 'hero',
     eyebrow: 'Resources / Site map',
     title: 'Every page, in one place.',

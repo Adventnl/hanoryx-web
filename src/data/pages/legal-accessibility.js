@@ -1,3 +1,5 @@
+import { shortcutKeys, shortcutRows } from '../shortcuts';
+
 const page = {
   key: 'legal/accessibility',
   title: 'Accessibility',
@@ -27,28 +29,8 @@ const page = {
       eyebrow: 'The keyboard',
       title: 'Press a key. See what it does here.',
       intro: 'Every key that does something on this site is drawn below. Press the real key, or tap a cap to read it.',
-      keys: [
-        { id: 'esc', label: 'Esc', wide: true, match: ['Escape'], does: 'Closes search, menus and overlays, and returns focus to where you were.' },
-        { id: 'tab', label: 'Tab', wide: true, match: ['Tab'], does: 'Moves focus to the next link or control, in reading order. Shift + Tab goes back. A visible ring shows where you are.' },
-        { id: 'enter', label: 'Enter', wide: true, match: ['Enter'], does: 'Activates the focused link or button, and opens the highlighted result in search.' },
-        { id: 'space', label: 'Space', wide: true, match: [' '], does: 'Activates the focused button, switch or checkbox.' },
-        { id: 'mod', label: 'Ctrl / ⌘', wide: true, match: ['Control', 'Meta'], does: 'With K, opens the search from anywhere on the site.' },
-        { id: 'k', label: 'K', match: ['k', 'K'], does: 'With Ctrl or ⌘, opens the search.' },
-        { id: 'slash', label: '/', match: ['/'], does: 'Also opens the search, whenever you are not typing in a field.' },
-        { id: 'help', label: '?', match: ['?'], does: 'Opens the shortcuts panel, a short list of these keys.' },
-        { id: 'b', label: 'B', match: ['b', 'B'], does: 'Switches blueprint mode on and off, which outlines the parts of the page.' },
-        { id: 'left', label: '←', match: ['ArrowLeft'], does: 'Moves within tab lists, sliders, carousels and the timeline.' },
-        { id: 'up', label: '↑', match: ['ArrowUp'], does: 'Moves within lists, search results and radio groups.' },
-        { id: 'down', label: '↓', match: ['ArrowDown'], does: 'Moves within lists, search results and radio groups.' },
-        { id: 'right', label: '→', match: ['ArrowRight'], does: 'Moves within tab lists, sliders, carousels and the timeline.' },
-        { id: 'home', label: 'Home', match: ['Home'], does: 'Jumps to the first item in a tab list or slider.' },
-        { id: 'end', label: 'End', match: ['End'], does: 'Jumps to the last item in a tab list or slider.' },
-      ],
-      rows: [
-        ['esc', 'tab', 'enter', 'space'],
-        ['mod', 'k', 'slash', 'help', 'b'],
-        ['left', 'up', 'down', 'right', 'home', 'end'],
-      ],
+      keys: shortcutKeys,
+      rows: shortcutRows,
       hint: 'Keys are only watched while this map is on screen, and never while you are typing in a field. Nothing is intercepted.',
     },
     {

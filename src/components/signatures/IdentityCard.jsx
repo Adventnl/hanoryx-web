@@ -26,6 +26,7 @@ export default function IdentityCard({ back, hint }) {
           aria-label="Turn the card over"
           tabIndex={flipped ? -1 : 0}
           data-cursor="card"
+          data-cursor-label="Flip"
         >
           <span className={clsx('ghost-numeral', styles.watermark)} data-depth="22" aria-hidden="true">H</span>
           <img className={styles.mark} src={brandLogo} alt="" data-depth="12" />

@@ -80,7 +80,7 @@ const page = {
       type: 'modules',
       anchor: 'principles',
       railLabel: 'How it is held together',
-      scene: 'heatmap-control',
+      scene: 'privacy-quiet-grid',
       eyebrow: 'Principles',
       title: 'How a data interface is held together.',
       intro: 'Questions to settle for each implementation, with acceptance checks attached to the actual data source.',

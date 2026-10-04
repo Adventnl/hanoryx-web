@@ -20,6 +20,9 @@ const SKIP_KEYS = new Set([
   'step', 'size', 'align', 'aliases', 'path', 'actions', 'metrics', 'index', 'order', 'mode',
   'sceneName', 'name_', 'className', 'at', 'value', 'suffix', 'decimals', 'accentColor',
   'search', 'cursor', 'width', 'height', 'columns', 'seed', 'count', 'min', 'max', 'ease',
+  // structure of the interactive compositions, not readable copy
+  'anchor', 'railLabel', 'marker', 'defaultOpen', 'match', 'lives', 'command', 'x', 'y', 'span',
+  'adminOnly', 'terminal', 'edges', 'reach', 'visibleTo', 'minHeight', 'wide', 'start', 'field',
 ]);
 
 /* lowercase + strip diacritics so "café" matches "cafe". */

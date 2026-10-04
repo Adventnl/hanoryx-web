@@ -19,6 +19,8 @@ export default function PrincipleStack({ eyebrow, title, intro, principles }) {
         {principles.map((p, i) => (
           <li key={p.code} className={styles.slot} style={{ '--i': i }}>
             <article className={`glyph-host ${styles.card}`}>
+              {/* the tab: when later cards lie over this one, this line is what stays visible */}
+              <span className={styles.tab} aria-hidden="true"><b>{p.code}</b><span>{p.title}</span></span>
               <span className={`ghost-numeral ${styles.num}`} aria-hidden="true">{p.code}</span>
               <div className={styles.body}>
                 <Glyph name={p.glyph} size={38} className={styles.glyph} />

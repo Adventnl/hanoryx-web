@@ -90,6 +90,7 @@ export default function NorthCompass({ pillars, caption }) {
             onClick={() => turnTo(i * 90)}
             onFocus={() => turnTo(i * 90)}
             data-cursor="card"
+            data-cursor-label="Turn"
           >
             <span>{p.code}</span>
           </button>

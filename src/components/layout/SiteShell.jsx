@@ -14,6 +14,7 @@ import { HanoryxCursor } from '@/features/cursor/HanoryxCursor';
 import { ScanlineOverlay } from '../effects/ScanlineOverlay';
 import { NoiseOverlay } from '../effects/NoiseOverlay';
 import { PerfDebug } from '../effects/PerfDebug';
+import { GlobalKeys } from '@/features/shortcuts/GlobalKeys';
 import { TransitionOverlay } from '@/features/transitions/TransitionOverlay';
 import { CommandPalette } from '@/features/search/CommandPalette';
 import { ScrollProgress } from '@/features/navigation/ScrollProgress';
@@ -129,6 +130,7 @@ export function SiteShell({ children }) {
       <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
       <TransitionOverlay />
       <CommandPalette enabled={booted} />
+      <GlobalKeys enabled={booted} />
 
       <div className={styles.content} ref={contentRef}>
         <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>

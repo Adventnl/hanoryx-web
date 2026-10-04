@@ -10,9 +10,14 @@ import styles from './HanoryxCursor.module.css';
  * context-appropriate state. Fine-pointer only; disabled under reduced motion.
  * No React state on mousemove — everything is refs + GSAP quickTo + classList.
  */
+/* Short words the reticle can carry beside it. A control can override its own
+   with data-cursor-label="…"; an empty value silences the default. */
+const DEFAULT_LABELS = { card: 'View', drag: 'Drag' };
+
 export function HanoryxCursor() {
   const ring = useRef(null);
   const dot = useRef(null);
+  const label = useRef(null);
   const reduced = usePrefersReducedMotion();
 
   const enabled =
@@ -25,7 +30,8 @@ export function HanoryxCursor() {
     if (!enabled) return undefined;
     const ringEl = ring.current;
     const dotEl = dot.current;
-    if (!ringEl || !dotEl) return undefined;
+    const labelEl = label.current;
+    if (!ringEl || !dotEl || !labelEl) return undefined;
 
     document.documentElement.classList.add('hnx-cursor-active');
 
@@ -48,11 +54,18 @@ export function HanoryxCursor() {
     };
 
     let current = '';
-    const setState = (state) => {
-      if (state === current) return;
-      if (current) ringEl.classList.remove(styles[current]);
-      if (state) ringEl.classList.add(styles[state]);
-      current = state;
+    let currentLabel = '';
+    const setState = (state, text = '') => {
+      if (state !== current) {
+        if (current) ringEl.classList.remove(styles[current]);
+        if (state) ringEl.classList.add(styles[state]);
+        current = state;
+      }
+      if (text !== currentLabel) {
+        currentLabel = text;
+        if (text) labelEl.textContent = text;
+        ringEl.classList.toggle(styles.hasLabel, Boolean(text));
+      }
     };
 
     const onOver = (e) => {
@@ -62,8 +75,9 @@ export function HanoryxCursor() {
         return;
       }
       const declared = target.getAttribute('data-cursor');
-      if (declared && styles[declared]) setState(declared);
-      else setState('link');
+      const override = target.getAttribute('data-cursor-label');
+      const state = declared && styles[declared] ? declared : 'link';
+      setState(state, override !== null ? override : DEFAULT_LABELS[state] || '');
     };
 
     const onLeaveDoc = () => {
@@ -102,6 +116,7 @@ export function HanoryxCursor() {
         <span className={clsxCorner('br')} />
         <span className={styles.scan} />
         <span className={styles.orbit} />
+        <span ref={label} className={styles.label} />
       </div>
       <div ref={dot} data-chrome className={styles.dot} aria-hidden="true" />
     </>

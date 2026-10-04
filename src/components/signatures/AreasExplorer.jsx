@@ -70,6 +70,7 @@ export default function AreasExplorer({ eyebrow, title, intro, areas, note }) {
                 onPointerLeave={cancelHover}
                 onKeyDown={(e) => onKeyDown(e, i)}
                 data-cursor="card"
+                data-cursor-label="Open"
               >
                 <span className={styles.code}>{a.code}</span>
                 <Glyph name={a.glyph} size={28} className={styles.glyph} />

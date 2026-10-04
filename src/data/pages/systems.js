@@ -44,7 +44,7 @@ const page = {
   accent: '#ff3333',
   aliases: ['capabilities', 'what we build', 'platforms', 'areas', 'design areas'],
   hero: {
-    scene: 'hex-tunnel',
+    scene: 'hex-lattice',
     intensity: 'hero',
     eyebrow: 'Systems / Overview',
     title: 'Seven areas where we build.',

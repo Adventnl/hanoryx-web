@@ -1,52 +1,47 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
-import { setScenesPaused } from '../../animation/sceneBudget';
-import { presetFor } from './categoryTransitions';
+import { presetFor, labelFor } from './categoryTransitions';
 import styles from './TransitionOverlay.module.css';
 
+const DURATION_MS = 1000;
+
 /**
- * TransitionOverlay — a short (≈0.6s) bold full-screen sweep on route change.
- * Pure CSS keyframes (GPU transform/clip), pointer-events:none so it NEVER
- * blocks interaction, one-shot, self-unmounting. A different motif per route
- * category. Skipped under reduced motion. Page scenes are briefly paused while
- * the sweep covers the screen so nothing fights for frames.
+ * Route "current". Navigating does not cover the screen. A thin red line (with a
+ * soft wash trailing behind it and the destination written at its end) travels
+ * across the viewport while the old page eases out and the new one eases in, so
+ * there is always something moving and never a blank frame. Pure CSS transform
+ * + opacity, no blur and no filter, pointer-events: none, one-shot, and skipped
+ * under reduced motion. The motif's direction follows the section being entered.
  */
 export function TransitionOverlay() {
   const { pathname } = useLocation();
   const reduced = usePrefersReducedMotion();
   const previousPath = useRef(pathname);
-  const [run, setRun] = useState(null); // { key, preset }
+  const [run, setRun] = useState(null); // { key, preset, label }
 
   useEffect(() => {
-    if (reduced) return undefined;
     if (previousPath.current === pathname) return undefined;
     previousPath.current = pathname;
-    const preset = presetFor(pathname);
-    setRun({ key: pathname + Date.now(), preset });
-    setScenesPaused(true);
     window.dispatchEvent(new CustomEvent('hanoryx:overlay-start'));
-    const t = setTimeout(() => {
-      setRun(null);
-      setScenesPaused(false);
-    }, 720);
+    if (reduced) return undefined;
+    const kickoff = window.setTimeout(() => setRun({ key: `${pathname}-${performance.now()}`, preset: presetFor(pathname), label: labelFor(pathname) }), 0);
+    const done = window.setTimeout(() => setRun(null), DURATION_MS + 80);
     return () => {
-      clearTimeout(t);
-      setScenesPaused(false);
+      window.clearTimeout(kickoff);
+      window.clearTimeout(done);
     };
   }, [pathname, reduced]);
 
   if (!run) return null;
 
   return (
-    <div
-      key={run.key}
-      className={`${styles.overlay} ${styles[run.preset.mod] || ''}`}
-      aria-hidden="true"
-    >
-      <span className={styles.sweep} />
-      <span className={styles.beam} />
-      <span className={styles.label}>{run.preset.label}</span>
+    <div key={run.key} className={`${styles.overlay} ${styles[run.preset.mod] || ''}`} aria-hidden="true">
+      <span className={styles.rider}>
+        <span className={styles.wash} />
+        <span className={styles.line} />
+        <span className={styles.label}>{run.label}</span>
+      </span>
     </div>
   );
 }

@@ -127,6 +127,7 @@ export default function SystemMap({ nodes, links, core, caption }) {
                 onFocus={() => setHover(n.id)}
                 onBlur={() => setHover(null)}
                 data-cursor="card"
+                data-cursor-label="Open"
               >
                 <Glyph name={n.glyph} size={22} className={styles.glyph} />
                 <span className={styles.short}>{n.short}</span>

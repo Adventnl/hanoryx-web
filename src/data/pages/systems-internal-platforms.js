@@ -45,7 +45,7 @@ const page = {
       type: 'split',
       anchor: 'flow',
       railLabel: 'Data flow',
-      scene: 'heatmap-control',
+      scene: 'topographic-lines',
       eyebrow: 'Data flow',
       code: 'INT.FLOW',
       title: 'A decision should be traceable to its source.',

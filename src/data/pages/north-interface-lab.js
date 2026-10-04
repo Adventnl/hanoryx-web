@@ -43,7 +43,7 @@ const page = {
       columns: 4,
       anchor: 'specimens',
       railLabel: 'Components with a job',
-      scene: 'split-prism',
+      scene: 'architectural-grid',
       eyebrow: 'Real specimens',
       title: 'Components with a job.',
       intro: 'These parts exist in the website. Their value comes from repeated use across the pages, not from a count.',

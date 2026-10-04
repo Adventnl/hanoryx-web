@@ -29,15 +29,15 @@ function Cell({ rec, out, uid, reduced }) {
  * you can follow each record across. An illustration of scoping — in a real
  * portal the boundary is enforced by the backend, never by the interface.
  *
- *   records: [{ id, name, roles: [roleId] }]    roles: [{ id, label, line }]
+ *   records: [{ id, name, visibleTo: [roleId] }]    roles: [{ id, label, line }]
  */
 export default function BoundaryMembrane({ eyebrow, title, intro, records, roles, note }) {
   const uid = useId();
   const reduced = usePrefersReducedMotion();
   const [role, setRole] = useState(roles[0].id);
   const current = roles.find((r) => r.id === role);
-  const outside = records.filter((r) => r.roles.includes(role));
-  const inside = records.filter((r) => !r.roles.includes(role));
+  const outside = records.filter((r) => r.visibleTo.includes(role));
+  const inside = records.filter((r) => !r.visibleTo.includes(role));
 
   return (
     <div>

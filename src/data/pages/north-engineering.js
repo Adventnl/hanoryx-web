@@ -96,7 +96,7 @@ const page = {
       columns: 3,
       anchor: 'principles',
       railLabel: 'Principles',
-      scene: 'architecture-layer',
+      scene: 'architectural-grid',
       eyebrow: 'Engineering principles',
       title: 'Rules that decide how things connect.',
       intro: 'How modules connect, where state lives and what is allowed to depend on what.',

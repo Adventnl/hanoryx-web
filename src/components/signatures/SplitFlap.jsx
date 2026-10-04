@@ -20,7 +20,7 @@ function Row({ label, text, width, replay, button, onClick }) {
     </>
   );
   return button ? (
-    <button type="button" className={`${styles.row} ${styles.rowButton}`} onClick={onClick} aria-label={`${label}: ${text}. Show the next one.`} data-cursor="card">
+    <button type="button" className={`${styles.row} ${styles.rowButton}`} onClick={onClick} aria-label={`${label}: ${text}. Show the next one.`} data-cursor="card" data-cursor-label="Next">
       {inner}
     </button>
   ) : (

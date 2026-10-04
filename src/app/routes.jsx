@@ -9,8 +9,16 @@ import { RouteFallback } from '../components/layout/RouteFallback';
    bundle never carries the whole site. Every page — home, work, systems,
    development, company, contact, legal — renders through one data-driven
    TemplatePage chunk keyed into data/pages (also the search index's source). */
+const loadTemplatePage = () => import('../pages/TemplatePage');
 const NotFound = lazy(() => import('../pages/NotFound'));
-const TemplatePage = lazy(() => import('../pages/TemplatePage'));
+const TemplatePage = lazy(loadTemplatePage);
+
+/* Every page is the same chunk, so fetch it as soon as the browser is idle:
+   the first navigation then never waits on the network. */
+if (typeof window !== 'undefined') {
+  const idle = window.requestIdleCallback || ((cb) => window.setTimeout(cb, 1200));
+  idle(() => { loadTemplatePage(); });
+}
 
 /* /projects/:id used to be a public repository profile. Only YK Engine is part
    of the public work now; everything else lands on Work. */
