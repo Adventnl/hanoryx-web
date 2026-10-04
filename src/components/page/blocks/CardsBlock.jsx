@@ -53,7 +53,8 @@ export function CardsBlock({ block, accent }) {
       ) : (
         <RevealGroup
           profile="dataMaterialize"
-          className={clsx(styles.cardGrid, variant === 'bento' && styles.bento)}
+          className={clsx(styles.cardGrid, variant === 'bento' && styles.bento, block.columns && styles.fixedCols)}
+          style={block.columns ? { '--cols': block.columns } : undefined}
           itemClassName={styles.cardCell}
           stagger={0.08}
           {...fx(variant === 'bento' ? 'cards.bento-spotlight' : 'cards.spotlight-grid')}

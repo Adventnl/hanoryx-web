@@ -6,12 +6,14 @@
   min-height: var(--viewport-h, 100svh);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding-top: calc(var(--nav-h) + var(--space-8));
   padding-bottom: var(--space-12);
   border-bottom: var(--border-faint);
   overflow: clip;
 }
+/* the content wrapper fills the hero, so the scroll cue and the telemetry sit at
+   the hero's own bottom edge whatever the height of the copy or the aside */
+.heroContent { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .inner { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-8); align-items: center; }
 .hasAside { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); }
 .copy { position: relative; display: flex; flex-direction: column; gap: var(--space-5); min-width: 0; }
@@ -27,7 +29,7 @@
 .cue {
   position: absolute;
   left: var(--gutter);
-  bottom: var(--space-8);
+  bottom: calc(var(--space-5) - var(--space-12));
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -53,7 +55,7 @@
 .telemetry {
   position: absolute;
   right: var(--gutter);
-  bottom: var(--space-8);
+  bottom: calc(var(--space-5) - var(--space-12));
   display: flex;
   align-items: center;
   gap: 0.7rem;

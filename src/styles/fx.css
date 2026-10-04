@@ -37,6 +37,13 @@
   initial-value: 50;
 }
 
+/* compass needle, in degrees (unwrapped, so it always turns the short way round) */
+@property --needle {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
 /* Shared easing for interactive state changes (matches the motion vocabulary). */
 :root {
   --ease-glide: cubic-bezier(0.22, 1, 0.36, 1);

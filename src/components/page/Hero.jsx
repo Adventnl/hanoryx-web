@@ -29,6 +29,7 @@ export function PageHero({ hero, accent }) {
       intensity={hero.intensity || 'hero'}
       accent={accent}
       className={styles.hero}
+      contentClassName={styles.heroContent}
     >
       <div className={clsx('container', styles.inner, Aside && styles.hasAside)}>
         <div className={styles.copy}>

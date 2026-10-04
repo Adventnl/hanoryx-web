@@ -9,10 +9,17 @@ import styles from './CompareSlider.module.css';
  * the reveal instead of snapping; while dragging the ease is off so the handle
  * tracks the finger exactly.
  */
-export function CompareSlider({ before, after, beforeLabel = 'Before', afterLabel = 'After', initial = 50, label = 'Comparison', className }) {
+export function CompareSlider({ before, after, beforeLabel = 'Before', afterLabel = 'After', initial = 50, value, onChange, label = 'Comparison', className }) {
   const trackRef = useRef(null);
-  const [pos, setPos] = useState(initial);
+  const [inner, setInner] = useState(initial);
   const [dragging, setDragging] = useState(false);
+  // controlled when `value` is given (so a legend elsewhere can drive the reveal)
+  const controlled = value !== undefined;
+  const pos = controlled ? value : inner;
+  const setPos = useCallback((next) => {
+    if (!controlled) setInner(next);
+    onChange?.(next);
+  }, [controlled, onChange]);
 
   const toPos = useCallback((clientX) => {
     const rect = trackRef.current.getBoundingClientRect();
@@ -34,8 +41,8 @@ export function CompareSlider({ before, after, beforeLabel = 'Before', afterLabe
 
   const onKeyDown = (event) => {
     const step = event.shiftKey ? 15 : 5;
-    if (event.key === 'ArrowLeft') setPos((p) => Math.max(0, p - step));
-    else if (event.key === 'ArrowRight') setPos((p) => Math.min(100, p + step));
+    if (event.key === 'ArrowLeft') setPos(Math.max(0, pos - step));
+    else if (event.key === 'ArrowRight') setPos(Math.min(100, pos + step));
     else if (event.key === 'Home') setPos(0);
     else if (event.key === 'End') setPos(100);
     else return;

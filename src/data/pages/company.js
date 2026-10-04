@@ -1,0 +1,137 @@
+import { timelinePhases } from '../timeline';
+
+const page = {
+  key: 'company',
+  title: 'Company',
+  accent: '#ff3333',
+  aliases: ['about', 'about us', 'who we are', 'hanoryx north', 'team', 'overview'],
+  hero: {
+    scene: 'network-constellation',
+    intensity: 'hero',
+    eyebrow: 'Company / Overview',
+    title: 'The company behind the systems.',
+    intro:
+      'Hanoryx Systems designs and builds online systems, software platforms and the interfaces people use to work in them. Hanoryx North is its development team.',
+    code: 'CMP.00',
+    status: 'LIVE',
+    actions: [
+      { label: 'Selected work', to: '/work' },
+      { label: 'How we decide', to: '/company/principles', variant: 'outline' },
+    ],
+    aside: {
+      kind: 'identityCard',
+      hint: 'Turn the card over',
+      back: [
+        { label: 'Principles', line: 'How decisions get made', to: '/company/principles' },
+        { label: 'Security approach', line: 'Starting at the boundary', to: '/company/security' },
+        { label: 'Timeline', line: 'The company, told in phases', to: '/company/timeline' },
+        { label: 'Careers', line: 'The areas of work', to: '/company/careers' },
+        { label: 'Hanoryx North', line: 'The development team', to: '/north' },
+      ],
+    },
+  },
+  blocks: [
+    {
+      type: 'split',
+      anchor: 'what',
+      railLabel: 'What we do',
+      scene: 'topographic-lines',
+      eyebrow: 'What we do',
+      code: 'CMP.WHAT',
+      title: 'Online systems, built with care.',
+      body: [
+        'Hanoryx Systems builds online systems: a coordination application, a customer-facing product, an internal data system, and a proprietary 2D engine, along with the tooling around them.',
+        'The work is described here in general terms. Some of it is internal and some involves other people’s operations, so this site shows the shape of the work rather than its details.',
+      ],
+      asideLabel: 'AT A GLANCE',
+      asideCode: 'CMP.MAP',
+      points: [
+        { k: 'KIND', v: 'Systems company' },
+        { k: 'WORK', v: 'Applications · platforms · tooling' },
+        { k: 'TEAM', v: 'Hanoryx North (development)' },
+        { k: 'STATUS', v: 'Live' },
+      ],
+    },
+    {
+      type: 'signature',
+      kind: 'surfaceCompare',
+      anchor: 'structure',
+      railLabel: 'How we think',
+      scene: 'privacy-quiet-grid',
+      minHeight: 640,
+      eyebrow: 'How we think',
+      title: 'Structure first. Surface second.',
+      intro:
+        'Drag the handle to peel the surface away. Most of a system’s quality lives in what the screen does not show.',
+      groups: [
+        { id: 'access', label: 'Access', note: 'Who is acting, and what each role may reach.' },
+        { id: 'data', label: 'Data', note: 'Where each record lives, and where it may be read.' },
+        { id: 'change', label: 'Change', note: 'How an action is made, reviewed and traced.' },
+      ],
+      note: 'An abstract screen drawn for this page. It illustrates an approach and is not a screenshot of any product.',
+    },
+    {
+      type: 'cards',
+      variant: 'grid',
+      columns: 4,
+      anchor: 'explore',
+      railLabel: 'Explore',
+      scene: 'architectural-grid',
+      eyebrow: 'Explore the company',
+      title: 'Four ways in.',
+      intro: 'The company, from the inside out.',
+      items: [
+        {
+          code: 'CMP.01',
+          title: 'Principles',
+          body: 'Six rules that hold the work together, each with what it changes in practice.',
+          glyph: 'compass',
+          to: '/company/principles',
+        },
+        {
+          code: 'CMP.02',
+          title: 'Security approach',
+          body: 'Where we start when a system has to protect something, and a checklist you can use.',
+          glyph: 'shield',
+          to: '/company/security',
+        },
+        {
+          code: 'CMP.03',
+          title: 'Timeline',
+          body: 'The company told in phases, because exact dates are not published.',
+          glyph: 'clock',
+          to: '/company/timeline',
+        },
+        {
+          code: 'CMP.04',
+          title: 'Careers',
+          body: 'The areas the work covers, and how to introduce yourself. No roles are listed.',
+          glyph: 'people',
+          to: '/company/careers',
+        },
+      ],
+    },
+    {
+      type: 'signature',
+      kind: 'chronologyStrip',
+      anchor: 'chronology',
+      railLabel: 'Chronology',
+      minHeight: 420,
+      eyebrow: 'Company chronology',
+      title: 'Told in phases.',
+      intro: 'No dates are published, so the company is described as stages of work, in order.',
+      phases: timelinePhases,
+      linkLabel: 'Move through the timeline',
+    },
+    {
+      type: 'cta',
+      scene: 'contact-transmission',
+      eyebrow: 'Say hello',
+      title: 'Start with a conversation.',
+      body: 'For software systems, internal platforms and operational interfaces.',
+      links: [{ label: 'See the work', to: '/work' }],
+    },
+  ],
+};
+
+export default page;

@@ -34,7 +34,7 @@ export function CtaBlock({ block, accent }) {
           <Reveal profile="zoomThrough" as="div" delay={0.1} className={clsx('stack', 'stack-6', styles.ctaBody)}>
             <p className={clsx('lead', styles.ctaLead)}>{block.body || 'For software systems, internal platforms and operational interfaces.'}</p>
             <div className={clsx('cluster', styles.ctaActions)}>
-              <Button to="/contact" variant="primary" icon={ArrowUpRight}>Open the contact page</Button>
+              <Button to={block.primary?.to || '/contact'} variant="primary" icon={ArrowUpRight}>{block.primary?.label || 'Open the contact page'}</Button>
               {links.map((l) => (
                 <ArrowLink key={l.to} to={l.to}>{l.label}</ArrowLink>
               ))}

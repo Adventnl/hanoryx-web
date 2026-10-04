@@ -1,0 +1,41 @@
+.deck { margin-top: var(--space-10); list-style: none; padding-bottom: var(--space-8); }
+.slot { position: sticky; top: calc(var(--nav-h) + 22px + var(--i) * 18px); padding-bottom: var(--space-8); }
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: end;
+  min-height: 300px;
+  padding: clamp(1.6rem, 3vw, 2.8rem);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, #15161a, #0b0c0e);
+  box-shadow: 0 -24px 60px -34px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
+  transform-origin: 50% 0;
+}
+.num { position: absolute; right: 1.5rem; top: -0.1em; font-size: clamp(7rem, 16vw, 14rem); pointer-events: none; user-select: none; transition: -webkit-text-stroke-color var(--dur-3) var(--ease-out), transform 1.2s var(--ease-glide); }
+.card:hover .num { -webkit-text-stroke-color: var(--c-red-dim); transform: translateX(-8px); }
+.body { position: relative; display: flex; flex-direction: column; gap: var(--space-3); max-width: 38rem; }
+.glyph { color: var(--c-red); }
+.title { font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: 300; line-height: 1.05; color: var(--c-white); }
+.text { font-size: var(--fs-body); line-height: 1.7; color: var(--c-white-65); }
+.practice { position: relative; padding-left: var(--space-5); border-left: 1px solid var(--c-red-dim); }
+.practiceLabel { display: block; margin-bottom: 0.5rem; font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.practice p { font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-50); }
+
+/* where scroll-driven animation exists, buried cards recede */
+@supports (animation-timeline: view()) {
+  .card { animation: bury linear both; animation-timeline: view(); animation-range: exit-crossing 0% exit 90%; }
+  @keyframes bury { to { transform: scale(0.94); filter: brightness(0.6); } }
+}
+@media (max-width: 860px) {
+  .card { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); min-height: 0; }
+  .slot { top: calc(var(--nav-h) + 14px + var(--i) * 10px); }
+  .practice { padding-left: var(--space-4); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card { animation: none !important; filter: none; }
+  .num { transition: none; }
+}
