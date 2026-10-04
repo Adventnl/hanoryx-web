@@ -39,6 +39,10 @@ export function SiteShell({ children }) {
   // lifts away, then unmounts itself via onExited — so there's no hard cut.
   const [bootMounted, setBootMounted] = useState(() => !readBooted());
   const [menuOpen, setMenuOpen] = useState(false);
+  // The navbar glides in as the site is revealed. It flips one frame AFTER
+  // `booted` so even a returning visitor (booted from the first render) gets
+  // the entrance transition instead of the bar simply being there.
+  const [navRevealed, setNavRevealed] = useState(false);
   const contentRef = useRef(null);
   const reduced = usePrefersReducedMotion();
   const lenis = useLenis();
@@ -50,6 +54,12 @@ export function SiteShell({ children }) {
     setLastPath(pathname);
     if (menuOpen) setMenuOpen(false);
   }
+
+  useEffect(() => {
+    if (!booted) return undefined;
+    const id = requestAnimationFrame(() => setNavRevealed(true));
+    return () => cancelAnimationFrame(id);
+  }, [booted]);
 
   useEffect(() => {
     if (!booted) {
@@ -114,11 +124,11 @@ export function SiteShell({ children }) {
       <ScanlineOverlay />
       <HanoryxCursor />
 
-      <AdvancedNavbar menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((v) => !v)} />
+      <AdvancedNavbar menuOpen={menuOpen} onToggleMenu={() => setMenuOpen((v) => !v)} revealed={navRevealed} />
       <ScrollProgress />
       <MobileNav open={menuOpen} onClose={() => setMenuOpen(false)} />
       <TransitionOverlay />
-      <CommandPalette />
+      <CommandPalette enabled={booted} />
 
       <div className={styles.content} ref={contentRef}>
         <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>

@@ -92,8 +92,10 @@
 .channel {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.7em;
   align-self: flex-start;
+  cursor: pointer;
+  background: transparent;
   padding: 0.8rem 1.4rem;
   border: 1px solid var(--c-line-strong);
   border-radius: var(--r-sm);
@@ -104,7 +106,5 @@
   color: var(--c-white);
 }
 .footRow { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
-.status { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.16em; color: var(--c-white-40); }
+.status { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-40); }
 .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
-.email { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--c-white-65); }
-.email:hover { color: var(--c-red); }

@@ -176,6 +176,12 @@ textarea {
   transform: translate(-50%, 1rem);
 }
 
+/* Overlays (search, shortcuts) lock page scroll through utils/scrollLock.js.
+   scrollbar-gutter: stable (above) keeps the layout from shifting. */
+html.scroll-locked {
+  overflow: hidden;
+}
+
 /* When boot sequence locks the viewport */
 body.is-locked {
   overflow: hidden;

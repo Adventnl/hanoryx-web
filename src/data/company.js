@@ -7,7 +7,7 @@ export const company = {
   shortName: 'Hanoryx',
   division: 'Hanoryx North',
   email: 'contact@hanoryx.com',
-  status: 'SOFTWARE ENGINEERING',
+  status: 'Live',
 
   hero: {
     title: 'HANORYX SYSTEMS',
