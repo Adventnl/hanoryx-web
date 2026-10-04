@@ -99,6 +99,13 @@ export function sectionOf(path) {
   return SECTION_BY_ROOT[root] || 'Site';
 }
 
+/* Clip to `max` characters at a word boundary, so a summary never ends mid-word. */
+function clipWords(text, max) {
+  if (text.length <= max) return { text, cut: false };
+  const space = text.lastIndexOf(' ', max);
+  return { text: text.slice(0, space > max * 0.6 ? space : max).trimEnd(), cut: true };
+}
+
 /* Build a searchable document from a page-data object. */
 export function buildDocument(page, path) {
   const hero = page.hero || {};
@@ -116,12 +123,14 @@ export function buildDocument(page, path) {
     return true;
   });
   const section = sectionOf(path);
+  const summary = clipWords(clean(hero.intro || ''), 160);
   return {
     id: path,
     to: path,
     title: page.searchTitle || page.title,
     section,
-    summary: clean(hero.intro || '').slice(0, 160),
+    summary: summary.text,
+    summaryCut: summary.cut,
     aliases: (page.aliases || []).map(normalize),
     passages: unique.map((p) => ({ ...p, norm: normalize(p.text) })),
     titleNorm: normalize(page.searchTitle || page.title),
@@ -237,7 +246,8 @@ export function search(documents, query, { section = 'All', limit = 12 } = {}) {
     if (best && !(best.passage.isHeading && normalize(best.passage.text) === doc.titleNorm)) {
       excerpt = { ...makeExcerpt(best.passage.text, terms), heading: best.passage.heading };
     } else if (doc.summary) {
-      excerpt = { ...makeExcerpt(doc.summary, terms), heading: doc.title };
+      const fromSummary = makeExcerpt(doc.summary, terms);
+      excerpt = { ...fromSummary, truncatedEnd: fromSummary.truncatedEnd || doc.summaryCut, heading: doc.title };
     }
     results.push({
       doc,

@@ -7,7 +7,7 @@
      studies (an unnamed customer-facing product, an internal CRM/data system).
    - Describe only what is known. No clients, dates, measured outcomes, or
      operational detail; the supporting studies stay deliberately unnamed.
-   - YK Engine is the only project with a public repository.
+   - YK Engine is the only project that links to a GitHub repository.
    ============================================================ */
 
 export const YK_ENGINE_REPO = 'https://github.com/Adventnl/YK-Engine';

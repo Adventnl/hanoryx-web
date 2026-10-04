@@ -44,7 +44,7 @@ const page = {
         { k: 'NAMES', v: 'The two supporting studies are unnamed by design.' },
         { k: 'FIGURES', v: 'No measured results are quoted unless they can be backed up.' },
         { k: 'DATES', v: 'Not published. The company timeline is told in phases.' },
-        { k: 'SOURCE', v: 'YK Engine is the one project with a public repository.' },
+        { k: 'LINKS', v: 'Only YK Engine links out, to its source on GitHub. The rest are described, not linked.' },
       ],
     },
     {

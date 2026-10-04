@@ -126,6 +126,7 @@
 
 /* ---- section filters ---- */
 .chips {
+  position: relative;
   display: flex;
   gap: 4px;
   padding: 0 var(--space-4) var(--space-3);
@@ -137,6 +138,7 @@
 .chips::-webkit-scrollbar { display: none; }
 .chip {
   position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
@@ -152,12 +154,27 @@
 }
 .chip:hover { color: var(--c-white); }
 .chipOn { color: var(--c-white); }
+/* one highlight that glides to the active chip (see placeInk in the component) */
 .chipInk {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  width: var(--chip-w, 0px);
+  height: var(--chip-h, 0px);
+  transform: translate(var(--chip-x, 0px), var(--chip-y, 0px));
+  opacity: var(--chip-on, 0);
   border: 1px solid var(--c-red-dim);
   border-radius: var(--r-pill);
   background: var(--c-red-faint);
+  pointer-events: none;
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+.chips[data-ink-ready] .chipInk {
+  transition:
+    transform var(--dur-2) var(--ease-out),
+    width var(--dur-2) var(--ease-out),
+    height var(--dur-2) var(--ease-out),
+    opacity var(--dur-2) var(--ease-out);
 }
 .chipLabel, .chipCount { position: relative; }
 .chipCount { color: var(--c-white-30); font-variant-numeric: tabular-nums; }
@@ -165,6 +182,7 @@
 
 /* ---- results ---- */
 .results {
+  position: relative;
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
@@ -180,6 +198,7 @@
 }
 .row {
   position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
@@ -192,13 +211,27 @@
   text-align: left;
   cursor: pointer;
 }
-/* the single highlight that glides between rows */
+/* the single highlight that glides between rows (see placeInk in the component) */
 .rowInk {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  width: var(--ink-w, 0px);
+  height: var(--ink-h, 0px);
+  transform: translate(var(--ink-x, 0px), var(--ink-y, 0px));
+  opacity: var(--ink-on, 0);
   border-radius: var(--r-sm);
   background: linear-gradient(90deg, var(--c-red-faint), var(--c-white-03));
   box-shadow: inset 2px 0 0 var(--c-red);
+  pointer-events: none;
+  transition: opacity var(--dur-1) var(--ease-out);
+}
+.results[data-ink-ready] .rowInk {
+  transition:
+    transform var(--dur-2) var(--ease-out),
+    width var(--dur-2) var(--ease-out),
+    height var(--dur-2) var(--ease-out),
+    opacity var(--dur-1) var(--ease-out);
 }
 .rowBody { position: relative; display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; flex: 1; }
 .rowHead { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.25rem 0.7rem; min-width: 0; }

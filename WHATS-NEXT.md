@@ -1,10 +1,12 @@
 # What is next
 
-1. **Verify legacy content:** review every remaining deep route against a source of truth. Remove or clearly label concept work, simulated status, deployment statements, and unsupported performance claims. Confirm privacy and terms statements with the site owner, especially retention, hosting logs, and providers. Obtain approved facts and media for any private work intended for public display.
-2. **Give legacy routes specific structure:** replace repeated block sequences with page-specific diagrams, comparisons, process detail, and proof where the underlying material warrants them. Keep the existing scene inventory and design language.
-3. **Deepen project stories:** add reviewed architecture diagrams, screenshots, decisions, constraints, and outcomes for each public repository. Do not infer results from repository metadata.
-4. **Expand discovery and accessibility:** index approved page body content; audit screen-reader reading order, landmarks, focus return, contrast, and touch interaction on real devices.
-5. **Strengthen delivery:** add pre-rendering or server rendering if per-route crawler metadata is essential, add preview deployment QA, and automate periodic public-data refresh with review.
-6. **Continue the requested scale deliberately:** the brief calls for 100 meaningful components and 500 substantive changes. Add only components and changes justified by actual content or behavior; track them in `IMPLEMENTATION-LEDGER.md`.
+Things that need the owner, a device or a decision — not more code for its own sake.
 
-Final verification for this pass is recorded in `IMPLEMENTATION-LEDGER.md`. A later owner should rerun the scripts after new content or dependency changes.
+1. **Real facts for the work pages.** Musebase, the customer-facing product and the internal CRM/data system are described in general terms on purpose. Approved descriptions, screenshots or outcomes can replace them; until then nothing is quoted that cannot be backed up. The word "proprietary" for YK Engine follows the owner's wording — confirm it is the one to keep.
+2. **Dates for the timeline.** `company/timeline` is told in phases because no dates are published. If dates are supplied, the scrubber can show them (its track spacing is order, not time, and says so).
+3. **Review the legal pages.** `legal/privacy`, `legal/terms`, `legal/cookies` and `legal/accessibility` explain what the site's own code does (Google Fonts is a third-party request; the only browser storage is `hnx.boot.complete`, `hnx.audio.on`, `hnx.search.recent`). They are not legal advice and no one has reviewed them. Update them if analytics, a form backend or another provider is added.
+4. **Careers.** The page lists no roles and invents none. Add real openings to `src/data/pages/company-careers.js` when they exist (the areas explorer and the contact studio's `?type=careers` already route interest to the contact page).
+5. **Accessibility pass.** Run a screen reader (NVDA/VoiceOver) over the signature pages; check focus order and reading order in the hero objects; confirm contrast on the dimmest labels; check every drag interaction on touch hardware.
+6. **Real-device performance.** Measure on a mid-range phone with `/engineering`'s live budget and the dev-only PerfDebug HUD. The scene budget (2 active on desktop, 1 on phones, 0 under reduced motion) is the dial to turn if it is not enough.
+7. **Per-route metadata.** The site is a client-rendered SPA: titles and descriptions update per route, but crawlers and link previews that do not run JavaScript only see `index.html`. Pre-rendering would fix that; the page data is already plain JSON, which makes it straightforward.
+8. **Keep the catalogues true.** New interactions go in `src/animation/catalog/inventory.js` and the table in `FOREGROUND.md`; new non-prose data keys go in `SKIP_KEYS` in `searchEngine.js`; run `node qa/website-smoke.mjs` and `node qa/foreground-inventory.mjs` before merging.

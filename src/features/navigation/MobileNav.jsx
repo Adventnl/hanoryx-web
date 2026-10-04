@@ -46,7 +46,7 @@ export function MobileNav({ open, onClose }) {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div ref={overlayRef} className={styles.overlay} variants={reduced ? undefined : panelV} initial={reduced ? false : 'hidden'} animate={reduced ? undefined : 'show'} exit={reduced ? undefined : 'exit'}>
+        <motion.div ref={overlayRef} className={styles.overlay} role="dialog" aria-modal="true" aria-label="Site menu" variants={reduced ? undefined : panelV} initial={reduced ? false : 'hidden'} animate={reduced ? undefined : 'show'} exit={reduced ? undefined : 'exit'}>
           <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label="Close mobile navigation">×</button>
           <nav className={styles.menu} aria-label="Mobile">
             {navGroups.map((g, i) => {

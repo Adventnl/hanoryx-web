@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
@@ -49,6 +49,34 @@ function isEditable(el) {
   return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
 }
 
+/* The highlights that glide between result rows and between section chips.
+   Motion's shared layout (`layoutId`) used to do this, but a layout animation
+   still running on a node keeps AnimatePresence from removing the dialog: the
+   panel had faded out and sat in the DOM for another ~300 ms, swallowing
+   clicks. Here JS only measures where the active item sits and writes it to
+   CSS variables; a CSS transition does the gliding, so nothing outlives the
+   exit. The first placement is instant (`data-ink-ready` arrives a frame later)
+   so the highlight never slides in from the corner. */
+const ROW_INK = { x: '--ink-x', y: '--ink-y', w: '--ink-w', h: '--ink-h', on: '--ink-on' };
+const CHIP_INK = { x: '--chip-x', y: '--chip-y', w: '--chip-w', h: '--chip-h', on: '--chip-on' };
+
+function placeInk(container, target, names) {
+  if (!container) return;
+  const set = (name, value) => container.style.setProperty(name, value);
+  if (!target) {
+    set(names.on, '0');
+    return;
+  }
+  set(names.x, `${target.offsetLeft}px`);
+  set(names.y, `${target.offsetTop}px`);
+  set(names.w, `${target.offsetWidth}px`);
+  set(names.h, `${target.offsetHeight}px`);
+  set(names.on, '1');
+  if (!container.hasAttribute('data-ink-ready')) {
+    requestAnimationFrame(() => container.setAttribute('data-ink-ready', ''));
+  }
+}
+
 /**
  * Command palette / site search.
  *
@@ -79,6 +107,7 @@ export function CommandPalette({ enabled = true }) {
   const panelRef = useRef(null);
   const inputRef = useRef(null);
   const listRef = useRef(null);
+  const chipsRef = useRef(null);
   const returnFocus = useRef(null);
   const lastPointer = useRef({ x: 0, y: 0 });
 
@@ -168,11 +197,11 @@ export function CommandPalette({ enabled = true }) {
         const doc = byPath.get(path);
         if (doc && !seen.has(path) && (section === 'All' || doc.section === section)) {
           seen.add(path);
-          picked.push({ doc, score: 0, excerpt: doc.summary ? { text: doc.summary, ranges: [], truncatedStart: false, truncatedEnd: doc.summary.length >= 160 } : null, titleRanges: [], recent: recent.includes(path) });
+          picked.push({ doc, score: 0, excerpt: doc.summary ? { text: doc.summary, ranges: [], truncatedStart: false, truncatedEnd: doc.summaryCut } : null, titleRanges: [], recent: recent.includes(path) });
         }
       }
       if (section !== 'All') {
-        docs.filter((d) => d.section === section && !seen.has(d.to)).forEach((doc) => picked.push({ doc, score: 0, excerpt: doc.summary ? { text: doc.summary, ranges: [], truncatedStart: false, truncatedEnd: false } : null, titleRanges: [] }));
+        docs.filter((d) => d.section === section && !seen.has(d.to)).forEach((doc) => picked.push({ doc, score: 0, excerpt: doc.summary ? { text: doc.summary, ranges: [], truncatedStart: false, truncatedEnd: doc.summaryCut } : null, titleRanges: [] }));
       }
       return picked.slice(0, 8);
     }
@@ -233,6 +262,23 @@ export function CommandPalette({ enabled = true }) {
       }
     }
   };
+
+  // Move the glide highlights to the active row and section chip.
+  useLayoutEffect(() => {
+    if (!open) return undefined;
+    const list = listRef.current;
+    const chips = chipsRef.current;
+    const place = () => {
+      placeInk(list, list?.querySelector('[aria-selected="true"]'), ROW_INK);
+      placeInk(chips, chips?.querySelector('[aria-pressed="true"]'), CHIP_INK);
+    };
+    place();
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(place);
+    if (list) observer.observe(list);
+    if (chips) observer.observe(chips);
+    return () => observer.disconnect();
+  }, [open, active, results, section, counts]);
 
   // Keep the active row visible while arrowing through a long list.
   useEffect(() => {
@@ -321,7 +367,8 @@ export function CommandPalette({ enabled = true }) {
               </button>
             </div>
 
-            <div className={styles.chips} role="group" aria-label="Filter results by section">
+            <div ref={chipsRef} className={styles.chips} role="group" aria-label="Filter results by section">
+              <span className={styles.chipInk} aria-hidden="true" />
               {SECTIONS.map((name) => (
                 <button
                   key={name}
@@ -335,9 +382,6 @@ export function CommandPalette({ enabled = true }) {
                     inputRef.current?.focus({ preventScroll: true });
                   }}
                 >
-                  {section === name && (
-                    <motion.span layoutId={`${listId}-chip`} className={styles.chipInk} transition={{ type: 'spring', stiffness: 420, damping: 36 }} />
-                  )}
                   <span className={styles.chipLabel}>{name}</span>
                   <span className={styles.chipCount}>{counts[name] ?? 0}</span>
                 </button>
@@ -352,6 +396,7 @@ export function CommandPalette({ enabled = true }) {
               aria-label="Search results"
               data-lenis-prevent
             >
+              <span className={styles.rowInk} aria-hidden="true" />
               {!terms.length && results.length > 0 && <p className={styles.group}>{recent.length ? 'Recent & suggested' : 'Suggested'}</p>}
               {results.map((item, index) => {
                 const on = index === active;
@@ -375,13 +420,6 @@ export function CommandPalette({ enabled = true }) {
                     }}
                     onClick={() => choose(item)}
                   >
-                    {on && (
-                      <motion.span
-                        layoutId={`${listId}-active`}
-                        className={styles.rowInk}
-                        transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 520, damping: 42 }}
-                      />
-                    )}
                     <span className={styles.rowBody}>
                       <span className={styles.rowHead}>
                         <strong className={styles.rowTitle}><Marked text={item.doc.title} ranges={ranges} /></strong>

@@ -4,13 +4,16 @@
    this, never collapse the variety back into a single fade-up.
 
    Each entry: { id, type, name, usedOn }
-     type: 'background' | 'component' | 'text' | 'nav' | 'form'
-         | 'cursor' | 'transition' | 'overlay' | 'audio'
+     type: 'background' | 'component' | 'text' | 'nav' | 'foreground'
+         | 'cursor' | 'transition' | 'overlay' | 'audio' | 'cinematic'
+         | 'performance'
 
-   Not rendered in production. Imported by the dev overlay / docs only.
+   Not imported by the app — it is a catalogue. The FOREGROUND section lists the
+   page-specific compositions; `qa/foreground-inventory.mjs` is the other half:
+   it loads every route and counts the `data-fx` markers that actually render.
    ============================================================ */
 
-/* ---- 68 distinct canvas background scenes ---- */
+/* ---- 67 distinct canvas background scenes ---- */
 const BACKGROUND_SCENES = [
   ['home-core', 'Home Core composite (arcs + particles + grid)'],
   ['audio-signal-wall', 'Audio Signal Wall (full-width spectrum)'],
@@ -118,8 +121,8 @@ const OTHER = [
   ['reveal-orbital-card', 'component', 'Rotate-into-place like an orbit node', ['cards']],
   ['reveal-rise-rotate', 'component', 'Rise with slight rotation', ['footer columns']],
   ['reveal-flip-in', 'component', '3D rotateY flip-in', ['inquiry cards']],
-  ['reveal-terminal-open', 'component', 'Terminal-window scaleY open', ['contact form']],
-  ['reveal-glass-materialize', 'component', 'De-blur zoom-out glass materialize', ['contact cta body']],
+  ['reveal-terminal-open', 'component', 'Terminal-window scaleY open', ['studio panels']],
+  ['reveal-glass-materialize', 'component', 'De-blur zoom-out glass materialize', ['cta body']],
   ['reveal-data-materialize', 'component', 'Blur + scale data materialize', ['card grids']],
   ['reveal-reality-assemble', 'component', 'Disintegrate→assemble into reality', ['feature/Musebase block']],
   ['reveal-blur-focus', 'component', 'Chromatic blur-to-focus lock', ['headings']],
@@ -177,23 +180,25 @@ const OTHER = [
   ['nav-active-pulse', 'nav', 'Active route live pulse', ['header']],
   ['mobile-command-rail', 'nav', 'Mobile command-surface rail', ['mobile menu']],
   ['mobile-group-expand', 'nav', 'Mobile group accordion expand', ['mobile menu']],
-  // forms
-  ['form-underline-draw', 'form', 'Field underline draw on focus', ['contact']],
-  ['form-focus-state', 'form', 'Field focus state shift', ['contact']],
-  ['form-segment-control', 'form', 'Inquiry segmented control', ['contact']],
-  ['form-submit-compose', 'form', 'Submit compose sequence', ['contact']],
   // cursor
   ['cursor-default', 'cursor', 'Designed cursor — default ring', ['site']],
   ['cursor-link', 'cursor', 'Cursor link state', ['links']],
   ['cursor-nav', 'cursor', 'Cursor nav state', ['nav']],
   ['cursor-audio', 'cursor', 'Cursor audio state', ['audio button']],
+  ['cursor-label', 'cursor', 'Cursor names what a press does (View / Drag / custom data-cursor-label)', ['cards', 'rails']],
+  ['cursor-drag', 'cursor', 'Cursor grips while dragging a rail, slider or scrubber', ['drag surfaces']],
   // transitions / overlays / audio
-  ['page-transition', 'transition', 'Route blur/slide transition', ['all']],
+  ['route-current', 'transition', 'Route current — a thin red line travels the viewport, destination written at its end', ['all']],
+  ['page-handover', 'transition', 'Page hand-over at a dim level (never fully dark, no opaque cover)', ['all']],
   ['route-fallback', 'transition', 'Lazy-route loading sweep', ['all']],
-  ['boot-sequence', 'transition', 'Cinematic boot calibration', ['entry']],
-  ['overlay-scanline', 'overlay', 'Global scanline overlay', ['site']],
+  ['boot-sequence', 'transition', 'Cinematic boot calibration (START begins the music inside the click)', ['entry']],
+  ['overlay-scanline', 'overlay', 'Static scanline veil (the sweeping band was removed: ~15 fps)', ['site']],
   ['overlay-noise', 'overlay', 'Global film-grain noise', ['site']],
-  ['audio-nav-visualizer', 'audio', 'Nav mini audio visualizer', ['header']],
+  ['audio-nav-visualizer', 'audio', 'Nav mini audio visualizer + live / tap-to-play states', ['header']],
+  ['palette-overlay', 'overlay', 'Command search — centred portal overlay with body-text excerpts', ['Ctrl/⌘ K', '/']],
+  ['shortcuts-panel', 'overlay', 'Keyboard shortcuts panel', ['?']],
+  ['blueprint-mode', 'overlay', 'Blueprint mode — outlines, names and counts every marked foreground detail', ['B']],
+  ['footer-directory', 'nav', 'Footer as a directory of every real page (company, work, systems, resources, legal, careers, contact)', ['footer']],
   // 20-second System Synthesis cinematic — full-screen takeover OVERLAY (not a page)
   ['synth-camera-push', 'cinematic', 'Synthesis camera push-in + ignition/collapse punches', ['synthesis-overlay']],
   ['synth-streaks', 'cinematic', 'Synthesis constant radial speed-lines', ['synthesis-overlay']],
@@ -218,20 +223,101 @@ const OTHER = [
   ['perf-scenes-global-pause', 'performance', 'Pause all page scenes during overlays', ['backgrounds']],
   ['perf-viewport-director', 'performance', 'Measured --viewport-h + layout-settled refresh', ['stages']],
 
-  // route / category transitions
-  ['xtn-home', 'transition', 'Home route transition — core pulse + radial clear', ['/']],
-  ['xtn-systems', 'transition', 'Systems transition — grid slam + circuit beam', ['/systems']],
-  ['xtn-north', 'transition', 'North transition — code rails sweep down', ['/north']],
-  ['xtn-work', 'transition', 'Work transition — diagonal redacted bars', ['/work']],
-  ['xtn-company', 'transition', 'Company transition — prism panels fold', ['/company']],
-  ['xtn-timeline', 'transition', 'Timeline transition — red line draw', ['/timeline']],
-  ['xtn-contact', 'transition', 'Contact transition — signal ring expand', ['/contact']],
-  ['xtn-legal', 'transition', 'Legal/doc transition — document open', ['/legal/*']],
+  // route current — one direction of travel per section (categoryTransitions.js)
+  ['route-current-home', 'transition', 'Route current rises from the bottom', ['/']],
+  ['route-current-systems', 'transition', 'Route current crosses left to right', ['/systems']],
+  ['route-current-north', 'transition', 'Route current falls top to bottom', ['/north', '/engineering', '/lab']],
+  ['route-current-work', 'transition', 'Route current crosses right to left', ['/work']],
+  ['route-current-company', 'transition', 'Route current opens outward from the middle', ['/company']],
+  ['route-current-contact', 'transition', 'Route current rises from the bottom', ['/contact']],
+  ['route-current-legal', 'transition', 'Route current falls top to bottom', ['/legal/*']],
+];
+
+/* ============================================================
+   FOREGROUND — the part of each page that sits in front of its background.
+   `toolkit` pieces live in components/fx and are reused; `aside` pieces are
+   hero objects (hero.aside.kind); `signature` pieces are whole-block
+   compositions ({ type: 'signature', kind }). Each signature is its own lazy
+   chunk (components/signatures/registry.js).
+   ============================================================ */
+const FOREGROUND = [
+  // ---- toolkit (components/fx) ----
+  ['fx-tilt-surface', 'foreground', 'TiltSurface — a surface that leans toward the pointer (eased through registered CSS vars)', ['asides', 'cards']],
+  ['fx-spotlight-card', 'foreground', 'SpotlightCard — a light that follows the pointer across the card', ['card grids']],
+  ['fx-proximity-text', 'foreground', 'ProximityText — letters swell and brighten as the pointer nears', ['404', 'big titles']],
+  ['fx-scramble-text', 'foreground', 'ScrambleText — characters decode into the real text on hover or entry', ['codes', 'labels', 'email']],
+  ['fx-scroll-words', 'foreground', 'ScrollWords — a paragraph lights word by word as it scrolls', ['manifestos', 'split leads']],
+  ['fx-odometer', 'foreground', 'Odometer — digits roll to their value', ['stats', 'counters']],
+  ['fx-velocity-marquee', 'foreground', 'VelocityMarquee — a ticker whose speed follows scroll velocity', ['manifestos']],
+  ['fx-glide-tabs', 'foreground', 'GlideTabs — a tab list whose ink glides between tabs', ['signatures']],
+  ['fx-accordion', 'foreground', 'Accordion — eased-height disclosure with a plus that turns', ['lists']],
+  ['fx-compare-slider', 'foreground', 'CompareSlider — drag, key or tap a handle to peel one layer from another', ['surface compare']],
+  ['fx-hover-index', 'foreground', 'HoverIndex — big rows; a red rule glides to the hovered row, codes scramble, a preview trails the cursor (touch: every row shows its own detail)', ['index lists']],
+  ['fx-drag-rail', 'foreground', 'DragRail — grab and fling a rail (momentum), ← → buttons and keys, a progress thumb', ['card rails']],
+  ['fx-scroll-rail', 'foreground', 'ScrollRail — a section rail on long pages: the current tick stretches and lights, hover names it, click glides there', ['long pages']],
+  ['fx-glyph', 'foreground', 'Glyph — 27 drawn SVG glyphs that animate on hover', ['cards', 'rows']],
+  ['fx-progress-ring', 'foreground', 'ProgressRing — a ring that fills from a value', ['review aids', 'budgets']],
+  ['fx-arrow-link', 'foreground', 'ArrowLink — an inline link whose arrow slides on hover', ['links']],
+  ['fx-keycap', 'foreground', 'KeyCap — a drawn keyboard key with a pressed, lit state', ['shortcuts', 'keyboard map', 'component bench']],
+
+  // ---- hero asides (hero.aside.kind) ----
+  ['aside-orbit-nav', 'foreground', 'Orbit nav — four doors into the site on three orbits', ['home']],
+  ['aside-case-deck', 'foreground', 'Case deck — the case studies as a fanning deck of files, each a link', ['work']],
+  ['aside-logo-plate', 'foreground', 'Logo plates — the Musebase mark on stacked plates drifting at their own depths', ['work/musebase']],
+  ['aside-engine-viewport', 'foreground', 'Engine viewport — a framed miniature viewport leaning toward the pointer', ['work/yk-engine']],
+  ['aside-basket', 'foreground', 'Basket tiles — tap abstract tiles and the basket count rolls up', ['work/customer-product']],
+  ['aside-dot-field', 'foreground', 'Dot field — ~750 dots under a soft lens that follows the pointer', ['work/internal-crm']],
+  ['aside-identity-card', 'foreground', 'Identity card — leans toward the pointer, turns over to the company and its team', ['company']],
+  ['aside-split-flap', 'foreground', 'Split-flap board — letters flip to each new word; press a row for the next', ['company/careers']],
+  ['aside-tension-dials', 'foreground', 'Tension dials — three sliders; push one to an extreme and its cost is named', ['company/principles']],
+  ['aside-system-map', 'foreground', 'System map — seven areas around a shared core; nodes open in place to a card', ['systems']],
+  ['aside-north-compass', 'foreground', 'Compass — the needle follows the pointer and settles on one of four pillars', ['north']],
+  ['aside-live-budget', 'foreground', 'Live budget — fps, active scenes, loops and quality tier read from this page, this device', ['engineering']],
+
+  // ---- signature blocks ----
+  ['sig-work-portals', 'foreground', 'Work portals — hover or focus a project to open it, each with its own art; supporting studies sit quieter', ['home', 'work']],
+  ['sig-layer-stack', 'foreground', 'Layer stack — three CSS-3D plates part as you scroll; hover or focus lifts one clear', ['home', 'north/architecture']],
+  ['sig-chronology-strip', 'foreground', 'Chronology strip — a line draws as it scrolls in and the undated phase nodes light in turn', ['home', 'company']],
+  ['sig-coordination-lab', 'foreground', 'Coordination lab — an illustration of many things kept in step', ['work/musebase']],
+  ['sig-engine-editor', 'foreground', 'Engine editor — a small demo of authoring entities in an editor and running them in a player (an illustration, not the engine)', ['work/yk-engine']],
+  ['sig-engine-pipeline', 'foreground', 'Engine pipeline — pick a stage (click, tap, ← →) and a token travels there', ['work/yk-engine']],
+  ['sig-engine-anatomy', 'foreground', 'Engine anatomy — an interactive blueprint of how the engine is organised', ['work/yk-engine']],
+  ['sig-experience-storyboard', 'foreground', 'Experience storyboard — abstract wireframes of a customer-facing flow, each stage with something to do (no real catalogue, prices or payments)', ['work/customer-product']],
+  ['sig-data-slab', 'foreground', 'Data slab — a window onto a synthetic, very large data set', ['work/internal-crm']],
+  ['sig-surface-compare', 'foreground', 'Surface compare — drag to peel a screen back to its structure', ['company']],
+  ['sig-principle-stack', 'foreground', 'Principle stack — cards that pile as you scroll (CSS sticky + scroll-driven settle)', ['company/principles']],
+  ['sig-boundary-review', 'foreground', 'Boundary review — tick questions, rings and bars fill, copy what is left', ['company/security']],
+  ['sig-chronology-scrubber', 'foreground', 'Chronology scrubber — drag or play through undated phases; the ink follows', ['company/timeline']],
+  ['sig-areas-explorer', 'foreground', 'Areas explorer — strips open as you point, neighbours fold to a label', ['company/careers']],
+  ['sig-system-index', 'foreground', 'System index — large rows, a red rule between them, a preview trailing the cursor', ['systems']],
+  ['sig-needs-finder', 'foreground', 'Needs finder — pick what you are trying to do and the matching area lights', ['systems']],
+  ['sig-ops-flow', 'foreground', 'Ops flow — send a request and a token glides through four stages', ['systems/operational-management']],
+  ['sig-order-path', 'foreground', 'Order path — an order as a state machine you can run, with a settlement ledger', ['systems/commerce-infrastructure']],
+  ['sig-rule-chain', 'foreground', 'Rule chain — pick a trigger, a guard and an action and run the chain step by step', ['systems/automation']],
+  ['sig-console-composer', 'foreground', 'Console composer — assemble a console from abstract panels (shapes only)', ['systems/internal-platforms']],
+  ['sig-view-shift', 'foreground', 'View shift — one set of records, four surfaces; markers glide between layouts', ['systems/data-interfaces']],
+  ['sig-boundary-membrane', 'foreground', 'Boundary membrane — twelve records behind a membrane; choose a role and the records it may reach cross to the outside', ['systems/client-portals']],
+  ['sig-research-bench', 'foreground', 'Research bench — three studies running on the page: scene budget, a still state for motion, focus you can follow', ['systems/research-systems']],
+  ['sig-accordion-list', 'foreground', 'Accordion list — disclosures with a scrambling code and a turning plus', ['north']],
+  ['sig-gate-walk', 'foreground', 'Gate walk — tick what a gate asks and the runner passes to the next stage', ['north/engineering']],
+  ['sig-component-bench', 'foreground', 'Component bench — change the variant, size and state of the site\'s real Button, Pill and KeyCap and read the code it makes', ['north/interface-lab']],
+  ['sig-easing-studio', 'foreground', 'Easing studio — drag Bézier handles, a ball travels the curve, the feel is described in words', ['north/motion-systems']],
+  ['sig-toolchain-map', 'foreground', 'Toolchain map — switch a check off and see what could slip through', ['north/tooling']],
+  ['sig-architecture-explorer', 'foreground', 'Architecture explorer — the layers of this website; trace a page view', ['engineering']],
+  ['sig-scene-lab', 'foreground', 'Scene lab — view the site\'s own canvas scenes, density, still frame', ['lab']],
+  ['sig-contact-studio', 'foreground', 'Contact studio — pick a subject, write (or drop in a starter), watch the envelope fill, open in your mail app or copy the address; nothing is sent from the page', ['contact']],
+  ['sig-site-directory', 'foreground', 'Site directory — every page, grouped and filterable, with "take me somewhere"', ['sitemap']],
+  ['sig-data-journey', 'foreground', 'Data journey — what leaves your browser for each thing you might do', ['legal/privacy']],
+  ['sig-clause-finder', 'foreground', 'Clause finder — filter plain-language clauses by text or topic', ['legal/terms']],
+  ['sig-storage-inspector', 'foreground', 'Storage inspector — live read of what this site keeps in your browser', ['legal/cookies']],
+  ['sig-keyboard-map', 'foreground', 'Keyboard map — press a real key (or tap a cap) to see what it does here', ['legal/accessibility']],
+  ['page-404', 'foreground', '404 — nearest real pages by edit distance, under proximity-reactive type', ['404']],
 ];
 
 export const animationInventory = [
   ...BACKGROUND_SCENES.map(([id, name]) => ({ id: `bg-${id}`, type: 'background', name, usedOn: [] })),
   ...OTHER.map(([id, type, name, usedOn]) => ({ id, type, name, usedOn })),
+  ...FOREGROUND.map(([id, type, name, usedOn]) => ({ id, type, name, usedOn })),
 ];
 
 export const INVENTORY_COUNT = animationInventory.length;
