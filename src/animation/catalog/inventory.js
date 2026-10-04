@@ -97,7 +97,6 @@ const OTHER = [
   ['text-reveal-pop', 'text', 'RevealText radial pop', ['tags']],
   ['text-reveal-slidein', 'text', 'RevealText slide-in', ['split body']],
   ['text-sectionheader', 'text', 'SectionHeader staged blur reveal', ['all sections']],
-  ['text-redaction-unmask', 'text', 'Redaction decrypt unmask', ['classified']],
 
   // ---- component reveal profiles (revealProfiles.js): one distinct entrance
   //      language PER BLOCK, applied via <Reveal> / <RevealGroup>. The fix for
@@ -148,19 +147,12 @@ const OTHER = [
   ['reveal-primitive-group', 'component', '<RevealGroup> staggered profile host', ['grids/lists']],
 
   // components
-  ['card-bracket-draw', 'component', 'Card corner-bracket draw on view', ['cards']],
-  ['card-reveal-scan', 'component', 'Card one-shot reveal scan', ['cards']],
-  ['card-hover-lift', 'component', 'Card hover lift + edge', ['cards']],
-  ['card-scan-crawl', 'component', 'Card hover scanline crawl', ['cards']],
-  ['card-arrow-shift', 'component', 'Card route-arrow shift', ['linked cards']],
-  ['stat-countup', 'component', 'Stat odometer count-up', ['stats']],
-  ['stat-live-dot', 'component', 'Stat live pulse dot', ['stats']],
-  ['stat-sparkline', 'component', 'Stat idle micro-waveform', ['stats']],
+  ['card-bracket-draw', 'component', 'DataPanel corner-bracket draw on view', ['split panels']],
+  ['card-reveal-scan', 'component', 'DataPanel one-shot reveal scan', ['split panels']],
   ['pill-dot-pulse', 'component', 'Pill live status dot pulse', ['status pills']],
   ['eyebrow-ping', 'component', 'Section eyebrow signal ping', ['all sections']],
   ['footer-telemetry', 'component', 'Footer telemetry signal rail', ['footer']],
   ['footer-wordmark', 'component', 'Footer dissolving wordmark', ['footer']],
-  ['marquee-rail', 'component', 'Marquee telemetry rail', ['manifesto']],
   ['glitch-line', 'component', 'Glitch divider line', ['stats/404']],
   ['timeline-node', 'component', 'Timeline node activation + branch', ['timeline']],
   ['datapanel-arm', 'component', 'DataPanel in-view arm sequence', ['panels']],

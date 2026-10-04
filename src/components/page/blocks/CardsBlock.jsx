@@ -15,8 +15,8 @@ const FALLBACK_GLYPHS = ['node', 'layers', 'flow', 'grid', 'wave', 'stack', 'loo
 function CardItem({ item, index, glyphs }) {
   const glyph = item.glyph || glyphs[index % glyphs.length];
   return (
-    <SpotlightCard to={item.to} className={clsx('glyph-host', styles.cardWrap)} innerClassName={styles.card}>
-      <span className={styles.cardTop}>
+    <SpotlightCard to={item.to} className={clsx('glyph-host', styles.cardWrap)} innerClassName={styles.card} {...fx('cards.border-light')}>
+      <span className={styles.cardTop} {...fx('cards.glyph-redraw')}>
         <span className={styles.cardCode}>{item.code || String(index + 1).padStart(2, '0')}</span>
         <Glyph name={glyph} size={34} className={styles.cardGlyph} />
       </span>
@@ -29,7 +29,7 @@ function CardItem({ item, index, glyphs }) {
             {item.tags?.map((t) => <Pill key={t} variant="ghost">{t}</Pill>)}
           </span>
           {item.status && <span className={styles.cardStatus}>{item.status}</span>}
-          {item.to && <ArrowUpRight className={styles.cardArrow} size={18} strokeWidth={1.4} aria-hidden="true" />}
+          {item.to && <ArrowUpRight className={styles.cardArrow} size={18} strokeWidth={1.4} aria-hidden="true" {...fx('cards.arrow-glide')} />}
         </span>
       )}
     </SpotlightCard>

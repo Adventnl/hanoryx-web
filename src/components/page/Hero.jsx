@@ -74,7 +74,7 @@ export function PageHero({ hero, accent }) {
         <span className={styles.cueLabel}>Scroll</span>
         <span className={styles.cueLine}><span className={styles.cueDot} /></span>
       </div>
-      <div className={styles.telemetry} aria-hidden="true">
+      <div className={styles.telemetry} aria-hidden="true" {...fx('hero.telemetry-pulse')}>
         <span className="mono">{hero.code}</span>
         <span className={styles.dot} />
         <span className="mono">{hero.status || STATUS_FALLBACK}</span>

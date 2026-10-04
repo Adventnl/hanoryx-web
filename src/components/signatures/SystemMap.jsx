@@ -104,9 +104,11 @@ export default function SystemMap({ nodes, links, core, caption }) {
         {placed.map((n) => {
           const isOpen = open === n.id;
           const dim = focusId && !connected.has(n.id);
+          // `--room` is how far the card can open before it meets the frame's edge.
           const pos = {
             ...(n.side === 'left' ? { left: `calc(${n.x}% - 32px)` } : { right: `calc(${100 - n.x}% - 32px)` }),
             ...(n.vert === 'top' ? { top: `calc(${n.y}% - 32px)` } : { bottom: `calc(${100 - n.y}% - 32px)` }),
+            '--room': n.side === 'left' ? `calc(${100 - n.x}% + 32px)` : `calc(${n.x}% + 32px)`,
           };
           return (
             <div

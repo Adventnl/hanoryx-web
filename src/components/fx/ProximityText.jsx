@@ -16,13 +16,13 @@ import styles from './ProximityText.module.css';
  * exposed to assistive tech via the hidden twin; the animated spans are
  * aria-hidden.
  */
-export function ProximityText({ text, as: Tag = 'span', by = 'word', radius = 220, className, unitClassName }) {
+export function ProximityText({ text, as: Tag = 'span', by = 'word', radius = 220, className, unitClassName, ...rest }) {
   const ref = useRef(null);
   useProximity(ref, { radius, deps: [text, by] });
   const words = String(text).split(' ');
 
   return (
-    <Tag ref={ref} className={clsx(styles.prox, className)}>
+    <Tag ref={ref} className={clsx(styles.prox, className)} {...rest}>
       <span className="sr-only">{text}</span>
       <span aria-hidden="true" className={styles.visual}>
         {words.map((word, wi) => (

@@ -30,7 +30,7 @@ export function CtaBlock({ block, accent }) {
           <Reveal profile="scanX" as="span" className={clsx('eyebrow', styles.ctaEyebrow)}>
             {block.eyebrow || 'Next'}
           </Reveal>
-          <ProximityText as="h2" text={block.title || 'Start a conversation.'} className={clsx('heading-hero', styles.ctaTitle)} />
+          <ProximityText as="h2" text={block.title || 'Start a conversation.'} className={clsx('heading-hero', styles.ctaTitle)} {...fx('cta.proximity-title')} />
           <Reveal profile="zoomThrough" as="div" delay={0.1} className={clsx('stack', 'stack-6', styles.ctaBody)}>
             <p className={clsx('lead', styles.ctaLead)}>{block.body || 'For software systems, internal platforms and operational interfaces.'}</p>
             <div className={clsx('cluster', styles.ctaActions)}>

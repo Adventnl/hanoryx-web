@@ -54,7 +54,7 @@
 .dim { opacity: 0.32; }
 .open {
   z-index: 5;
-  width: min(14.5rem, 58vw);
+  width: min(14.5rem, var(--room, 14.5rem));
   height: 11.2rem;
   border-color: var(--c-red);
   background: rgba(8, 9, 11, 0.98);

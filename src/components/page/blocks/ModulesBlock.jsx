@@ -33,7 +33,7 @@ export function ModulesBlock({ block, accent }) {
       {block.groups?.length > 0 && (
         <RevealGroup profile="hexCellForm" className={clsx('grid', 'grid--3', styles.lensGrid)} itemClassName={styles.cardCell} stagger={0.09} {...fx('modules.lens-columns')}>
           {block.groups.map((g) => (
-            <SpotlightCard key={g.label} tone="white" className={styles.lensCard} innerClassName={styles.lensInner}>
+            <SpotlightCard key={g.label} tone="white" className={styles.lensCard} innerClassName={styles.lensInner} {...fx('modules.lens-card')}>
               <span className={styles.lensLabel}>{g.label}</span>
               <ul className={styles.lensList}>
                 {g.items.map((item) => (

@@ -17,7 +17,7 @@ export function StatsBlock({ block, accent }) {
       <RevealGroup profile="countRise" className={styles.stats} stagger={0.1} {...fx('stats.odometer')}>
         {block.items.map((m) => (
           <div key={m.label} className={styles.stat}>
-            <span className={clsx('ghost-numeral', styles.statGhost)} aria-hidden="true">{String(m.value).padStart(2, '0')}</span>
+            <span className={clsx('ghost-numeral', styles.statGhost)} aria-hidden="true" {...fx('stats.ghost-numeral')}>{String(m.value).padStart(2, '0')}</span>
             <span className={styles.statValue}>
               <Odometer value={m.value} decimals={m.decimals || 0} prefix={m.prefix || ''} suffix={m.suffix || ''} />
             </span>

@@ -47,7 +47,7 @@ export function SplitBlock({ block, accent }) {
         </div>
         <Reveal profile="depthRise" as="div" className={styles.splitAside}>
           <TiltSurface tilt={4} {...fx('split.tilt-panel')}>
-            <DataPanel label={block.asideLabel || 'PARAMETERS'} code={block.asideCode || 'P.01'}>
+            <DataPanel label={block.asideLabel || 'PARAMETERS'} code={block.asideCode || 'P.01'} {...fx('split.panel-brackets')}>
               {block.points?.length > 0 ? (
                 <dl className={styles.points} {...fx('split.decode-rows')}>
                   {block.points.map((pt) => (

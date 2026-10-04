@@ -8,12 +8,15 @@
  * promise: unique titles, every internal link resolves, no external link other
  * than the YK Engine repository, no mailto outside the contact page, none of the
  * retired wording, a footer directory, a primary navigation without Contact,
- * working redirects, a 404, the favicon files, and the search dialog.
+ * working redirects, a 404, the favicon files, and the search dialog. At 320 px
+ * the sweep runs under reduced motion: nothing may loop forever and the heading
+ * must be fully visible. At every width the header's controls must stay inside
+ * the viewport (the page can report no overflow while a fixed header spills).
  */
 import { BASE, launch, newContext, pageRoutes, redirectRoutes, pause, reporter, watchErrors } from './lib.mjs';
 
 const r = reporter('website smoke');
-const WIDTHS = [320, 390, 768, 1024, 1440, 1920];
+const WIDTHS = [280, 320, 360, 390, 768, 1024, 1440, 1920];
 const known = new Set(pageRoutes);
 const BANNED = /e-?commerce|hosting|public repositor|repository count|software engineering\b.*status|\bstars?\b.*\brepos?\b/i;
 
@@ -39,7 +42,16 @@ for (const width of WIDTHS) {
       overflow: document.documentElement.scrollWidth - window.innerWidth,
       text: document.querySelector('main')?.innerText || '',
       hrefs: Array.from(document.querySelectorAll('a[href]')).map((a) => a.getAttribute('href')),
+      looping: document.getAnimations().filter((a) => a.playState === 'running' && a.effect?.getTiming().iterations === Infinity).length,
+      headingOpacity: (() => {
+        const h = document.querySelector('main h1');
+        return h ? Math.min(...[h, ...h.querySelectorAll('*')].map((e) => Number(getComputedStyle(e).opacity))) : 0;
+      })(),
     }));
+    if (width === 320) {
+      if (state.looping) problems.push(`${route}: ${state.looping} looping animations under reduced motion`);
+      if (state.headingOpacity < 0.99) problems.push(`${route}: heading not fully visible under reduced motion (${state.headingOpacity})`);
+    }
     if (!response?.ok() || !state.heading || state.overflow > 2 || errors.length) {
       problems.push(`${route}: ${[!response?.ok() && `status ${response?.status()}`, !state.heading && 'no h1', state.overflow > 2 && `overflow ${state.overflow}px`, errors.length && errors.slice(0, 2).join(' | ')].filter(Boolean).join(', ')}`);
     }
@@ -56,7 +68,15 @@ for (const width of WIDTHS) {
       if (BANNED.test(state.text)) problems.push(`${route}: banned wording found (${state.text.match(BANNED)[0]})`);
     }
   }
-  r.check(`every page loads cleanly at ${width}px`, problems.length === 0, problems.slice(0, 4).join(' ; '));
+  r.check(`every page loads cleanly at ${width}px${width === 320 ? ' (reduced motion)' : ''}`, problems.length === 0, problems.slice(0, 4).join(' ; '));
+
+  await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await pause(900);
+  const fit = await page.evaluate(() => {
+    const parts = Array.from(document.querySelectorAll('header[data-chrome] a, header[data-chrome] button')).filter((el) => el.getBoundingClientRect().width > 0);
+    return { left: Math.round(Math.min(...parts.map((el) => el.getBoundingClientRect().left))), right: Math.round(Math.max(...parts.map((el) => el.getBoundingClientRect().right))), vw: window.innerWidth };
+  });
+  r.check(`header controls fit inside the viewport at ${width}px`, fit.left >= 8 && fit.right <= fit.vw - 8, JSON.stringify(fit));
 
   if (width === 1440) {
     const outside = [...externals.entries()].filter(([href]) => !/github\.com\/Adventnl\/YK-Engine$/.test(href) && !/fonts\.(googleapis|gstatic)\.com/.test(href));

@@ -42,10 +42,10 @@ export function ProcessBlock({ block, accent }) {
       <ol ref={ref} className={styles.process} style={{ '--n': n }} {...fx('process.scrub-rail')}>
         <span className={styles.railTrack} aria-hidden="true">
           <span className={styles.railFill} />
-          <span className={styles.railToken} />
+          <span className={styles.railToken} {...fx('process.rail-token')} />
         </span>
         {block.steps.map((s, i) => (
-          <li key={s.title} className={styles.step} style={{ '--i': i }}>
+          <li key={s.title} className={styles.step} style={{ '--i': i }} {...fx('process.step-light')}>
             <span className={styles.stepNode} aria-hidden="true" />
             <span className={styles.stepNum}>{s.step}</span>
             <h3 className={styles.stepTitle}>{s.title}</h3>

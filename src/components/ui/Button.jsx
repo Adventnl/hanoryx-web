@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { MagneticButton } from '../effects/MagneticButton';
 import styles from './Button.module.css';
+import { fx } from '../../utils/fx';
 
 /**
  * Primary interactive control. Resolves its element automatically:
@@ -26,7 +27,7 @@ export function Button({
   children,
   ...rest
 }) {
-  const elementProps = { ...rest };
+  const elementProps = { 'data-fx': magnetic ? 'ui.button-magnetic' : 'ui.button', ...rest };
   let as = 'button';
 
   if (to) {
@@ -53,7 +54,7 @@ export function Button({
   const content = (
     <>
       <span className={styles.label}>{children}</span>
-      {Icon ? <Icon className={styles.icon} size={16} strokeWidth={1.5} aria-hidden="true" /> : null}
+      {Icon ? <Icon className={styles.icon} size={16} strokeWidth={1.5} aria-hidden="true" {...fx('ui.button-icon-shift')} /> : null}
     </>
   );
 

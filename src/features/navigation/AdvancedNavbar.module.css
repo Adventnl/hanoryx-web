@@ -223,6 +223,14 @@
   .search span { display: none; }
   .wordmark { letter-spacing: 0.2em; font-size: 0.7rem; }
 }
+/* very narrow phones: the wordmark gives way before the controls overflow */
+@media (max-width: 380px) {
+  .wordmark { letter-spacing: 0.12em; font-size: 0.64rem; }
+  .right { gap: var(--space-3); }
+}
+@media (max-width: 340px) {
+  .wordmark { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .statusDot { animation: none; }
   .nav, .part { transform: none; }
