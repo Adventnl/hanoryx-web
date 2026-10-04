@@ -10,7 +10,9 @@
 
    Not imported by the app — it is a catalogue. The FOREGROUND section lists the
    page-specific compositions; `qa/foreground-inventory.mjs` is the other half:
-   it loads every route and counts the `data-fx` markers that actually render.
+   it loads every route and counts the `data-fx` markers that are on screen, and
+   FOREGROUND-DETAILS.md (generated from it) lists every separate behaviour
+   inside those compositions.
    ============================================================ */
 
 /* ---- 67 distinct canvas background scenes ---- */

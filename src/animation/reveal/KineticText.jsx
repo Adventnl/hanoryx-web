@@ -31,6 +31,7 @@ export function KineticText({
   delay = 0,
   start = 'top 88%',
   className,
+  ...rest
 }) {
   const ref = useRef(null);
   const reduced = usePrefersReducedMotion();
@@ -67,7 +68,7 @@ export function KineticText({
   );
 
   return (
-    <Tag ref={ref} className={clsx(styles.kinetic, className)} aria-label={String(text)}>
+    <Tag ref={ref} className={clsx(styles.kinetic, className)} aria-label={String(text)} {...rest}>
       {tokens.map((token, i) => {
         if (isWord) {
           return (

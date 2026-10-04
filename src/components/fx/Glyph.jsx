@@ -40,7 +40,7 @@ const D = {
  * `play` replays the draw-in once (change `playKey` to retrigger); hovering any
  * ancestor with the class `glyph-host` also redraws it.
  */
-export function Glyph({ name, size = 40, className, playKey = 0, title }) {
+export function Glyph({ name, size = 40, className, playKey = 0, title, ...rest }) {
   const shapes = D[name] || D.node;
   return (
     <svg
@@ -57,6 +57,7 @@ export function Glyph({ name, size = 40, className, playKey = 0, title }) {
       role={title ? 'img' : undefined}
       aria-label={title}
       aria-hidden={title ? undefined : 'true'}
+      {...rest}
     >
       {shapes.map(([tag, attrs], i) => {
         const Shape = tag;

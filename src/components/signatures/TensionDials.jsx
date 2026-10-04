@@ -29,7 +29,7 @@ export default function TensionDials({ dials, caption }) {
   return (
     <div className={clsx(styles.panel, all && styles.settled)} {...fx('principles.tension-dials')}>
       <div className={styles.head}>
-        <ProgressRing value={held / dials.length} size={64} stroke={3.4} label={`${held} of ${dials.length} tensions held`}>
+        <ProgressRing value={held / dials.length} size={64} stroke={3.4} label={`${held} of ${dials.length} tensions held`} {...fx('tension.ring')}>
           <span className={styles.count}>{held}/{dials.length}</span>
         </ProgressRing>
         <p className={styles.status} role="status" aria-live="polite">
@@ -48,7 +48,7 @@ export default function TensionDials({ dials, caption }) {
                 <label htmlFor={id} className={clsx(styles.end, v < 50 - HELD && styles.lean)}>{d.left}</label>
                 <label htmlFor={id} className={clsx(styles.end, v > 50 + HELD && styles.lean)}>{d.right}</label>
               </div>
-              <div className={styles.rail} style={{ '--v': v }}>
+              <div className={styles.rail} style={{ '--v': v }} {...fx('tension.range')}>
                 <span className={styles.zone} aria-hidden="true" />
                 <span className={styles.fill} aria-hidden="true" />
                 <input
@@ -64,7 +64,7 @@ export default function TensionDials({ dials, caption }) {
                 />
                 <span className={styles.thumb} aria-hidden="true" />
               </div>
-              <p className={styles.text}>{st.text}</p>
+              <p className={styles.text} {...fx('tension.cost-line')}>{st.text}</p>
             </div>
           );
         })}

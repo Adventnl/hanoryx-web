@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styles from './ScrollProgress.module.css';
+import { fx } from '../../utils/fx';
 
 export function ScrollProgress() {
   const line = useRef(null);
@@ -17,5 +18,5 @@ export function ScrollProgress() {
     window.addEventListener('resize', schedule);
     return () => { window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); cancelAnimationFrame(frame); };
   }, []);
-  return <div className={styles.track} aria-hidden="true"><span ref={line} /></div>;
+  return <div className={styles.track} aria-hidden="true" {...fx('nav.scroll-progress')}><span ref={line} /></div>;
 }

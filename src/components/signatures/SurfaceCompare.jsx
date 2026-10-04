@@ -21,7 +21,7 @@ function Skeleton({ structure }) {
     structure ? <span className={clsx(styles.note, className)} data-group={group}>{text}</span> : null
   );
   return (
-    <div className={clsx(styles.screen, structure && styles.blueprint)} aria-hidden="true">
+    <div className={clsx(styles.screen, structure && styles.blueprint)} aria-hidden="true" {...fx(structure ? 'compare.structure-layer' : 'compare.surface-layer')}>
       <div className={styles.top}>
         <span className={styles.logo} />
         <span className={styles.pill} /><span className={styles.pill} /><span className={styles.pill} />
@@ -78,8 +78,9 @@ export default function SurfaceCompare({ eyebrow, title, intro, groups, note }) 
           beforeLabel="Surface"
           afterLabel="Structure"
           label="Reveal the structure under the surface"
+          {...fx('compare.reveal-handle')}
         />
-        <ul className={styles.legend}>
+        <ul className={styles.legend} {...fx('compare.legend-focus')}>
           {groups.map((g) => (
             <li key={g.id}>
               <button

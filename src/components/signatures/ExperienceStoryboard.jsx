@@ -155,7 +155,7 @@ export default function ExperienceStoryboard({ eyebrow, title, intro, stages, ca
     <div {...fx('product.storyboard')}>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="depth" />
       <div className={styles.layout}>
-        <div className={styles.device}>
+        <div className={styles.device} {...fx('story.device-frame')}>
           <div className={styles.chrome} aria-hidden="true"><i /><i /><i /><span>storyboard</span></div>
           <div className={styles.screen}>
             <AnimatePresence mode="wait" initial={false}>
@@ -174,10 +174,10 @@ export default function ExperienceStoryboard({ eyebrow, title, intro, stages, ca
 
         <div className={styles.side}>
           <span className={styles.count}>{String(active + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
-          <ScrambleText as="h3" text={stage.title} trigger={pulse} className={styles.sTitle} />
+          <ScrambleText as="h3" text={stage.title} trigger={pulse} className={styles.sTitle} {...fx('story.title-decode')} />
           <p className={styles.sBody} aria-live="polite">{stage.body}</p>
           <div className={styles.controls}>
-            <button type="button" className={styles.play} onClick={togglePlay} aria-pressed={playing}>
+            <button type="button" className={styles.play} onClick={togglePlay} aria-pressed={playing} {...fx('story.play-journey')}>
               {playing ? <Pause size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
               {playing ? 'Pause' : 'Play the journey'}
             </button>
@@ -186,8 +186,8 @@ export default function ExperienceStoryboard({ eyebrow, title, intro, stages, ca
       </div>
 
       <div className={styles.scrub} style={{ '--n': n, '--a': active }}>
-        <span className={styles.track} aria-hidden="true"><span className={styles.fill} /><span className={styles.knob} /></span>
-        <ul className={styles.stops} role="tablist" aria-label="Journey stages">
+        <span className={styles.track} aria-hidden="true" {...fx('story.scrub-knob')}><span className={styles.fill} /><span className={styles.knob} /></span>
+        <ul className={styles.stops} role="tablist" aria-label="Journey stages" {...fx('story.stage-tabs')}>
           {stages.map((s, i) => (
             <li key={s.id}>
               <button

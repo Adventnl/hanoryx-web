@@ -138,12 +138,13 @@ export default function EasingStudio({ eyebrow, title, intro, presets, note }) {
             onPointerCancel={onUp}
             role="group"
             aria-label="Cubic bezier editor"
+            {...fx('easing.handles')}
           >
             <rect className={styles.plane} x={OX} y={toY(1)} width={SIZE} height={SIZE} />
             <line className={styles.diag} x1={toX(0)} y1={toY(0)} x2={toX(1)} y2={toY(1)} />
             <line className={styles.arm} x1={toX(0)} y1={toY(0)} x2={toX(p[0])} y2={toY(p[1])} />
             <line className={styles.arm} x1={toX(1)} y1={toY(1)} x2={toX(p[2])} y2={toY(p[3])} />
-            <path className={styles.curve} d={`M ${toX(0)} ${toY(0)} C ${toX(p[0])} ${toY(p[1])}, ${toX(p[2])} ${toY(p[3])}, ${toX(1)} ${toY(1)}`} />
+            <path {...fx('easing.curve')} className={styles.curve} d={`M ${toX(0)} ${toY(0)} C ${toX(p[0])} ${toY(p[1])}, ${toX(p[2])} ${toY(p[3])}, ${toX(1)} ${toY(1)}`} />
             {[0, 1].map((i) => (
               <g key={i}>
                 <circle
@@ -164,11 +165,11 @@ export default function EasingStudio({ eyebrow, title, intro, presets, note }) {
               </g>
             ))}
           </svg>
-          <p className={styles.feel} aria-live="polite">{feel(p)}</p>
+          <p className={styles.feel} aria-live="polite" {...fx('easing.feel-line')}>{feel(p)}</p>
         </div>
 
         <div className={styles.side}>
-          <div className={styles.previews} aria-hidden="true">
+          <div className={styles.previews} aria-hidden="true" {...fx('easing.previews')}>
             <div className={styles.row}>
               <span>MOVE</span>
               <div className={styles.lane}><i className={styles.ball} style={{ ...transition('transform'), transform: `translateX(${atEnd ? 'calc(100cqw - 22px)' : '0px'})` }} /></div>
@@ -187,14 +188,14 @@ export default function EasingStudio({ eyebrow, title, intro, presets, note }) {
             <button type="button" className={styles.play} onClick={() => setAtEnd((v) => !v)} data-cursor="link">
               <Play size={13} aria-hidden="true" /> Play
             </button>
-            <label className={styles.duration}>
+            <label className={styles.duration} {...fx('easing.duration')}>
               <span>Duration</span>
               <input type="range" min={200} max={1800} step={50} value={duration} onChange={(e) => setDuration(Number(e.target.value))} />
               <output>{duration} ms</output>
             </label>
           </div>
 
-          <div className={styles.presets} role="group" aria-label="Presets">
+          <div className={styles.presets} role="group" aria-label="Presets" {...fx('easing.presets')}>
             {presets.map((preset) => (
               <button key={preset.id} type="button" className={clsx(styles.preset, presetId === preset.id && styles.presetOn)} onClick={() => pickPreset(preset)} aria-pressed={presetId === preset.id}>
                 {preset.label}
@@ -202,7 +203,7 @@ export default function EasingStudio({ eyebrow, title, intro, presets, note }) {
             ))}
           </div>
 
-          <div className={styles.code}>
+          <div className={styles.code} {...fx('easing.copy')}>
             <code>{css}</code>
             <button type="button" onClick={copy} aria-label="Copy the transition">
               {copied === 'Copied' ? <Check size={13} aria-hidden="true" /> : <Copy size={13} aria-hidden="true" />} {copied || 'Copy'}

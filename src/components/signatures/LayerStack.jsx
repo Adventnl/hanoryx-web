@@ -62,6 +62,7 @@ export default function LayerStack({ eyebrow, title, intro, layers, note }) {
                 type="button"
                 className={clsx(styles.plate, active === i && styles.on)}
                 style={{ '--i': i, '--n': layers.length }}
+                {...fx('layers.plate')}
                 onPointerEnter={() => pick(i)}
                 onFocus={() => pick(i)}
                 onClick={() => pick(i)}
@@ -78,8 +79,8 @@ export default function LayerStack({ eyebrow, title, intro, layers, note }) {
 
         <div className={styles.detail} aria-live="polite">
           <span className={styles.dCode}>{current.code}</span>
-          <Glyph name={current.glyph || 'layers'} size={46} className={styles.dGlyph} playKey={pulse} />
-          <ScrambleText as="h3" text={current.title} trigger={pulse} className={styles.dTitle} />
+          <Glyph name={current.glyph || 'layers'} size={46} className={styles.dGlyph} playKey={pulse} {...fx('layers.glyph-redraw')} />
+          <ScrambleText as="h3" text={current.title} trigger={pulse} className={styles.dTitle} {...fx('layers.title-decode')} />
           <p className={styles.dBody}>{current.body}</p>
           {note && <p className={styles.note}>{note}</p>}
         </div>

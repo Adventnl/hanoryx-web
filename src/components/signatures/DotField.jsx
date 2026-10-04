@@ -5,6 +5,7 @@ import { useOnScreen } from '../../hooks/useOnScreen';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useFinePointer } from '../../hooks/useMediaQuery';
 import styles from './DotField.module.css';
+import { fx } from '../../utils/fx';
 
 const COLS = 34;
 const ROWS = 22;
@@ -86,7 +87,7 @@ export default function DotField({ caption }) {
 
   return (
     <div ref={hostRef} className={styles.wrap} onPointerMove={onMove} onPointerLeave={onLeave}>
-      <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
+      <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" {...fx('dots.pointer-lens')} />
       {caption && <span className={styles.caption}>{caption}</span>}
     </div>
   );

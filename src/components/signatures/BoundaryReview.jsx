@@ -42,13 +42,13 @@ export default function BoundaryReview({ eyebrow, title, intro, groups, note }) 
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.layout} {...fx('security.review-checklist')}>
         <aside className={styles.side}>
-          <ProgressRing value={ratio} size={150} stroke={3.2} label={`${done.size} of ${all.length} questions considered`}>
+          <ProgressRing value={ratio} size={150} stroke={3.2} label={`${done.size} of ${all.length} questions considered`} {...fx('security.progress-ring')}>
             <span className={styles.big}>{done.size}<small>/{all.length}</small></span>
           </ProgressRing>
           <p className={styles.caption} role="status" aria-live="polite">
             {done.size === 0 ? 'Nothing considered yet.' : done.size === all.length ? 'Every question considered.' : `${all.length - done.size} still open.`}
           </p>
-          <div className={styles.actions}>
+          <div className={styles.actions} {...fx('security.copy-open')}>
             <button type="button" onClick={copyOpen}><Copy size={13} aria-hidden="true" /> {copied || 'Copy open questions'}</button>
             <button type="button" onClick={() => setDone(new Set())} disabled={done.size === 0}>Reset</button>
           </div>
@@ -62,7 +62,7 @@ export default function BoundaryReview({ eyebrow, title, intro, groups, note }) 
               <fieldset key={g.label} className={styles.group}>
                 <legend className={styles.legend}>
                   <span>{g.label}</span>
-                  <span className={styles.groupBar} aria-hidden="true"><i style={{ transform: `scaleX(${count / g.items.length})` }} /></span>
+                  <span className={styles.groupBar} aria-hidden="true" {...fx('security.group-bar')}><i style={{ transform: `scaleX(${count / g.items.length})` }} /></span>
                   <span className={styles.groupCount}>{count}/{g.items.length}</span>
                 </legend>
                 {g.items.map((q, i) => {
@@ -71,7 +71,7 @@ export default function BoundaryReview({ eyebrow, title, intro, groups, note }) 
                   return (
                     <label key={id} className={clsx(styles.item, on && styles.on)}>
                       <input type="checkbox" checked={on} onChange={() => toggle(id)} />
-                      <span className={styles.box} aria-hidden="true"><Check size={13} strokeWidth={2.6} /></span>
+                      <span className={styles.box} aria-hidden="true" {...fx('security.check-box')}><Check size={13} strokeWidth={2.6} /></span>
                       <span className={styles.q}>{q}</span>
                     </label>
                   );

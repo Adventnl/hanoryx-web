@@ -13,7 +13,7 @@ const SPRING = { type: 'spring', stiffness: 460, damping: 38, mass: 0.8 };
  * `idPrefix` lets the panel it controls point back at its tab:
  *   tab id   `${idPrefix}-tab-${id}`     panel id `${idPrefix}-panel-${id}`
  */
-export function GlideTabs({ tabs, value, onChange, label, idPrefix = 'tabs', variant = 'pill', className }) {
+export function GlideTabs({ tabs, value, onChange, label, idPrefix = 'tabs', variant = 'pill', className, ...rest }) {
   const uid = useId();
   const refs = useRef({});
 
@@ -32,7 +32,7 @@ export function GlideTabs({ tabs, value, onChange, label, idPrefix = 'tabs', var
   };
 
   return (
-    <div role="tablist" aria-label={label} className={clsx(styles.tabs, styles[variant], className)} onKeyDown={onKeyDown}>
+    <div role="tablist" aria-label={label} className={clsx(styles.tabs, styles[variant], className)} onKeyDown={onKeyDown} {...rest}>
       {tabs.map((tab) => {
         const on = tab.id === value;
         return (

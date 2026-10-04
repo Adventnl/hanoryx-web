@@ -130,6 +130,7 @@ export default function CoordinationLab({ eyebrow, title, intro, roles, notes })
 
       <div className={styles.bar}>
         <GlideTabs
+          {...fx('coord.tabs')}
           idPrefix="coord"
           label="Coordination demonstration"
           value={tab}
@@ -151,7 +152,7 @@ export default function CoordinationLab({ eyebrow, title, intro, roles, notes })
                 <span className={styles.statusDot} />
                 {clashes.size > 0 ? `${clashes.size} blocks overlap` : resolvedCount > 0 ? 'Coordinated — no overlaps' : 'No overlaps — drag a block onto another'}
               </span>
-              <button type="button" className={styles.resolve} onClick={resolve} disabled={clashes.size === 0}>
+              <button type="button" className={styles.resolve} onClick={resolve} disabled={clashes.size === 0} {...fx('coord.resolve')}>
                 <Glyph name="loop" size={16} /> Resolve
               </button>
               <button type="button" className={styles.reset} onClick={() => { setBlocks(INITIAL); setResolvedCount(0); }}>Reset</button>
@@ -174,6 +175,7 @@ export default function CoordinationLab({ eyebrow, title, intro, roles, notes })
                     e.preventDefault();
                     setBlocks((prev) => prev.map((x) => (x.id === b.id ? { ...x, lane: Math.max(0, Math.min(LANES.length - 1, x.lane + d[0])), start: Math.max(0, Math.min(SLOTS - x.len, x.start + d[1])) } : x)));
                   }}
+                  {...fx('coord.draggable-block')}
                   className={clsx(styles.block, styles.drag, styles[`tone-${b.tone}`], clashes.has(b.id) && styles.clash, dragId === b.id && styles.dragging)}
                   style={{ '--lane': b.lane, '--start': b.start, '--len': b.len }}
                 >

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { presetFor, labelFor } from './categoryTransitions';
 import styles from './TransitionOverlay.module.css';
+import { fx } from '../../utils/fx';
 
 const DURATION_MS = 1000;
 
@@ -37,7 +38,7 @@ export function TransitionOverlay() {
 
   return (
     <div key={run.key} className={`${styles.overlay} ${styles[run.preset.mod] || ''}`} aria-hidden="true">
-      <span className={styles.rider}>
+      <span className={styles.rider} {...fx('transition.route-current')}>
         <span className={styles.wash} />
         <span className={styles.line} />
         <span className={styles.label}>{run.label}</span>

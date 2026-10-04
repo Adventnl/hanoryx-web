@@ -116,9 +116,9 @@ export default function ComponentBench({ eyebrow, title, intro, specimens, note 
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('lab.component-bench')}>
-        <GlideTabs tabs={specimens.map((sp) => ({ id: sp.id, label: sp.label }))} value={id} onChange={setId} label="Specimen" idPrefix="bench-spec" />
+        <GlideTabs tabs={specimens.map((sp) => ({ id: sp.id, label: sp.label }))} value={id} onChange={setId} label="Specimen" idPrefix="bench-spec" {...fx('lab.specimen-tabs')} />
         <div className={styles.frame} role="tabpanel" id={`bench-spec-panel-${id}`} aria-labelledby={`bench-spec-tab-${id}`}>
-          <div className={styles.controls}>
+          <div className={styles.controls} {...fx('lab.live-controls')}>
             <p className={styles.purpose} key={id}>{current.purpose}</p>
             {spec.options.map((o) => (
               <Segmented key={o.key} label={o.label} values={o.values} value={s[o.key]} onChange={(v) => setS({ ...s, [o.key]: v })} />
@@ -137,13 +137,13 @@ export default function ComponentBench({ eyebrow, title, intro, specimens, note 
           </div>
 
           <div className={styles.stageCol}>
-            <div className={styles.stage}>
+            <div className={styles.stage} {...fx('lab.stage-crosshair')}>
               <span className={clsx(styles.rule, styles.ruleX)} aria-hidden="true" />
               <span className={clsx(styles.rule, styles.ruleY)} aria-hidden="true" />
               <div className={styles.specimen}><Preview id={id} s={s} setS={setS} /></div>
               <span className={styles.hint}>Hover it. Tab to it. Press it.</span>
             </div>
-            <div className={styles.code}>
+            <div className={styles.code} {...fx('lab.code-copy')}>
               <code>{code}</code>
               <button type="button" onClick={copy} aria-label="Copy the line">
                 <Copy size={13} aria-hidden="true" /> {copied || 'Copy'}

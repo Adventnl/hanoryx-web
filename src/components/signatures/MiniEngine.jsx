@@ -18,7 +18,7 @@ const h = (n) => {
  * frame scheduler at ~30fps and only while on screen; reduced motion renders one
  * still frame.
  */
-export function MiniEngine({ count = 9, className }) {
+export function MiniEngine({ count = 9, className, ...rest }) {
   const canvasRef = useRef(null);
   const simRef = useRef(null);
   const [hostRef, onScreen] = useOnScreen({ rootMargin: '80px 0px' });
@@ -125,7 +125,7 @@ export function MiniEngine({ count = 9, className }) {
   }, [count, onScreen, reduced]);
 
   return (
-    <div ref={hostRef} className={className}>
+    <div ref={hostRef} className={className} {...rest}>
       <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
     </div>
   );

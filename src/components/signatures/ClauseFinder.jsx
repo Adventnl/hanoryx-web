@@ -49,13 +49,13 @@ export default function ClauseFinder({ eyebrow, title, intro, topics, clauses, n
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('terms.clause-finder')}>
         <div className={styles.top}>
-          <label className={styles.search}>
+          <label className={styles.search} {...fx('terms.live-filter')}>
             <Search size={16} aria-hidden="true" />
             <span className="sr-only">Filter the clauses</span>
             <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Filter the clauses…" spellCheck={false} autoComplete="off" />
             <span className={styles.count} aria-live="polite">{shown.length} / {clauses.length}</span>
           </label>
-          <div className={styles.topics} role="group" aria-label="Topic">
+          <div className={styles.topics} role="group" aria-label="Topic" {...fx('terms.topic-chips')}>
             {topics.map((t) => (
               <button key={t} type="button" className={clsx(styles.chip, topic === t && styles.chipOn)} aria-pressed={topic === t} onClick={() => setTopic(t)}>{t}</button>
             ))}

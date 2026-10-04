@@ -61,14 +61,14 @@ export default function NotFound() {
           <div className={clsx('stack', 'stack-6', styles.core)}>
             <p className={clsx('mono', styles.eyebrow)}>ERR // 404</p>
 
-            <KineticText as="h1" text="SIGNAL LOST" className={clsx('display', styles.title)} immediate />
+            <KineticText as="h1" text="SIGNAL LOST" className={clsx('display', styles.title)} immediate {...fx('notfound.kinetic-title')} />
 
             <p className={clsx('lead', 'measure', styles.intro)}>
               Nothing lives at{' '}
-              <ScrambleText text={pathname.length > 38 ? `${pathname.slice(0, 36)}…` : pathname} auto className={styles.asked} />
+              <ScrambleText text={pathname.length > 38 ? `${pathname.slice(0, 36)}…` : pathname} auto className={styles.asked} {...fx('notfound.path-decode')} />
             </p>
 
-            <GlitchLine tone="red" className={styles.rule} />
+            <GlitchLine tone="red" className={styles.rule} {...fx('notfound.glitch-line')} />
 
             <div className={styles.near} {...fx('notfound.nearest-pages')}>
               <span className={styles.nearLabel}>The nearest real pages</span>
@@ -77,7 +77,7 @@ export default function NotFound() {
                   <li key={l.to} style={{ '--i': i }}>
                     <Link to={l.to} className={styles.nearLink} data-cursor="link">
                       <span className={styles.nearGroup}>{l.group}</span>
-                      <ProximityText text={l.label} as="span" className={styles.nearName} radius={160} />
+                      <ProximityText text={l.label} as="span" className={styles.nearName} radius={160} {...fx('notfound.near-proximity')} />
                       <ArrowUpRight size={15} strokeWidth={1.4} aria-hidden="true" />
                     </Link>
                   </li>

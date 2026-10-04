@@ -73,7 +73,7 @@ export default function ContactStudio({ eyebrow, title, intro, types, email, not
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="scan" />
       <div className={styles.layout} {...fx('contact.studio')}>
         <div className={styles.left}>
-          <div role="radiogroup" aria-label="What is this about?" className={styles.types} onKeyDown={onKeyDown}>
+          <div role="radiogroup" aria-label="What is this about?" className={styles.types} onKeyDown={onKeyDown} {...fx('contact.type-radio')}>
             {types.map((t) => {
               const on = t.id === typeId;
               return (
@@ -87,7 +87,7 @@ export default function ContactStudio({ eyebrow, title, intro, types, email, not
                   className={clsx('glyph-host', styles.type, on && styles.on)}
                   onClick={() => pickType(t)}
                 >
-                  {on && <motion.span layoutId={`${uid}-ink`} className={styles.ink} transition={reduced ? { duration: 0 } : SPRING} />}
+                  {on && <motion.span layoutId={`${uid}-ink`} className={styles.ink} transition={reduced ? { duration: 0 } : SPRING} {...fx('contact.type-ink')} />}
                   <Glyph name={t.glyph} size={26} className={styles.glyph} />
                   <span className={styles.typeText}>
                     <span className={styles.code}>{t.code}</span>
@@ -121,7 +121,7 @@ export default function ContactStudio({ eyebrow, title, intro, types, email, not
                 placeholder="What are you building, who is it for, and what is hard about it?"
               />
             </label>
-            <div className={styles.starters} role="group" aria-label="Starter lines">
+            <div className={styles.starters} role="group" aria-label="Starter lines" {...fx('contact.starters')}>
               <span>Need a start?</span>
               {type.starters.map((s) => (
                 <button key={s} type="button" onClick={() => addStarter(s)}>{s}</button>
@@ -129,17 +129,17 @@ export default function ContactStudio({ eyebrow, title, intro, types, email, not
             </div>
           </div>
 
-          <div className={styles.envelope} aria-label="Preview of your message">
+          <div className={styles.envelope} aria-label="Preview of your message" {...fx('contact.envelope')}>
             <div className={styles.envRow}><span>TO</span><b>{email}</b></div>
             <div className={styles.envRow}><span>SUBJECT</span><b>{subject || '—'}</b></div>
             <p className={styles.envBody}>{message || 'Your message will appear here as you write it.'}</p>
           </div>
 
           <div className={styles.actions}>
-            <a href={href} className={styles.send} data-cursor="link">
+            <a href={href} className={styles.send} data-cursor="link" {...fx('contact.mail-link')}>
               <Mail size={15} aria-hidden="true" /> Open in your mail app
             </a>
-            <button type="button" className={styles.copy} onClick={copy} data-cursor="link">
+            <button type="button" className={styles.copy} onClick={copy} data-cursor="link" {...fx('contact.copy-address')}>
               {copied === 'Copied' ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
               <span>{copied || 'Copy the address'}</span>
             </button>
@@ -148,7 +148,7 @@ export default function ContactStudio({ eyebrow, title, intro, types, email, not
 
           <p className={styles.address}>
             <span className={styles.addrLabel}>The address</span>
-            <ScrambleText text={email} trigger={pulse} auto className={styles.email} />
+            <ScrambleText text={email} trigger={pulse} auto className={styles.email} {...fx('contact.address-decode')} />
           </p>
           {note && <p className={styles.note}>{note}</p>}
         </div>

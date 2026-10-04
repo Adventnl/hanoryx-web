@@ -16,7 +16,7 @@ const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=<>/';
  * string is always present for assistive tech in a hidden twin. Reduced motion
  * shows the final text with no scramble.
  */
-export function ScrambleText({ text, as: Tag = 'span', trigger = 0, auto = false, duration = 720, className }) {
+export function ScrambleText({ text, as: Tag = 'span', trigger = 0, auto = false, duration = 720, className, ...rest }) {
   const reduced = usePrefersReducedMotion();
   const [ref, seen] = useOnScreen({ rootMargin: '0px', threshold: 0.4 });
 
@@ -51,7 +51,7 @@ export function ScrambleText({ text, as: Tag = 'span', trigger = 0, auto = false
   }, [ref, text, trigger, auto, seen, duration, reduced]);
 
   return (
-    <Tag ref={ref} className={clsx(className)}>
+    <Tag ref={ref} className={clsx(className)} {...rest}>
       <span className="sr-only">{text}</span>
       <span aria-hidden="true" data-scramble>{text}</span>
     </Tag>

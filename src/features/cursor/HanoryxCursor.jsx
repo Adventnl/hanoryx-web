@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import styles from './HanoryxCursor.module.css';
+import { fx } from '../../utils/fx';
 
 /**
  * Designed precision cursor. A tight core dot tracks the pointer exactly while
@@ -108,7 +109,7 @@ export function HanoryxCursor() {
 
   return (
     <>
-      <div ref={ring} data-chrome className={styles.ring} aria-hidden="true">
+      <div ref={ring} data-chrome className={styles.ring} aria-hidden="true" {...fx('cursor.reticle-ring')}>
         <span className={styles.reticle} />
         <span className={clsxCorner('tl')} />
         <span className={clsxCorner('tr')} />
@@ -116,9 +117,9 @@ export function HanoryxCursor() {
         <span className={clsxCorner('br')} />
         <span className={styles.scan} />
         <span className={styles.orbit} />
-        <span ref={label} className={styles.label} />
+        <span ref={label} className={styles.label} {...fx('cursor.label')} />
       </div>
-      <div ref={dot} data-chrome className={styles.dot} aria-hidden="true" />
+      <div ref={dot} data-chrome className={styles.dot} aria-hidden="true" {...fx('cursor.dot')} />
     </>
   );
 }

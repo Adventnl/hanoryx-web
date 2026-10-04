@@ -148,10 +148,10 @@ export default function ChronologyScrubber({ eyebrow, title, intro, phases, note
               aria-hidden={rel !== 0}
               inert={rel !== 0}
             >
-              <span className={clsx('ghost-numeral', styles.ghost)} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span className={clsx('ghost-numeral', styles.ghost)} aria-hidden="true" {...fx('timeline.ghost-numeral')}>{String(i + 1).padStart(2, '0')}</span>
               <div className={styles.copy}>
                 <span className={styles.panelTop}>
-                  <Glyph name={phase.glyph} size={40} className={styles.glyph} />
+                  <Glyph name={phase.glyph} size={40} className={styles.glyph} {...fx('timeline.phase-glyph')} />
                   <span className={styles.code}>{phase.code}</span>
                   <span className={clsx(styles.status, phase.live && styles.live)}>
                     {phase.live && <i aria-hidden="true" />}
@@ -173,7 +173,7 @@ export default function ChronologyScrubber({ eyebrow, title, intro, phases, note
           {playing ? <Pause size={14} aria-hidden="true" /> : finished ? <RotateCcw size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
           <span>{playing ? 'Pause' : finished ? 'Replay' : 'Play through'}</span>
         </button>
-        <span className={styles.readout} aria-hidden="true">
+        <span className={styles.readout} aria-hidden="true" {...fx('timeline.code-readout')}>
           <ScrambleText text={active.code} trigger={index} />
           <i />
           <span>{index + 1} / {n}</span>
@@ -210,13 +210,13 @@ export default function ChronologyScrubber({ eyebrow, title, intro, phases, note
               aria-hidden="true"
             >
               <span className={styles.dot} />
-              <span className={styles.stopLabel}>
+              <span className={styles.stopLabel} {...fx('timeline.stop-label')}>
                 <b>{String(i + 1).padStart(2, '0')}</b>
                 <span>{phase.title}</span>
               </span>
             </span>
           ))}
-          <span className={styles.knob} aria-hidden="true">
+          <span className={styles.knob} aria-hidden="true" {...fx('timeline.knob')}>
             <span className={styles.knobRing} />
           </span>
         </div>
@@ -229,7 +229,7 @@ export default function ChronologyScrubber({ eyebrow, title, intro, phases, note
           return (
             <li key={phase.id}>
               <button type="button" className={clsx(styles.row, on && styles.rowOn)} onClick={() => go(i)} aria-current={on ? 'step' : undefined}>
-                {on && <motion.span layoutId={`${uid}-ink`} className={styles.rowInk} transition={reduced ? { duration: 0 } : SPRING} />}
+                {on && <motion.span layoutId={`${uid}-ink`} className={styles.rowInk} transition={reduced ? { duration: 0 } : SPRING} {...fx('timeline.row-ink')} />}
                 <span className={styles.rowCode}>{phase.code}</span>
                 <span className={styles.rowTitle}>{phase.title}</span>
                 <span className={styles.rowHead}>{phase.headline}</span>

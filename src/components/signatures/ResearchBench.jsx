@@ -17,7 +17,7 @@ function Still() {
   const [pretend, setPretend] = useState(false);
   const still = pretend || system;
   return (
-    <div className={styles.still}>
+    <div className={styles.still} {...fx('bench.still-state')}>
       <div className={clsx(styles.orbit, still && styles.frozen)} aria-hidden="true">
         <span className={styles.orbitRing} />
         <span className={styles.orbitDot} />
@@ -57,7 +57,7 @@ function Focus() {
     refs.current[next]?.focus();
   };
   return (
-    <div className={styles.focus}>
+    <div className={styles.focus} {...fx('bench.focus-ring')}>
       <p>
         Press <KeyCap>Tab</KeyCap> to enter the row, then <KeyCap>←</KeyCap> <KeyCap>→</KeyCap> to move. The ring follows the focus instead of jumping.
       </p>
@@ -99,7 +99,7 @@ export default function ResearchBench({ eyebrow, title, intro, experiments, note
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.bench} {...fx('research.bench')}>
-        <GlideTabs tabs={experiments.map((e) => ({ id: e.id, label: e.label }))} value={id} onChange={setId} label="Study" idPrefix="bench" />
+        <GlideTabs tabs={experiments.map((e) => ({ id: e.id, label: e.label }))} value={id} onChange={setId} label="Study" idPrefix="bench" {...fx('bench.study-tabs')} />
         <div className={styles.frame} role="tabpanel" id={`bench-panel-${id}`} aria-labelledby={`bench-tab-${id}`}>
           <div className={styles.copy} key={id}>
             <h3>{current.title}</h3>

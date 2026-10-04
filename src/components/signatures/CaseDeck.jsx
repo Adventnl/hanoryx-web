@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { Glyph } from '../fx/Glyph';
 import { workItems } from '../../data/work';
 import styles from './CaseDeck.module.css';
+import { fx } from '../../utils/fx';
 
 /**
  * Hero object for the Work page: the four case studies as a deck of files. At
@@ -11,9 +12,9 @@ import styles from './CaseDeck.module.css';
  */
 export default function CaseDeck() {
   return (
-    <div className={styles.deck}>
+    <div className={styles.deck} {...fx('deck.fan-spread')}>
       {workItems.map((w, i) => (
-        <Link key={w.id} to={w.to} className={`glyph-host ${styles.card}`} style={{ '--i': i, '--n': workItems.length }} data-cursor="card">
+        <Link key={w.id} to={w.to} className={`glyph-host ${styles.card}`} style={{ '--i': i, '--n': workItems.length }} data-cursor="card" {...fx('deck.card-lift')}>
           <span className={styles.top}>
             <span className={styles.code}>{w.code}</span>
             <Glyph name={w.glyph} size={26} />

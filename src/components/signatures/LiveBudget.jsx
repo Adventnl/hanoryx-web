@@ -55,7 +55,7 @@ export function LiveBudget({ framed = false }) {
 
   return (
     <div ref={rootRef} className={clsx(styles.budget, framed && styles.framed)} {...fx('engineering.live-budget')}>
-      <div className={styles.meter}>
+      <div className={styles.meter} {...fx('budget.fps-meter')}>
         <div className={styles.big}>
           <span ref={fpsRef}>—</span>
           <small>frames / second</small>
@@ -67,10 +67,10 @@ export function LiveBudget({ framed = false }) {
         <div><dt>Animation loops</dt><dd ref={loopsRef}>—</dd></div>
         <div><dt>Quality tier</dt><dd ref={tierRef}>—</dd></div>
       </dl>
-      <div ref={dotsRef} className={styles.dots} aria-hidden="true">
+      <div ref={dotsRef} className={styles.dots} aria-hidden="true" {...fx('budget.scene-dots')}>
         {Array.from({ length: Math.max(cap, 2) }, (_, i) => <i key={i} data-on="false" />)}
       </div>
-      <button type="button" className={styles.action} onClick={toggle} aria-pressed={paused} data-cursor="link">
+      <button type="button" className={styles.action} onClick={toggle} aria-pressed={paused} data-cursor="link" {...fx('budget.pause-all')}>
         {paused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
         <span>{paused ? 'Resume the backgrounds' : 'Pause every background'}</span>
       </button>

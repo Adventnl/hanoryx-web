@@ -101,21 +101,21 @@ export default function StorageInspector({ eyebrow, title, intro, known, note })
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.bench} {...fx('cookies.storage-inspector')}>
         <div className={styles.summary}>
-          <ProgressRing value={total ? ours / total : 0} size={96} stroke={3.4} label={`${ours} of ${total} stored items are this site's own`}>
+          <ProgressRing value={total ? ours / total : 0} size={96} stroke={3.4} label={`${ours} of ${total} stored items are this site's own`} {...fx('cookies.share-ring')}>
             <span className={styles.big}>{total}</span>
           </ProgressRing>
           <div>
             <p className={styles.line}>
               <b>{total}</b> {total === 1 ? 'item is' : 'items are'} stored for this site in your browser right now; <b>{ours}</b> {ours === 1 ? 'is' : 'are'} the site’s own.
             </p>
-            <div className={styles.buttons}>
+            <div className={styles.buttons} {...fx('cookies.clear-ours')}>
               <button type="button" onClick={refresh}><RefreshCw size={13} aria-hidden="true" /> Refresh</button>
               <button type="button" onClick={clearOurs} disabled={ours === 0}><Eraser size={13} aria-hidden="true" /> {cleared ? 'Cleared' : 'Clear the site’s items'}</button>
             </div>
           </div>
         </div>
 
-        <div className={styles.groups}>
+        <div className={styles.groups} {...fx('cookies.live-groups')}>
           <Group title="Cookies" where="cookies" rows={data.cookies} known={known} emptyText="None. This site’s code does not set cookies." />
           <Group title="Local storage" where="local storage" rows={data.local} known={known} emptyText="Nothing. This site does not use local storage." />
           <Group title="Session storage" where="session storage" rows={data.session} known={known} emptyText="Nothing yet. Press START on the intro, or run a search, and look again." />

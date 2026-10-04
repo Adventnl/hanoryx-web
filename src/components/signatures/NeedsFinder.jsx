@@ -41,7 +41,7 @@ export default function NeedsFinder({ eyebrow, title, intro, needs, areas }) {
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.layout} {...fx('systems.needs-finder')}>
-        <div role="radiogroup" aria-label="What are you trying to do?" className={styles.needs} onKeyDown={onKeyDown}>
+        <div role="radiogroup" aria-label="What are you trying to do?" className={styles.needs} onKeyDown={onKeyDown} {...fx('needs.radio-list')}>
           {needs.map((n) => {
             const on = n.id === value;
             return (
@@ -62,7 +62,7 @@ export default function NeedsFinder({ eyebrow, title, intro, needs, areas }) {
           })}
         </div>
 
-        <div className={styles.answer} aria-live="polite">
+        <div className={styles.answer} aria-live="polite" {...fx('needs.answer-swap')}>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={need.id}
@@ -83,7 +83,7 @@ export default function NeedsFinder({ eyebrow, title, intro, needs, areas }) {
         </div>
       </div>
 
-      <ul className={styles.strip} aria-label="All system areas">
+      <ul className={styles.strip} aria-label="All system areas" {...fx('needs.area-strip')}>
         {areas.map((a) => (
           <li key={a.id} className={clsx(styles.chip, a.id === area.id && styles.chipOn)}>
             <Link to={a.to} tabIndex={-1} aria-label={a.title}>

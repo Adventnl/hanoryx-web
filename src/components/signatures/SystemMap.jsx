@@ -68,8 +68,8 @@ export default function SystemMap({ nodes, links, core, caption }) {
 
   return (
     <div ref={rootRef} className={styles.wrap} {...fx('systems.expandable-map')}>
-      <div className={styles.map} data-focus={focusId ? 'true' : 'false'}>
-        <svg className={styles.lines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <div className={styles.map} data-focus={focusId ? 'true' : 'false'} {...fx('systems.focus-dim')}>
+        <svg className={styles.lines} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" {...fx('systems.link-flow')}>
           <circle className={styles.ring} cx="50" cy="50" r={RADIUS} vectorEffect="non-scaling-stroke" />
           {placed.map((n) => (
             <line
@@ -95,7 +95,7 @@ export default function SystemMap({ nodes, links, core, caption }) {
           })}
         </svg>
 
-        <div className={styles.core}>
+        <div className={styles.core} {...fx('systems.core-pulse')}>
           <span className={styles.coreRing} aria-hidden="true" />
           <span className={styles.coreTitle}>{core.title}</span>
           <span className={styles.coreLine}>{core.line}</span>
@@ -116,6 +116,7 @@ export default function SystemMap({ nodes, links, core, caption }) {
               className={clsx(styles.node, isOpen && styles.open, dim && styles.dim)}
               data-side={n.side}
               data-vert={n.vert}
+              {...fx('systems.node-open')}
               style={pos}
               onPointerEnter={() => setHover(n.id)}
               onPointerLeave={() => setHover(null)}

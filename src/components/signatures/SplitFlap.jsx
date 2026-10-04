@@ -16,11 +16,11 @@ function Row({ label, text, width, replay, button, onClick }) {
   const inner = (
     <>
       <span className={styles.label}><i aria-hidden="true" />{label}</span>
-      <span className={styles.cells} aria-hidden="true">{cells}</span>
+      <span className={styles.cells} aria-hidden="true" {...fx('careers.flap-cells')}>{cells}</span>
     </>
   );
   return button ? (
-    <button type="button" className={`${styles.row} ${styles.rowButton}`} onClick={onClick} aria-label={`${label}: ${text}. Show the next one.`} data-cursor="card" data-cursor-label="Next">
+    <button type="button" {...fx('careers.flap-cycle')} className={`${styles.row} ${styles.rowButton}`} onClick={onClick} aria-label={`${label}: ${text}. Show the next one.`} data-cursor="card" data-cursor-label="Next">
       {inner}
     </button>
   ) : (
@@ -60,7 +60,7 @@ export default function SplitFlap({ rows, cycle, caption }) {
     <div ref={ref} className={styles.board} role="group" aria-label={summary} {...fx('careers.split-flap-board')}>
       <div className={styles.bar} aria-hidden="true">
         <span>HANORYX · INTRODUCTIONS</span>
-        <span className={styles.lamp} />
+        <span className={styles.lamp} {...fx('careers.flap-lamp')} />
       </div>
       {rows.map((r) => <Row key={r.label} label={r.label} text={r.value} width={width} replay={0} />)}
       <Row label={cycle.label} text={cycle.values[index]} width={width} replay={index} button onClick={next} />

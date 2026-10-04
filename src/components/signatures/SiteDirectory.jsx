@@ -75,13 +75,13 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('sitemap.filter-directory')}>
         <div className={styles.top}>
-          <label className={styles.search}>
+          <label className={styles.search} {...fx('sitemap.live-filter')}>
             <Search size={16} aria-hidden="true" />
             <span className="sr-only">Filter pages</span>
             <input value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown} placeholder="Filter the pages…" spellCheck={false} autoComplete="off" />
             <span className={styles.count} aria-live="polite">{visible.length} / {items.length}</span>
           </label>
-          <button type="button" className={styles.surprise} onClick={surprise} data-cursor="link">
+          <button type="button" className={styles.surprise} onClick={surprise} data-cursor="link" {...fx('sitemap.surprise')}>
             <Shuffle size={14} aria-hidden="true" /> Take me somewhere
           </button>
         </div>
@@ -90,7 +90,7 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
           const rows = visible.filter((it) => g.test(it.key));
           if (rows.length === 0) return null;
           return (
-            <section key={g.id} className={styles.group} aria-label={g.label}>
+            <section key={g.id} className={styles.group} aria-label={g.label} {...fx('sitemap.group-reflow')}>
               <h3><span>{g.label}</span><i>{rows.length}</i></h3>
               <ul>
                 <AnimatePresence initial={false}>

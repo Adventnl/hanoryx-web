@@ -8,6 +8,7 @@ import { usePointerField } from '../../hooks/usePointerField';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { ScrambleText } from './ScrambleText';
 import styles from './HoverIndex.module.css';
+import { fx } from '../../utils/fx';
 
 /**
  * A typographic index: big rows that a floating preview card follows the
@@ -35,7 +36,7 @@ export function HoverIndex({ items, className }) {
 
   return (
     <div ref={listRef} className={clsx(styles.wrap, className)} onPointerLeave={() => setActive(null)}>
-      <ul className={styles.list}>
+      <ul className={styles.list} {...fx('index.row-dim')}>
         {items.map((item, index) => (
           <li key={item.id} className={clsx(styles.row, active === item.id && styles.on, active && active !== item.id && styles.dim)}>
             <Link
@@ -50,10 +51,10 @@ export function HoverIndex({ items, className }) {
                 <span className={styles.title}>{item.title}</span>
                 {item.detail && <span className={styles.detail}>{item.detail}</span>}
               </span>
-              <ScrambleText text={item.meta || item.kicker || ''} trigger={pulse[item.id] || 0} className={styles.meta} />
+              <ScrambleText text={item.meta || item.kicker || ''} trigger={pulse[item.id] || 0} className={styles.meta} {...fx('index.meta-decode')} />
               <ArrowUpRight className={styles.arrow} size={22} strokeWidth={1.2} aria-hidden="true" />
             </Link>
-            <span className={styles.rule} aria-hidden="true" />
+            <span className={styles.rule} aria-hidden="true" {...fx('index.rule-draw')} />
           </li>
         ))}
       </ul>

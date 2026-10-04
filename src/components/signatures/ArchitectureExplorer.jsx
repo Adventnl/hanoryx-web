@@ -51,16 +51,16 @@ export default function ArchitectureExplorer({ eyebrow, title, intro, layers, no
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.bench} {...fx('engineering.layer-trace')}>
         <div className={styles.top}>
-          <button type="button" className={styles.trace} onClick={trace} aria-pressed={tracing} data-cursor="link">
+          <button type="button" className={styles.trace} onClick={trace} aria-pressed={tracing} data-cursor="link" {...fx('arch.trace-button')}>
             {tracing ? <Square size={12} aria-hidden="true" /> : <Play size={13} aria-hidden="true" />}
             <span>{tracing ? 'Stop the trace' : 'Trace a page view'}</span>
           </button>
           <span className={styles.step} aria-hidden="true">LAYER {String(active + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
         </div>
 
-        <ol className={styles.row} style={{ '--n': n, '--a': active }} role="tablist" aria-label="Site layers">
-          <span className={styles.line} aria-hidden="true"><span className={styles.fill} /></span>
-          <span className={styles.packet} aria-hidden="true" />
+        <ol className={styles.row} style={{ '--n': n, '--a': active }} role="tablist" aria-label="Site layers" {...fx('arch.layer-tabs')}>
+          <span className={styles.line} aria-hidden="true" {...fx('arch.line-fill')}><span className={styles.fill} /></span>
+          <span className={styles.packet} aria-hidden="true" {...fx('arch.packet')} />
           {layers.map((l, i) => (
             <li key={l.id}>
               <button
@@ -85,7 +85,7 @@ export default function ArchitectureExplorer({ eyebrow, title, intro, layers, no
           ))}
         </ol>
 
-        <div id="arch-panel" role="tabpanel" aria-labelledby={`arch-tab-${layer.id}`} className={styles.panel}>
+        <div id="arch-panel" role="tabpanel" aria-labelledby={`arch-tab-${layer.id}`} className={styles.panel} {...fx('arch.story-swap')}>
           <div className={styles.story} key={layer.id}>
             <h3>{layer.signal}.</h3>
             <p>{layer.summary}</p>

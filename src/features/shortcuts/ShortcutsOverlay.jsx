@@ -9,6 +9,7 @@ import { useLenis } from '../../app/providers/lenis-context';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { lockScroll } from '../../utils/scrollLock';
 import styles from './ShortcutsOverlay.module.css';
+import { fx } from '../../utils/fx';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -70,6 +71,7 @@ export function ShortcutsOverlay({ open, onClose }) {
             aria-modal="true"
             aria-label="Keyboard shortcuts"
             data-shortcuts-panel
+            {...fx('shortcuts.panel')}
             initial={reduced ? false : { opacity: 0, y: 14, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduced ? undefined : { opacity: 0, y: 8, scale: 0.98 }}
@@ -81,7 +83,7 @@ export function ShortcutsOverlay({ open, onClose }) {
                 <X size={16} aria-hidden="true" />
               </button>
             </header>
-            <ul className={styles.list}>
+            <ul className={styles.list} {...fx('shortcuts.key-rows')}>
               {shortcutPanel.map((row, i) => (
                 <li key={row.label} style={{ '--i': i }}>
                   <span className={styles.keys}>

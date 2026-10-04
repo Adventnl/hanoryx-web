@@ -48,7 +48,7 @@ export default function KeyboardMap({ eyebrow, title, intro, keys, rows, hint, n
     <div ref={rootRef}>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('a11y.keyboard-map')}>
-        <div className={styles.board} role="group" aria-label="Keys that do something on this site">
+        <div className={styles.board} role="group" aria-label="Keys that do something on this site" {...fx('keys.board')}>
           {rows.map((row, ri) => (
             <div key={ri} className={styles.row}>
               {row.map((id) => {
@@ -62,7 +62,7 @@ export default function KeyboardMap({ eyebrow, title, intro, keys, rows, hint, n
                     aria-pressed={picked === id}
                     aria-label={`${k.label}: ${k.does}`}
                   >
-                    <KeyCap pressed={pressed === id}>{k.label}</KeyCap>
+                    <KeyCap pressed={pressed === id} {...fx('keys.keycap')}>{k.label}</KeyCap>
                   </button>
                 );
               })}
@@ -70,7 +70,7 @@ export default function KeyboardMap({ eyebrow, title, intro, keys, rows, hint, n
           ))}
         </div>
 
-        <div className={styles.read} aria-live="polite">
+        <div className={styles.read} aria-live="polite" {...fx('keys.reading')}>
           <span className={styles.which}>{current.label}</span>
           <p key={picked}>{current.does}</p>
         </div>

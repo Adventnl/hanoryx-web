@@ -83,6 +83,7 @@ export default function DataSlab({ eyebrow, title, intro, sizes, caption, questi
       <div className={styles.controls}>
         <GlideTabs
           idPrefix="slab-size"
+          {...fx('slab.size-tabs')}
           label="Synthetic data set size"
           variant="line"
           value={size}
@@ -115,6 +116,7 @@ export default function DataSlab({ eyebrow, title, intro, sizes, caption, questi
           role="region"
           aria-label={`Synthetic rows, ${fmt(total)} in this view. Scroll or use the keyboard.`}
           data-lenis-prevent
+          {...fx('slab.virtual-scroller')}
         >
           {/* sticky window first, then a spacer that supplies the scroll distance;
               total scroll height = spacer, so scrollTop maps straight to a row. */}
@@ -143,18 +145,18 @@ export default function DataSlab({ eyebrow, title, intro, sizes, caption, questi
           <div style={{ height: Math.max(0, spacer - viewH) }} aria-hidden="true" />
         </div>
 
-        <div className={styles.rail} aria-hidden="true">
+        <div className={styles.rail} aria-hidden="true" {...fx('slab.scroll-thumb')}>
           <span className={styles.thumb} style={{ top: `${maxFirst ? (pos / maxFirst) * 100 : 0}%` }} />
         </div>
       </div>
 
       <div className={styles.readout}>
-        <span className={styles.big}><Odometer value={total} /> <small>rows in view</small></span>
+        <span className={styles.big} {...fx('slab.row-count')}><Odometer value={total} /> <small>rows in view</small></span>
         <span className={styles.range} role="status" aria-live="polite">
           Showing {fmt(first + 1)}–{fmt(Math.min(total, first + VIEW_ROWS))}
           {sel ? ` · selected record ${fmt(sel.orig + 1)}` : ''}
         </span>
-        <form className={styles.jump} onSubmit={goTo}>
+        <form className={styles.jump} onSubmit={goTo} {...fx('slab.jump-form')}>
           <label htmlFor="slab-jump">Jump to row</label>
           <input id="slab-jump" inputMode="numeric" value={jump} onChange={(e) => setJump(e.target.value)} placeholder="e.g. 4201337" />
           <button type="submit">Go</button>

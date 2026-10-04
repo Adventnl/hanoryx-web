@@ -62,6 +62,7 @@ export default function OpsFlow({ eyebrow, title, intro, stages, kinds, note }) 
             onChange={pickKind}
             label="Kind of request"
             idPrefix="ops-kind"
+            {...fx('ops.kind-tabs')}
           />
           <button type="button" className={styles.send} onClick={send} disabled={running} data-cursor="link">
             {done ? <RotateCcw size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
@@ -70,10 +71,10 @@ export default function OpsFlow({ eyebrow, title, intro, stages, kinds, note }) 
         </div>
 
         <div className={styles.pipe} style={{ '--n': n, '--at': Math.max(step, 0) }} data-state={step < 0 ? 'idle' : done ? 'done' : 'run'}>
-          <span className={styles.track} aria-hidden="true">
+          <span className={styles.track} aria-hidden="true" {...fx('ops.stage-fill')}>
             <span className={styles.fill} style={{ '--fillp': step <= 0 ? 0 : step / last }} />
           </span>
-          <span className={styles.token} aria-hidden="true" />
+          <span className={styles.token} aria-hidden="true" {...fx('ops.pipe-token')} />
           {stages.map((s, i) => (
             <div key={s.id} className={clsx(styles.stage, i <= step && styles.passed, i === step && styles.here)}>
               <span className={styles.node}><Glyph name={s.glyph} size={22} /></span>
@@ -85,7 +86,7 @@ export default function OpsFlow({ eyebrow, title, intro, stages, kinds, note }) 
         </div>
 
         <div className={styles.lower}>
-          <dl className={styles.card} aria-label="The request">
+          <dl className={styles.card} aria-label="The request" {...fx('ops.request-card')}>
             <div className={styles.cardHead}>
               <span>THE REQUEST</span>
               <span className={styles.count}>SENT {String(sent).padStart(2, '0')}</span>
@@ -98,7 +99,7 @@ export default function OpsFlow({ eyebrow, title, intro, stages, kinds, note }) 
             ))}
           </dl>
 
-          <div className={styles.record} role="log" aria-label="The record" aria-live="polite">
+          <div className={styles.record} role="log" aria-label="The record" aria-live="polite" {...fx('ops.record-log')}>
             <div className={styles.cardHead}>
               <span>THE RECORD</span>
               <span className={styles.count}>APPEND-ONLY</span>

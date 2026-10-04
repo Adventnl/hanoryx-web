@@ -14,6 +14,7 @@ function Cell({ rec, out, uid, reduced }) {
     <motion.li
       layout
       layoutId={`${uid}-${rec.id}`}
+      {...fx('membrane.record-cell')}
       className={clsx(styles.cell, out && styles.out)}
       transition={reduced ? { duration: 0 } : SPRING}
     >
@@ -44,8 +45,8 @@ export default function BoundaryMembrane({ eyebrow, title, intro, records, roles
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('portals.membrane')}>
         <div className={styles.top}>
-          <GlideTabs tabs={roles.map((r) => ({ id: r.id, label: r.label }))} value={role} onChange={setRole} label="Role" idPrefix="membrane-role" />
-          <span className={styles.count} aria-hidden="true">
+          <GlideTabs tabs={roles.map((r) => ({ id: r.id, label: r.label }))} value={role} onChange={setRole} label="Role" idPrefix="membrane-role" {...fx('membrane.role-tabs')} />
+          <span className={styles.count} aria-hidden="true" {...fx('membrane.reach-count')}>
             {outside.length} <i>/</i> {records.length} reach the outside
           </span>
         </div>
@@ -60,7 +61,7 @@ export default function BoundaryMembrane({ eyebrow, title, intro, records, roles
               </ul>
             </section>
 
-            <div className={styles.membrane} aria-hidden="true">
+            <div className={styles.membrane} aria-hidden="true" {...fx('membrane.scope-wall')}>
               <span className={styles.label}>SCOPE</span>
               <span className={styles.wall} />
             </div>

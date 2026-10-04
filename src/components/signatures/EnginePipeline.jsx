@@ -42,7 +42,7 @@ export default function EnginePipeline({ eyebrow, title, intro, stages }) {
           <span className={styles.fill} />
           <span className={styles.token} />
         </span>
-        <ul className={styles.stages} role="tablist" aria-label="Engine pipeline stages">
+        <ul className={styles.stages} role="tablist" aria-label="Engine pipeline stages" {...fx('pipeline.stage-tabs')}>
           {stages.map((s, i) => (
             <li key={s.id}>
               <button
@@ -69,12 +69,13 @@ export default function EnginePipeline({ eyebrow, title, intro, stages }) {
           <motion.div
             key={stage.id}
             className={styles.card}
+            {...fx('pipeline.card-swap')}
             initial={reduced ? false : { opacity: 0, x: 24 }}
             animate={{ opacity: 1, x: 0, transition: { duration: 0.5, ease: EASE } }}
             exit={reduced ? undefined : { opacity: 0, x: -18, transition: { duration: 0.2 } }}
           >
             <span className={styles.step}>{String(active + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
-            <ScrambleText as="h3" text={stage.title} trigger={pulse} className={styles.cardTitle} />
+            <ScrambleText as="h3" text={stage.title} trigger={pulse} className={styles.cardTitle} {...fx('pipeline.title-decode')} />
             <p className={styles.cardBody}>{stage.body}</p>
             {stage.points?.length > 0 && (
               <ul className={styles.points}>

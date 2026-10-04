@@ -88,8 +88,11 @@
 /* Page-level blueprint mode (press B): reveals the structure of the page. A
    discovery for people who like to look under the hood. Outlines only — it
    never changes layout. */
-html.blueprint main section,
-html.blueprint main [data-fx] {
+html.blueprint main section {
+  outline: 1px dashed rgba(255, 51, 51, 0.35);
+  outline-offset: -1px;
+}
+html.blueprint [data-fx]:not([data-fx^='cursor.']):not([data-fx^='blueprint.']):not([data-fx^='transition.']) {
   outline: 1px dashed rgba(255, 51, 51, 0.35);
   outline-offset: -1px;
 }

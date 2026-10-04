@@ -77,14 +77,14 @@ export default function RuleChain({ eyebrow, title, intro, triggers, conditions,
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.bench} {...fx('automation.rule-builder')}>
-        <div className={styles.pickers}>
+        <div className={styles.pickers} {...fx('rule.pickers')}>
           <Picker label="WHEN" legend="A trigger" options={triggers} value={when} onChange={setWhen} disabled={running} />
           <Picker label="IF" legend="A guard" options={conditions} value={cond} onChange={setCond} disabled={running} />
           <Picker label="THEN" legend="An action" options={actions} value={then} onChange={setThen} disabled={running} />
         </div>
 
         <div className={styles.runbar}>
-          <label className={styles.toggle}>
+          <label className={styles.toggle} {...fx('rule.condition-switch')}>
             <input type="checkbox" checked={holds} onChange={(e) => setHolds(e.target.checked)} disabled={running} />
             <span className={styles.switch} aria-hidden="true"><i /></span>
             <span>The condition holds</span>
@@ -95,8 +95,8 @@ export default function RuleChain({ eyebrow, title, intro, triggers, conditions,
           </button>
         </div>
 
-        <div className={styles.chain} data-step={step}>
-          <span className={styles.pulse} style={{ '--at': Math.max(step, 0) }} aria-hidden="true" />
+        <div className={styles.chain} data-step={step} {...fx('rule.chain-blocks')}>
+          <span className={styles.pulse} style={{ '--at': Math.max(step, 0) }} aria-hidden="true" {...fx('rule.pulse')} />
           {blocks.map((b, i) => (
             <div key={b.id} className={clsx(styles.block, i <= step && styles.lit, i === step && styles.now, b.skipped && i <= step && styles.skipped)}>
               <Glyph name={b.glyph} size={22} className={styles.blockGlyph} />
@@ -106,7 +106,7 @@ export default function RuleChain({ eyebrow, title, intro, triggers, conditions,
           ))}
         </div>
 
-        <div className={styles.log} role="log" aria-label="Run record" aria-live="polite">
+        <div className={styles.log} role="log" aria-label="Run record" aria-live="polite" {...fx('rule.run-record')}>
           <div className={styles.logHead}><span>RUN RECORD</span><span>APPEND-ONLY</span></div>
           <ol>
             {record.items.length === 0 && <li className={styles.empty}>No runs yet. Assemble a rule and run it.</li>}

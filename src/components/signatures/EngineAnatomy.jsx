@@ -27,7 +27,7 @@ export default function EngineAnatomy({ eyebrow, title, intro, parts, repoUrl, r
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.layout} {...fx('yk.anatomy-blueprint')}>
-        <ul className={styles.list} aria-label="Engine parts">
+        <ul className={styles.list} aria-label="Engine parts" {...fx('anatomy.part-list')}>
           {parts.map((p) => (
             <li key={p.id}>
               <button
@@ -46,16 +46,16 @@ export default function EngineAnatomy({ eyebrow, title, intro, parts, repoUrl, r
           ))}
         </ul>
 
-        <div className={styles.board} aria-hidden="true">
+        <div className={styles.board} aria-hidden="true" {...fx('anatomy.board-cells')}>
           {parts.map((p, i) => (
             <span key={p.id} className={clsx(styles.cell, active === p.id && styles.cellOn)} style={{ '--i': i }} data-part={p.id}>
               <span>{p.name}</span>
             </span>
           ))}
-          <span className={styles.crosshair} />
+          <span className={styles.crosshair} {...fx('anatomy.crosshair')} />
         </div>
 
-        <div className={styles.detail} aria-live="polite">
+        <div className={styles.detail} aria-live="polite" {...fx('anatomy.detail-swap')}>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={part.id}
@@ -76,7 +76,7 @@ export default function EngineAnatomy({ eyebrow, title, intro, parts, repoUrl, r
       </div>
       {repoUrl && (
         <div className={styles.repo}>
-          <ArrowLink href={repoUrl} tone="red">{repoLabel || 'YK Engine on GitHub'}</ArrowLink>
+          <ArrowLink href={repoUrl} tone="red" {...fx('anatomy.repo-link')}>{repoLabel || 'YK Engine on GitHub'}</ArrowLink>
         </div>
       )}
     </div>

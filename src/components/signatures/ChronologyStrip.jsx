@@ -45,7 +45,7 @@ export default function ChronologyStrip({ eyebrow, title, intro, phases, linkLab
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <ol ref={ref} className={styles.strip} style={{ '--n': n }} {...fx('chronology.strip')}>
-        <span className={styles.line} aria-hidden="true"><span className={styles.fill} /></span>
+        <span className={styles.line} aria-hidden="true" {...fx('chronology.line-draw')}><span className={styles.fill} /></span>
         {phases.map((phase, i) => {
           const body = (
             <>
@@ -57,7 +57,7 @@ export default function ChronologyStrip({ eyebrow, title, intro, phases, linkLab
             </>
           );
           return (
-            <li key={phase.id} className={styles.item} style={{ '--i': i }}>
+            <li key={phase.id} className={styles.item} style={{ '--i': i }} {...fx('chronology.phase-node')}>
               {phase.to ? <Link to={phase.to} className={`glyph-host ${styles.cell}`}>{body}</Link> : <div className={`glyph-host ${styles.cell}`}>{body}</div>}
             </li>
           );

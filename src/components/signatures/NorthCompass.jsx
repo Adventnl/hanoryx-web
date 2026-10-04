@@ -55,7 +55,7 @@ export default function NorthCompass({ pillars, caption }) {
   return (
     <div className={styles.wrap} onPointerMove={onPointerMove} onPointerLeave={settle} {...fx('north.compass')}>
       <div ref={dialRef} className={styles.dial}>
-        <svg className={styles.ticks} viewBox="0 0 100 100" aria-hidden="true">
+        <svg className={styles.ticks} viewBox="0 0 100 100" aria-hidden="true" {...fx('compass.tick-ring')}>
           <circle className={styles.ring} cx="50" cy="50" r="47" />
           <circle className={styles.ringInner} cx="50" cy="50" r="34" />
           {TICKS.map((i) => {
@@ -75,8 +75,8 @@ export default function NorthCompass({ pillars, caption }) {
           })}
         </svg>
 
-        <span className={styles.needle} aria-hidden="true"><i /><b /></span>
-        <span className={styles.hub} aria-hidden="true">
+        <span className={styles.needle} aria-hidden="true" {...fx('compass.needle')}><i /><b /></span>
+        <span className={styles.hub} aria-hidden="true" {...fx('compass.hub-readout')}>
           <span ref={readoutRef}>000°</span>
         </span>
 
@@ -91,6 +91,7 @@ export default function NorthCompass({ pillars, caption }) {
             onFocus={() => turnTo(i * 90)}
             data-cursor="card"
             data-cursor-label="Turn"
+            {...fx('compass.pillar-point')}
           >
             <span>{p.code}</span>
           </button>
@@ -99,7 +100,7 @@ export default function NorthCompass({ pillars, caption }) {
 
       <div className={styles.panel} aria-live="polite">
         <span className={styles.code}>{pillar.code}</span>
-        <ScrambleText as="h3" text={pillar.title} trigger={pulse} className={styles.title} />
+        <ScrambleText as="h3" text={pillar.title} trigger={pulse} className={styles.title} {...fx('compass.title-decode')} />
         <p className={styles.body} key={pillar.id}>{pillar.body}</p>
       </div>
       {caption && <p className={styles.caption}>{caption}</p>}

@@ -11,6 +11,7 @@ import { RadialMegaMenu } from './RadialMegaMenu';
 import { useNavIntent } from './useNavIntent';
 import { useDismissableLayer } from './useDismissableLayer';
 import styles from './AdvancedNavbar.module.css';
+import { fx } from '../../utils/fx';
 
 const INK_SPRING = { type: 'spring', stiffness: 380, damping: 34, mass: 0.8 };
 
@@ -151,7 +152,7 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
       <span className={styles.hairline} aria-hidden="true" />
 
       <div className={styles.inner}>
-        <Link to="/" className={clsx(styles.brand, styles.part)} aria-label="Hanoryx Systems — home" data-cursor="link">
+        <Link to="/" className={clsx(styles.brand, styles.part)} aria-label="Hanoryx Systems — home" data-cursor="link" {...fx('nav.brand-sheen')}>
           <span className={styles.mark}>
             <img src={brandLogo} alt="" />
             <span className={styles.sheen} aria-hidden="true" />
@@ -164,6 +165,7 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
           className={clsx(styles.groups, styles.part)}
           aria-label="Primary"
           onMouseLeave={() => setHoverId(null)}
+          {...fx('nav.hover-intent')}
         >
           {navGroups.map((g) => {
             const multi = g.children.length > 1;
@@ -197,6 +199,7 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
           <motion.span
             className={styles.ink}
             aria-hidden="true"
+            {...fx('nav.group-ink')}
             initial={false}
             animate={{ x: ink.x, width: ink.w, opacity: ink.on ? 1 : 0 }}
             transition={ink.placed ? INK_SPRING : { duration: 0 }}
@@ -204,8 +207,8 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
         </nav>
 
         <div className={clsx(styles.right, styles.part)}>
-          <button type="button" className={styles.search} onClick={() => window.dispatchEvent(new Event('hanoryx:search'))} aria-label="Search site"><Search size={17} /><span>⌘ K</span></button>
-          <span className={styles.status} aria-hidden="true">
+          <button type="button" className={styles.search} onClick={() => window.dispatchEvent(new Event('hanoryx:search'))} aria-label="Search site" {...fx('nav.search-chip')}><Search size={17} /><span>⌘ K</span></button>
+          <span className={styles.status} aria-hidden="true" {...fx('nav.live-status')}>
             <span className={styles.statusDot} />
             {company.status}
           </span>

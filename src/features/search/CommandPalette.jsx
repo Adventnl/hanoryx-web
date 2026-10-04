@@ -9,6 +9,7 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { lockScroll } from '../../utils/scrollLock';
 import { countBySection, search, tokenize } from './searchEngine';
 import styles from './CommandPalette.module.css';
+import { fx } from '../../utils/fx';
 
 const RECENT_KEY = 'hnx.search.recent';
 const SECTIONS = ['All', 'Work', 'Systems', 'Development', 'Company', 'Legal'];
@@ -329,6 +330,7 @@ export function CommandPalette({ enabled = true }) {
             aria-modal="true"
             aria-label="Search Hanoryx Systems"
             onKeyDown={onPanelKeyDown}
+            {...fx('palette.panel')}
             {...panelMotion}
           >
             <div className={styles.inputRow}>
@@ -356,7 +358,7 @@ export function CommandPalette({ enabled = true }) {
                   placeholder=""
                 />
                 {!query && (
-                  <span className={styles.hint} aria-hidden="true">
+                  <span className={styles.hint} aria-hidden="true" {...fx('palette.hint-rotor')}>
                     Search{' '}
                     <span key={hint} className={styles.hintWord}>{HINTS[hint]}</span>
                   </span>
@@ -368,7 +370,7 @@ export function CommandPalette({ enabled = true }) {
             </div>
 
             <div ref={chipsRef} className={styles.chips} role="group" aria-label="Filter results by section">
-              <span className={styles.chipInk} aria-hidden="true" />
+              <span className={styles.chipInk} aria-hidden="true" {...fx('palette.chip-ink')} />
               {SECTIONS.map((name) => (
                 <button
                   key={name}
@@ -396,7 +398,7 @@ export function CommandPalette({ enabled = true }) {
               aria-label="Search results"
               data-lenis-prevent
             >
-              <span className={styles.rowInk} aria-hidden="true" />
+              <span className={styles.rowInk} aria-hidden="true" {...fx('palette.row-ink')} />
               {!terms.length && results.length > 0 && <p className={styles.group}>{recent.length ? 'Recent & suggested' : 'Suggested'}</p>}
               {results.map((item, index) => {
                 const on = index === active;
@@ -427,7 +429,7 @@ export function CommandPalette({ enabled = true }) {
                         <span className={styles.rowPath}>{item.doc.to}</span>
                       </span>
                       {item.excerpt && (
-                        <span className={styles.excerpt}>
+                        <span className={styles.excerpt} {...fx('palette.excerpt-marks')}>
                           {item.excerpt.heading && item.excerpt.heading !== item.doc.title && <span className={styles.excerptHeading}>{item.excerpt.heading}</span>}
                           {item.excerpt.truncatedStart && '… '}
                           <Marked text={item.excerpt.text} ranges={item.excerpt.ranges} />
@@ -458,7 +460,7 @@ export function CommandPalette({ enabled = true }) {
               {!docs && <p className={styles.empty}>Indexing pages…</p>}
             </div>
 
-            <div className={styles.footer}>
+            <div className={styles.footer} {...fx('palette.key-hints')}>
               <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
               <span><kbd>↵</kbd> Open</span>
               <span><kbd>esc</kbd> Close</span>

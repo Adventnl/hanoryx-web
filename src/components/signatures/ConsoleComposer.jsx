@@ -72,8 +72,8 @@ export default function ConsoleComposer({ eyebrow, title, intro, modules, roles,
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('platforms.console-composer')}>
         <div className={styles.side}>
-          <GlideTabs tabs={roles} value={role} onChange={setRole} label="Role" idPrefix="console-role" />
-          <ul className={styles.toggles}>
+          <GlideTabs tabs={roles} value={role} onChange={setRole} label="Role" idPrefix="console-role" {...fx('console.role-tabs')} />
+          <ul className={styles.toggles} {...fx('console.module-switches')}>
             {modules.map((m) => {
               const checked = on.has(m.id);
               const locked = m.adminOnly && role !== 'admin';
@@ -99,11 +99,11 @@ export default function ConsoleComposer({ eyebrow, title, intro, modules, roles,
         </div>
 
         <div className={styles.frame}>
-          <div className={styles.chrome} aria-hidden="true">
+          <div className={styles.chrome} aria-hidden="true" {...fx('console.chrome-bar')}>
             <span /><span /><span />
             <em>CONSOLE · {roleLabel.toUpperCase()}</em>
           </div>
-          <motion.div layout className={styles.grid} transition={reduced ? { duration: 0 } : SPRING}>
+          <motion.div layout className={styles.grid} transition={reduced ? { duration: 0 } : SPRING} {...fx('console.reflow-grid')}>
             <AnimatePresence mode="popLayout" initial={false}>
               {active.map((m) => {
                 const Body = BODY[m.id];

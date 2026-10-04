@@ -6,6 +6,7 @@ import { TiltSurface } from '../fx/TiltSurface';
 import { brandLogo } from '../../utils/assetResolver';
 import { company } from '../../data/company';
 import styles from './IdentityCard.module.css';
+import { fx } from '../../utils/fx';
 
 /**
  * Hero object for the Company page: a card that leans toward the pointer and
@@ -18,7 +19,7 @@ export default function IdentityCard({ back, hint }) {
   const [flipped, setFlipped] = useState(false);
   return (
     <TiltSurface tilt={7} glare={false} className={styles.wrap}>
-      <div className={clsx(styles.card, flipped && styles.flipped)}>
+      <div className={clsx(styles.card, flipped && styles.flipped)} {...fx('identity.flip-card')}>
         <button
           type="button"
           className={clsx(styles.face, styles.front)}
@@ -28,14 +29,14 @@ export default function IdentityCard({ back, hint }) {
           data-cursor="card"
           data-cursor-label="Flip"
         >
-          <span className={clsx('ghost-numeral', styles.watermark)} data-depth="22" aria-hidden="true">H</span>
-          <img className={styles.mark} src={brandLogo} alt="" data-depth="12" />
+          <span className={clsx('ghost-numeral', styles.watermark)} data-depth="22" aria-hidden="true" {...fx('identity.watermark-drift')}>H</span>
+          <img className={styles.mark} src={brandLogo} alt="" data-depth="12" {...fx('identity.mark-parallax')} />
           <span className={styles.name} data-depth="6">{company.name}</span>
-          <span className={styles.status}><i aria-hidden="true" />{company.status}</span>
+          <span className={styles.status} {...fx('identity.status-dot')}><i aria-hidden="true" />{company.status}</span>
           <span className={styles.flip}><RotateCw size={13} strokeWidth={1.5} aria-hidden="true" /> {hint || 'Turn over'}</span>
         </button>
         <div className={clsx(styles.face, styles.back)} aria-hidden={!flipped}>
-          <ul className={styles.list}>
+          <ul className={styles.list} {...(flipped ? fx('identity.back-links') : {})}>
             {back.map((b) => (
               <li key={b.label}>
                 <Link to={b.to} tabIndex={flipped ? 0 : -1} className={styles.entry}>

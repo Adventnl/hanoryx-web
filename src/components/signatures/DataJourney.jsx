@@ -24,7 +24,7 @@ export default function DataJourney({ eyebrow, title, intro, actions, dests, not
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.bench} {...fx('privacy.data-journey')}>
-        <div role="radiogroup" aria-label="What are you doing?" className={styles.actions}>
+        <div role="radiogroup" aria-label="What are you doing?" className={styles.actions} {...fx('privacy.action-radio')}>
           {actions.map((a) => (
             <button
               key={a.id}
@@ -40,7 +40,7 @@ export default function DataJourney({ eyebrow, title, intro, actions, dests, not
         </div>
 
         <div className={styles.stage}>
-          <div className={styles.diagram} data-count={total}>
+          <div className={styles.diagram} data-count={total} {...fx('privacy.wire-diagram')}>
             <div className={clsx(styles.node, styles.you)}>
               <Glyph name="terminal" size={26} className={styles.nodeGlyph} />
               <strong>Your browser</strong>
@@ -51,7 +51,7 @@ export default function DataJourney({ eyebrow, title, intro, actions, dests, not
               {dests.map((d) => {
                 const on = reach.has(d.id);
                 return (
-                  <li key={d.id} className={clsx(styles.dest, on && styles.live)}>
+                  <li key={d.id} className={clsx(styles.dest, on && styles.live)} {...fx('privacy.destination')}>
                     <span className={styles.wire} aria-hidden="true"><i /></span>
                     <span className={styles.node}>
                       <Glyph name={d.glyph} size={22} className={styles.nodeGlyph} />
@@ -65,7 +65,7 @@ export default function DataJourney({ eyebrow, title, intro, actions, dests, not
             </ul>
           </div>
 
-          <div className={styles.read} aria-live="polite">
+          <div className={styles.read} aria-live="polite" {...fx('privacy.reading')}>
             <p className={styles.summary} key={id}>{action.summary}</p>
             <div className={styles.cols}>
               <div>

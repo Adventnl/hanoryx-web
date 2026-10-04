@@ -20,14 +20,14 @@ export default function PrincipleStack({ eyebrow, title, intro, principles }) {
           <li key={p.code} className={styles.slot} style={{ '--i': i }}>
             <article className={`glyph-host ${styles.card}`}>
               {/* the tab: when later cards lie over this one, this line is what stays visible */}
-              <span className={styles.tab} aria-hidden="true"><b>{p.code}</b><span>{p.title}</span></span>
-              <span className={`ghost-numeral ${styles.num}`} aria-hidden="true">{p.code}</span>
+              <span className={styles.tab} aria-hidden="true" {...fx('principles.tab-line')}><b>{p.code}</b><span>{p.title}</span></span>
+              <span className={`ghost-numeral ${styles.num}`} aria-hidden="true" {...fx('principles.ghost-numeral')}>{p.code}</span>
               <div className={styles.body}>
-                <Glyph name={p.glyph} size={38} className={styles.glyph} />
+                <Glyph name={p.glyph} size={38} className={styles.glyph} {...fx('principles.card-glyph')} />
                 <h3 className={styles.title}>{p.title}</h3>
                 <p className={styles.text}>{p.body}</p>
               </div>
-              <div className={styles.practice}>
+              <div className={styles.practice} {...fx('principles.practice-strip')}>
                 <span className={styles.practiceLabel}>In practice</span>
                 <p>{p.practice}</p>
               </div>

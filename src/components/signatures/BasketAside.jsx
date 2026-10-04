@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { TiltSurface } from '../fx/TiltSurface';
 import { Odometer } from '../fx/Odometer';
 import styles from './BasketAside.module.css';
+import { fx } from '../../utils/fx';
 
 const TILES = [0, 1, 2, 3, 4, 5];
 
@@ -23,12 +24,12 @@ export default function BasketAside({ caption }) {
       <div className={styles.shell}>
         <div className={styles.bar}>
           <span className={styles.search} />
-          <span className={styles.basket} aria-label={`${picked.size} in the basket`}>
+          <span className={styles.basket} aria-label={`${picked.size} in the basket`} {...fx('basket.count-roll')}>
             <span className={styles.basketIcon} aria-hidden="true" />
             <Odometer value={picked.size} />
           </span>
         </div>
-        <div className={styles.grid} role="group" aria-label="Abstract tiles — tap to add">
+        <div className={styles.grid} role="group" aria-label="Abstract tiles — tap to add" {...fx('basket.tile-grid')}>
           {TILES.map((i) => (
             <button
               key={i}
@@ -38,6 +39,7 @@ export default function BasketAside({ caption }) {
               aria-pressed={picked.has(i)}
               aria-label={`Tile ${i + 1}`}
               onClick={() => toggle(i)}
+              {...fx('basket.tile-pick')}
             >
               <span className={styles.art} />
               <span className={styles.lines}><i /><i /></span>

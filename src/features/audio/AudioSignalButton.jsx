@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { useAudio } from '../../app/providers/audio-context';
 import { AudioVisualizer } from './AudioVisualizer';
 import styles from './AudioSignalButton.module.css';
+import { fx } from '../../utils/fx';
 
 const LABEL = {
   idle: 'IDLE',
@@ -33,18 +34,19 @@ export function AudioSignalButton({ className }) {
       type="button"
       data-cursor="audio"
       data-audio-status={status}
+      {...fx('nav.audio-signal')}
       className={clsx(styles.btn, isPlaying && styles.live, status === 'loading' && styles.loading, (status === 'blocked' || status === 'error') && styles.alert, className)}
       onClick={toggle}
       aria-pressed={isPlaying}
       aria-label={ARIA[status] || ARIA.idle}
       title={ARIA[status] || ARIA.idle}
     >
-      <span className={styles.viz}>
+      <span className={styles.viz} {...fx('nav.audio-bars')}>
         <AudioVisualizer bars={14} />
       </span>
       <span className={styles.label}>
         AUDIO<span className={styles.sep}>//</span>
-        <span key={status} className={styles.state}>{LABEL[status] || LABEL.idle}</span>
+        <span key={status} className={styles.state} {...fx('nav.audio-state')}>{LABEL[status] || LABEL.idle}</span>
       </span>
     </button>
   );

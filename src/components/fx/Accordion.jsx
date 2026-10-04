@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { ScrambleText } from './ScrambleText';
 import styles from './Accordion.module.css';
+import { fx } from '../../utils/fx';
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -50,9 +51,9 @@ export function Accordion({ items, single = true, defaultOpen = null, numbered =
                 {numbered && <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>}
                 <span className={styles.title}>{item.title}</span>
                 {item.meta && (
-                  <ScrambleText text={item.meta} trigger={pulse[item.id] || 0} className={styles.meta} />
+                  <ScrambleText text={item.meta} trigger={pulse[item.id] || 0} className={styles.meta} {...fx('accordion.meta-decode')} />
                 )}
-                <Plus className={styles.plus} size={18} strokeWidth={1.4} aria-hidden="true" />
+                <Plus className={styles.plus} size={18} strokeWidth={1.4} aria-hidden="true" {...fx('accordion.plus-turn')} />
               </button>
             </h3>
             <AnimatePresence initial={false}>
@@ -61,6 +62,7 @@ export function Accordion({ items, single = true, defaultOpen = null, numbered =
                   id={`${uid}-${item.id}`}
                   role="region"
                   className={styles.panel}
+                  {...fx('accordion.panel-height')}
                   initial={reduced ? false : { height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={reduced ? undefined : { height: 0, opacity: 0 }}

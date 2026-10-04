@@ -95,10 +95,12 @@ import { fx } from '../../utils/fx';
 
 `fx('area.name')` adds `data-fx="area.name"` — nothing else. Two things read it:
 
-- **Blueprint mode** (press `B`): outlines every marked element, prints its id and shows a live count on the page.
-- **`node qa/foreground-inventory.mjs`**: loads every route, scrolls it, and counts the distinct ids that actually rendered (and fails under the per-page floor). Mark a detail only when it is a real, separate behaviour — a scramble that plays on hover, an ink bar that glides, a ghost numeral that drifts — not a wrapper.
+- **Blueprint mode** (press `B`): outlines every marked element — header and footer included — names it, stacks labels that would collide, names a repeated detail only a few times, and shows a live count of what is on screen.
+- **`node qa/foreground-inventory.mjs`**: loads every route at 1440 px, scrolls it, and counts the distinct ids that are actually **on screen** (an element with no box, `display: none` or `visibility: hidden` does not count). It also opens what only exists while open or running — the mega menu, search, the shortcuts panel, blueprint mode, the route line and the intro — and reports those as "global". It fails under the per-page floor. `--markdown` writes the whole list to [`FOREGROUND-DETAILS.md`](./FOREGROUND-DETAILS.md); `--ids` prints it.
 
-The count is therefore an honest floor: it covers marked details; plain hover, focus and press states that are not marked are not in it.
+Mark a detail only when it is a real, separate behaviour with its own element — a label that decodes on hover, an ink bar that glides, a ghost numeral that drifts, a token that travels — not a wrapper, and not the same effect twice on one element (an element carries one id; a toolkit piece used inside a composition is marked at the call site, which the toolkit components forward to their root). Marked details that exist but are hidden by default (a collapsed panel, the back of a card until it is turned) are marked at the moment they appear.
+
+The count is a floor for the same reason it is honest: it covers marked details only. Plain hover, focus and press states that are not marked are not in it, and several marked details are one toolkit effect used in different compositions (glide-ink tabs, decoding labels, ring gauges, glyph redraws) — each use is its own detail on its own page, and they are counted as such.
 
 ---
 
@@ -114,8 +116,8 @@ The count is therefore an honest floor: it covers marked details; plain hover, f
    ```
    `anchor` + `railLabel` put it on the page's scroll rail; `minHeight` reserves space while the chunk loads so nothing below jumps.
 4. **Pick a calm scene.** Text-dense blocks must use a quiet background: `node qa/scene-metrics.mjs` lists which scenes are calm enough and fails when a block exceeds the limit.
-5. **Mark the details** with `fx('page.name')`; add any non-prose data keys to `SKIP_KEYS`.
+5. **Mark the details** with `fx('page.name')` — the composition and each separate behaviour inside it; add any non-prose data keys to `SKIP_KEYS`.
 6. **Check it** — `npm run lint`, `node qa/foreground-inventory.mjs`, then look at it at 1440 and 390 px, with the keyboard, and with `prefers-reduced-motion`.
-7. **Add it to the catalogue** in `src/animation/catalog/inventory.js` (FOREGROUND) and to the table above.
+7. **Add it to the catalogue** in `src/animation/catalog/inventory.js` (FOREGROUND) and to the table above, then regenerate the list: `node qa/foreground-inventory.mjs --markdown > FOREGROUND-DETAILS.md`.
 
 To add a *page* (not only an interaction): write `src/data/pages/<route>.js`, add its key to `pageRouteKeys` in `src/app/routeConfig.js` (and to `directory` if it belongs in the footer), run `npm run build` (the sitemap regenerates).

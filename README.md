@@ -131,9 +131,9 @@ All scripts read `QA_BASE` (default `http://127.0.0.1:5173`) and `CHROME_PATH`. 
 | script | what it checks |
 | --- | --- |
 | `qa/scene-smoke.mjs` | every Canvas scene on a mock 2D context, all qualities (no browser) |
-| `qa/website-smoke.mjs` | every page at six widths: loads, no errors, no overflow; unique titles; links resolve; no stray external or `mailto:` links; footer directory; no Contact in the primary navigation; redirects; 404; favicon files; search opens |
+| `qa/website-smoke.mjs` | every page at eight widths (280–1920): loads, no errors, no overflow, header controls inside the viewport; unique titles; links resolve; no stray external or `mailto:` links; footer directory; no Contact in the primary navigation; redirects; 404; favicon files; search opens; at 320 px under reduced motion, nothing loops forever and every heading is visible |
 | `qa/interactions.mjs` | START / audio / calibration / skip, navbar reveal, search at three widths, `?` and `B`, mobile menu, Motion Systems scroll smoothness, reduced motion, contact studio, storage inspector |
-| `qa/foreground-inventory.mjs` | loads every page, scrolls it, and counts the distinct `data-fx` details that rendered; fails under the per-page floor |
+| `qa/foreground-inventory.mjs` | loads every page, scrolls it, and counts the distinct `data-fx` details that are on screen (plus the overlays that only exist while open); fails under the per-page floor; `--markdown` writes `FOREGROUND-DETAILS.md` |
 | `qa/scene-metrics.mjs` | the foreground/background balance rule above |
 
 ## Assets

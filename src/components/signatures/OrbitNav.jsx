@@ -43,7 +43,7 @@ export default function OrbitNav() {
   return (
     <TiltSurface tilt={7} glare={false} className={styles.wrap}>
       <div className={styles.orbit} onPointerLeave={() => setActive(null)} {...fx('home.orbit-navigator')}>
-        <div className={styles.rings} aria-hidden="true" data-depth="10">
+        <div className={styles.rings} aria-hidden="true" data-depth="10" {...fx('orbit.rings')}>
           <span className={styles.ring} data-ring="1" />
           <span className={styles.ring} data-ring="2" />
           <span className={styles.ring} data-ring="3" />
@@ -58,6 +58,7 @@ export default function OrbitNav() {
             data-ring={s.ring}
             data-dir={s.dir}
             aria-hidden="true"
+            {...fx('orbit.satellite')}
           >
             <span className={styles.sat} />
           </span>
@@ -76,6 +77,7 @@ export default function OrbitNav() {
               className={styles.node}
               data-active={active === n.id ? 'true' : 'false'}
               data-cursor="nav"
+              {...fx('orbit.node')}
               onPointerEnter={() => show(n.id)}
               onFocus={() => show(n.id)}
               onBlur={() => setActive(null)}
@@ -87,12 +89,12 @@ export default function OrbitNav() {
           </span>
         ))}
 
-        <div className={styles.core} data-depth="22">
+        <div className={styles.core} data-depth="22" {...fx('orbit.core')}>
           <span className={styles.coreRing} aria-hidden="true" />
           <img className={styles.mark} src={brandLogo} alt="" />
           <div className={styles.readout} aria-live="polite">
             <span className={styles.rCode}>{view.code}</span>
-            <ScrambleText as="span" text={view.label} trigger={pulse} className={styles.rLabel} />
+            <ScrambleText as="span" text={view.label} trigger={pulse} className={styles.rLabel} {...fx('orbit.label-decode')} />
             <span className={styles.rLine}>{view.line}</span>
           </div>
         </div>

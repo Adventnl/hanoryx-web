@@ -94,8 +94,8 @@ export function Footer() {
           </div>
           <span className={styles.division}>// {company.division}</span>
           <p className={styles.blurb}>Online systems, software platforms and digital operating environments.</p>
-          <ArrowLink to="/contact" tone="red">Contact</ArrowLink>
-          <span className={styles.live}>
+          <ArrowLink to="/contact" tone="red" {...fx('footer.contact-link')}>Contact</ArrowLink>
+          <span className={styles.live} {...fx('footer.live-status')}>
             <span className={styles.liveDot} aria-hidden="true" />
             {company.status}
           </span>
@@ -125,7 +125,7 @@ export function Footer() {
 
       <div className={styles.meta}>
         <LocalTime />
-        <span className={styles.hint}>
+        <span className={styles.hint} {...fx('footer.key-hints')}>
           Press <KeyCap>?</KeyCap> for shortcuts · <KeyCap>⌘</KeyCap><KeyCap>K</KeyCap> to search
         </span>
         <span className={styles.count}>{total} pages</span>
@@ -138,7 +138,7 @@ export function Footer() {
 
       <div className={styles.bottom}>
         <p className={styles.copy}>© {year} Hanoryx Systems. All rights reserved.</p>
-        <span className={styles.corner} aria-hidden="true">
+        <span className={styles.corner} aria-hidden="true" {...fx('footer.signal-corner')}>
           HANORYX SYSTEMS
           <span className={styles.signal} />
         </span>

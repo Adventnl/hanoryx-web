@@ -319,7 +319,7 @@ export default function EngineEditor({ eyebrow, title, intro, caption }) {
         <div className={styles.titlebar}>
           <span className={styles.dots} aria-hidden="true"><i /><i /><i /></span>
           <span className={styles.titleText}>{playing ? 'Player' : 'Editor'} — illustration</span>
-          <div className={styles.modes} role="group" aria-label="Run mode">
+          <div className={styles.modes} role="group" aria-label="Run mode" {...fx('editor.mode-switch')}>
             <button type="button" className={clsx(styles.modeBtn, !playing && styles.modeOn)} onClick={stop} aria-pressed={!playing}>
               <Square size={13} strokeWidth={1.6} aria-hidden="true" /> Editor
             </button>
@@ -346,7 +346,7 @@ export default function EngineEditor({ eyebrow, title, intro, caption }) {
                 </li>
               ))}
             </ul>
-            <div className={styles.actions}>
+            <div className={styles.actions} {...fx('editor.entity-actions')}>
               <button type="button" onClick={() => addEntity('box')} disabled={playing || entities.length >= MAX_ENTITIES}><Plus size={13} aria-hidden="true" /> Box</button>
               <button type="button" onClick={() => addEntity('disc')} disabled={playing || entities.length >= MAX_ENTITIES}><Plus size={13} aria-hidden="true" /> Disc</button>
               <button type="button" onClick={removeSelected} disabled={playing || !sel} aria-label="Delete selected"><Trash2 size={13} aria-hidden="true" /></button>
@@ -366,6 +366,7 @@ export default function EngineEditor({ eyebrow, title, intro, caption }) {
               onPointerCancel={onPointerUp}
               onKeyDown={onKeyDown}
               data-cursor="drag"
+              {...fx('editor.viewport-canvas')}
             />
             <span className={styles.vpLabel}>{playing ? 'Running — same data, no editor chrome' : 'Authoring — select, drag, add'}</span>
           </div>

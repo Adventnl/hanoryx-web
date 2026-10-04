@@ -37,14 +37,14 @@ export default function GateWalk({ eyebrow, title, intro, stages, doneTitle, don
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="scan" />
       <div className={styles.bench} {...fx('engineering.gate-walk')}>
         <ol className={styles.corridor} style={{ '--n': n, '--at': Math.min(at, n - 1) }} data-released={released ? 'true' : 'false'}>
-          <span className={styles.track} aria-hidden="true">
+          <span className={styles.track} aria-hidden="true" {...fx('gate.track-fill')}>
             <span className={styles.fill} style={{ '--fillp': released ? 1 : at / (n - 1) }} />
           </span>
-          <span className={styles.runner} aria-hidden="true" />
+          <span className={styles.runner} aria-hidden="true" {...fx('gate.runner')} />
           {stages.map((s, i) => {
             const state = i < at ? 'passed' : i === at && !released ? 'here' : 'ahead';
             return (
-              <li key={s.id} className={clsx(styles.door, styles[state])}>
+              <li key={s.id} className={clsx(styles.door, styles[state])} {...fx('gate.door')}>
                 <span className={styles.lock}>
                   {state === 'passed' ? <Check size={15} aria-hidden="true" /> : state === 'here' ? <LockOpen size={15} aria-hidden="true" /> : <Lock size={15} aria-hidden="true" />}
                 </span>
@@ -78,12 +78,12 @@ export default function GateWalk({ eyebrow, title, intro, stages, doneTitle, don
                   return (
                     <label key={g} className={clsx(styles.gate, on && styles.on)}>
                       <input type="checkbox" checked={on} onChange={() => toggle(i)} />
-                      <span className={styles.box} aria-hidden="true"><Check size={13} strokeWidth={2.6} /></span>
+                      <span className={styles.box} aria-hidden="true" {...fx('gate.checkbox')}><Check size={13} strokeWidth={2.6} /></span>
                       <span>{g}</span>
                     </label>
                   );
                 })}
-                <button type="button" className={styles.pass} onClick={pass} disabled={!allTicked} data-cursor="link">
+                <button type="button" className={styles.pass} onClick={pass} disabled={!allTicked} data-cursor="link" {...fx('gate.pass-button')}>
                   {allTicked ? 'Pass the gate' : `${stage.gates.filter((_, i) => ticked.has(`${stage.id}:${i}`)).length} of ${stage.gates.length} ticked`}
                 </button>
               </fieldset>

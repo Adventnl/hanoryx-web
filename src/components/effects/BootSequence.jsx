@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useAudio } from '../../app/providers/audio-context';
 import styles from './BootSequence.module.css';
+import { fx } from '../../utils/fx';
 
 /* The terminal feed. Each line unlocks when calibration passes `at` (percent),
    so the log is driven by the SAME value as the lower readout and bar. */
@@ -171,7 +172,7 @@ export function BootSequence({ onComplete, onExited }) {
             HANORYX<br />SYSTEMS
           </h1>
           <div className={styles.controls}>
-            <button className={styles.startBtn} onClick={handleStart} autoFocus>
+            <button className={styles.startBtn} onClick={handleStart} autoFocus {...fx('boot.start-button')}>
               START
             </button>
             <span className={styles.soundNote}>Begins ambient sound</span>
@@ -184,7 +185,7 @@ export function BootSequence({ onComplete, onExited }) {
         <div className={`${styles.block} ${styles.blockPrimary}`} />
         <div className={`${styles.block} ${styles.blockSecondary}`} />
 
-        <div className={styles.matrixField}>
+        <div className={styles.matrixField} {...fx('boot.perspective-grid')}>
           <div className={`${styles.perspGrid} ${styles.gridZoom1}`} />
           <div className={`${styles.perspGrid} ${styles.gridZoom2}`} />
         </div>
@@ -199,7 +200,7 @@ export function BootSequence({ onComplete, onExited }) {
         <span className={`${styles.bracket} ${styles.mbl}`} />
         <span className={`${styles.bracket} ${styles.mbr}`} />
 
-        <div className={styles.terminal}>
+        <div className={styles.terminal} {...fx('boot.terminal-log')}>
           {LOG.map((line) => (
             <div
               key={line.text}
@@ -212,7 +213,7 @@ export function BootSequence({ onComplete, onExited }) {
           ))}
         </div>
 
-        <div className={styles.counter}>
+        <div className={styles.counter} {...fx('boot.calibration')}>
           <span ref={percentRef} className={styles.percent}>SYS.CALIBRATION // 000%</span>
           <span className={styles.pulse} />
           <span className={styles.track} aria-hidden="true">
@@ -221,7 +222,7 @@ export function BootSequence({ onComplete, onExited }) {
         </div>
       </div>
 
-      <button className={styles.skip} onClick={handleSkip}>
+      <button className={styles.skip} onClick={handleSkip} {...fx('boot.skip')}>
         Skip intro
       </button>
     </div>

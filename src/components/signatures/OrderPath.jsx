@@ -56,7 +56,7 @@ export default function OrderPath({ eyebrow, title, intro, nodes, edges, scenari
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('commerce.order-state-machine')}>
         <div className={styles.controls}>
-          <GlideTabs tabs={scenarios.map((s) => ({ id: s.id, label: s.label }))} value={scenarioId} onChange={pick} label="Scenario" idPrefix="order-scn" />
+          <GlideTabs tabs={scenarios.map((s) => ({ id: s.id, label: s.label }))} value={scenarioId} onChange={pick} label="Scenario" idPrefix="order-scn" {...fx('order.scenario-tabs')} />
           <button type="button" className={styles.run} onClick={run} disabled={running} data-cursor="link">
             {done ? <RotateCcw size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
             <span>{running ? 'Running…' : done ? 'Run again' : 'Run the order'}</span>
@@ -65,7 +65,7 @@ export default function OrderPath({ eyebrow, title, intro, nodes, edges, scenari
 
         <div className={styles.stageWrap}>
           <div className={styles.diagram} data-state={step < 0 ? 'idle' : done ? 'done' : 'run'}>
-            <svg className={styles.edges} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <svg className={styles.edges} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" {...fx('order.edges')}>
               {edges.map(([a, b]) => {
                 const A = byId[a];
                 const B = byId[b];
@@ -80,20 +80,21 @@ export default function OrderPath({ eyebrow, title, intro, nodes, edges, scenari
                 key={n.id}
                 className={clsx(styles.node, visited.has(n.id) && styles.seen, currentId === n.id && styles.now, n.terminal && styles.terminal)}
                 style={{ left: `${n.x}%`, top: `${n.y}%` }}
+                {...fx('order.state-node')}
               >
                 <span className={styles.nodeName}>{n.title}</span>
               </div>
             ))}
-            <span className={styles.token} style={{ left: `${tokenNode.x}%`, top: `${tokenNode.y}%` }} aria-hidden="true" />
+            <span className={styles.token} style={{ left: `${tokenNode.x}%`, top: `${tokenNode.y}%` }} aria-hidden="true" {...fx('order.token')} />
           </div>
 
           <div className={styles.side}>
-            <div className={styles.explain} aria-live="polite">
+            <div className={styles.explain} aria-live="polite" {...fx('order.explain')}>
               <span className={styles.kicker}>{current ? `STATE ${String(step + 1).padStart(2, '0')} / ${String(scenario.path.length).padStart(2, '0')}` : 'READY'}</span>
               <h3 className={styles.stateTitle}>{current ? current.title : scenario.label}</h3>
               <p className={styles.stateNote}>{current ? current.note : scenario.summary}</p>
             </div>
-            <div className={clsx(styles.ledger, done && styles.ledgerOn)}>
+            <div className={clsx(styles.ledger, done && styles.ledgerOn)} {...fx('order.ledger')}>
               <span>LEDGER</span>
               <strong>{done ? scenario.ledger : '—'}</strong>
             </div>

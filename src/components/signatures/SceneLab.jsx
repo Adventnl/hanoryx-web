@@ -34,7 +34,7 @@ export default function SceneLab({ eyebrow, title, intro, experiments, note }) {
     <div>
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="scan" />
       <div className={styles.layout} {...fx('lab.scene-viewer')}>
-        <div className={styles.viewer}>
+        <div className={styles.viewer} {...fx('lab.live-canvas')}>
           <SceneCanvas key={`${id}-${still}`} scene={id} cost="hero" density={density} still={still} />
           <span className={clsx(styles.corner, styles.tl)} aria-hidden="true" />
           <span className={clsx(styles.corner, styles.br)} aria-hidden="true" />
@@ -45,7 +45,7 @@ export default function SceneLab({ eyebrow, title, intro, experiments, note }) {
         </div>
 
         <div className={styles.panel}>
-          <div role="radiogroup" aria-label="Choose a scene" className={styles.list} onKeyDown={onKeyDown}>
+          <div role="radiogroup" aria-label="Choose a scene" className={styles.list} onKeyDown={onKeyDown} {...fx('lab.scene-list')}>
             {experiments.map((e, i) => (
               <button
                 key={e.id}
@@ -63,12 +63,12 @@ export default function SceneLab({ eyebrow, title, intro, experiments, note }) {
             ))}
           </div>
           <p className={styles.purpose} key={id}>{current.purpose}</p>
-          <label className={styles.slider}>
+          <label className={styles.slider} {...fx('lab.density-slider')}>
             <span>Density</span>
             <input type="range" min="0.4" max="1.4" step="0.1" value={density} onChange={(e) => setDensity(Number(e.target.value))} />
             <output>{Math.round(density * 100)}%</output>
           </label>
-          <label className={styles.toggle}>
+          <label className={styles.toggle} {...fx('lab.still-toggle')}>
             <input type="checkbox" checked={still} onChange={(e) => setStill(e.target.checked)} />
             <span className={styles.switch} aria-hidden="true"><i /></span>
             <span>Still frame <small>(what reduced motion shows)</small></span>

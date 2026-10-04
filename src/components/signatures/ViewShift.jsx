@@ -23,6 +23,7 @@ function Dot({ rec, reduced }) {
   return (
     <motion.i
       layoutId={`rec-${rec.id}`}
+      {...fx('data.record-dot')}
       className={styles.dot}
       data-state={rec.state}
       transition={reduced ? { duration: 0 } : SPRING}
@@ -127,7 +128,7 @@ export default function ViewShift({ eyebrow, title, intro, records, states, view
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="left" />
       <div className={styles.bench} {...fx('data.view-shift')}>
         <div className={styles.top}>
-          <GlideTabs tabs={views.map((v) => ({ id: v.id, label: v.label }))} value={view} onChange={setView} label="Surface" idPrefix="view-shift" />
+          <GlideTabs tabs={views.map((v) => ({ id: v.id, label: v.label }))} value={view} onChange={setView} label="Surface" idPrefix="view-shift" {...fx('data.surface-tabs')} />
           <span className={styles.tag}>SYNTHETIC RECORDS</span>
         </div>
         <div className={styles.frame} role="tabpanel" id={`view-shift-panel-${view}`} aria-labelledby={`view-shift-tab-${view}`}>

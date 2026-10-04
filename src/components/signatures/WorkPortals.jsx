@@ -18,14 +18,14 @@ const supporting = workItems.filter((w) => w.tier === 'supporting');
 function Art({ id }) {
   if (id === 'musebase') {
     return (
-      <div className={styles.plates} aria-hidden="true">
+      <div className={styles.plates} aria-hidden="true" {...fx('work.plate-fan')}>
         <span className={styles.plate} style={{ '--n': 2 }} />
         <span className={styles.plate} style={{ '--n': 1 }} />
         <span className={styles.plate} style={{ '--n': 0 }} />
       </div>
     );
   }
-  return <MiniEngine className={styles.engine} />;
+  return <MiniEngine className={styles.engine} {...fx('work.mini-scene')} />;
 }
 
 function Portal({ item, index }) {
@@ -41,7 +41,7 @@ function Portal({ item, index }) {
         <span className={styles.portalKind}>{item.kind}</span>
         <span className={styles.portalName}>{item.name}</span>
         <span className={styles.portalTag}>{item.tagline}</span>
-        <span className={styles.portalCta}>
+        <span className={styles.portalCta} {...fx('work.portal-cta')}>
           <span>Open case study</span>
           <ArrowUpRight size={16} strokeWidth={1.4} aria-hidden="true" />
         </span>
@@ -56,7 +56,7 @@ function SupportRow({ item }) {
       <Glyph name={item.glyph} size={28} className={styles.supportGlyph} />
       <span className={styles.supportMain}>
         <span className={styles.supportKind}>{item.kind}</span>
-        <ScrambleText as="span" text={item.name} auto className={styles.supportName} />
+        <ScrambleText as="span" text={item.name} auto className={styles.supportName} {...fx('work.name-decode')} />
         <span className={styles.supportLine}>{item.summary}</span>
       </span>
       <span className={styles.supportGo}>

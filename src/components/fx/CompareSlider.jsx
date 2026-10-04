@@ -9,7 +9,7 @@ import styles from './CompareSlider.module.css';
  * the reveal instead of snapping; while dragging the ease is off so the handle
  * tracks the finger exactly.
  */
-export function CompareSlider({ before, after, beforeLabel = 'Before', afterLabel = 'After', initial = 50, value, onChange, label = 'Comparison', className }) {
+export function CompareSlider({ before, after, beforeLabel = 'Before', afterLabel = 'After', initial = 50, value, onChange, label = 'Comparison', className, ...rest }) {
   const trackRef = useRef(null);
   const [inner, setInner] = useState(initial);
   const [dragging, setDragging] = useState(false);
@@ -59,6 +59,7 @@ export function CompareSlider({ before, after, beforeLabel = 'Before', afterLabe
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
       data-cursor="drag"
+      {...rest}
     >
       <div className={clsx(styles.layer, styles.base)}>{before}</div>
       <div className={clsx(styles.layer, styles.over)} aria-hidden={pos < 4 ? 'true' : undefined}>{after}</div>

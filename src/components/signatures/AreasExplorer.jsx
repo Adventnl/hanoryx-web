@@ -74,7 +74,7 @@ export default function AreasExplorer({ eyebrow, title, intro, areas, note }) {
               >
                 <span className={styles.code}>{a.code}</span>
                 <Glyph name={a.glyph} size={28} className={styles.glyph} />
-                <span className={styles.vlabel}>{a.title}</span>
+                <span className={styles.vlabel} {...fx('careers.vertical-label')}>{a.title}</span>
               </button>
               <div
                 id={`${uid}-p-${a.id}`}
@@ -84,11 +84,11 @@ export default function AreasExplorer({ eyebrow, title, intro, areas, note }) {
                 inert={!on}
               >
                 <div className={styles.inner}>
-                  <span className={clsx('ghost-numeral', styles.ghost)} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span className={clsx('ghost-numeral', styles.ghost)} aria-hidden="true" {...fx('careers.strip-ghost')}>{String(i + 1).padStart(2, '0')}</span>
                   <h3 className={styles.title}>{a.title}</h3>
                   <p className={styles.summary}>{a.summary}</p>
                   <span className={styles.listLabel}>What the work involves</span>
-                  <ul className={styles.list}>
+                  <ul className={styles.list} {...fx('careers.list-stagger')}>
                     {a.thinks.map((t, ti) => (
                       <li key={t} style={{ '--k': ti }}>{t}</li>
                     ))}

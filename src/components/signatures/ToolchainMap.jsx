@@ -40,6 +40,7 @@ export default function ToolchainMap({ eyebrow, title, intro, stages, note }) {
                   aria-checked={on}
                   className={clsx('glyph-host', styles.card)}
                   onClick={() => toggle(s.id)}
+                  {...fx('toolchain.switch-card')}
                 >
                   <span className={styles.top}>
                     <span className={styles.num}>{String(i + 1).padStart(2, '0')}</span>
@@ -50,17 +51,17 @@ export default function ToolchainMap({ eyebrow, title, intro, stages, note }) {
                   <code className={styles.cmd}>{s.command}</code>
                   <span className={styles.checks}>{s.checks}</span>
                 </button>
-                {i < stages.length - 1 && <span className={styles.link} aria-hidden="true" />}
+                {i < stages.length - 1 && <span className={styles.link} aria-hidden="true" {...fx('toolchain.chain-link')} />}
               </li>
             );
           })}
         </ol>
 
         <div className={styles.result}>
-          <ProgressRing value={guarded / stages.length} size={92} stroke={3.4} label={`${guarded} of ${stages.length} checks switched on`}>
+          <ProgressRing value={guarded / stages.length} size={92} stroke={3.4} label={`${guarded} of ${stages.length} checks switched on`} {...fx('toolchain.guard-ring')}>
             <span className={styles.count}>{guarded}/{stages.length}</span>
           </ProgressRing>
-          <div className={styles.slips} aria-live="polite">
+          <div className={styles.slips} aria-live="polite" {...fx('toolchain.slips')}>
             {slipping.length === 0 ? (
               <p className={styles.all}><ShieldCheck size={16} aria-hidden="true" /> Every check is on. Switch one off to see what it was guarding.</p>
             ) : (
