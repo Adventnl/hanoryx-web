@@ -1,0 +1,281 @@
+/* ============================================================
+   PAGE BLOCKS — foreground layouts. Leans on global utilities (container, grid,
+   stack, heading-*) and tokens. Every block has its own motion identity.
+   ============================================================ */
+
+.block { padding-block: clamp(3.5rem, 7.5vw, 7.5rem); }
+.sigHold { width: 100%; }
+.cardCell { display: flex; min-width: 0; }
+.cardCell > * { width: 100%; }
+
+/* ---------------- Split ---------------- */
+.split { gap: var(--space-10); align-items: start; }
+.splitBody { margin-top: var(--space-6); }
+.lead {
+  font-weight: 300;
+  font-size: var(--fs-lead);
+  line-height: 1.65;
+  color: var(--c-white);
+  max-width: 54ch;
+}
+.splitAside { align-self: stretch; }
+
+.points { display: flex; flex-direction: column; }
+.pointRow {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: 0 -0.6rem;
+  padding: 0.8rem 0.6rem;
+  border-top: var(--border-faint);
+  border-radius: 4px;
+  outline: none;
+  transition: background 0.5s var(--ease-out);
+}
+.pointRow:first-child { border-top: none; }
+/* red tick that grows from the middle of the hovered row */
+.pointRow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 0;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  transform: translateY(-50%);
+  transition: height 0.45s var(--ease-glide);
+}
+.pointRow:hover, .pointRow:focus-visible { background: linear-gradient(90deg, var(--c-red-faint), transparent 75%); }
+.pointRow:hover::before, .pointRow:focus-visible::before { height: 62%; }
+.pointKey { font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.14em; color: var(--c-white-40); transition: color var(--dur-2) var(--ease-out); }
+.pointVal { font-size: var(--fs-sm); color: var(--c-white-80); text-align: right; transition: transform 0.5s var(--ease-glide); }
+.pointRow:hover .pointKey, .pointRow:focus-visible .pointKey { color: var(--c-red); }
+.pointRow:hover .pointVal, .pointRow:focus-visible .pointVal { transform: translateX(-5px); }
+
+/* ---------------- Cards ---------------- */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-10);
+}
+.bento { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bento > :first-child { grid-column: span 2; grid-row: span 2; }
+.railWrap { margin-top: var(--space-10); margin-inline: calc(-1 * var(--gutter)); }
+
+.cardWrap { height: 100%; }
+.cardWrap > .card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+}
+.cardTop { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-4); }
+.cardCode { font: 0.65rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-30); }
+.cardGlyph { color: var(--c-white-30); transition: color var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); }
+.cardWrap:hover .cardGlyph, .cardWrap:focus-visible .cardGlyph { color: var(--c-red); transform: translateY(-3px) rotate(-5deg); }
+.cardLabel { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  line-height: var(--lh-snug);
+  color: var(--c-white);
+  transition: transform 0.6s var(--ease-glide);
+}
+.cardWrap:hover .cardTitle { transform: translateX(4px); }
+.cardBody { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-50); }
+.cardFoot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); margin-top: auto; padding-top: var(--space-5); }
+.cardTags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.cardStatus { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-40); white-space: nowrap; }
+.cardArrow { margin-left: auto; color: var(--c-white-30); transition: transform var(--dur-3) var(--ease-glide), color var(--dur-2) var(--ease-out); }
+.cardWrap:hover .cardArrow { transform: translate(3px, -3px); color: var(--c-red); }
+.bento > :first-child .cardTitle { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+.bento > :first-child .cardBody { font-size: var(--fs-body); max-width: 40ch; }
+
+/* ---------------- Process (scroll-scrubbed rail) ---------------- */
+.process {
+  --p: 0;
+  --gap: var(--space-6);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  list-style: none;
+}
+/* the rail runs node-to-node: from column 1's left edge to column n's left edge */
+.railTrack {
+  position: absolute;
+  left: 0;
+  right: calc((100% - (var(--n) - 1) * var(--gap)) / var(--n) + var(--gap));
+  top: 0;
+  height: 1px;
+  background: var(--c-line-strong);
+}
+.railFill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--c-white-40), var(--c-red));
+  transform-origin: left center;
+  transform: scaleX(var(--p));
+}
+.railToken {
+  position: absolute;
+  top: -4px;
+  left: calc(var(--p) * 100%);
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+}
+.step {
+  --lit: clamp(0, calc((var(--p) * (var(--n) - 1) - var(--i)) * 2 + 1), 1);
+  position: relative;
+  opacity: calc(0.38 + 0.62 * var(--lit));
+  transform: translate3d(0, calc((1 - var(--lit)) * 16px), 0);
+}
+.stepNode {
+  position: absolute;
+  left: 0;
+  top: calc(-1 * var(--space-8) - 4px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--c-red) calc(var(--lit) * 100%), var(--c-white-30));
+  background: var(--c-black);
+  transform: scale(calc(0.8 + var(--lit) * 0.5));
+}
+.stepNum {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h1);
+  font-weight: 300;
+  line-height: 1;
+  color: color-mix(in srgb, var(--c-red) calc(var(--lit) * 100%), var(--c-white-30));
+  font-variant-numeric: lining-nums;
+}
+.stepTitle { margin: var(--space-3) 0 var(--space-2); font-family: var(--font-serif); font-size: var(--fs-h3); font-weight: 400; color: var(--c-white); }
+.stepBody { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-50); }
+
+/* ---------------- Modules ---------------- */
+.lensGrid { margin-top: var(--space-10); }
+.lensCard { height: 100%; transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out); }
+.lensGrid:hover .lensCard:not(:hover) { opacity: 0.45; }
+.lensCard > .lensInner { padding: clamp(1.4rem, 2.5vw, 2rem); }
+.lensLabel { display: block; margin-bottom: var(--space-5); font: 0.65rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); }
+.lensList { display: flex; flex-direction: column; gap: var(--space-3); }
+.lensList li { display: flex; align-items: baseline; gap: 0.7em; font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-65); }
+
+.ledger { margin-top: var(--space-8); border-top: var(--border); }
+.modRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: var(--space-5);
+  padding: var(--space-4) var(--space-3);
+  border-bottom: var(--border-faint);
+  outline: none;
+  transition: background 0.5s var(--ease-out), opacity var(--dur-3) var(--ease-out);
+}
+.modRow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--c-red), transparent 70%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease-glide);
+}
+.modRow:hover, .modRow:focus-visible { background: linear-gradient(90deg, var(--c-red-faint), transparent 70%); }
+.modRow:hover::after, .modRow:focus-visible::after { transform: scaleX(1); }
+.ledger:hover .modRow:not(:hover) { opacity: 0.5; }
+.modKey { font: 0.68rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-40); text-transform: uppercase; transition: color var(--dur-2) var(--ease-out); }
+.modRow:hover .modKey, .modRow:focus-visible .modKey { color: var(--c-red); }
+.modVal { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
+
+/* ---------------- Stats ---------------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--space-6) var(--space-8);
+  margin-top: var(--space-8);
+}
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: var(--space-6) 0 var(--space-4);
+  border-top: var(--border);
+  overflow: hidden;
+}
+.statGhost { position: absolute; right: 0; top: 0.2em; font-size: clamp(4.5rem, 10vw, 8.5rem); pointer-events: none; user-select: none; transition: transform 1.2s var(--ease-glide), -webkit-text-stroke-color var(--dur-3) var(--ease-out); }
+.stat:hover .statGhost { transform: translateX(-10px); -webkit-text-stroke-color: var(--c-red-dim); }
+.statValue { position: relative; font-family: var(--font-serif); font-weight: 300; font-size: clamp(2.8rem, 6vw, 4.8rem); line-height: 1; color: var(--c-white); }
+.statLabel { position: relative; margin-top: 0.4rem; font-size: var(--fs-sm); color: var(--c-white-65); }
+.statNote { position: relative; font: 0.62rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-30); }
+
+/* ---------------- Manifesto ---------------- */
+.manifesto { overflow: hidden; }
+.manifestoEyebrow { color: var(--c-white-50); }
+.manifestoLines { display: flex; flex-direction: column; gap: var(--space-5); margin: var(--space-8) 0; }
+.manifestoLead { max-width: 20ch; }
+.manifestoLine { max-width: 26ch; color: var(--c-white); }
+.manifestoRail { margin-top: var(--space-8); }
+
+/* ---------------- CTA ---------------- */
+.cta { position: relative; padding-block: clamp(5rem, 11vw, 10rem); overflow: hidden; border-top: var(--border-faint); }
+.ctaField { position: relative; transition: --mx 0.7s var(--ease-glide), --my 0.7s var(--ease-glide); }
+.ctaField::before {
+  content: '';
+  position: absolute;
+  inset: -25% -10%;
+  background: radial-gradient(560px circle at var(--mx) var(--my), rgba(255, 51, 51, 0.13), transparent 66%);
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out);
+  pointer-events: none;
+}
+.ctaField[data-hot]::before { opacity: 1; }
+.ctaInner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-6); }
+.ctaEyebrow { color: var(--c-white-50); }
+.ctaTitle { max-width: 16ch; margin: 0; }
+.ctaBody { align-items: center; }
+.ctaLead { max-width: 52ch; }
+.ctaActions { justify-content: center; gap: var(--space-5); }
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 1100px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .split { gap: var(--space-6); }
+  .modRow { grid-template-columns: 1fr; gap: var(--space-2); }
+}
+@media (max-width: 760px) {
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .bento > :first-child { grid-column: auto; grid-row: auto; }
+  /* the rail turns vertical: nodes sit beside their step, no travelling token */
+  .process { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); padding-top: 0; padding-left: 2rem; }
+  .railTrack { left: 4px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+  .railFill { transform-origin: top center; transform: scaleY(var(--p)); }
+  .railToken { display: none; }
+  .stepNode { left: -2rem; top: 0.6rem; margin-left: 0; }
+  .stat:hover .statGhost { transform: none; }
+}
+@media (hover: none) {
+  .lensGrid:hover .lensCard:not(:hover), .ledger:hover .modRow:not(:hover) { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step { transform: none; }
+  .cardTitle, .cardGlyph, .cardArrow, .pointVal, .statGhost { transition: none; }
+  .cardWrap:hover .cardTitle, .cardWrap:hover .cardGlyph, .cardWrap:hover .cardArrow { transform: none; }
+  .ctaField::before { transition: none; }
+}

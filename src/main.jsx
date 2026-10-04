@@ -10,6 +10,7 @@ import './styles/typography.css';
 import './styles/layout.css';
 import './styles/animation.css';
 import './styles/effects.css';
+import './styles/fx.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

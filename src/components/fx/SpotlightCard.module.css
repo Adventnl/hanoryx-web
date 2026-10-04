@@ -1,0 +1,52 @@
+.card {
+  position: relative;
+  display: block;
+  border-radius: var(--r-md);
+  background: var(--c-line-strong);
+  color: inherit;
+  /* the pointer variables ease (registered in fx.css) */
+  transition: --mx 0.28s var(--ease-glide), --my 0.28s var(--ease-glide), transform var(--dur-3) var(--ease-out);
+}
+.card:hover,
+.card:focus-visible { transform: translateY(-3px); }
+
+/* the light that runs along the 1px border */
+.border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(260px circle at var(--mx) var(--my), var(--spot, var(--c-red)), transparent 72%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.card[data-hot] .border,
+.card:focus-visible .border { opacity: 1; }
+.white { --spot: rgba(255, 255, 255, 0.55); }
+
+.inner {
+  position: relative;
+  display: block;
+  height: calc(100% - 2px);
+  margin: 1px;
+  border-radius: calc(var(--r-md) - 1px);
+  background:
+    linear-gradient(180deg, var(--c-white-03), transparent 55%),
+    var(--c-panel);
+  overflow: hidden;
+}
+/* soft glow pooling under the pointer */
+.inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(300px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.055), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+}
+.card[data-hot] .inner::after { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover, .card:focus-visible { transform: none; }
+}

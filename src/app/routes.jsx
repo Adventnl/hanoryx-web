@@ -9,7 +9,6 @@ import { RouteFallback } from '../components/layout/RouteFallback';
    bundle never carries the whole site. Every page — home, work, systems,
    development, company, contact, legal — renders through one data-driven
    TemplatePage chunk keyed into data/pages (also the search index's source). */
-const Home = lazy(() => import('../pages/Home'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const TemplatePage = lazy(() => import('../pages/TemplatePage'));
 
@@ -32,9 +31,7 @@ export function AppRoutes() {
     <Suspense fallback={<RouteFallback />}>
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
-
-          {pageRouteKeys.filter((key) => key !== 'home').map((key) => (
+          {pageRouteKeys.map((key) => (
             <Route key={key} path={routePath(key)} element={<TemplatePage routeKey={key} />} />
           ))}
 

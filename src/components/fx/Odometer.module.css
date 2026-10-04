@@ -1,0 +1,27 @@
+.odo {
+  display: inline-flex;
+  align-items: flex-start;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1.16;
+}
+.col {
+  display: inline-block;
+  height: 1.16em;
+  overflow: hidden;
+}
+.strip {
+  display: flex;
+  flex-direction: column;
+  transform: translate3d(0, calc(var(--d) * -1.16em), 0);
+  transition: transform 1.7s var(--ease-glide) calc(var(--i) * 0.1s);
+}
+.digit {
+  display: block;
+  height: 1.16em;
+  line-height: 1.16em;
+}
+.sym { display: inline-block; height: 1.16em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .strip { transition: none; }
+}

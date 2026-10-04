@@ -1,0 +1,41 @@
+.rail {
+  width: 100%;
+  overflow: hidden;
+  /* A plain edge scrim instead of a CSS mask: a mask over moving content forces
+     the compositor to rebuild an offscreen surface every frame. */
+  position: relative;
+}
+.rail::before,
+.rail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(40px, 8vw, 140px);
+  z-index: 2;
+  pointer-events: none;
+}
+.rail::before { left: 0; background: linear-gradient(90deg, var(--c-black), transparent); }
+.rail::after { right: 0; background: linear-gradient(270deg, var(--c-black), transparent); }
+.track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+}
+.item { display: inline-flex; align-items: center; }
+.text {
+  padding: 0 var(--space-5);
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  color: var(--c-white-40);
+}
+.sep {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+}

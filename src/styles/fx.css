@@ -1,0 +1,92 @@
+/* ============================================================
+   FX — foreground toolkit base.
+
+   Registered custom properties. When a property is registered with a syntax,
+   CSS can TRANSITION it. usePointerField() writes the pointer position into
+   --px/--py (0..1) in a single rAF-throttled write per frame; a transition on
+   those variables turns the pointer's jumps into a soft, eased follow, and into
+   a smooth glide back to rest when the pointer leaves. No per-frame JS easing.
+
+   Browsers without @property support simply apply the values instantly.
+   ============================================================ */
+
+@property --px {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.5;
+}
+@property --py {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0.5;
+}
+@property --mx {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+@property --my {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+/* 0..100 comparison-slider position */
+@property --pos {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 50;
+}
+
+/* Shared easing for interactive state changes (matches the motion vocabulary). */
+:root {
+  --ease-glide: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring-soft: cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+
+/* Visible keycap, used by search, shortcuts, accessibility and tooling pages. */
+.keycap {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.9em;
+  height: 1.9em;
+  padding: 0 0.5em;
+  border: 1px solid var(--c-white-20);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, var(--c-white-08), var(--c-white-03));
+  color: var(--c-white-80);
+  font: 500 0.68rem var(--font-mono);
+  letter-spacing: 0.04em;
+  transition: transform var(--dur-1) var(--ease-out), background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.keycap[data-pressed='true'] {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+  border-color: var(--c-red);
+  background: var(--c-red-ghost);
+  color: var(--c-white);
+}
+
+/* Outlined ("ghost") display numerals — an alternative to filled serif. */
+.ghost-numeral {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--c-white-20);
+  text-stroke: 1px var(--c-white-20);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Page-level blueprint mode (press B): reveals the structure of the page. A
+   discovery for people who like to look under the hood. Outlines only — it
+   never changes layout. */
+html.blueprint main section,
+html.blueprint main [data-fx] {
+  outline: 1px dashed rgba(255, 51, 51, 0.35);
+  outline-offset: -1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .keycap { transition: none; }
+}

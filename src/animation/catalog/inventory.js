@@ -47,7 +47,6 @@ const BACKGROUND_SCENES = [
   ['compass-vector', 'Compass Vector field'],
   ['heatmap-control', 'Operational Heatmap'],
   ['dependency-graph', 'Dependency Graph DAG'],
-  ['public-repositories', 'Public repository language connections'],
   ['build-pipeline', 'Build Pipeline stages'],
   ['scheduling-grid', 'Scheduling Grid'],
   ['transaction-wave', 'Transaction Wave ticker'],

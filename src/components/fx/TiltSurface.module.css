@@ -1,0 +1,50 @@
+.tilt {
+  position: relative;
+  transform: perspective(1100px)
+    rotateX(calc((0.5 - var(--py)) * var(--tilt) * 1deg))
+    rotateY(calc((var(--px) - 0.5) * var(--tilt) * 1.6deg));
+  /* soft follow + smooth return to rest (the variables are @property-registered) */
+  transition: --px 0.5s var(--ease-glide), --py 0.5s var(--ease-glide);
+}
+
+.glare::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    380px circle at calc(var(--px) * 100%) calc(var(--py) * 100%),
+    rgba(255, 255, 255, 0.11),
+    transparent 62%
+  );
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+.tilt[data-hot].glare::after { opacity: 1; }
+
+/* parallax children: drift opposite to the pointer */
+.tilt [data-depth] {
+  transform: translate3d(
+    calc(var(--ox, 0px) + (var(--px) - 0.5) * var(--depth, 0) * -1px),
+    calc(var(--oy, 0px) + (var(--py) - 0.5) * var(--depth, 0) * -1px),
+    0
+  );
+}
+
+/* data-depth="n" -> --depth: n (CSS cannot read attr() as a number everywhere) */
+.tilt [data-depth='6'] { --depth: 6; }
+.tilt [data-depth='10'] { --depth: 10; }
+.tilt [data-depth='12'] { --depth: 12; }
+.tilt [data-depth='14'] { --depth: 14; }
+.tilt [data-depth='18'] { --depth: 18; }
+.tilt [data-depth='20'] { --depth: 20; }
+.tilt [data-depth='22'] { --depth: 22; }
+.tilt [data-depth='30'] { --depth: 30; }
+.tilt [data-depth='34'] { --depth: 34; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt { transform: none; transition: none; }
+  .glare::after { display: none; }
+}
