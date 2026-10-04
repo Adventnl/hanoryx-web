@@ -47,8 +47,8 @@
 .sw:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }
 
 .code { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: 0.7rem 0.9rem; border: 1px solid var(--c-line); border-radius: var(--r-md); background: var(--c-black); }
-.code code { min-width: 0; overflow-x: auto; white-space: nowrap; font: 0.7rem var(--font-mono); color: var(--c-white-80); scrollbar-width: none; }
-.code code::-webkit-scrollbar { display: none; }
+/* the line wraps instead of scrolling sideways (a scroller would need its own keyboard access) */
+.code code { min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 0.7rem var(--font-mono); color: var(--c-white-80); }
 .code button { flex: none; display: inline-flex; align-items: center; gap: 0.4em; font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); cursor: pointer; transition: color var(--dur-2) var(--ease-out); }
 .code button:hover { color: var(--c-white); }
 .note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }

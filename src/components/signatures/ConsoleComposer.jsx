@@ -72,7 +72,7 @@ export default function ConsoleComposer({ eyebrow, title, intro, modules, roles,
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('platforms.console-composer')}>
         <div className={styles.side}>
-          <GlideTabs tabs={roles} value={role} onChange={setRole} label="Role" idPrefix="console-role" {...fx('console.role-tabs')} />
+          <GlideTabs tabs={roles} value={role} onChange={setRole} label="Role" idPrefix="console-role" panels={false} {...fx('console.role-tabs')} />
           <ul className={styles.toggles} {...fx('console.module-switches')}>
             {modules.map((m) => {
               const checked = on.has(m.id);

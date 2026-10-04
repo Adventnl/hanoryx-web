@@ -73,7 +73,7 @@ These came from building and measuring, not from taste.
 
 **Cheap.** Transform and opacity only. No `filter` or `backdrop-filter` on a large element, no `mask-image` over an animating canvas, no infinite full-screen loop (the one the site used to have cost ~15 fps). Loops run only while the element is on screen. Pointer effects do not touch React state.
 
-**Every pointer trick has another way in.** Hover effects have a focus equivalent and a touch equivalent (usually: show the detail without needing hover). Sliders are `role="slider"` with ← → Home End. Anything draggable can be driven by keys.
+**Every pointer trick has another way in.** Hover effects have a focus equivalent and a touch equivalent (usually: show the detail without needing hover). Sliders are `role="slider"` with ← → Home End. Anything draggable can be driven by keys. Use real tabs (`GlideTabs`, with `role="tabpanel"` ids that match) only when there is a panel to control; a selector that merely changes a nearby demo is `GlideTabs panels={false}`, which is announced as a radio group. `node qa/accessibility.mjs` (axe-core) must stay clean.
 
 **Reduced motion.** `usePrefersReducedMotion()` — state still changes, movement is shortened or removed, nothing loops, canvases draw one frame, the cursor and smooth scrolling switch off.
 

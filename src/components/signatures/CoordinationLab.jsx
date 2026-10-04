@@ -204,7 +204,7 @@ export default function CoordinationLab({ eyebrow, title, intro, roles, notes })
         {tab === 'roles' && (
           <div role="tabpanel" id="coord-panel-roles" aria-labelledby="coord-tab-roles" className={styles.panel}>
             <div className={styles.roleRow}>
-              <GlideTabs idPrefix="roles" label="Role lens" variant="line" value={role} onChange={setRole} tabs={roles.map((r) => ({ id: r.id, label: r.label }))} />
+              <GlideTabs idPrefix="roles" panels={false} label="Role lens" variant="line" value={role} onChange={setRole} tabs={roles.map((r) => ({ id: r.id, label: r.label }))} />
             </div>
             <div className={styles.gridWrap}>
               <Grid blocks={[]} />

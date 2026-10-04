@@ -12,8 +12,13 @@ const SPRING = { type: 'spring', stiffness: 460, damping: 38, mass: 0.8 };
  *
  * `idPrefix` lets the panel it controls point back at its tab:
  *   tab id   `${idPrefix}-tab-${id}`     panel id `${idPrefix}-panel-${id}`
+ *
+ * When nothing is a tab panel — the control only changes what a nearby demo
+ * shows — pass `panels={false}`: it is then announced as a radio group (one
+ * choice of several) instead of tabs that control panels which do not exist.
+ * The keys and the gliding ink are the same.
  */
-export function GlideTabs({ tabs, value, onChange, label, idPrefix = 'tabs', variant = 'pill', className, ...rest }) {
+export function GlideTabs({ tabs, value, onChange, label, idPrefix = 'tabs', variant = 'pill', panels = true, className, ...rest }) {
   const uid = useId();
   const refs = useRef({});
 
@@ -32,7 +37,7 @@ export function GlideTabs({ tabs, value, onChange, label, idPrefix = 'tabs', var
   };
 
   return (
-    <div role="tablist" aria-label={label} className={clsx(styles.tabs, styles[variant], className)} onKeyDown={onKeyDown} {...rest}>
+    <div role={panels ? 'tablist' : 'radiogroup'} aria-label={label} className={clsx(styles.tabs, styles[variant], className)} onKeyDown={onKeyDown} {...rest}>
       {tabs.map((tab) => {
         const on = tab.id === value;
         return (
@@ -40,10 +45,9 @@ export function GlideTabs({ tabs, value, onChange, label, idPrefix = 'tabs', var
             key={tab.id}
             ref={(el) => { refs.current[tab.id] = el; }}
             type="button"
-            role="tab"
+            role={panels ? 'tab' : 'radio'}
             id={`${idPrefix}-tab-${tab.id}`}
-            aria-selected={on}
-            aria-controls={`${idPrefix}-panel-${tab.id}`}
+            {...(panels ? { 'aria-selected': on, 'aria-controls': `${idPrefix}-panel-${tab.id}` } : { 'aria-checked': on })}
             tabIndex={on ? 0 : -1}
             className={clsx(styles.tab, on && styles.on)}
             onClick={() => onChange(tab.id)}

@@ -56,7 +56,7 @@ export default function OrderPath({ eyebrow, title, intro, nodes, edges, scenari
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('commerce.order-state-machine')}>
         <div className={styles.controls}>
-          <GlideTabs tabs={scenarios.map((s) => ({ id: s.id, label: s.label }))} value={scenarioId} onChange={pick} label="Scenario" idPrefix="order-scn" {...fx('order.scenario-tabs')} />
+          <GlideTabs tabs={scenarios.map((s) => ({ id: s.id, label: s.label }))} value={scenarioId} onChange={pick} label="Scenario" idPrefix="order-scn" panels={false} {...fx('order.scenario-tabs')} />
           <button type="button" className={styles.run} onClick={run} disabled={running} data-cursor="link">
             {done ? <RotateCcw size={14} aria-hidden="true" /> : <Play size={14} aria-hidden="true" />}
             <span>{running ? 'Running…' : done ? 'Run again' : 'Run the order'}</span>

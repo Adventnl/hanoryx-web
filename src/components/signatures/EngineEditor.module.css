@@ -25,15 +25,15 @@
 .hier { border-right: var(--border); }
 .insp { border-left: var(--border); }
 .playing .panel { opacity: 0.45; }
-.panelHead { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem var(--space-3); border-bottom: var(--border-faint); font: 0.6rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-40); }
-.count { color: var(--c-white-30); font-variant-numeric: tabular-nums; }
+.panelHead { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem var(--space-3); border-bottom: var(--border-faint); font: 0.6rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); }
+.count { color: var(--c-white-50); font-variant-numeric: tabular-nums; }
 
 .list { flex: 1; overflow: auto; padding: var(--space-2); }
 .item { position: relative; display: flex; align-items: center; gap: 0.6em; width: 100%; padding: 0.45rem 0.55rem; border-radius: 4px; font-size: 0.8rem; color: var(--c-white-65); text-align: left; cursor: pointer; transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
 .item:hover { background: var(--c-white-05); color: var(--c-white); }
 .itemOn { background: var(--c-red-faint); color: var(--c-white); box-shadow: inset 2px 0 0 var(--c-red); }
 .item span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tag { font: normal 0.52rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-30); }
+.tag { font: normal 0.52rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-50); }
 .actions { display: flex; gap: 6px; padding: var(--space-2); border-top: var(--border-faint); }
 .actions button { display: inline-flex; align-items: center; justify-content: center; gap: 0.35em; flex: 1; padding: 0.4rem; border: 1px solid var(--c-line-strong); border-radius: 4px; font: 0.58rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
 .actions button:hover:not(:disabled) { border-color: var(--c-red-dim); color: var(--c-white); }
@@ -55,17 +55,17 @@
 
 .footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); padding: 0.7rem var(--space-4); border-top: var(--border); background: var(--c-white-03); }
 .profiler { display: flex; align-items: center; gap: var(--space-3); }
-.profLabel { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-40); }
+.profLabel { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); }
 .graph { width: 150px; height: 30px; border-bottom: 1px solid var(--c-line-strong); }
 .profVal { min-width: 9.5em; font: 0.68rem var(--font-mono); letter-spacing: 0.06em; color: var(--c-white-80); font-variant-numeric: tabular-nums; }
-.note { font: 0.58rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-30); }
+.note { font: 0.58rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-50); }
 .export { display: flex; align-items: center; gap: var(--space-3); margin-left: auto; }
 .exportBtn { padding: 0.45rem 0.9rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-sm); font: 0.62rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-80); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); min-width: 9.5rem; }
 .exportBtn:hover:not(:disabled) { border-color: var(--c-red); color: var(--c-white); }
 .exportBtn:disabled { cursor: default; }
 .exportTrack { width: 90px; height: 2px; background: var(--c-white-12); overflow: hidden; }
 .exportFill { display: block; width: 100%; height: 100%; background: var(--c-red); box-shadow: var(--glow-red); transform: scaleX(0); transform-origin: left; transition: transform 0.55s var(--ease-glide); }
-.exportState { min-width: 11rem; font: 0.58rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-40); }
+.exportState { min-width: 11rem; font: 0.58rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-50); }
 .caption { margin-top: var(--space-4); max-width: 70ch; font: 0.68rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-40); }
 
 @media (max-width: 960px) {

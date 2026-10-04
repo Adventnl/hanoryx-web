@@ -100,7 +100,7 @@ export default function NorthCompass({ pillars, caption }) {
 
       <div className={styles.panel} aria-live="polite">
         <span className={styles.code}>{pillar.code}</span>
-        <ScrambleText as="h3" text={pillar.title} trigger={pulse} className={styles.title} {...fx('compass.title-decode')} />
+        <ScrambleText as="p" text={pillar.title} trigger={pulse} className={styles.title} {...fx('compass.title-decode')} />
         <p className={styles.body} key={pillar.id}>{pillar.body}</p>
       </div>
       {caption && <p className={styles.caption}>{caption}</p>}

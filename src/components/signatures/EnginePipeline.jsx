@@ -44,7 +44,7 @@ export default function EnginePipeline({ eyebrow, title, intro, stages }) {
         </span>
         <ul className={styles.stages} role="tablist" aria-label="Engine pipeline stages" {...fx('pipeline.stage-tabs')}>
           {stages.map((s, i) => (
-            <li key={s.id}>
+            <li key={s.id} role="presentation">
               <button
                 type="button"
                 role="tab"

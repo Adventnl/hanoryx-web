@@ -189,7 +189,7 @@ export default function ExperienceStoryboard({ eyebrow, title, intro, stages, ca
         <span className={styles.track} aria-hidden="true" {...fx('story.scrub-knob')}><span className={styles.fill} /><span className={styles.knob} /></span>
         <ul className={styles.stops} role="tablist" aria-label="Journey stages" {...fx('story.stage-tabs')}>
           {stages.map((s, i) => (
-            <li key={s.id}>
+            <li key={s.id} role="presentation">
               <button
                 type="button"
                 role="tab"

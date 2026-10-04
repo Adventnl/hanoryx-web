@@ -12,7 +12,7 @@ Deep black surfaces, white typography and a restrained red accent. Every page ha
 - **react-router-dom 7** — routing; **GSAP 3** (+ `@gsap/react`, ScrollTrigger) — scroll-linked motion; **motion** (Framer Motion) — layout and presence animation; **Lenis** — smooth scroll
 - **CSS Modules** + a global token system (`src/styles/tokens.css`); registered custom properties (`@property`) for eased pointer and scrub values
 - **2D Canvas** for every background scene (no WebGL); **Web Audio** for the intro track's spectrum
-- **playwright-core** (dev only) for the browser checks in `qa/`
+- **playwright-core** and **axe-core** (dev only) for the browser and accessibility checks in `qa/`
 
 No UI kit, no Tailwind, no stock imagery.
 
@@ -133,6 +133,7 @@ All scripts read `QA_BASE` (default `http://127.0.0.1:5173`) and `CHROME_PATH`. 
 | `qa/scene-smoke.mjs` | every Canvas scene on a mock 2D context, all qualities (no browser) |
 | `qa/website-smoke.mjs` | every page at eight widths (280–1920): loads, no errors, no overflow, header controls inside the viewport; unique titles; links resolve; no stray external or `mailto:` links; footer directory; no Contact in the primary navigation; redirects; 404; favicon files; search opens; at 320 px under reduced motion, nothing loops forever and every heading is visible |
 | `qa/interactions.mjs` | START / audio / calibration / skip, navbar reveal, search at three widths, `?` and `B`, mobile menu, Motion Systems scroll smoothness, reduced motion, contact studio, storage inspector |
+| `qa/accessibility.mjs` | axe-core (WCAG 2 / 2.1 A and AA, best-practice) over every page at desktop and phone width; fails on any violation |
 | `qa/foreground-inventory.mjs` | loads every page, scrolls it, and counts the distinct `data-fx` details that are on screen (plus the overlays that only exist while open); fails under the per-page floor; `--markdown` writes `FOREGROUND-DETAILS.md` |
 | `qa/scene-metrics.mjs` | the foreground/background balance rule above |
 

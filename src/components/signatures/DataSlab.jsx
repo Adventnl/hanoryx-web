@@ -83,6 +83,7 @@ export default function DataSlab({ eyebrow, title, intro, sizes, caption, questi
       <div className={styles.controls}>
         <GlideTabs
           idPrefix="slab-size"
+          panels={false}
           {...fx('slab.size-tabs')}
           label="Synthetic data set size"
           variant="line"

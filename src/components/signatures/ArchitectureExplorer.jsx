@@ -62,7 +62,7 @@ export default function ArchitectureExplorer({ eyebrow, title, intro, layers, no
           <span className={styles.line} aria-hidden="true" {...fx('arch.line-fill')}><span className={styles.fill} /></span>
           <span className={styles.packet} aria-hidden="true" {...fx('arch.packet')} />
           {layers.map((l, i) => (
-            <li key={l.id}>
+            <li key={l.id} role="presentation">
               <button
                 type="button"
                 role="tab"

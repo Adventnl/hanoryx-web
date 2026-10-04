@@ -45,7 +45,7 @@ export default function BoundaryMembrane({ eyebrow, title, intro, records, roles
       <SectionHeader eyebrow={eyebrow} title={title} intro={intro} size="h1" variant="right" />
       <div className={styles.bench} {...fx('portals.membrane')}>
         <div className={styles.top}>
-          <GlideTabs tabs={roles.map((r) => ({ id: r.id, label: r.label }))} value={role} onChange={setRole} label="Role" idPrefix="membrane-role" {...fx('membrane.role-tabs')} />
+          <GlideTabs tabs={roles.map((r) => ({ id: r.id, label: r.label }))} value={role} onChange={setRole} label="Role" idPrefix="membrane-role" panels={false} {...fx('membrane.role-tabs')} />
           <span className={styles.count} aria-hidden="true" {...fx('membrane.reach-count')}>
             {outside.length} <i>/</i> {records.length} reach the outside
           </span>

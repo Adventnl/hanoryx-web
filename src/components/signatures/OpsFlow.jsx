@@ -62,6 +62,7 @@ export default function OpsFlow({ eyebrow, title, intro, stages, kinds, note }) 
             onChange={pickKind}
             label="Kind of request"
             idPrefix="ops-kind"
+            panels={false}
             {...fx('ops.kind-tabs')}
           />
           <button type="button" className={styles.send} onClick={send} disabled={running} data-cursor="link">
@@ -86,18 +87,20 @@ export default function OpsFlow({ eyebrow, title, intro, stages, kinds, note }) 
         </div>
 
         <div className={styles.lower}>
-          <dl className={styles.card} aria-label="The request" {...fx('ops.request-card')}>
+          <div className={styles.card} role="group" aria-label="The request" {...fx('ops.request-card')}>
             <div className={styles.cardHead}>
               <span>THE REQUEST</span>
               <span className={styles.count}>SENT {String(sent).padStart(2, '0')}</span>
             </div>
-            {stages.map((s, i) => (
-              <div key={s.id} className={clsx(styles.field, i <= step && styles.filled)}>
-                <dt>{s.field.k}</dt>
-                <dd>{i <= step ? s.field.v : '—'}</dd>
-              </div>
-            ))}
-          </dl>
+            <dl className={styles.fields}>
+              {stages.map((s, i) => (
+                <div key={s.id} className={clsx(styles.field, i <= step && styles.filled)}>
+                  <dt>{s.field.k}</dt>
+                  <dd>{i <= step ? s.field.v : '—'}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
 
           <div className={styles.record} role="log" aria-label="The record" aria-live="polite" {...fx('ops.record-log')}>
             <div className={styles.cardHead}>

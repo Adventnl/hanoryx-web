@@ -75,6 +75,7 @@
 .card, .record { margin: 0; padding: var(--space-4) var(--space-5) var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.86), rgba(5, 5, 5, 0.6)); }
 .cardHead { display: flex; justify-content: space-between; padding-bottom: var(--space-3); margin-bottom: var(--space-3); border-bottom: 1px solid var(--c-white-08); font: 0.58rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-50); }
 .count { color: var(--c-white-30); }
+.fields { margin: 0; }
 .field { display: flex; justify-content: space-between; gap: var(--space-3); padding: 0.55rem 0; border-bottom: 1px dashed var(--c-white-08); }
 .field dt { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-40); }
 .field dd { margin: 0; font-size: var(--fs-sm); color: var(--c-white-30); transition: color var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); transform: translateX(8px); }
