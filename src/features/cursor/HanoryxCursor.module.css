@@ -90,6 +90,36 @@
 
 .audio .reticle { border-color: var(--c-red); animation: cursor-pulse 1s var(--ease-in-out) infinite; }
 
+/* a drag affordance: the reticle stretches into a pill with arrows either side */
+.drag .reticle { width: 70px; height: 32px; margin: -16px 0 0 -35px; border-radius: 999px; border-color: var(--c-red); }
+.drag .reticle::before,
+.drag .reticle::after {
+  position: absolute;
+  top: 50%;
+  margin-top: -0.62em;
+  font: 0.8rem/1 var(--font-mono);
+  color: var(--c-red);
+}
+.drag .reticle::before { content: '‹'; left: 9px; }
+.drag .reticle::after { content: '›'; right: 9px; }
+
+/* a short word that rides beside the reticle (see DEFAULT_LABELS in the component) */
+.label {
+  position: absolute;
+  left: 30px;
+  top: -7px;
+  font: 0.55rem var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-white);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--dur-2) var(--ease-out), transform 0.5s var(--ease-glide);
+}
+.hasLabel .label { opacity: 0.9; transform: none; }
+.drag.hasLabel .label { left: 44px; }
+
 .down .reticle { transform: scale(0.82); }
 
 @keyframes cursor-orbit {

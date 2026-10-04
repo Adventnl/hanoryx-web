@@ -16,19 +16,22 @@ function bootAlreadyComplete() {
    (thousands of px tall, every canvas scene inside it), and Motion leaves the
    last animated value inline: `filter: blur(0px)` kept the whole page in an
    offscreen filter surface that every 30fps canvas update re-rendered, costing
-   ~20fps on its own (measured). The route transition overlay already masks the
-   swap, so the page itself only needs to fade and slide. */
+   ~20fps on its own (measured). The route current (TransitionOverlay) travels the
+   viewport during the swap, so the page itself only needs to fade and slide —
+   out to a dim level and in from that same level, so the hand-over never goes
+   dark and the content is swapped at its dimmest, under the moving line. */
+const DIM = 0.32; // the level at which one page hands over to the next — never fully dark
 const variants = {
-  initial: { opacity: 0, y: 18 },
+  initial: { opacity: DIM, y: 16 },
   enter: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
   exit: {
-    opacity: 0,
-    y: -14,
-    transition: { duration: 0.4, ease: [0.65, 0, 0.35, 1] },
+    opacity: DIM,
+    y: -8,
+    transition: { duration: 0.28, ease: [0.5, 0, 0.75, 0] },
   },
 };
 

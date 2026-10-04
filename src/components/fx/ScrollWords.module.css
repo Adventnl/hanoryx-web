@@ -1,0 +1,16 @@
+.words {
+  --p: 0;
+  --floor: 0.16;
+}
+.word {
+  /* word i is fully lit when p * (n + band) has passed i + band */
+  opacity: calc(var(--floor) + (1 - var(--floor)) * clamp(0, (var(--p) * (var(--n) + 4) - var(--i)) / 4, 1));
+}
+/* emphasised words warm toward the accent as they light */
+.em {
+  color: color-mix(in srgb, var(--c-red) calc(clamp(0, (var(--p) * (var(--n) + 4) - var(--i)) / 4, 1) * 100%), currentColor);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word { opacity: 1; }
+}

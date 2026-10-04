@@ -1,0 +1,60 @@
+.strip {
+  --p: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+  padding-top: var(--space-8);
+  list-style: none;
+}
+.line { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--c-line-strong); }
+.fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--c-white-40), var(--c-red));
+  transform-origin: left center;
+  transform: scaleX(var(--p));
+}
+.item { --lit: clamp(0, calc((var(--p) * var(--n) - var(--i)) * 1.6), 1); position: relative; opacity: calc(0.4 + 0.6 * var(--lit)); }
+.cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  height: 100%;
+  padding: var(--space-4) var(--space-3) var(--space-5) 0;
+  transform: translate3d(0, calc((1 - var(--lit)) * 14px), 0);
+  transition: transform 0.7s var(--ease-glide);
+}
+.node {
+  position: absolute;
+  top: calc(-1 * var(--space-8) - 4px);
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--c-red) calc(var(--lit) * 100%), var(--c-white-30));
+  background: var(--c-black);
+  transform: scale(calc(0.8 + var(--lit) * 0.5));
+}
+.node[data-live='true'] { background: var(--c-red); box-shadow: var(--glow-red); animation: node-pulse 2s ease-in-out infinite; }
+.glyph { color: var(--c-white-40); transition: color var(--dur-3) var(--ease-out); }
+a.cell:hover .glyph { color: var(--c-red); }
+.code { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red); }
+.title { font-family: var(--font-serif); font-size: var(--fs-h4); font-weight: 400; color: var(--c-white); }
+.head { font-size: var(--fs-sm); color: var(--c-white-50); }
+.more { margin-top: var(--space-8); }
+
+@media (max-width: 900px) {
+  .strip { grid-template-columns: minmax(0, 1fr); padding-top: 0; padding-left: 1.6rem; gap: var(--space-5); }
+  .line { right: auto; left: 3px; top: 4px; bottom: 4px; width: 1px; height: auto; }
+  .fill { transform-origin: top center; transform: scaleY(var(--p)); }
+  .node { left: -1.6rem; top: 1rem; }
+  .cell { flex-direction: row; flex-wrap: wrap; align-items: baseline; padding: var(--space-3) 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cell { transition: none; transform: none; }
+  .node[data-live='true'] { animation: none; }
+}

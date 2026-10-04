@@ -12,10 +12,16 @@
   <circle cx="945" cy="292" r="5" fill="#ff3333"/>
   <circle cx="1075" cy="170" r="3" fill="#ff3333"/>
   <path d="M 720 292 H 1190 M 945 80 V 540" stroke="#512226" stroke-width="1"/>
-  <rect x="77" y="121" width="12" height="12" fill="#ff3333"/>
-  <text x="109" y="132" fill="#dedee0" font-family="Arial, sans-serif" font-size="17" letter-spacing="5">HANORYX SYSTEMS</text>
+  <g transform="translate(77 104) scale(0.0398)">
+    <rect width="1254" height="1254" rx="120" fill="#c20406"/>
+    <g fill="#fdfdfd">
+      <polygon points="338,421 478,280 478,636 562,552 751,552 634,670 534,670 478,725 478,856 338,997"/>
+      <polygon points="804,380 953,231 953,797 804,946 804,670 683,670 804,548"/>
+    </g>
+  </g>
+  <text x="141" y="134" fill="#dedee0" font-family="Arial, sans-serif" font-size="17" letter-spacing="5">HANORYX SYSTEMS</text>
   <text x="76" y="305" fill="#f5f4f2" font-family="Georgia, serif" font-size="88">Software systems,</text>
   <text x="76" y="405" fill="#f5f4f2" font-family="Georgia, serif" font-size="88">made visible.</text>
-  <text x="77" y="510" fill="#b3b3b7" font-family="Arial, sans-serif" font-size="17" letter-spacing="3">ENGINEERING  /  PUBLIC WORK  /  VISUAL SYSTEMS</text>
+  <text x="77" y="510" fill="#b3b3b7" font-family="Arial, sans-serif" font-size="17" letter-spacing="3">SYSTEMS  /  SELECTED WORK  /  INTERFACES</text>
   <rect width="1200" height="630" fill="url(#fade)" opacity=".16"/>
 </svg>

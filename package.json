@@ -7,11 +7,11 @@
     "dev": "vite",
     "build": "node scripts/generate-sitemap.mjs && vite build",
     "lint": "eslint .",
-    "sync:github": "node scripts/sync-github.mjs",
-    "test:data": "node qa/public-data.mjs",
     "render:social": "node scripts/render-social.mjs",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "render:icons": "node scripts/render-icons.mjs",
+    "qa:inventory": "node qa/foreground-inventory.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -29,6 +29,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "axe-core": "^4.13.0",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",

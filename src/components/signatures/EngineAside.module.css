@@ -1,0 +1,10 @@
+.wrap { width: min(100%, 520px); margin-inline: auto; }
+.frame { position: relative; aspect-ratio: 1.15 / 1; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: var(--c-void); overflow: hidden; box-shadow: var(--shadow-lift); }
+.view { position: absolute; inset: 0; }
+.corner { position: absolute; width: 16px; height: 16px; border: 1px solid var(--c-red); pointer-events: none; z-index: 2; }
+.corner[data-c='tl'] { top: 8px; left: 8px; border-right: 0; border-bottom: 0; }
+.corner[data-c='tr'] { top: 8px; right: 8px; border-left: 0; border-bottom: 0; }
+.corner[data-c='bl'] { bottom: 8px; left: 8px; border-right: 0; border-top: 0; }
+.corner[data-c='br'] { bottom: 8px; right: 8px; border-left: 0; border-top: 0; }
+.tag { position: absolute; left: 18px; bottom: 16px; z-index: 2; font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-50); }
+.caption { display: block; margin-top: var(--space-3); font: 0.58rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-white-30); }

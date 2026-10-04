@@ -1,0 +1,5 @@
+.index { margin-top: var(--space-8); }
+.preview { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 1.1rem 1.2rem; min-width: 13rem; }
+.glyph { color: var(--c-red); }
+.previewCode { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-65); }
+.previewTags { font: 0.56rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-40); }

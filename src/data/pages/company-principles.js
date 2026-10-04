@@ -1,48 +1,118 @@
 import { operatingPrinciples } from '../company';
 
+/* What each principle changes in practice, and the glyph that stands for it. */
+const PRACTICE = {
+  'p-01': {
+    glyph: 'layers',
+    practice: 'Depth lives in the model and its boundaries. The surface shows only what the moment needs.',
+  },
+  'p-02': {
+    glyph: 'lens',
+    practice: 'A view resolves intent in a single read. Anything that does not help someone decide or act is removed.',
+  },
+  'p-03': {
+    glyph: 'wave',
+    practice: 'Every transition reports state, direction or hierarchy. If a movement only decorates, it goes.',
+  },
+  'p-04': {
+    glyph: 'stack',
+    practice: 'Foundations are laid for what is not yet announced, so growth is an addition rather than a rewrite.',
+  },
+  'p-05': {
+    glyph: 'key',
+    practice: 'Information is scoped by role, context and intent before it ever reaches a screen.',
+  },
+  'p-06': {
+    glyph: 'spark',
+    practice: 'Early versions sit on foundations that can survive real use, so a prototype is a first release, not a throwaway.',
+  },
+};
+
 const page = {
   key: 'company/principles',
   title: 'Principles',
   accent: '#ff3333',
+  aliases: ['doctrine', 'values', 'how we work', 'rules'],
   hero: {
     scene: 'compass-vector',
     intensity: 'hero',
-    eyebrow: 'Company // DOCTRINE',
-    title: 'The operating principles every system is built against.',
+    eyebrow: 'Company / Principles',
+    title: 'Six rules the work is held to.',
     intro:
-      'These are not aspirations. They are constraints — applied to architecture, interface, and release before a single line ships.',
-    code: 'NODE.PRINCIPLES',
-    status: 'OPERATIONAL',
+      'Short enough to remember and strict enough to say no. Each one settles a tension that keeps coming back — and each comes with what it changes in practice.',
+    code: 'CMP.01',
+    status: 'DOCTRINE',
     actions: [
-      { label: 'Systems', to: '/systems' },
-      { label: 'North', to: '/north', variant: 'outline' },
+      { label: 'Security approach', to: '/company/security' },
+      { label: 'Selected work', to: '/work', variant: 'outline' },
     ],
-    metrics: [
-      { value: 6, label: 'Operating principles' },
-      { value: 1, label: 'Design language' },
-      { value: 100, suffix: '%', label: 'Applied before release' },
-    ],
+    aside: {
+      kind: 'tensionDials',
+      dials: [
+        {
+          id: 'depth',
+          left: 'Depth',
+          right: 'Clarity',
+          start: 18,
+          states: {
+            low: 'All depth, no surface. Powerful, and hard to read.',
+            mid: 'Depth held underneath, clarity on top.',
+            high: 'All surface, no depth. Easy to read, and shallow.',
+          },
+        },
+        {
+          id: 'speed',
+          left: 'Speed',
+          right: 'Durability',
+          start: 82,
+          states: {
+            low: 'Fast to ship, and has to be done twice.',
+            mid: 'Quick iteration on foundations that last.',
+            high: 'Built to last, but too slow to learn from.',
+          },
+        },
+        {
+          id: 'scope',
+          left: 'Scoped',
+          right: 'Open',
+          start: 30,
+          states: {
+            low: 'Everything scoped. Safe, and nobody can do their work.',
+            mid: 'Each role sees what concerns it.',
+            high: 'Everything open. Convenient, and everyone sees everything.',
+          },
+        },
+      ],
+      caption: 'Each principle below settles one of these tensions. Nothing here is measured or stored.',
+    },
   },
   blocks: [
     {
-      type: 'cards',
-      scene: 'orbital-command',
-      eyebrow: 'Operating Principles',
+      type: 'signature',
+      kind: 'principleStack',
+      anchor: 'principles',
+      railLabel: 'The six',
+      scene: 'privacy-quiet-grid',
+      minHeight: 900,
+      eyebrow: 'Operating principles',
       title: 'Six rules that hold the work together.',
-      intro:
-        'Each principle resolves a recurring engineering tension — between depth and clarity, speed and durability, access and exposure.',
-      items: operatingPrinciples.map((p) => ({
+      intro: 'Scroll — each card lays itself over the last, like a deck being dealt.',
+      principles: operatingPrinciples.map((p) => ({
         code: p.index,
         title: p.title,
         body: p.body,
+        practice: PRACTICE[p.id].practice,
+        glyph: PRACTICE[p.id].glyph,
       })),
     },
     {
       type: 'manifesto',
+      anchor: 'doctrine',
+      railLabel: 'Doctrine',
       scene: 'vector-compass',
       eyebrow: 'Doctrine',
       lines: [
-        'A system earns its surface by holding its weight underneath.',
+        'A system earns its surface by holding its *weight* underneath.',
         'Clarity is engineered, not decorated.',
         'Access is granted by intent, never by default.',
         'Nothing is released until the architecture can carry it.',
@@ -50,27 +120,12 @@ const page = {
       marquee: ['CONTROLLED', 'SCOPED', 'DELIBERATE', 'DURABLE', 'QUIET'],
     },
     {
-      type: 'modules',
-      scene: 'topology-pulse',
-      eyebrow: 'Principle // Meaning',
-      title: 'What each principle changes in practice.',
-      intro:
-        'The doctrine compiles down to concrete engineering decisions. These are the operative readings.',
-      rows: [
-        { k: 'Controlled complexity', v: 'Depth lives in the model, never on the surface' },
-        { k: 'Interfaces before noise', v: 'A view resolves intent in a single read' },
-        { k: 'Motion with purpose', v: 'Every transition reports state or direction' },
-        { k: 'Architecture that expands', v: 'Growth is a property, not a rewrite' },
-        { k: 'Reveal only what is needed', v: 'Information surfaces by role and context' },
-        { k: 'Production-minded prototypes', v: 'Foundations are built to survive real load' },
-      ],
-    },
-    {
       type: 'cta',
       scene: 'motion-curve-field',
-      eyebrow: 'Open a channel',
-      title: 'Hold us to the doctrine.',
-      body: 'For teams that want structure, scope, and control over the systems they run on.',
+      eyebrow: 'In practice',
+      title: 'See them in the work.',
+      body: 'The principles are easiest to judge in the work they shaped.',
+      links: [{ label: 'Selected work', to: '/work' }],
     },
   ],
 };

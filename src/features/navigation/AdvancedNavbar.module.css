@@ -4,17 +4,69 @@
   left: 0;
   width: 100%;
   z-index: var(--z-nav);
-  border-bottom: 1px solid transparent;
-  transition: background var(--dur-3) var(--ease-out), border-color var(--dur-3) var(--ease-out);
+  /* Pre-reveal rest state: the shell flips data-revealed as the intro lifts and
+     the bar glides down into place with the site (never a pop). */
+  opacity: 0;
+  transform: translateY(-14px);
+  transition:
+    opacity 1s var(--ease-out),
+    transform 1.1s var(--ease-out);
 }
-.scrolled {
-  /* near-opaque instead of blur: backdrop-filter over the full-width hero scene
-     was a per-frame GPU cost across the whole top strip. */
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0.97), rgba(5, 5, 5, 0.86));
-  border-bottom-color: var(--c-line-faint);
+.nav[data-revealed='true'] {
+  opacity: 1;
+  transform: none;
 }
 
+/* ---- Scroll state -------------------------------------------------------
+   The old bar swapped a gradient `background` on scroll. Gradients cannot be
+   transitioned, so it snapped. The plate is its own layer and only its OPACITY
+   (a compositor property) eases, so the bar settles in as scrolling begins.
+   Near-opaque instead of blur: backdrop-filter over the full-width hero scene
+   was a per-frame GPU cost across the whole top strip. */
+.plate {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0.97), rgba(5, 5, 5, 0.86));
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-out);
+}
+/* Always-on whisper of a scrim so the bar reads over the brightest hero frames. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -12px 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(2, 2, 3, 0.55), transparent);
+  opacity: 1;
+  transition: opacity 0.7s var(--ease-out);
+}
+.scrolled .plate,
+.menuActive .plate { opacity: 1; }
+.scrolled::before,
+.menuActive::before { opacity: 0; }
+
+.hairline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--c-line-strong) 18%, var(--c-line-strong) 82%, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.9s var(--ease-out);
+}
+.scrolled .hairline,
+.menuActive .hairline { transform: scaleX(1); }
+
 .inner {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -25,6 +77,16 @@
   padding-inline: var(--gutter);
 }
 
+/* Staged entrance: logo, links, tools arrive one after another. */
+.part {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.9s var(--ease-out), transform 1s var(--ease-out);
+}
+.nav[data-revealed='true'] .part { opacity: 1; transform: none; }
+.nav[data-revealed='true'] .groups { transition-delay: 0.12s; }
+.nav[data-revealed='true'] .right { transition-delay: 0.24s; }
+
 /* Brand */
 .brand { display: inline-flex; align-items: center; gap: 0.7rem; flex: none; }
 .mark {
@@ -33,18 +95,36 @@
   height: 30px;
   border-radius: var(--r-xs);
   overflow: hidden;
+  transition: transform var(--dur-3) var(--ease-out);
 }
 .mark img { width: 100%; height: 100%; object-fit: cover; opacity: 0.92; }
+/* hover: a light pass sweeps across the mark */
+.sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+.brand:hover .sheen,
+.brand:focus-visible .sheen { animation: nav-sheen 0.9s var(--ease-out) 1; }
+.brand:hover .mark { transform: scale(1.06); }
+@keyframes nav-sheen { to { transform: translateX(130%); } }
 .wordmark {
   font-size: 0.78rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--c-white);
   white-space: nowrap;
+  transition: letter-spacing var(--dur-4) var(--ease-out);
 }
+.brand:hover .wordmark { letter-spacing: 0.3em; }
+/* once scrolled the identity tightens slightly (transform/letter-spacing only) */
+.scrolled .mark { transform: scale(0.92); }
+.scrolled .brand:hover .mark { transform: scale(1); }
 
 /* Groups */
-.groups { display: flex; align-items: center; gap: 0.25rem; }
+.groups { position: relative; display: flex; align-items: center; gap: 0.25rem; }
 .group {
   position: relative;
   display: flex;
@@ -56,14 +136,21 @@
   transition: color var(--dur-2) var(--ease-out);
 }
 .group:hover,
-.groupOpen { color: var(--c-white); }
-.groupOpen .marker { width: calc(100% - 1.8rem); background: var(--c-red); }
+.groupOpen,
+.active { color: var(--c-white); }
 
-/* keep the bar solid while a panel is deployed so the diagram reads cleanly */
-.menuActive {
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0.9));
-  border-bottom-color: var(--c-line-faint);
+/* the single ink indicator that springs between links */
+.ink {
+  position: absolute;
+  left: 0;
+  bottom: 0.28rem;
+  height: 1px;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  pointer-events: none;
+  transform-origin: left center;
 }
+
 .groupLabel { font-size: var(--fs-sm); }
 .groupCode {
   position: absolute;
@@ -78,24 +165,10 @@
 }
 .group:hover .groupCode { transform: translateY(-0.7rem); opacity: 0.7; }
 
-.marker {
-  position: absolute;
-  left: 50%;
-  bottom: 0.28rem;
-  width: 0;
-  height: 1px;
-  background: var(--c-red);
-  box-shadow: var(--glow-red);
-  transform: translateX(-50%);
-  transition: width var(--dur-3) var(--ease-out);
-}
-.active { color: var(--c-white); }
-.active .marker { width: calc(100% - 1.8rem); }
-
 /* Right cluster */
 .right { display: flex; align-items: center; gap: var(--space-4); flex: none; }
-.search { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 36px; padding: 0 var(--space-3); border: 1px solid var(--c-line-strong); background: var(--c-white-03); color: var(--c-white-65); font: 0.65rem var(--font-mono); cursor: pointer; }
-.search:hover { color: var(--c-white); border-color: var(--c-red-dim); }
+.search { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 36px; padding: 0 var(--space-3); border: 1px solid var(--c-line-strong); background: var(--c-white-03); color: var(--c-white-65); font: 0.65rem var(--font-mono); cursor: pointer; transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
+.search:hover { color: var(--c-white); border-color: var(--c-red-dim); background: var(--c-white-05); }
 .search:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
 .status {
   display: inline-flex;
@@ -104,6 +177,7 @@
   font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--c-white-40);
   white-space: nowrap;
 }
@@ -142,7 +216,6 @@
 @media (max-width: 1280px) { .status { display: none; } }
 @media (max-width: 900px) {
   .groups { display: none; }
-  .cta { display: none; }
   .burger { display: inline-flex; }
 }
 @media (max-width: 560px) {
@@ -150,6 +223,16 @@
   .search span { display: none; }
   .wordmark { letter-spacing: 0.2em; font-size: 0.7rem; }
 }
+/* very narrow phones: the wordmark gives way before the controls overflow */
+@media (max-width: 380px) {
+  .wordmark { letter-spacing: 0.12em; font-size: 0.64rem; }
+  .right { gap: var(--space-3); }
+}
+@media (max-width: 340px) {
+  .wordmark { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .statusDot { animation: none; }
+  .nav, .part { transform: none; }
+  .brand:hover .sheen { animation: none; }
 }

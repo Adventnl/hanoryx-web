@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowUpRight, Plus } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import clsx from 'clsx';
 import { navGroups } from '../../app/routeConfig';
 import { company } from '../../data/company';
@@ -46,7 +46,7 @@ export function MobileNav({ open, onClose }) {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div ref={overlayRef} className={styles.overlay} variants={reduced ? undefined : panelV} initial={reduced ? false : 'hidden'} animate={reduced ? undefined : 'show'} exit={reduced ? undefined : 'exit'}>
+        <motion.div ref={overlayRef} className={styles.overlay} role="dialog" aria-modal="true" aria-label="Site menu" variants={reduced ? undefined : panelV} initial={reduced ? false : 'hidden'} animate={reduced ? undefined : 'show'} exit={reduced ? undefined : 'exit'}>
           <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label="Close mobile navigation">×</button>
           <nav className={styles.menu} aria-label="Mobile">
             {navGroups.map((g, i) => {
@@ -98,9 +98,18 @@ export function MobileNav({ open, onClose }) {
           </nav>
 
           <motion.div className={styles.foot} variants={reduced ? undefined : itemV}>
-            <Link to="/contact" onClick={onClose} className={styles.channel}>
-              Open Channel <ArrowUpRight size={16} strokeWidth={1.5} />
-            </Link>
+            <button
+              type="button"
+              className={styles.channel}
+              onClick={() => {
+                onClose();
+                // Let the menu start closing before the palette opens, so the
+                // two overlays hand off instead of stacking.
+                window.setTimeout(() => window.dispatchEvent(new Event('hanoryx:search')), 180);
+              }}
+            >
+              <Search size={15} strokeWidth={1.5} aria-hidden="true" /> Search the site
+            </button>
             <div className={styles.footRow}>
               <span className={styles.status}>
                 <span className={styles.dot} />
@@ -108,7 +117,6 @@ export function MobileNav({ open, onClose }) {
               </span>
               <AudioSignalButton />
             </div>
-            <a href={`mailto:${company.email}`} className={styles.email}>{company.email}</a>
           </motion.div>
         </motion.div>
       )}

@@ -1,0 +1,52 @@
+.rail {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  z-index: calc(var(--z-nav) - 5);
+  transform: translateY(-50%);
+  display: none;
+}
+@media (min-width: 1280px) { .rail { display: block; } }
+.rail ul { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.tick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  height: 22px;
+  padding: 0 2px;
+  cursor: pointer;
+}
+.bar {
+  display: block;
+  width: 10px;
+  height: 1px;
+  background: var(--c-white-30);
+  transition: width 0.55s var(--ease-glide), background var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+}
+.name {
+  position: absolute;
+  right: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: rgba(5, 5, 5, 0.9);
+  color: var(--c-white-80);
+  font: 0.58rem var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(8px);
+  pointer-events: none;
+  transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-3) var(--ease-glide);
+}
+.tick:hover .name,
+.tick:focus-visible .name { opacity: 1; transform: none; }
+.tick:hover .bar { background: var(--c-white-65); }
+.on .bar { width: 26px; background: var(--c-red); box-shadow: var(--glow-red); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bar, .name { transition: none; }
+}

@@ -1,0 +1,115 @@
+.wrap { width: min(100%, 540px); margin-inline: auto; aspect-ratio: 1; }
+.orbit { position: absolute; inset: 0; }
+
+.rings { position: absolute; inset: 0; }
+/* orbit radii live here once: rings and the arms that carry nodes share them */
+.ring, .dash { position: absolute; border-radius: 50%; border: 1px solid var(--c-white-12); }
+.ring[data-ring='1'], .arm[data-ring='1'] { --inset: 22%; inset: 22%; }
+.ring[data-ring='2'], .arm[data-ring='2'] { --inset: 13%; inset: 13%; }
+.ring[data-ring='3'], .arm[data-ring='3'] { --inset: 4%; inset: 4%; }
+.dash { inset: -1%; border-style: dashed; border-color: var(--c-white-20); animation: ring-spin 120s linear infinite; }
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+
+/* An "arm" is a square the size of its orbit, centred; its child sits at the top
+   edge and rides round as the arm turns. The node counter-turns to stay upright.
+   --a is a plain number of degrees (the starting angle), so every angle below is
+   built as `var(--a) * 1deg` — no angle/angle division, which not every browser
+   supports yet. */
+.arm {
+  position: absolute;
+  transform: rotate(calc(var(--a) * 1deg));
+  animation: orbit-spin var(--t) linear infinite;
+}
+.arm[data-dir='-1'] { animation-name: orbit-spin-rev; }
+@keyframes orbit-spin { to { transform: rotate(calc(var(--a) * 1deg + 360deg)); } }
+@keyframes orbit-spin-rev { to { transform: rotate(calc(var(--a) * 1deg - 360deg)); } }
+
+.sat {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--c-white-40);
+}
+
+.node {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.45rem 0.8rem 0.45rem 0.65rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: rgba(8, 9, 11, 0.92);
+  color: var(--c-white-80);
+  white-space: nowrap;
+  /* centre on the point, then undo the arm's rotation so the label stays level */
+  transform: translate(-50%, -50%) rotate(calc(var(--a) * -1deg));
+  animation: orbit-unspin var(--t) linear infinite;
+  transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), box-shadow var(--dur-3) var(--ease-out);
+}
+.arm[data-dir='-1'] .node { animation-name: orbit-unspin-rev; }
+@keyframes orbit-unspin { to { transform: translate(-50%, -50%) rotate(calc(var(--a) * -1deg - 360deg)); } }
+@keyframes orbit-unspin-rev { to { transform: translate(-50%, -50%) rotate(calc(var(--a) * -1deg + 360deg)); } }
+
+.nodeDot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+.nodeLabel { font: 0.66rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
+.node:hover, .node:focus-visible, .node[data-active='true'] {
+  border-color: var(--c-red);
+  background: rgba(40, 8, 8, 0.95);
+  color: var(--c-white);
+  box-shadow: 0 0 0 6px rgba(255, 51, 51, 0.08), var(--glow-red-soft);
+}
+
+/* the orbit holds still while you reach for a door */
+.orbit:hover .arm, .orbit:hover .node, .orbit:focus-within .arm, .orbit:focus-within .node { animation-play-state: paused; }
+
+/* core readout */
+.core {
+  position: absolute;
+  inset: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.6rem;
+  border-radius: 50%;
+  text-align: center;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 51, 51, 0.1), rgba(5, 5, 5, 0.94) 70%);
+  border: 1px solid var(--c-line-strong);
+}
+.coreRing {
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 1px solid var(--c-red-dim);
+  opacity: 0.55;
+  animation: core-breathe 3.6s var(--ease-in-out) infinite;
+}
+@keyframes core-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.55; }
+  50% { transform: scale(1.045); opacity: 0.15; }
+}
+.mark { width: 34px; height: 34px; border-radius: 3px; object-fit: cover; }
+.readout { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+.rCode { font: 0.58rem var(--font-mono); letter-spacing: 0.24em; color: var(--c-red); }
+.rLabel { font-family: var(--font-serif); font-size: clamp(1.05rem, 2.1vw, 1.5rem); line-height: 1.1; color: var(--c-white); }
+.rLine { max-width: 17ch; font-size: 0.7rem; line-height: 1.4; color: var(--c-white-50); }
+
+@media (max-width: 560px) {
+  .node { padding: 0.35rem 0.6rem 0.35rem 0.5rem; }
+  .nodeLabel { font-size: 0.58rem; }
+  .rLine { display: none; }
+  .core { inset: 34%; }
+  .ring[data-ring='3'], .arm[data-ring='3'] { inset: 8%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arm, .node, .dash, .coreRing { animation: none; }
+  .arm { transform: rotate(calc(var(--a) * 1deg)); }
+}

@@ -1,0 +1,141 @@
+import { architecture, systemCategories } from '../systems';
+import { timelinePhases } from '../timeline';
+
+const SYSTEM_GLYPH = {
+  'cat-01': 'calendar',
+  'cat-02': 'cart',
+  'cat-03': 'loop',
+  'cat-04': 'terminal',
+  'cat-05': 'database',
+  'cat-06': 'gate',
+  'cat-07': 'lens',
+};
+const SYSTEM_ROUTE = {
+  'cat-01': '/systems/operational-management',
+  'cat-02': '/systems/commerce-infrastructure',
+  'cat-03': '/systems/automation',
+  'cat-04': '/systems/internal-platforms',
+  'cat-05': '/systems/data-interfaces',
+  'cat-06': '/systems/client-portals',
+  'cat-07': '/systems/research-systems',
+};
+const LAYER_GLYPH = ['terminal', 'loop', 'database'];
+
+const page = {
+  key: 'home',
+  path: '/',
+  title: 'Online Systems',
+  searchTitle: 'Home',
+  accent: '#ff3333',
+  aliases: ['hanoryx', 'welcome', 'start', 'landing'],
+  hero: {
+    scene: 'home-core',
+    intensity: 'hero',
+    eyebrow: 'Hanoryx Systems / Live',
+    title: 'Software systems, made visible.',
+    intro:
+      'We build online systems, platforms and interfaces. Explore the work, the systems behind it, and the team that builds them.',
+    code: 'SYS.CORE',
+    status: 'LIVE',
+    actions: [
+      { label: 'Explore selected work', to: '/work' },
+      { label: 'Play system sequence', action: 'system-synthesis', variant: 'outline' },
+    ],
+    aside: { kind: 'orbitNav' },
+  },
+  blocks: [
+    {
+      type: 'manifesto',
+      anchor: 'statement',
+      railLabel: 'Statement',
+      scene: 'topology-pulse',
+      eyebrow: 'Company signal',
+      lines: [
+        'We build systems that *reduce* operational drag.',
+        'Structure first. Surface second.',
+        'Quiet by default, precise when it matters.',
+        'Released only when the architecture can hold it.',
+      ],
+      marquee: ['SYSTEMS', 'INTERFACES', 'COORDINATION', 'AUTOMATION', 'DATA', 'ENGINES', 'CONTROL'],
+    },
+    {
+      type: 'signature',
+      kind: 'workPortals',
+      anchor: 'work',
+      railLabel: 'Work',
+      scene: 'dependency-graph',
+      minHeight: 760,
+      eyebrow: 'Selected work',
+      title: 'Two projects to start with.',
+      intro: 'Musebase and YK Engine are the work we point to first. Two quieter studies sit beneath them.',
+      supportingLabel: 'Supporting studies',
+    },
+    {
+      type: 'cards',
+      variant: 'rail',
+      anchor: 'systems',
+      railLabel: 'Systems',
+      scene: 'hex-tunnel',
+      eyebrow: 'Systems',
+      title: 'Seven areas where we build.',
+      intro: 'Drag the rail, or use the arrow keys. Each card opens a design area — capabilities, not a count of deployed products.',
+      items: systemCategories.map((c) => ({
+        code: c.code,
+        title: c.title,
+        body: c.summary,
+        tags: c.tags,
+        status: c.status,
+        glyph: SYSTEM_GLYPH[c.id],
+        to: SYSTEM_ROUTE[c.id],
+      })),
+    },
+    {
+      type: 'signature',
+      kind: 'layerStack',
+      anchor: 'build',
+      railLabel: 'How we build',
+      scene: 'privacy-quiet-grid',
+      minHeight: 640,
+      eyebrow: architecture.eyebrow,
+      title: architecture.title,
+      intro: 'Scroll to part the layers. Hover or focus a plate to lift it and read what it holds.',
+      layers: architecture.layers.map((l, i) => ({ ...l, glyph: LAYER_GLYPH[i] })),
+      note: 'A model for how we think about operational software. It illustrates an approach, not a deployed system.',
+    },
+    {
+      type: 'stats',
+      anchor: 'figures',
+      railLabel: 'At a glance',
+      eyebrow: 'At a glance',
+      title: 'What is on this site.',
+      items: [
+        { value: 2, label: 'Primary projects', note: 'Musebase · YK Engine' },
+        { value: 4, label: 'Case studies', note: '2 primary · 2 supporting' },
+        { value: 7, label: 'System areas', note: 'Where we build' },
+        { value: 6, label: 'Principles', note: 'How we decide' },
+      ],
+    },
+    {
+      type: 'signature',
+      kind: 'chronologyStrip',
+      anchor: 'chronology',
+      railLabel: 'Chronology',
+      minHeight: 420,
+      eyebrow: 'Company chronology',
+      title: 'Told in phases.',
+      intro: 'Dates are not published, so the company is told in stages of work.',
+      phases: timelinePhases,
+      linkLabel: 'Open the full timeline',
+    },
+    {
+      type: 'cta',
+      scene: 'contact-transmission',
+      eyebrow: 'Say hello',
+      title: 'Bring us a hard problem.',
+      body: 'For software systems, internal platforms and operational interfaces.',
+      links: [{ label: 'See the work', to: '/work' }],
+    },
+  ],
+};
+
+export default page;

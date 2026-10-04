@@ -1,0 +1,13 @@
+.prox { position: relative; }
+.visual { display: inline; }
+.word { display: inline-block; white-space: nowrap; }
+.unit {
+  display: inline-block;
+  transform: translate3d(0, calc(var(--k, 0) * -0.1em), 0) scale(calc(1 + var(--k, 0) * 0.045));
+  transform-origin: 50% 80%;
+  color: color-mix(in srgb, var(--prox-hot, var(--c-red)) calc(var(--k, 0) * 100%), currentColor);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unit { transform: none; color: inherit; }
+}

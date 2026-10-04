@@ -1,8 +1,0 @@
-.section, .principles { padding-block: var(--section-pad); }
-.section h2, .principles h2 { margin-block: var(--space-4); }
-.intro { max-width: 58ch; color: var(--c-white-65); }
-.principles { background: var(--c-black-2); }
-.columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); max-width: 1000px; margin-top: var(--space-8); }
-.columns p { color: var(--c-white-65); line-height: 1.8; }
-.link { display: inline-block; margin-top: var(--space-8); color: var(--c-white); text-decoration-color: var(--c-red); text-underline-offset: 6px; }
-@media (max-width: 600px) { .columns { grid-template-columns: 1fr; } }

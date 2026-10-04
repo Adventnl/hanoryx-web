@@ -1,0 +1,69 @@
+.compare {
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-md);
+  background: var(--c-black-3);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  /* eases the reveal when clicking the track or using keys */
+  transition: --pos 0.7s var(--ease-glide);
+}
+.dragging { transition: none; }
+.layer { position: absolute; inset: 0; }
+/* the "after" layer is revealed from the left up to --pos */
+.over { clip-path: inset(0 calc((100 - var(--pos)) * 1%) 0 0); }
+.line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--pos) * 1%);
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--c-red) 20%, var(--c-red) 80%, transparent);
+  box-shadow: var(--glow-red);
+  pointer-events: none;
+}
+.handle {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--pos) * 1%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border: 1px solid var(--c-red);
+  border-radius: 50%;
+  background: var(--c-black);
+  color: var(--c-white);
+  font: 0.7rem var(--font-mono);
+  letter-spacing: 0.1em;
+  cursor: ew-resize;
+  box-shadow: 0 0 0 6px rgba(255, 51, 51, 0.08), var(--glow-red-soft);
+  transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-3) var(--ease-out);
+}
+.handle:hover,
+.dragging .handle { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 51, 51, 0.1), var(--glow-red); }
+.handle:focus-visible { outline: 2px solid var(--c-red); outline-offset: 4px; }
+.tag {
+  position: absolute;
+  top: var(--space-4);
+  padding: 0.28rem 0.6rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: rgba(5, 5, 5, 0.8);
+  color: var(--c-white-65);
+  font: 0.6rem var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.tagBefore { right: var(--space-4); }
+.tagAfter { left: var(--space-4); }
+
+@media (prefers-reduced-motion: reduce) {
+  .compare { transition: none; }
+  .handle { transition: none; }
+}

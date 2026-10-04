@@ -12,9 +12,18 @@
   pointer-events: none;
   overflow: hidden;
 }
-.fade {
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+/* Edge fade. This used to be a CSS `mask-image` on the layer holding the canvas.
+   A mask over a canvas that repaints at 30fps forces the compositor to rebuild a
+   masked offscreen surface on every frame — measured on /north/motion-systems:
+   ~40fps with the mask vs ~59fps without it (CPU profile: the cost is native
+   compositing, not the scene draw calls). A static gradient overlay paints the
+   same fade into the page colour with no per-frame work. */
+.fade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--c-black), transparent 12%, transparent 88%, var(--c-black));
 }
 
 .content {

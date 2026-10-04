@@ -2,19 +2,23 @@ const page = {
   key: 'company/security',
   title: 'Security Approach',
   accent: '#ff3333',
+  aliases: ['security', 'boundary', 'access control', 'review checklist', 'authorization'],
   hero: {
     scene: 'secure-boundary',
     intensity: 'hero',
-    eyebrow: 'Company / security approach',
+    eyebrow: 'Company / Security approach',
     title: 'Security starts at the boundary.',
-    intro: 'The principles below describe how Hanoryx approaches system design. They are not a certification, audit result, penetration-test report, or claim about controls in an undisclosed deployment.',
-    code: 'SEC.APPROACH',
+    intro:
+      'The principles below describe how Hanoryx approaches system design. They are not a certification, audit result, penetration-test report, or claim about controls in any undisclosed deployment.',
+    code: 'CMP.02',
     status: 'DESIGN PRINCIPLES',
     actions: [{ label: 'Discuss a project', to: '/contact', variant: 'outline' }],
   },
   blocks: [
     {
       type: 'split',
+      anchor: 'foundations',
+      railLabel: 'Foundations',
       scene: 'client-portal-gate',
       eyebrow: 'Foundations',
       code: 'SEC.01',
@@ -34,11 +38,16 @@ const page = {
       ],
     },
     {
-      type: 'modules',
+      type: 'signature',
+      kind: 'boundaryReview',
+      anchor: 'review',
+      railLabel: 'Review checklist',
       scene: 'permission-orbit',
+      minHeight: 640,
       eyebrow: 'Design checklist',
       title: 'Questions for an implementation review.',
-      intro: 'These are review prompts. Their presence here does not assert that a particular product has passed them.',
+      intro:
+        'Work through them for a system you are building. These are review prompts: their presence here does not assert that any particular product has passed them.',
       groups: [
         {
           label: 'Access',
@@ -65,13 +74,14 @@ const page = {
           ],
         },
       ],
+      note: 'A thinking aid. It does not assess any real system, and nothing you tick is stored or sent.',
     },
     {
       type: 'cta',
       scene: 'concentric-gate',
       eyebrow: 'Contact',
       title: 'Discuss the actual boundary.',
-      body: 'Bring the data, people, and workflow involved. A useful security review begins with the system that exists or is being designed.',
+      body: 'Bring the data, people and workflow involved. A useful security review begins with the system that exists or is being designed.',
     },
   ],
 };

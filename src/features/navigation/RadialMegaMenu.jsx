@@ -5,6 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import clsx from 'clsx';
 import { TAU } from '../../animation/easing';
 import styles from './RadialMegaMenu.module.css';
+import { fx } from '../../utils/fx';
 
 const EASE = [0.16, 1, 0.3, 1];
 const VB = 240; // svg viewBox
@@ -78,7 +79,7 @@ export const RadialMegaMenu = forwardRef(function RadialMegaMenu(
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
         >
-          <div className={styles.field}>
+          <div className={styles.field} {...fx('menu.hud-field')}>
             {/* animated corner brackets */}
             <span className={clsx(styles.corner, styles.tl)} aria-hidden="true" />
             <span className={clsx(styles.corner, styles.tr)} aria-hidden="true" />
@@ -90,7 +91,7 @@ export const RadialMegaMenu = forwardRef(function RadialMegaMenu(
               <div className={styles.diagram} aria-hidden="true">
                 <svg viewBox={`0 0 ${VB} ${VB}`} className={styles.svg}>
                   {/* tick ring */}
-                  <g className={styles.ticks}>
+                  <g className={styles.ticks} {...fx('menu.tick-ring')}>
                     {Array.from({ length: 48 }, (_, i) => {
                       const a = (TAU * i) / 48;
                       const r1 = R + 14;
@@ -108,25 +109,25 @@ export const RadialMegaMenu = forwardRef(function RadialMegaMenu(
                   </g>
 
                   <circle className={styles.ringOuter} cx={CX} cy={CY} r={R + 8} pathLength="1" />
-                  <circle className={styles.ringMid} cx={CX} cy={CY} r={R} pathLength="1" />
+                  <circle className={styles.ringMid} cx={CX} cy={CY} r={R} pathLength="1" {...fx('menu.ring-stroke')} />
                   <circle className={styles.ringInner} cx={CX} cy={CY} r={R - 34} pathLength="1" />
 
                   {/* selector arc swings to the focused node */}
-                  <g className={styles.selector} style={{ transform: `rotate(${sel.deg + 90}deg)` }}>
+                  <g className={styles.selector} style={{ transform: `rotate(${sel.deg + 90}deg)` }} {...fx('menu.selector-arc')}>
                     <line className={styles.selectorLine} x1={CX} y1={CY} x2={CX} y2={CY - R} pathLength="1" />
                     <polygon className={styles.selectorHead} points={`${CX},${CY - R - 6} ${CX - 4},${CY - R + 3} ${CX + 4},${CY - R + 3}`} />
                   </g>
 
                   {/* connectors + nodes */}
                   {nodes.map((p, i) => (
-                    <g key={i} className={clsx(styles.node, i === hover && styles.nodeOn)}>
+                    <g key={i} className={clsx(styles.node, i === hover && styles.nodeOn)} {...fx('menu.node-connector')}>
                       <line className={styles.connector} x1={CX} y1={CY} x2={p.x} y2={p.y} pathLength="1" style={{ animationDelay: `${0.25 + i * 0.04}s` }} />
                       <motion.circle cx={p.x} cy={p.y} r={i === hover ? 6 : 3.4} className={styles.nodeDot} custom={i} variants={nodeV} />
                     </g>
                   ))}
 
                   {/* core */}
-                  <circle className={styles.coreGlow} cx={CX} cy={CY} r="14" />
+                  <circle className={styles.coreGlow} cx={CX} cy={CY} r="14" {...fx('menu.core-glow')} />
                   <circle className={styles.core} cx={CX} cy={CY} r="5" />
                   <text x={CX} y={CY + 30} textAnchor="middle" className={styles.coreLabel}>
                     {group.code}
@@ -145,7 +146,7 @@ export const RadialMegaMenu = forwardRef(function RadialMegaMenu(
                     const active = child.to === pathname;
                     return (
                       <li key={child.to + child.label} className={styles.itemWrap}>
-                        <motion.span className={styles.itemReveal} custom={i} variants={labelV}>
+                        <motion.span className={styles.itemReveal} custom={i} variants={labelV} {...fx('menu.label-clip')}>
                           <Link
                             to={child.to}
                             data-cursor="nav"

@@ -1,0 +1,65 @@
+.list { border-top: var(--border); }
+.item {
+  position: relative;
+  border-bottom: var(--border);
+  transition: background var(--dur-3) var(--ease-out);
+}
+/* a red bar draws down the left edge of the open row */
+.item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.6s var(--ease-glide);
+}
+.open { background: linear-gradient(90deg, var(--c-red-faint), transparent 60%); }
+.open::before { transform: scaleY(1); }
+.head { margin: 0; font-weight: inherit; }
+.trigger {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-5) var(--space-4);
+  text-align: left;
+  cursor: pointer;
+}
+.index { font: 0.65rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-red); }
+.title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  color: var(--c-white-80);
+  transition: color var(--dur-2) var(--ease-out), transform var(--dur-3) var(--ease-out);
+}
+.trigger:hover .title,
+.open .title { color: var(--c-white); }
+.trigger:hover .title { transform: translateX(6px); }
+.meta { font: 0.62rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-40); text-transform: uppercase; }
+.plus { color: var(--c-white-40); transition: transform var(--dur-3) var(--ease-glide), color var(--dur-2) var(--ease-out); }
+.open .plus { transform: rotate(135deg); color: var(--c-red); }
+.panel { overflow: hidden; }
+.body {
+  max-width: 62ch;
+  padding: 0 var(--space-4) var(--space-6) calc(var(--space-4) + 2.2rem);
+  color: var(--c-white-65);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
+}
+
+@media (max-width: 640px) {
+  .trigger { grid-template-columns: auto 1fr auto; }
+  .meta { display: none; }
+  .body { padding-left: var(--space-4); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .item::before, .title, .plus { transition: none; }
+  .trigger:hover .title { transform: none; }
+}

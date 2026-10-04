@@ -7,9 +7,9 @@ import styles from './GlitchLine.module.css';
  *
  * Props: tone 'default' | 'red'
  */
-export function GlitchLine({ tone = 'default', className }) {
+export function GlitchLine({ tone = 'default', className, ...rest }) {
   return (
-    <span className={clsx(styles.line, tone === 'red' && styles.red, className)} aria-hidden="true">
+    <span className={clsx(styles.line, tone === 'red' && styles.red, className)} aria-hidden="true" {...rest}>
       <span className={styles.sweep} />
       <span className={styles.tick} />
     </span>

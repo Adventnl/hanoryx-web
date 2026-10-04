@@ -17,10 +17,10 @@ import styles from './SceneCanvas.module.css';
  *    scenes animate at once; the rest hold a static frame (the core anti-lag)
  *  - the rAF draw is throttled to ~30fps (backgrounds don't need 60/120Hz)
  *  - DPR-capped + quality-scaled by the motion budget
- *  - a single static frame under reduced motion, never loops
+ *  - a single static frame under reduced motion (or when `still`), never loops
  *  - fully torn down (loop, budget, observers, scene.dispose) on unmount
  */
-export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density = 1, accent = '#ff3333', className }) {
+export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density = 1, accent = '#ff3333', still = false, className }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -29,7 +29,8 @@ export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density =
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return undefined;
 
-    const { reduced } = getMotionState();
+    // `still` asks for the reduced-motion rendering (one static frame) on demand
+    const reduced = still || getMotionState().reduced;
     const interval = sceneFrameInterval();
     let scene = null;
     let factory = null;
@@ -238,7 +239,7 @@ export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density =
       if (scene && scene.dispose) scene.dispose();
       scene = null;
     };
-  }, [name, sceneData, cost, density, accent]);
+  }, [name, sceneData, cost, density, accent, still]);
 
   return <canvas ref={canvasRef} className={clsx(styles.canvas, className)} aria-hidden="true" />;
 }

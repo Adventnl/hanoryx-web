@@ -1,5 +1,0 @@
-/* Contact page — thin wrapper. Clears the fixed navbar so the
-   ContactSection header isn't tucked beneath it. */
-.page {
-  padding-top: var(--nav-h);
-}

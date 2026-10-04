@@ -29,6 +29,7 @@ const INTENSITY_DENSITY = {
  *   density    extra density multiplier
  *   fade       soft mask the scene edges (default true)
  *   as         element tag (default 'section')
+ *   contentClassName  extra class for the content wrapper (e.g. to stretch it)
  */
 export function SectionScene({
   scene,
@@ -39,6 +40,7 @@ export function SectionScene({
   fade = true,
   as: Tag = 'section',
   className,
+  contentClassName,
   children,
   ...rest
 }) {
@@ -55,7 +57,7 @@ export function SectionScene({
           />
         </div>
       )}
-      <div className={styles.content}>{children}</div>
+      <div className={clsx(styles.content, contentClassName)}>{children}</div>
     </Tag>
   );
 }

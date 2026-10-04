@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPANY — identity, signal copy, principles, north, metrics
+   COMPANY — identity, operating principles and the development team
    ============================================================ */
 
 export const company = {
@@ -7,22 +7,7 @@ export const company = {
   shortName: 'Hanoryx',
   division: 'Hanoryx North',
   email: 'contact@hanoryx.com',
-  status: 'SOFTWARE ENGINEERING',
-
-  hero: {
-    title: 'HANORYX SYSTEMS',
-    line: 'Online systems for controlled digital operations.',
-    sub: 'Software infrastructure, management platforms, and interface systems designed for operational clarity.',
-  },
-
-  signal: {
-    eyebrow: 'Company Signal',
-    title: 'A controlled environment for serious operations.',
-    body: [
-      'Hanoryx Systems develops online systems, internal platforms, and digital operating environments for teams that need structure, speed, and control.',
-      'The work sits between software engineering, interface design, automation, and operational architecture — built quietly, released deliberately.',
-    ],
-  },
+  status: 'Live',
 };
 
 /* The operating doctrine — short, declarative, restrained. */
@@ -70,28 +55,4 @@ export const north = {
       { k: 'IDLE', v: 'Never static — the system is always alive' },
     ],
   },
-};
-
-/* Manifesto fragment — used on panels and the home closing band. */
-export const manifesto = {
-  eyebrow: 'Operating Doctrine',
-  lines: [
-    'We build systems that reduce operational drag.',
-    'Management layers. Scheduling logic. Communication surfaces.',
-    'Payment workflows. Data records. Controlled multi-role access.',
-    'Released only when the architecture is ready to hold them.',
-  ],
-};
-
-export const contact = {
-  eyebrow: 'Open a channel',
-  title: 'Compose an inquiry.',
-  body: 'For software systems, internal platforms, operational interfaces, and controlled online infrastructure.',
-  email: company.email,
-  inquiryTypes: [
-    { id: 'q-01', code: 'INQ.01', title: 'Systems & platforms', body: 'Operational management layers, internal platforms, and digital operating environments.' },
-    { id: 'q-02', code: 'INQ.02', title: 'Interface engineering', body: 'Interface systems, dashboards, client-facing portals, and interaction design.' },
-    { id: 'q-03', code: 'INQ.03', title: 'Automation & tooling', body: 'Workflow orchestration, internal tooling, and operational automation.' },
-    { id: 'q-04', code: 'INQ.04', title: 'Research collaboration', body: 'Experimental online systems and early-stage interface programs.' },
-  ],
 };

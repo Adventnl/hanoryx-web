@@ -1,0 +1,44 @@
+/* Both faces share one grid cell, so the card is at least the 0.82 ratio and
+   grows to whichever face is taller (the back lists five links; on a phone
+   they need more than the ratio gives). */
+.wrap { display: grid; width: min(100%, 420px); aspect-ratio: 0.82; margin-inline: auto; perspective: 1400px; }
+.card { display: grid; grid-template: 'stack' / minmax(0, 1fr); transform-style: preserve-3d; transition: transform 1.1s var(--ease-glide); }
+.flipped { transform: rotateY(180deg); }
+.face {
+  grid-area: stack;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-lg);
+  background: linear-gradient(160deg, rgba(30, 31, 36, 0.98), rgba(10, 11, 13, 0.98));
+  box-shadow: var(--shadow-lift);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  text-align: left;
+}
+.front { cursor: pointer; justify-content: space-between; }
+.front::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(260px circle at 80% 0%, rgba(255, 51, 51, 0.16), transparent 60%); pointer-events: none; }
+.mark { position: relative; z-index: 1; width: 64px; height: 64px; border-radius: 6px; object-fit: cover; box-shadow: 0 10px 30px -10px rgba(255, 51, 51, 0.5); }
+.watermark { position: absolute; right: 0.02em; top: 50%; margin-top: -0.55em; font-size: 15rem; line-height: 1; opacity: 0.7; pointer-events: none; }
+.front > * { position: relative; }
+.front > .watermark { position: absolute; }
+.front::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background-image: linear-gradient(var(--c-white-05) 1px, transparent 1px), linear-gradient(90deg, var(--c-white-05) 1px, transparent 1px); background-size: 34px 34px; mask-image: linear-gradient(160deg, #000, transparent 70%); -webkit-mask-image: linear-gradient(160deg, #000, transparent 70%); pointer-events: none; }
+.name { margin-top: auto; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 300; line-height: 1; color: var(--c-white); }
+.status { display: inline-flex; align-items: center; gap: 0.6em; margin-top: var(--space-3); font: 0.64rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-65); }
+.status i { width: 7px; height: 7px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); animation: node-pulse 2.2s ease-in-out infinite; }
+.flip { display: inline-flex; align-items: center; gap: 0.5em; margin-top: var(--space-5); font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-30); transition: color var(--dur-2) var(--ease-out); }
+.front:hover .flip { color: var(--c-red); }
+.back { transform: rotateY(180deg); justify-content: space-between; gap: var(--space-4); }
+.list { display: flex; flex-direction: column; gap: var(--space-2); }
+.entry { display: flex; flex-direction: column; gap: 0.2rem; padding: var(--space-3) var(--space-4); border: 1px solid var(--c-line); border-radius: var(--r-sm); transition: border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out), transform 0.6s var(--ease-glide); }
+.entry:hover, .entry:focus-visible { border-color: var(--c-red-dim); background: var(--c-red-faint); transform: translateX(4px); }
+.entryLabel { font-family: var(--font-serif); font-size: var(--fs-h3); color: var(--c-white); }
+.entryLine { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-50); }
+.back2 { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.5em; font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-40); cursor: pointer; }
+.back2:hover { color: var(--c-white); }
+@media (max-width: 560px) {
+  .face { padding: var(--space-5); }
+}
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } .status i { animation: none; } }
