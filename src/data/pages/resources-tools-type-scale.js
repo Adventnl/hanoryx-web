@@ -1,0 +1,81 @@
+const page = {
+  key: 'resources/tools/type-scale',
+  title: 'Type Scale',
+  accent: '#ff3333',
+  aliases: ['typography', 'font sizes', 'modular scale', 'rem', 'ratio', 'headings', 'fluid type', 'clamp', 'css variables'],
+  hero: {
+    scene: 'interface-lab-shape',
+    intensity: 'hero',
+    eyebrow: 'Resources / Tools / Type scale',
+    title: 'Sizes that belong together.',
+    intro:
+      'A type scale is one base size multiplied again and again by one ratio. Choose both, see every step set in type, and copy the sizes as CSS. Then turn them into fluid sizes that grow with the window.',
+    code: 'RES.06',
+    status: 'MODULAR SCALE',
+    actions: [
+      { label: 'Set a scale', to: '/resources/tools/type-scale#tool' },
+      { label: 'Make it fluid', to: '/resources/tools/type-scale#fluid', variant: 'outline' },
+    ],
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'typeScaleTool',
+      anchor: 'tool',
+      railLabel: 'The scale',
+      scene: 'privacy-quiet-grid',
+      minHeight: 800,
+      eyebrow: 'The scale',
+      title: 'A base, a ratio, some steps.',
+      intro: 'Slide the base size, pick a ratio, and choose how many steps to go down and up. The specimen is set in this site’s serif face; the CSS is ready to paste.',
+      note: 'Sizes in rem assume the browser’s default of 16 pixels to the rem. People who change their browser’s default will see everything scale with it, which is the point of using rem.',
+    },
+    {
+      type: 'cards',
+      variant: 'grid',
+      columns: 4,
+      anchor: 'choosing',
+      railLabel: 'Choosing',
+      scene: 'architectural-grid',
+      eyebrow: 'Choosing',
+      title: 'Four decisions.',
+      intro: 'The numbers are easy. The choices are where a scale gets its character.',
+      items: [
+        { code: 'SCALE.01', title: 'The base', body: 'Reading text first. Sixteen pixels is a sound default; sixteen to eighteen suits long reading.', glyph: 'ruler' },
+        { code: 'SCALE.02', title: 'The ratio', body: 'Small ratios (1.125 to 1.25) suit dense interfaces. Large ones (1.5 and up) suit editorial pages and marketing.', glyph: 'wave' },
+        { code: 'SCALE.03', title: 'How many steps', body: 'Fewer than you think. Most interfaces use five or six distinct sizes. More sizes means less hierarchy.', glyph: 'stack' },
+        { code: 'SCALE.04', title: 'Where it flexes', body: 'Body text should barely move between screens. Headlines can grow a lot. That is what fluid sizing is for.', glyph: 'compass' },
+      ],
+    },
+    {
+      type: 'modules',
+      anchor: 'wrong',
+      railLabel: 'Where scales go wrong',
+      scene: 'topographic-lines',
+      eyebrow: 'Where scales go wrong',
+      title: 'Four common mistakes.',
+      rows: [
+        { k: 'TOO MANY SIZES', v: 'Twelve sizes is not a scale; it is a lack of decisions.' },
+        { k: 'PIXELS FOR EVERYTHING', v: 'Fixed pixel sizes ignore the reader’s own settings. Use rem.' },
+        { k: 'A SCALE FOR ONE SCREEN', v: 'A ratio that suits a desktop headline can be enormous on a phone. Check the large steps small.' },
+        { k: 'IGNORING LINE LENGTH AND SPACING', v: 'Sizes are only part of it. Line length, line height and space between blocks make type readable.' },
+      ],
+    },
+    {
+      type: 'closer',
+      kind: 'clampMaker',
+      anchor: 'fluid',
+      scene: 'wave-interference',
+      tag: 'End of the type scale',
+      minHeight: 640,
+      title: 'Make one size fluid.',
+      lede: 'Give a smallest and a largest size, and the window widths between which it grows. One line of CSS comes out, with no media query. Drag the slider to stand in for the browser window.',
+      onward: [
+        { label: 'Design tokens', to: '/north/design-tokens' },
+        { label: 'Contrast checker', to: '/resources/tools/contrast' },
+      ],
+    },
+  ],
+};
+
+export default page;

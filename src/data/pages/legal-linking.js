@@ -141,7 +141,7 @@ const page = {
     {
       type: 'closer',
       kind: 'linkBuilder',
-      scene: 'dependency-graph',
+      scene: 'network-constellation',
       tag: 'End of linking',
       minHeight: 560,
       title: 'Build the link.',

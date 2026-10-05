@@ -1,0 +1,80 @@
+const page = {
+  key: 'resources/tools/cron',
+  title: 'Cron Explainer',
+  accent: '#ff3333',
+  aliases: ['crontab', 'schedule', 'scheduler', 'cron expression', 'every 5 minutes', 'run times', 'time zone', 'daylight saving', 'next run'],
+  hero: {
+    scene: 'trigger-action-pulse',
+    intensity: 'hero',
+    eyebrow: 'Resources / Tools / Cron',
+    title: 'Read a schedule before you trust it.',
+    intro:
+      'Paste a cron schedule. See what it says in plain English, which parts mean what, any cautions about it, and the next eight times it will run — in your own time zone or in UTC. It explains; it runs nothing.',
+    code: 'RES.07',
+    status: 'FIVE FIELDS',
+    actions: [
+      { label: 'Explain a schedule', to: '/resources/tools/cron#tool' },
+      { label: 'Daylight saving', to: '/resources/tools/cron#dst', variant: 'outline' },
+    ],
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'cronExplainer',
+      anchor: 'tool',
+      railLabel: 'The explainer',
+      scene: 'privacy-quiet-grid',
+      minHeight: 800,
+      eyebrow: 'The explainer',
+      title: 'Minute, hour, day, month, weekday.',
+      intro: 'Try the examples, or write your own. Names work for months and weekdays, and so do @daily, @weekly and their relatives.',
+      note: 'This reads standard five-field cron. Some systems add a seconds field, a year, or special characters of their own; check the documentation of the one you use. Run times are worked out from your browser’s time zone data.',
+    },
+    {
+      type: 'modules',
+      anchor: 'fields',
+      railLabel: 'The fields',
+      scene: 'architectural-grid',
+      eyebrow: 'The fields',
+      title: 'Five fields, left to right.',
+      rows: [
+        { k: 'MINUTE', v: '0 to 59.' },
+        { k: 'HOUR', v: '0 to 23, in 24-hour time.' },
+        { k: 'DAY OF MONTH', v: '1 to 31.' },
+        { k: 'MONTH', v: '1 to 12, or JAN to DEC.' },
+        { k: 'DAY OF WEEK', v: '0 to 7, or SUN to SAT. Both 0 and 7 mean Sunday.' },
+        { k: 'SYMBOLS', v: '*  any value   ,  a list   -  a range   /  a step. So */15 is every fifteen, and 1-5 is Monday to Friday.' },
+      ],
+    },
+    {
+      type: 'process',
+      anchor: 'traps',
+      railLabel: 'Common traps',
+      scene: 'topographic-lines',
+      eyebrow: 'Common traps',
+      title: 'Four schedules that surprise people.',
+      steps: [
+        { step: '01', title: 'Both day fields set', body: 'In standard cron, setting day-of-month and day-of-week runs the job when either matches, not when both do.' },
+        { step: '02', title: 'The 31st', body: 'A job set for the 31st will not run in a month that has only thirty days. Use a different rule if you mean “the last day”.' },
+        { step: '03', title: 'The top of the hour', body: 'Every job set for minute 0 starts together. An off-minute spreads the load.' },
+        { step: '04', title: 'The wrong zone', body: 'A schedule is only meaningful with a time zone. Many servers run in UTC, which is not your morning.' },
+      ],
+    },
+    {
+      type: 'closer',
+      kind: 'dstTrap',
+      anchor: 'dst',
+      scene: 'trigger-action-pulse',
+      tag: 'End of the cron explainer',
+      minHeight: 600,
+      title: 'The day the clock lies.',
+      lede: 'Choose a zone and a time of day. The page finds the days this year when the clocks change there, and says what happens to your time on each: skipped, repeated, or fine.',
+      onward: [
+        { label: 'Cron, queues and events', to: '/insights/triggers' },
+        { label: 'Readiness check', to: '/resources/tools/readiness' },
+      ],
+    },
+  ],
+};
+
+export default page;

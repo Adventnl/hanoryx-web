@@ -43,4 +43,15 @@ export const closerRegistry = {
   readmeMaker: lazy(() => import('./ReadmeMaker')),
   easePick: lazy(() => import('./EasePick')),
   randomRead: lazy(() => import('./RandomRead')),
+  // resources
+  readingList: lazy(() => import('./ReadingList')),
+  flashDeck: lazy(() => import('./FlashDeck')),
+  historyBar: lazy(() => import('./HistoryBar')),
+  bundleBuilder: lazy(() => import('./BundleBuilder')),
+  cheatSheet: lazy(() => import('./CheatSheet')),
+  pairMatrix: lazy(() => import('./PairMatrix')),
+  clampMaker: lazy(() => import('./ClampMaker')),
+  dstTrap: lazy(() => import('./DstTrap')),
+  launchTimeline: lazy(() => import('./LaunchTimeline')),
+  preMortem: lazy(() => import('./PreMortem')),
 };

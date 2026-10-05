@@ -261,7 +261,7 @@ const page = {
       type: 'closer',
       kind: 'easePick',
       anchor: 'ease',
-      scene: 'motion-curve-field',
+      scene: 'spline-ribbon',
       tag: 'End of animation budgets',
       minHeight: 620,
       title: 'Open the menu four ways.',

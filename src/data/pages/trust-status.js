@@ -54,7 +54,7 @@ const page = {
     {
       type: 'closer',
       kind: 'frameTape',
-      scene: 'status-pulse-grid',
+      scene: 'timeline-pulse',
       tag: 'End of the status board',
       minHeight: 440,
       title: 'The tape keeps running.',

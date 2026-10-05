@@ -76,7 +76,7 @@ const page = {
     {
       type: 'closer',
       kind: 'nameStyle',
-      scene: 'liquid-glass-operational',
+      scene: 'split-prism',
       tag: 'End of press & media',
       minHeight: 640,
       title: 'Write it right.',

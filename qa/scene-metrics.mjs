@@ -77,6 +77,8 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 
   });
 }
 r.check('text-dense blocks use calm scenes and heroes stay readable', offenders.length === 0, offenders.join(' ; '));
+const table = Object.entries(metrics).filter(([, m]) => m != null).sort((x, y) => x[1] - y[1]);
+console.log(`\nQuietest first (share of mid-bright pixels):\n  ${table.map(([n, m]) => `${n} ${m.toFixed(4)}`).join('\n  ')}`);
 const quiet = Object.entries(metrics).filter(([, m]) => m != null && m <= LIMIT_BLOCK).map(([n]) => n);
 console.log(`\n${quiet.length} of ${Object.keys(metrics).length} scenes are calm enough for text-dense blocks:\n  ${quiet.join(', ')}`);
 r.done();

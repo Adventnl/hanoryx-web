@@ -122,7 +122,7 @@ const page = {
     {
       type: 'closer',
       kind: 'reviewDraw',
-      scene: 'compass-vector',
+      scene: 'vector-compass',
       tag: 'End of the principles',
       minHeight: 560,
       title: 'Take one into your next review.',

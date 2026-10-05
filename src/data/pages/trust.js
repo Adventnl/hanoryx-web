@@ -89,7 +89,7 @@ const page = {
       type: 'closer',
       kind: 'selfAudit',
       anchor: 'audit',
-      scene: 'radar-cutaway',
+      scene: 'secure-boundary',
       tag: 'End of the trust centre',
       minHeight: 560,
       title: 'Don’t take our word for it.',

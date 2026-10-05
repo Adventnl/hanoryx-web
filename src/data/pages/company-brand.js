@@ -91,7 +91,7 @@ const page = {
     {
       type: 'closer',
       kind: 'markMisuse',
-      scene: 'glass-prism',
+      scene: 'voronoi-cell',
       tag: 'End of the brand page',
       minHeight: 560,
       title: 'Six ways not to, and the one way to.',

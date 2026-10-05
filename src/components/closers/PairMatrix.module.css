@@ -1,0 +1,22 @@
+.rig { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.7fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.in { display: grid; gap: 0.5rem; }
+.in textarea { width: 100%; padding: 0.8rem 0.9rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-sm); background: rgba(10, 11, 13, 0.9); color: var(--c-white); font: 0.82rem/1.6 var(--font-mono); resize: vertical; outline: none; color-scheme: dark; }
+.in textarea:focus { border-color: var(--c-red-dim); box-shadow: 0 0 0 3px var(--c-red-faint); }
+.in small { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
+.sum { margin-top: 0.4rem; font-size: var(--fs-sm); color: var(--c-white-65); }
+.sum b { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); color: var(--c-white); }
+.scroll { overflow-x: auto; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); }
+.scroll table { width: 100%; border-collapse: collapse; }
+.scroll th { padding: 0.5rem 0.6rem; font: 0.58rem var(--font-mono); letter-spacing: 0.06em; text-align: left; font-weight: 400; color: var(--c-white-65); white-space: nowrap; background: var(--c-white-03); }
+.scroll th i { display: inline-block; width: 0.7rem; height: 0.7rem; margin-right: 0.45rem; vertical-align: -1px; border: 1px solid var(--c-white-30); border-radius: 2px; }
+.scroll td { padding: 0; border: 1px solid var(--c-line); }
+.cell { position: relative; min-width: 5.4rem; height: 4.6rem; vertical-align: middle; text-align: center; }
+.sample { display: block; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; background: #000; color: #fff; }
+.cell b { display: block; font: 500 1.35rem var(--font-serif); line-height: 1; }
+.sample > span { display: block; margin-top: 0.15rem; font: 0.62rem var(--font-mono); }
+.cell em { position: absolute; right: 4px; bottom: 3px; padding: 0 0.3rem; border-radius: 3px; background: rgba(0, 0, 0, 0.72); font: normal 0.46rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
+.no { outline: 1px dashed var(--c-red); outline-offset: -3px; }
+.same { text-align: center; color: var(--c-white-50); background: repeating-linear-gradient(135deg, transparent 0 6px, var(--c-white-05) 6px 7px); }
+.wait { padding: var(--space-5); font: 0.75rem var(--font-mono); color: var(--c-white-65); }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } }

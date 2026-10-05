@@ -1,0 +1,21 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.pick { display: grid; gap: 0.7rem; min-width: 0; }
+.presets { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pick ul { display: grid; gap: 0.35rem; }
+.row { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.9rem; align-items: center; padding: 0.7rem 1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
+.row input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; cursor: pointer; }
+.row:focus-within { outline: 1px solid var(--c-red); outline-offset: 2px; }
+.row:hover { border-color: var(--c-white-30); }
+.on { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.82)); }
+.box { width: 16px; height: 16px; border: 1px solid var(--c-white-50); border-radius: 3px; position: relative; transition: all var(--dur-2) var(--ease-out); }
+.box::after { content: ''; position: absolute; left: 4px; top: 0; width: 5px; height: 9px; border: solid var(--c-white); border-width: 0 2px 2px 0; transform: rotate(45deg) scale(0); transition: transform 0.4s var(--ease-spring-soft); }
+.on .box { border-color: var(--c-red); background: var(--c-red); }
+.on .box::after { transform: rotate(45deg) scale(1); }
+.name { font-size: var(--fs-sm); color: var(--c-white); }
+.row code { font: 0.6rem var(--font-mono); color: var(--c-white-50); }
+.out { display: grid; gap: var(--space-3); justify-items: start; min-width: 0; position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.sum { font-size: var(--fs-body); color: var(--c-white-65); }
+.sum b { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); color: var(--c-white); }
+.out pre { margin: 0; width: 100%; max-height: 16rem; overflow: auto; padding: 1rem 1.2rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(3, 3, 4, 0.92); font: 0.7rem/1.7 var(--font-mono); color: var(--c-white-80); white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } .out { position: static; } .row { grid-template-columns: auto minmax(0, 1fr); } .row code { grid-column: 2; } }
+@media (prefers-reduced-motion: reduce) { .box, .box::after { transition: none; } }

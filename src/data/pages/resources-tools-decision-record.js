@@ -1,0 +1,81 @@
+const page = {
+  key: 'resources/tools/decision-record',
+  title: 'Decision Records',
+  accent: '#ff3333',
+  aliases: ['adr', 'architecture decision record', 'decision log', 'why we chose', 'documentation', 'markdown template', 'rationale', 'pre-mortem'],
+  hero: {
+    scene: 'architecture-layer',
+    intensity: 'hero',
+    eyebrow: 'Resources / Tools / Decision records',
+    title: 'Write down why, while you know.',
+    intro:
+      'Six months from now, someone will ask why it is like this. A decision record is five minutes of writing that answers them: the situation, the options, the choice and what follows from it. Write one here and take it away as Markdown.',
+    code: 'RES.09',
+    status: 'MARKDOWN',
+    actions: [
+      { label: 'Write one', to: '/resources/tools/decision-record#tool' },
+      { label: 'Imagine it failed', to: '/resources/tools/decision-record#premortem', variant: 'outline' },
+    ],
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'decisionRecord',
+      anchor: 'tool',
+      railLabel: 'The builder',
+      scene: 'privacy-quiet-grid',
+      minHeight: 900,
+      eyebrow: 'The builder',
+      title: 'Fill in the form. Read the record.',
+      intro: 'It starts with an invented example so you can see the shape. Clear it and write your own. The Markdown on the right updates as you type.',
+      note: 'The example is made up for illustration. Nothing you write is stored or sent; download it or copy it before you leave the page.',
+    },
+    {
+      type: 'cards',
+      variant: 'grid',
+      columns: 4,
+      anchor: 'headings',
+      railLabel: 'The four headings',
+      scene: 'architectural-grid',
+      eyebrow: 'The four headings',
+      title: 'What goes where.',
+      intro: 'The format is short on purpose. If it is hard to keep short, the decision is probably two decisions.',
+      items: [
+        { code: 'ADR.01', title: 'Context', body: 'The situation and the forces at work. Write it so a stranger could follow it, and leave out the solution.', glyph: 'lens' },
+        { code: 'ADR.02', title: 'Options', body: 'What else was considered, and what each would have cost and bought. Include the one nobody liked.', glyph: 'branch' },
+        { code: 'ADR.03', title: 'Decision', body: 'What was chosen, in a sentence or two, and the main reason. Active voice: “we will”.', glyph: 'gate' },
+        { code: 'ADR.04', title: 'Consequences', body: 'What gets easier, what gets harder, and when to look again. This is the part that ages best.', glyph: 'loop' },
+      ],
+    },
+    {
+      type: 'modules',
+      anchor: 'when',
+      railLabel: 'When to write one',
+      scene: 'topographic-lines',
+      eyebrow: 'When to write one',
+      title: 'A short list of triggers.',
+      rows: [
+        { k: 'IT IS HARD TO UNDO', v: 'Choosing a database, a payment provider, a way of handling money or personal data.' },
+        { k: 'IT SURPRISES PEOPLE', v: 'Anything a newcomer would ask “why on earth is it like this?” about.' },
+        { k: 'PEOPLE DISAGREED', v: 'Write down what was weighed, so the argument is not had again every year.' },
+        { k: 'YOU WILL HAND IT ON', v: 'The decisions are part of what you pass to the next team (see the guide on handover).' },
+      ],
+    },
+    {
+      type: 'closer',
+      kind: 'preMortem',
+      anchor: 'premortem',
+      scene: 'unknown-silhouette',
+      tag: 'End of decision records',
+      minHeight: 640,
+      title: 'Imagine it went badly.',
+      lede: 'A pre-mortem: it is a year later and the decision turned out badly. Why? Write the reasons, how likely each is, and what you would do about it now. The riskiest come out first.',
+      onward: [
+        { label: 'Designing for handover', to: '/insights/handover' },
+        { label: 'Downloads', to: '/resources/downloads' },
+      ],
+    },
+  ],
+};
+
+export default page;

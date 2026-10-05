@@ -79,4 +79,15 @@ export const signatureRegistry = {
   handoverPack: lazy(() => import('./HandoverPack')),
   frameBudget: lazy(() => import('./FrameBudget')),
   insightLibrary: lazy(() => import('./InsightLibrary')),
+  // resources
+  resourceDesk: lazy(() => import('./ResourceDesk')),
+  glossaryBrowser: lazy(() => import('./GlossaryBrowser')),
+  releaseNotes: lazy(() => import('./ReleaseNotes')),
+  downloadShelf: lazy(() => import('./DownloadShelf')),
+  toolBench: lazy(() => import('./ToolBench')),
+  contrastChecker: lazy(() => import('./ContrastChecker')),
+  typeScaleTool: lazy(() => import('./TypeScaleTool')),
+  cronExplainer: lazy(() => import('./CronExplainer')),
+  readinessCheck: lazy(() => import('./ReadinessCheck')),
+  decisionRecord: lazy(() => import('./DecisionRecord')),
 };

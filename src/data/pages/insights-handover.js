@@ -268,7 +268,7 @@ const page = {
       type: 'closer',
       kind: 'readmeMaker',
       anchor: 'readme',
-      scene: 'architecture-layer',
+      scene: 'isometric-module',
       tag: 'End of handover',
       minHeight: 700,
       title: 'Start the README.',

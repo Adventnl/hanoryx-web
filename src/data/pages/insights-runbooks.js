@@ -258,7 +258,7 @@ const page = {
       type: 'closer',
       kind: 'pagerCard',
       anchor: 'card',
-      scene: 'status-pulse-grid',
+      scene: 'command-terminal',
       tag: 'End of runbooks',
       minHeight: 700,
       title: 'The one-page template.',

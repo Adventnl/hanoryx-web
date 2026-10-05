@@ -1,0 +1,45 @@
+.bench { margin-top: var(--space-8); }
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-5); }
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip { padding: 0.5rem 0.95rem; border: 1px solid var(--c-line); border-radius: var(--r-pill); background: transparent; font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.chip i { margin-left: 0.55rem; font-style: normal; color: var(--c-white-50); }
+.chip:hover { color: var(--c-white); border-color: var(--c-line-strong); }
+.on { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.all { padding: 0.4rem 0; border: 0; background: transparent; font: 0.58rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; }
+.all:hover { color: var(--c-red-bright); }
+.list { position: relative; display: grid; gap: var(--space-3); padding-left: 1.6rem; }
+.list::before { content: ''; position: absolute; left: 0.45rem; top: 0.6rem; bottom: 0.6rem; width: 1px; background: linear-gradient(var(--c-red-dim), var(--c-line)); }
+.chapter { position: relative; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); scroll-margin-top: 7rem; transition: border-color var(--dur-2) var(--ease-out); }
+.chapter::before { content: ''; position: absolute; left: -1.5rem; top: 1.6rem; width: 9px; height: 9px; border: 1px solid var(--c-red); border-radius: 50%; background: var(--c-black); }
+.isOpen { border-color: var(--c-red-dim); }
+.isOpen::before { background: var(--c-red); }
+.chapter:target { border-color: var(--c-red); }
+.head { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr) auto auto; gap: 1rem; align-items: center; width: 100%; padding: 1rem 1.2rem; border: 0; background: transparent; text-align: left; cursor: pointer; }
+.num { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.titles { display: grid; gap: 0.2rem; min-width: 0; }
+.titles b { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h4); line-height: 1.15; color: var(--c-white); }
+.titles span { font-size: var(--fs-sm); color: var(--c-white-65); }
+.tags { display: inline-flex; gap: 0.35rem; }
+.tags i { font: normal 0.5rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-65); border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); padding: 0.12rem 0.5rem; }
+.chev { color: var(--c-white-50); transition: transform 0.4s var(--ease-glide); }
+.isOpen .chev { transform: rotate(180deg); }
+.body { padding: 0 1.2rem 1.1rem 6.4rem; }
+.body ul { display: grid; gap: 0.7rem; padding-top: 0.9rem; border-top: 1px dashed var(--c-white-20); }
+.body li { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr) auto; gap: 0.9rem; align-items: baseline; }
+.tag { font: 0.54rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; }
+.tagAdded { color: var(--c-white); }
+.tagChanged { color: var(--c-white-65); }
+.tagFixed { color: var(--c-red-bright); }
+.text { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
+.go { color: var(--c-white-50); transition: color var(--dur-2) var(--ease-out), transform var(--dur-3) var(--ease-glide); }
+.go:hover { color: var(--c-red); transform: translate(2px, -2px); }
+.note { margin-top: var(--space-5); max-width: 72ch; font: 0.64rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }
+@media (max-width: 700px) {
+  .head { grid-template-columns: minmax(0, 1fr) auto; }
+  .num { grid-column: 1 / -1; }
+  .tags { display: none; }
+  .body { padding: 0 1.2rem 1.1rem; }
+  .body li { grid-template-columns: minmax(0, 1fr) auto; }
+  .tag { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
