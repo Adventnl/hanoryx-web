@@ -1,0 +1,15 @@
+.stage { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-5); }
+.tilt { width: min(36rem, 100%); perspective: 1400px; }
+.card { position: relative; aspect-ratio: 1.62; width: 100%; transform-style: preserve-3d; transition: transform 1s var(--ease-glide); }
+.flipped { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 0.9rem; padding: clamp(1.1rem, 3vw, 1.8rem); border: 1px solid var(--c-line-strong); border-radius: 18px; background: radial-gradient(120% 90% at 10% 0%, rgba(255, 51, 51, 0.16), transparent 55%), linear-gradient(160deg, #15161a, #08090b 70%); box-shadow: 0 50px 80px -40px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08); backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+.rear { transform: rotateY(180deg); background: radial-gradient(120% 90% at 90% 0%, rgba(255, 255, 255, 0.07), transparent 55%), linear-gradient(200deg, #131418, #08090b 70%); }
+.chip { position: absolute; right: 1.4rem; top: 1.3rem; width: 2.6rem; height: 2rem; border-radius: 6px; background: linear-gradient(135deg, #8a6f2b, #d9bd6b 45%, #8a6f2b); opacity: 0.85; }
+.kicker { font: 0.64rem var(--font-mono); letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-red); }
+.face ul { display: grid; gap: 0.55rem; }
+.face li { display: flex; align-items: flex-start; gap: 0.7rem; max-width: 30rem; font-size: clamp(0.8rem, 2.2vw, 0.95rem); line-height: 1.4; color: var(--c-white-80); }
+.face li svg { flex: none; margin-top: 0.15em; color: var(--c-red); }
+.stripe { position: absolute; left: 0; right: 0; bottom: 0; height: 7px; background: linear-gradient(90deg, var(--c-red), transparent 40%, rgba(255, 255, 255, 0.25) 60%, transparent); opacity: 0.6; }
+.controls { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+@media (max-width: 480px) { .face { padding: 1rem; gap: 0.6rem; } .face ul { gap: 0.35rem; } .chip { display: none; } }

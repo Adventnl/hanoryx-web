@@ -1,0 +1,8 @@
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--space-4); }
+.group { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; margin: 0; }
+.legend { display: flex; align-items: center; gap: 0.6rem; padding: 0; font: 0.64rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-80); float: left; width: 100%; margin-bottom: var(--space-3); }
+.legend svg { color: var(--c-red); }
+.hint { clear: both; font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-65); }
+.options { clear: both; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin-top: var(--space-5); }
+.note { font: 0.64rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }

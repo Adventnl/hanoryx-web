@@ -1,0 +1,11 @@
+/* Small pieces the page endings share, so they look related without looking alike. */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6em; padding: 0.65rem 1.1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-80); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), transform 0.5s var(--ease-glide); }
+.btn:hover:not(:disabled) { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.btnOn { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.btnRed { border-color: var(--c-red-dim); background: var(--c-red-ghost); color: var(--c-white); }
+.btnRed:hover:not(:disabled) { background: rgba(255, 51, 51, 0.22); box-shadow: var(--glow-red-soft); }
+.panel { padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.88), rgba(5, 5, 5, 0.66)); }
+.label { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-50); }
+.red { color: var(--c-red); }
+.row { display: flex; flex-wrap: wrap; gap: 0.6rem; }

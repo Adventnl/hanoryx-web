@@ -1,0 +1,16 @@
+.wrap { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+.paper { position: relative; width: 100%; max-width: 46rem; padding: 1.4rem 1.6rem; overflow: hidden; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); }
+.text, .glass { display: grid; gap: 0.35rem; counter-reset: l; }
+.text li, .glass li { position: relative; padding-left: 1.6em; counter-increment: l; font-size: 0.56rem; line-height: 1.5; letter-spacing: 0.02em; color: var(--c-white-50); }
+.text li::before, .glass li::before { content: counter(l); position: absolute; left: 0; font-family: var(--font-mono); color: var(--c-white-50); }
+/* The lens: the same text, scaled about the pointer and clipped to a circle. */
+.glass { position: absolute; inset: 1.4rem 1.6rem; transform-origin: calc(var(--mx) - 1.6rem) calc(var(--my) - 1.4rem); transform: scale(2.6); clip-path: circle(calc(74px / 2.6) at calc(var(--mx) - 1.6rem) calc(var(--my) - 1.4rem)); opacity: 0; pointer-events: none; transition: opacity var(--dur-2) var(--ease-out); }
+.glass li { color: var(--c-white); }
+.glass li::before { color: var(--c-red); }
+.paper[data-hot] .glass { opacity: 1; }
+.ring { position: absolute; left: 0; top: 0; width: 148px; height: 148px; margin: -74px 0 0 -74px; border: 1px solid var(--c-red-dim); border-radius: 50%; box-shadow: 0 0 0 4px var(--c-red-faint); transform: translate(var(--mx), var(--my)); opacity: 0; pointer-events: none; transition: opacity var(--dur-2) var(--ease-out); }
+.paper[data-hot] .ring { opacity: 1; }
+.big .text li { font-size: 1rem; line-height: 1.6; color: var(--c-white-80); }
+.big .glass, .big .ring { display: none; }
+@media (hover: none) { .glass, .ring { display: none; } }
+@media (prefers-reduced-motion: reduce) { .glass, .ring { display: none; } }

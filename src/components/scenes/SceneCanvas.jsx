@@ -133,6 +133,8 @@ export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density =
     };
     const frame = (now, delta) => {
       if (disposed || !scene) return;
+      // Calm mode (the accessibility page's display preferences): hold the last frame.
+      if (document.documentElement.dataset.calm === 'on') return;
       // throttle background scenes to ~30fps regardless of display refresh
       if (lastDraw && now - lastDraw < interval - 2) return;
       // Advance the per-scene clock by the real time since the last *drawn*

@@ -280,3 +280,6 @@
   .cardWrap:hover .cardTitle, .cardWrap:hover .cardGlyph, .cardWrap:hover .cardArrow { transform: none; }
   .ctaField::before { transition: none; }
 }
+
+/* ---------------- Closer (the ending of a page) ---------------- */
+.closer { position: relative; padding-block: clamp(4rem, 8vw, 8rem); border-top: var(--border-faint); }

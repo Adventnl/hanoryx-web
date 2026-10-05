@@ -1,0 +1,22 @@
+.stage { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+.big { position: relative; display: grid; place-items: center; align-content: center; gap: 0.5rem; width: clamp(9rem, 22vw, 13rem); aspect-ratio: 1; border-radius: 50%; color: var(--c-white-80); cursor: pointer; transition: color var(--dur-2) var(--ease-out), transform 0.6s var(--ease-glide), background var(--dur-2) var(--ease-out); }
+.big svg:first-child { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.big span { font: 0.62rem var(--font-mono); letter-spacing: 0.26em; text-transform: uppercase; }
+.track { fill: none; stroke: var(--c-white-12); stroke-width: 1.2; }
+.arc { fill: none; stroke: var(--c-red); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.big:hover { color: var(--c-white); background: var(--c-red-faint); transform: scale(1.03); }
+.running .arc { animation: sweep 1.5s var(--ease-in-out) forwards; }
+.running svg:nth-child(2) { animation: wipe 0.5s ease-in-out infinite alternate; }
+.done .arc { stroke-dashoffset: 0; }
+.done { color: var(--c-white); }
+@keyframes sweep { to { stroke-dashoffset: 0; } }
+@keyframes wipe { to { transform: translateX(6px) rotate(8deg); } }
+.side { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.list { display: grid; gap: 0.4rem; }
+.item code { display: inline-block; padding: 0.4rem 0.7rem; border: 1px solid var(--c-red-dim); border-radius: var(--r-sm); background: var(--c-red-faint); font: 0.74rem var(--font-mono); color: var(--c-white); transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out); }
+.strike code { opacity: 0.2; text-decoration: line-through; transform: translateX(14px); }
+.none { font-size: var(--fs-body); line-height: 1.6; color: var(--c-white-80); }
+.note { max-width: 52ch; font: 0.64rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }
+.note code { color: var(--c-white-80); }
+@media (max-width: 640px) { .stage { grid-template-columns: minmax(0, 1fr); justify-items: start; } }
+@media (prefers-reduced-motion: reduce) { .running .arc { animation-duration: 0.01s; } .running svg:nth-child(2) { animation: none; } .big, .item code { transition: none; } }

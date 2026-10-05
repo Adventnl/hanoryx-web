@@ -105,10 +105,22 @@ export const pageRouteKeys = [
   'company/careers',
   'contact',
   'sitemap',
+  'trust',
+  'trust/status',
+  'trust/disclosure',
+  'trust/third-parties',
+  'trust/licences',
+  'legal',
   'legal/privacy',
   'legal/terms',
   'legal/cookies',
   'legal/accessibility',
+  'legal/acceptable-use',
+  'legal/copyright',
+  'legal/disclaimer',
+  'legal/retention',
+  'legal/complaints',
+  'legal/linking',
 ];
 
 export const routePath = (key) => (key === 'home' ? '/' : `/${key}`);

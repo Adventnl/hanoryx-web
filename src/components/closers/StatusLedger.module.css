@@ -1,0 +1,16 @@
+.wrap { overflow-x: auto; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); }
+.table { width: 100%; min-width: 38rem; border-collapse: collapse; }
+.table th, .table td { padding: 0.8rem 1rem; text-align: center; border-top: 1px solid var(--c-line); }
+.table thead th { border-top: 0; font: 400 0.58rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-65); background: var(--c-white-03); vertical-align: bottom; }
+.table th:first-child { text-align: left; }
+.table tbody th { font: 400 var(--fs-body) var(--font-sans); color: var(--c-white); }
+.table tbody th a { border-bottom: 1px solid transparent; transition: border-color var(--dur-2) var(--ease-out); }
+.table tbody th a:hover { border-color: var(--c-red-dim); }
+.table tbody tr { transition: background var(--dur-2) var(--ease-out); }
+.table tbody tr:hover { background: var(--c-red-faint); }
+.mark { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; animation: tick 0.5s var(--ease-spring-soft) both; animation-delay: var(--d); }
+.yes { background: var(--c-red-ghost); border: 1px solid var(--c-red-dim); color: var(--c-white); }
+.no { border: 1px dashed var(--c-white-30); color: var(--c-white-50); }
+@keyframes tick { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
+.note { margin: var(--space-4) 0 var(--space-2); max-width: 60ch; font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-65); }
+@media (prefers-reduced-motion: reduce) { .mark { animation: none; } }

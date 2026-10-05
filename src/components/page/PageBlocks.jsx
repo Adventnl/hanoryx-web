@@ -6,6 +6,7 @@ import { StatsBlock } from './blocks/StatsBlock';
 import { ManifestoBlock } from './blocks/ManifestoBlock';
 import { CtaBlock } from './blocks/CtaBlock';
 import { SignatureBlock } from './blocks/SignatureBlock';
+import { CloserBlock } from './blocks/CloserBlock';
 
 const BLOCKS = {
   split: SplitBlock,
@@ -16,6 +17,7 @@ const BLOCKS = {
   manifesto: ManifestoBlock,
   cta: CtaBlock,
   signature: SignatureBlock,
+  closer: CloserBlock,
 };
 
 /* Block dispatcher. Every block type declares its OWN motion identity; the

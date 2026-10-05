@@ -58,4 +58,10 @@ export const signatureRegistry = {
   clauseFinder: lazy(() => import('./ClauseFinder')),
   storageInspector: lazy(() => import('./StorageInspector')),
   keyboardMap: lazy(() => import('./KeyboardMap')),
+  document: lazy(() => import('./DocumentReader')),
+  legalCentre: lazy(() => import('./LegalCentre')),
+  claimsLedger: lazy(() => import('./ClaimsLedger')),
+  liveStatus: lazy(() => import('./LiveStatus')),
+  serviceMap: lazy(() => import('./ServiceMap')),
+  licenceTable: lazy(() => import('./LicenceTable')),
 };

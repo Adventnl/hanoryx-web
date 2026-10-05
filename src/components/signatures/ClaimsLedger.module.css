@@ -1,0 +1,15 @@
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 2rem); margin-top: var(--space-8); align-items: start; }
+.cell { min-width: 0; }
+.col { padding: clamp(1.1rem, 2vw, 1.6rem); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.88), rgba(5, 5, 5, 0.66)); }
+.head { display: flex; align-items: baseline; gap: 0.8rem; padding-bottom: var(--space-3); border-bottom: 1px solid var(--c-line-strong); }
+.idx { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; color: var(--c-red); }
+.head h3 { flex: 1; font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); color: var(--c-white); }
+.head i { font: normal 0.6rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-65); }
+/* compact rows inside a column: the accordion reads --fs-h3 */
+.acc { --fs-h3: clamp(1rem, 1.35vw, 1.2rem); }
+.lede { margin: var(--space-3) 0 var(--space-4); font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
+.how { display: grid; gap: 0.8rem; padding-bottom: var(--space-3); }
+.how p { font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-65); }
+.link { display: inline-flex; align-items: center; gap: 0.4em; width: fit-content; font: 0.6rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red); border-bottom: 1px solid var(--c-red-dim); padding-bottom: 0.15rem; }
+.link:hover { color: var(--c-white); }
+@media (max-width: 1100px) { .grid { grid-template-columns: minmax(0, 1fr); } }

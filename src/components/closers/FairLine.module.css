@@ -1,0 +1,21 @@
+.meter { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; margin-bottom: var(--space-5); }
+.bar { display: flex; gap: 4px; flex: 1 1 14rem; max-width: 26rem; }
+.seg { flex: 1; height: 6px; border-radius: 3px; background: var(--c-white-12); transition: background var(--dur-3) var(--ease-out), transform 0.6s var(--ease-glide); }
+.hit { background: var(--c-red); box-shadow: var(--glow-red); }
+.miss { background: var(--c-white-50); transform: scaleY(0.6); }
+.score { font: 0.66rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-80); font-variant-numeric: tabular-nums; }
+.cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: var(--space-3); margin-bottom: var(--space-5); }
+.case { position: relative; display: flex; flex-direction: column; gap: 0.8rem; padding: 1.1rem 1.2rem 1.2rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); transition: border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out), transform 0.6s var(--ease-glide); }
+.case:hover { transform: translateY(-3px); }
+.n { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red); }
+.text { font-size: var(--fs-body); line-height: 1.55; color: var(--c-white-80); }
+.choices { display: flex; gap: 0.5rem; margin-top: auto; }
+.isFine.answered { border-color: rgba(255, 255, 255, 0.28); }
+.isNot.answered { border-color: var(--c-red-dim); background: linear-gradient(160deg, var(--c-red-faint), rgba(10, 11, 13, 0.82)); }
+.verdict { margin-top: auto; display: grid; gap: 0.3rem; font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-65); }
+.verdict b { font: 500 0.62rem var(--font-mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-white); }
+.isNot .verdict b { color: var(--c-red); }
+.yes, .no { font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
+.yes { color: var(--c-white-65); }
+.no { color: var(--c-red-bright); }
+@media (prefers-reduced-motion: reduce) { .case, .seg { transition: none; } .case:hover { transform: none; } }
