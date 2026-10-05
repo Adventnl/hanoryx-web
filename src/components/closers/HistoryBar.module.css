@@ -13,7 +13,7 @@
 .Changed { background: repeating-linear-gradient(135deg, var(--c-white-65) 0 3px, transparent 3px 6px); border: 1px solid var(--c-white-50); }
 .Fixed { background: var(--c-red); }
 .pad { flex-basis: 0; background: transparent; min-width: 0 !important; }
-.n { font: 0.62rem var(--font-mono); color: var(--c-white-65); text-align: right; font-variant-numeric: tabular-nums; }
+.n { font: 0.62rem var(--font-mono); color: var(--c-white-65); text-align: right; font-variant-numeric: lining-nums tabular-nums; }
 .legend { display: flex; flex-wrap: wrap; gap: 1.2rem; font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
 .legend li { display: inline-flex; align-items: center; gap: 0.5rem; }
 .legend b { color: var(--c-white); font-weight: 500; }

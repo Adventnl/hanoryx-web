@@ -17,14 +17,14 @@
 .row { width: 100%; border-bottom: var(--border-faint); text-align: left; cursor: pointer; transition: background var(--dur-2) var(--ease-out); }
 .row:hover { background: var(--c-white-05); }
 .rowOn { background: linear-gradient(90deg, var(--c-red-faint), transparent 80%); box-shadow: inset 2px 0 0 var(--c-red); }
-.id { font: 0.78rem var(--font-mono); letter-spacing: 0.04em; color: var(--c-white-80); font-variant-numeric: tabular-nums; }
+.id { font: 0.78rem var(--font-mono); letter-spacing: 0.04em; color: var(--c-white-80); font-variant-numeric: lining-nums tabular-nums; }
 .group { font: 0.72rem var(--font-mono); color: var(--c-white-50); }
 .state { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); }
 .sActive { color: var(--c-white); }
 .sNew { color: var(--c-red); }
 .sDormant { color: var(--c-white-50); }
 .score { display: flex; align-items: center; gap: var(--space-3); }
-.score b { min-width: 1.8em; font: 500 0.7rem var(--font-mono); color: var(--c-white-65); font-variant-numeric: tabular-nums; }
+.score b { min-width: 1.8em; font: 500 0.7rem var(--font-mono); color: var(--c-white-65); font-variant-numeric: lining-nums tabular-nums; }
 .bar { flex: 1; height: 3px; background: var(--c-white-08); overflow: hidden; }
 .bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--c-white-40), var(--c-red)); transform-origin: left; }
 
@@ -34,7 +34,7 @@
 .readout { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-3) var(--space-6); margin-top: var(--space-5); }
 .big { font-family: var(--font-serif); font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 300; line-height: 1; color: var(--c-white); }
 .big small { margin-left: 0.4em; font: 0.62rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-40); }
-.range { font: 0.7rem var(--font-mono); letter-spacing: 0.06em; color: var(--c-white-65); font-variant-numeric: tabular-nums; }
+.range { font: 0.7rem var(--font-mono); letter-spacing: 0.06em; color: var(--c-white-65); font-variant-numeric: lining-nums tabular-nums; }
 .jump { display: inline-flex; align-items: center; gap: var(--space-2); margin-left: auto; }
 .jump label { font: 0.58rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-white-40); }
 .jump input { width: 9rem; padding: 0.4rem 0.6rem; border: 1px solid var(--c-line-strong); border-radius: 4px; background: var(--c-white-03); color: var(--c-white); font: 0.74rem var(--font-mono); }

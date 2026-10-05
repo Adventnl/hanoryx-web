@@ -1,0 +1,2 @@
+.rig { margin-top: var(--space-8); display: grid; gap: var(--space-4); }
+.name { font: 400 var(--fs-body) var(--font-serif) !important; letter-spacing: 0 !important; text-transform: none !important; color: var(--c-white) !important; }

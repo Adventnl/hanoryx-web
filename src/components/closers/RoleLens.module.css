@@ -1,0 +1,22 @@
+.rig { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.roles { display: grid; gap: 0.4rem; }
+.role { display: grid; gap: 0.15rem; width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); text-align: left; cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
+.role:hover { border-color: var(--c-white-40); }
+.on { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.88)); }
+.role b { font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
+.role span { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
+.record { display: grid; gap: var(--space-3); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, #0e0f12, #060607); min-width: 0; }
+.record header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--c-line-strong); }
+.k { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.count { font-size: var(--fs-xs); color: var(--c-white-65); }
+.count b { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h4); color: var(--c-white); }
+.record dl { display: grid; gap: 0.1rem; margin: 0; }
+.field { display: grid; grid-template-columns: minmax(6rem, 0.5fr) minmax(0, 1fr); gap: 1rem; align-items: baseline; padding: 0.55rem 0.7rem; border-radius: var(--r-sm); transition: background var(--dur-2) var(--ease-out); }
+.field[hidden] { display: none; }
+.need { background: var(--c-red-faint); }
+.rest { opacity: 0.6; }
+.field dt { font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
+.field dd { margin: 0; font-size: var(--fs-sm); color: var(--c-white); overflow-wrap: anywhere; }
+.toggle { width: fit-content; padding: 0.45rem 0.9rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); background: transparent; font: 0.56rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-80); cursor: pointer; }
+.toggle:hover { border-color: var(--c-red-dim); color: var(--c-white); }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } }

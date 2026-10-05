@@ -1,7 +1,7 @@
 .rig { margin-top: var(--space-8); display: grid; gap: var(--space-5); }
 .sliders { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--space-5); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.9), rgba(5, 5, 5, 0.66)); }
 .sliders label { display: grid; gap: 0.6rem; font-size: var(--fs-sm); color: var(--c-white-65); }
-.sliders b { margin-left: 0.5rem; color: var(--c-red); font-weight: 500; font-variant-numeric: tabular-nums; }
+.sliders b { margin-left: 0.5rem; color: var(--c-red); font-weight: 500; font-variant-numeric: lining-nums tabular-nums; }
 .sliders input { width: 100%; accent-color: var(--c-red); }
 .lanes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); }
 .lane { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: rgba(10, 11, 13, 0.82); transition: border-color var(--dur-3) var(--ease-out); }
@@ -15,7 +15,7 @@
 .line { fill: none; stroke: var(--c-red); stroke-width: 1.4; transition: all 0.5s var(--ease-glide); }
 .lane dl { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
 .lane dt { font: 0.54rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-65); }
-.lane dd { font-family: var(--font-serif); font-size: var(--fs-h2); line-height: 1.1; color: var(--c-white); font-variant-numeric: tabular-nums; }
+.lane dd { font-family: var(--font-serif); font-size: var(--fs-h2); line-height: 1.1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .lane dd small { font: 0.5em var(--font-sans); color: var(--c-white-50); }
 .lane p { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
 .note { margin-top: var(--space-4); max-width: 72ch; font: 0.64rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }

@@ -19,7 +19,7 @@
 .needle i, .needle b { position: absolute; left: 50%; width: 9%; margin-left: -4.5%; }
 .needle i { top: 14%; height: 36%; background: var(--c-red); clip-path: polygon(50% 0, 100% 100%, 0 100%); filter: drop-shadow(0 0 6px rgba(255, 51, 51, 0.6)); }
 .needle b { top: 50%; height: 30%; background: var(--c-white-30); clip-path: polygon(0 0, 100% 0, 50% 100%); }
-.hub { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 3.7rem; height: 3.7rem; margin: -1.85rem 0 0 -1.85rem; border: 1px solid var(--c-red-dim); border-radius: 50%; background: var(--c-black); font: 0.56rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-80); font-variant-numeric: tabular-nums; pointer-events: none; }
+.hub { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 3.7rem; height: 3.7rem; margin: -1.85rem 0 0 -1.85rem; border: 1px solid var(--c-red-dim); border-radius: 50%; background: var(--c-black); font: 0.56rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-80); font-variant-numeric: lining-nums tabular-nums; pointer-events: none; }
 
 .point {
   position: absolute;

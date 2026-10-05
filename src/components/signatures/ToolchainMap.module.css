@@ -33,7 +33,7 @@
 .link { position: absolute; top: 50%; right: calc(var(--space-4) / -2); width: 0; height: 0; }
 
 .result { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--space-5); margin-top: var(--space-6); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.86), rgba(5, 5, 5, 0.6)); }
-.count { font: 0.7rem var(--font-mono); color: var(--c-white); font-variant-numeric: tabular-nums; }
+.count { font: 0.7rem var(--font-mono); color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .slips p { display: flex; align-items: center; gap: 0.6em; font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-65); }
 .all { color: var(--c-white-65); }
 .warn { font: 0.62rem var(--font-mono) !important; letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red) !important; margin-bottom: 0.5rem; }

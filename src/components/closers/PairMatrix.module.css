@@ -13,7 +13,7 @@
 .cell { position: relative; min-width: 5.4rem; height: 4.6rem; vertical-align: middle; text-align: center; }
 .sample { display: block; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; background: #000; color: #fff; }
-.cell b { display: block; font: 500 1.35rem var(--font-serif); line-height: 1; }
+.cell b { display: block; font: 500 1.35rem var(--font-serif); font-variant-numeric: lining-nums; line-height: 1; }
 .sample > span { display: block; margin-top: 0.15rem; font: 0.62rem var(--font-mono); }
 .cell em { position: absolute; right: 4px; bottom: 3px; padding: 0 0.3rem; border-radius: 3px; background: rgba(0, 0, 0, 0.72); font: normal 0.46rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
 .no { outline: 1px dashed var(--c-red); outline-offset: -3px; }

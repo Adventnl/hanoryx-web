@@ -1,0 +1,22 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.qs { display: grid; gap: var(--space-4); min-width: 0; }
+.q { margin-bottom: 0.6rem; font-size: var(--fs-body); line-height: 1.5; color: var(--c-white); }
+.q span { display: block; margin-bottom: 0.25rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red); }
+.opts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.opt { padding: 0.5rem 0.95rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); background: rgba(10, 11, 13, 0.88); font-size: var(--fs-sm); color: var(--c-white-80); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.opt:hover { border-color: var(--c-white-40); color: var(--c-white); }
+.on { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.card { display: grid; gap: 0.8rem; align-content: start; min-height: 16rem; padding: var(--space-5); border: 1px dashed var(--c-white-20); border-radius: var(--r-lg); background: rgba(8, 9, 11, 0.88); position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.ready { border: 1px solid var(--c-red-dim); background: linear-gradient(160deg, var(--c-red-faint), rgba(8, 9, 11, 0) 70%), #08090b; }
+.card h3 { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h2); line-height: 1.05; color: var(--c-white); }
+.sum { font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-80); }
+.card dl { display: grid; gap: 0.8rem; margin: 0; }
+.card dl div { display: grid; gap: 0.3rem; padding-top: 0.7rem; border-top: 1px dashed var(--c-white-20); }
+.card dt { font: 0.54rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.card dd { margin: 0; }
+.card ul { display: grid; gap: 0.3rem; }
+.card li { position: relative; padding-left: 1rem; font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-80); }
+.card li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 5px; height: 5px; border-radius: 50%; background: var(--c-red); }
+.wait { align-self: center; font-size: var(--fs-body); color: var(--c-white-65); }
+.card > button { width: fit-content; }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } .card { position: static; min-height: 0; } }

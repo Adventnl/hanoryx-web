@@ -6,7 +6,7 @@
 .row code { grid-area: host; font: 0.78rem var(--font-mono); color: var(--c-white); overflow-wrap: anywhere; }
 .bar { grid-area: bar; height: 4px; border-radius: 2px; background: var(--c-white-08); overflow: hidden; }
 .bar i { display: block; height: 100%; background: var(--c-red); box-shadow: var(--glow-red); transform-origin: left; animation: grow 0.9s var(--ease-glide) both; animation-delay: calc(var(--i) * 90ms + 200ms); }
-.n { grid-area: n; font: 0.64rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-80); font-variant-numeric: tabular-nums; }
+.n { grid-area: n; font: 0.64rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-80); font-variant-numeric: lining-nums tabular-nums; }
 .why { grid-area: why; font-size: var(--fs-sm); color: var(--c-white-65); }
 @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes grow { from { transform: scaleX(0); } to { transform: none; } }

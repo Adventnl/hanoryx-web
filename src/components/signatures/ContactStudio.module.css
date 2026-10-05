@@ -33,7 +33,7 @@
 .field textarea { min-height: 8rem; line-height: 1.55; }
 .field input:focus, .field textarea:focus { border-color: var(--c-red-dim); box-shadow: 0 0 0 3px var(--c-red-faint); }
 .field ::placeholder { color: var(--c-white-30); }
-.count { font-style: normal; letter-spacing: 0.1em; color: var(--c-white-30); font-variant-numeric: tabular-nums; transition: color var(--dur-2) var(--ease-out); }
+.count { font-style: normal; letter-spacing: 0.1em; color: var(--c-white-30); font-variant-numeric: lining-nums tabular-nums; transition: color var(--dur-2) var(--ease-out); }
 .over { color: var(--c-red); }
 .starters { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .starters > span { font: 0.56rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-40); margin-right: 0.3rem; }

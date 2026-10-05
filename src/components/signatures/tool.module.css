@@ -32,7 +32,7 @@
 .chip i { margin-left: 0.5rem; font-style: normal; color: var(--c-white-50); }
 
 .k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
-.big { font-family: var(--font-serif); font-size: var(--fs-h1); line-height: 1; color: var(--c-white); font-variant-numeric: tabular-nums; }
+.big { font-family: var(--font-serif); font-size: var(--fs-h1); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .big small { font-size: 0.4em; color: var(--c-white-50); }
 .lead { font-size: var(--fs-body); line-height: 1.7; color: var(--c-white-80); max-width: 60ch; }
 .sm { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }

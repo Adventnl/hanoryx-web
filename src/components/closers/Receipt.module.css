@@ -7,7 +7,7 @@
 .line, .sep { animation: print 0.5s var(--ease-out) both; animation-delay: calc(var(--i) * 70ms + 200ms); }
 .line { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.64rem; letter-spacing: 0.04em; line-height: 1.5; }
 .line span { overflow-wrap: anywhere; }
-.line b { flex: none; font-weight: 500; font-variant-numeric: tabular-nums; }
+.line b { flex: none; font-weight: 500; font-variant-numeric: lining-nums tabular-nums; }
 .line[data-total] { margin-top: 0.2rem; font-weight: 500; }
 .sep { height: 0; margin: 0.35rem 0; border-top: 1px dashed #8d887b; }
 .thanks { margin-top: 1.1rem; text-align: center; font-size: 0.5rem; letter-spacing: 0.22em; color: #5d584d; }

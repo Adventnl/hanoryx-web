@@ -95,4 +95,8 @@ export const signatureRegistry = {
   stackMap: lazy(() => import('./StackMap')),
   bugCatcher: lazy(() => import('./BugCatcher')),
   pageOutline: lazy(() => import('./PageOutline')),
+  // systems
+  capabilityMatrix: lazy(() => import('./CapabilityMatrix')),
+  integrationAtlas: lazy(() => import('./IntegrationAtlas')),
+  lifecycleLine: lazy(() => import('./LifecycleLine')),
 };

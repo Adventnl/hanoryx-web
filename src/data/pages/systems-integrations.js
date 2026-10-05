@@ -1,0 +1,86 @@
+const page = {
+  key: 'systems/integrations',
+  title: 'Integration Patterns',
+  accent: '#ff3333',
+  aliases: ['integration', 'connect systems', 'webhooks', 'api', 'polling', 'batch files', 'message queue', 'event bus', 'shared database', 'data exchange', 'interfaces between systems'],
+  hero: {
+    scene: 'dependency-graph',
+    intensity: 'hero',
+    eyebrow: 'Systems / Integration patterns',
+    title: 'Connecting systems without tying them in knots.',
+    intro:
+      'Sooner or later every system has to talk to another. There are only a handful of ways to do it, and each trades how quickly the other side knows against how tightly the two are tied together. Set any two side by side and read the differences.',
+    code: 'SYS.09',
+    status: 'SIX PATTERNS',
+    actions: [
+      { label: 'Compare two', to: '/systems/integrations#atlas' },
+      { label: 'Write the contract', to: '/systems/integrations#contract', variant: 'outline' },
+    ],
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'integrationAtlas',
+      anchor: 'atlas',
+      railLabel: 'The atlas',
+      scene: 'privacy-quiet-grid',
+      minHeight: 800,
+      eyebrow: 'The atlas',
+      title: 'Six patterns, two at a time.',
+      intro: 'Choose any two. Every row compares them: how they work, how soon the other side knows, how tightly they tie the systems together, and what each does when the other end is down.',
+      patterns: [
+        { id: 'api', name: 'Request and reply', how: 'One system asks the other directly and waits for the answer.', speed: 'Immediately, if both are up.', coupling: 'Tight: the caller needs the other side to be up and to keep its promises.', fails: 'The call fails. The caller must decide whether to retry, queue it or show an error.', effort: 'Moderate: a contract, authentication, timeouts and retries.', use: 'The answer is needed now, to carry on.', avoid: 'The other side is slow or unreliable, and the answer is not needed straight away.' },
+        { id: 'webhook', name: 'Webhooks', how: 'The system where something happened sends a message to an address the other side provides.', speed: 'Seconds.', coupling: 'Looser: the sender does not wait. The receiver must accept messages and reply quickly.', fails: 'The sender retries for a while and then gives up. Messages may arrive twice, late or out of order.', effort: 'Moderate: signatures, repeat-safe handling and a way to replay what was missed.', use: 'The other side needs to react soon after something happens.', avoid: 'You cannot receive requests from outside, or you need guaranteed order.' },
+        { id: 'poll', name: 'Polling', how: 'One side asks again and again whether anything has changed.', speed: 'As soon as the next poll. Frequent polling has a cost.', coupling: 'Loose: the other side needs to offer nothing special.', fails: 'A missed poll is caught by the next one. Easy to reason about.', effort: 'Low, but you must define exactly what “changed since” means.', use: 'The other side offers no push, and a delay of minutes is fine.', avoid: 'Freshness matters, or there are very many things to check.' },
+        { id: 'file', name: 'Files on a schedule', how: 'One side writes a file, such as a spreadsheet or a CSV, and the other collects and loads it at set times.', speed: 'Hours, usually: whenever the batch runs.', coupling: 'Loose in time, tight in format: both must agree exactly on the file.', fails: 'A bad or missing file stops the batch, and is often found late.', effort: 'Low to build, higher to make dependable: validation, naming and reruns.', use: 'The other system only speaks files, or volumes are large and a delay is acceptable.', avoid: 'People are waiting on the result, or the format changes often.' },
+        { id: 'queue', name: 'Queue or message bus', how: 'Messages go to a broker that holds them until a consumer is ready for them.', speed: 'Seconds, even when the other side is busy.', coupling: 'Loose: producer and consumer never need to be up at the same time.', fails: 'Messages wait. Bad messages need handling. Consumers must cope with repeats.', effort: 'Higher: run a broker, design the messages, watch the backlog.', use: 'Bursts, many consumers, or a receiver that must never be overwhelmed.', avoid: 'A single simple call would do. The broker is another system to run.' },
+        { id: 'db', name: 'A shared database', how: 'Both systems read and write the same tables.', speed: 'Immediately.', coupling: 'The tightest of all: every change to the tables is felt by both.', fails: 'One system’s bad write damages the other. Every change has to be coordinated.', effort: 'Low at first and high ever after.', use: 'Rarely. Perhaps a read-only copy kept just for reporting.', avoid: 'Almost always. It looks easy, and it is how many systems become impossible to change.' },
+      ],
+      note: 'General reference written for this site. It is not a recommendation for any particular system, and every real case has details that tip the balance.',
+    },
+    {
+      type: 'process',
+      anchor: 'ask',
+      railLabel: 'Four questions first',
+      scene: 'architectural-grid',
+      eyebrow: 'Four questions first',
+      title: 'Before choosing a pattern, ask.',
+      steps: [
+        { step: '01', title: 'How soon must the other side know?', body: 'Immediately, within seconds, within minutes, or by tomorrow? Most integrations are asked to be faster than anyone needs.' },
+        { step: '02', title: 'What happens when the other side is down?', body: 'Wait, queue, show an error, or carry on without? The answer is more important than the pattern.' },
+        { step: '03', title: 'Who changes what, and how will you hear?', body: 'Either side will change something. Decide how much notice is owed, and how a change is announced.' },
+        { step: '04', title: 'How will you know it is working?', body: 'Count what you expect. A silent integration that has stopped is the most common failure of all.' },
+      ],
+    },
+    {
+      type: 'modules',
+      anchor: 'always',
+      railLabel: 'Always needed',
+      scene: 'topographic-lines',
+      eyebrow: 'Always needed',
+      title: 'Whatever the pattern, four things.',
+      rows: [
+        { k: 'SAFE TO REPEAT', v: 'Messages arrive twice. The receiver recognises a repeat and does the work once (see the guide on idempotency).' },
+        { k: 'A WRITTEN CONTRACT', v: 'What is sent, when, in what shape, with what notice before it changes. The closing page writes one.' },
+        { k: 'A WAY TO REPLAY', v: 'When the other side was down for an hour, there should be a deliberate way to catch up without doing things twice.' },
+        { k: 'SOMEONE WHO OWNS IT', v: 'An integration belongs to two teams and so, left alone, to neither. Name a person on each side.' },
+      ],
+    },
+    {
+      type: 'closer',
+      kind: 'integrationSheet',
+      anchor: 'contract',
+      scene: 'dependency-graph',
+      tag: 'End of integration patterns',
+      minHeight: 780,
+      title: 'Write the contract.',
+      lede: 'Choose what is sent, when, what happens when it fails and who owns it. Out comes a one-page contract to put in front of both teams. It is a starting point to adapt, not a legal document.',
+      onward: [
+        { label: 'APIs people can integrate against', to: '/insights/api-contracts' },
+        { label: 'Cron, queues and events', to: '/insights/triggers' },
+      ],
+    },
+  ],
+};
+
+export default page;

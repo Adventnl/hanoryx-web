@@ -14,7 +14,7 @@
 .legend { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-4); width: 100%; margin-bottom: var(--space-3); font: 0.66rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); }
 .groupBar { height: 1px; background: var(--c-line-strong); overflow: hidden; }
 .groupBar i { display: block; height: 100%; background: var(--c-red); box-shadow: var(--glow-red); transform: scaleX(0); transform-origin: left; transition: transform 0.7s var(--ease-glide); }
-.groupCount { color: var(--c-white-40); font-variant-numeric: tabular-nums; }
+.groupCount { color: var(--c-white-40); font-variant-numeric: lining-nums tabular-nums; }
 .item { position: relative; display: flex; align-items: flex-start; gap: var(--space-4); padding: 0.95rem var(--space-3); border-top: var(--border-faint); cursor: pointer; transition: background var(--dur-3) var(--ease-out); }
 .item:hover { background: var(--c-white-03); }
 .item input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }

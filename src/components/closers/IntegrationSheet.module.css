@@ -1,0 +1,5 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.form { display: grid; gap: var(--space-3); min-width: 0; }
+.out { display: grid; gap: var(--space-3); min-width: 0; position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.out pre { margin: 0; max-height: 28rem; overflow: auto; padding: 1rem 1.2rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(3, 3, 4, 0.92); font: 0.72rem/1.7 var(--font-mono); color: var(--c-white-80); white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } .out { position: static; } }

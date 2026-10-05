@@ -35,7 +35,7 @@
 .search:focus-within { border-color: var(--c-red-dim); }
 .search input { flex: 1; min-width: 0; font: 0.8rem var(--font-mono); color: var(--c-white); outline: none; }
 .search input::placeholder { color: var(--c-white-30); }
-.hits { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-40); font-variant-numeric: tabular-nums; }
+.hits { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-40); font-variant-numeric: lining-nums tabular-nums; }
 .note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
 
 @media (max-width: 640px) {

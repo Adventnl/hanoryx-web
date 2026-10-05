@@ -1,7 +1,7 @@
 .rig { margin-top: var(--space-8); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--space-4); align-items: start; }
 .controls { display: grid; gap: var(--space-4); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.9), rgba(5, 5, 5, 0.66)); grid-row: span 2; }
 .slider { display: grid; gap: 0.6rem; font-size: var(--fs-sm); color: var(--c-white-65); }
-.slider b { margin-left: 0.5rem; color: var(--c-red); font-weight: 500; font-variant-numeric: tabular-nums; }
+.slider b { margin-left: 0.5rem; color: var(--c-red); font-weight: 500; font-variant-numeric: lining-nums tabular-nums; }
 .slider input { width: 100%; accent-color: var(--c-red); }
 .modes { display: grid; gap: 0.4rem; }
 .mode { display: grid; gap: 0.2rem; padding: 0.8rem 1rem; text-align: left; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
@@ -17,7 +17,7 @@
 .idle { position: absolute; inset: 0; display: grid; place-items: center; font: 0.68rem var(--font-mono); letter-spacing: 0.12em; color: var(--c-white-50); }
 .result { display: grid; gap: var(--space-3); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: rgba(10, 11, 13, 0.82); }
 .k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
-.fps { font-family: var(--font-serif); font-size: clamp(3rem, 6vw, 4.6rem); line-height: 1; color: var(--c-white); font-variant-numeric: tabular-nums; }
+.fps { font-family: var(--font-serif); font-size: clamp(3rem, 6vw, 4.6rem); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .fps small { font-size: 0.3em; color: var(--c-white-50); }
 .meter { position: relative; height: 8px; margin-bottom: 1.2rem; border-radius: 4px; background: var(--c-white-08); }
 .meter i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--c-white-65); transition: width 0.8s var(--ease-glide); }

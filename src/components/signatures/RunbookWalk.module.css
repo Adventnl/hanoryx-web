@@ -18,7 +18,7 @@
 .side { display: grid; gap: var(--space-3); position: sticky; top: calc(var(--nav-h) + 1.5rem); }
 .clock { padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.9), rgba(5, 5, 5, 0.66)); display: grid; gap: 0.5rem; }
 .k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
-.big { font-family: var(--font-serif); font-size: var(--fs-display); font-size: clamp(3rem, 6vw, 4.6rem); line-height: 1; color: var(--c-white); font-variant-numeric: tabular-nums; }
+.big { font-family: var(--font-serif); font-size: var(--fs-display); font-size: clamp(3rem, 6vw, 4.6rem); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .big small { font-size: 0.3em; color: var(--c-white-50); }
 .small { font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-65); }
 .next { padding: 0.8rem 1.2rem; border: 1px solid var(--c-red-dim); border-radius: var(--r-pill); background: var(--c-red-ghost); font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white); cursor: pointer; }

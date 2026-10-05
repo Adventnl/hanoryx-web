@@ -72,7 +72,7 @@
   color: var(--c-white-80);
   transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
 }
-.sectionLink i { font: normal 0.56rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-red); font-variant-numeric: tabular-nums; }
+.sectionLink i { font: normal 0.56rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-red); font-variant-numeric: lining-nums tabular-nums; }
 .sectionLink:hover, .sectionLink:focus-visible, .sectionLink[aria-current='page'] { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
 
 /* ---- what is new ---- */
@@ -190,7 +190,7 @@
 }
 .time { display: inline-flex; align-items: baseline; gap: 0.8rem; }
 .timeKey { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-50); }
-.timeVal { font: 0.8rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-80); font-variant-numeric: tabular-nums; }
+.timeVal { font: 0.8rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-80); font-variant-numeric: lining-nums tabular-nums; }
 .hint { display: inline-flex; align-items: center; gap: 0.4em; font: 0.62rem var(--font-mono); letter-spacing: 0.06em; color: var(--c-white-50); }
 .count { margin-left: auto; font: 0.6rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-50); text-transform: uppercase; }
 

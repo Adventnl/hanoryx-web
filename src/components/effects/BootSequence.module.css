@@ -152,7 +152,7 @@
   font-size: 0.72rem; letter-spacing: 2px;
   color: #fff; z-index: 4;
 }
-.percent { font-variant-numeric: tabular-nums; }
+.percent { font-variant-numeric: lining-nums tabular-nums; }
 /* thin calibration bar under the readout — scaleX is driven by the same value */
 .track {
   flex-basis: 100%;

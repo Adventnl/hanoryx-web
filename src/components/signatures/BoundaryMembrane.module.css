@@ -1,6 +1,6 @@
 .bench { margin-top: var(--space-8); }
 .top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; }
-.count { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-50); font-variant-numeric: tabular-nums; }
+.count { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-50); font-variant-numeric: lining-nums tabular-nums; }
 .count i { color: var(--c-white-30); font-style: normal; }
 
 .stage { display: grid; grid-template-columns: minmax(0, 1fr) 4.5rem minmax(0, 1fr); gap: 0; margin-top: var(--space-5); align-items: stretch; }

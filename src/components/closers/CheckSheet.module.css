@@ -1,6 +1,6 @@
 .sheet { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: start; padding: clamp(1.2rem, 3vw, 2.2rem); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.9), rgba(5, 5, 5, 0.66)); }
 .side { display: grid; gap: var(--space-4); justify-items: start; position: sticky; top: calc(var(--nav-h) + 1.5rem); }
-.big { font-family: var(--font-serif); font-size: var(--fs-h2); color: var(--c-white); font-variant-numeric: tabular-nums; }
+.big { font-family: var(--font-serif); font-size: var(--fs-h2); color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .big small { font-size: 0.5em; color: var(--c-white-50); }
 .sheetTitle { margin-bottom: var(--space-3); font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); color: var(--c-white); }
 .group { margin: var(--space-4) 0 0.3rem; font: 400 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }

@@ -4,7 +4,7 @@
 .cardWrap { height: 100%; }
 .cardWrap > .card { position: relative; display: flex; flex-direction: column; gap: var(--space-3); min-height: 19rem; padding: clamp(1.3rem, 2.4vw, 2rem); }
 .count { display: flex; align-items: baseline; gap: 0.7rem; }
-.count b { font-family: var(--font-serif); font-weight: 300; font-size: clamp(3rem, 6vw, 4.6rem); line-height: 0.9; color: var(--c-white); font-variant-numeric: tabular-nums; }
+.count b { font-family: var(--font-serif); font-weight: 300; font-size: clamp(3rem, 6vw, 4.6rem); line-height: 0.9; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .count span { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); }
 .name { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); line-height: 1.1; color: var(--c-white); }
 .blurb { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }

@@ -4,7 +4,7 @@
 .search:focus-within { border-color: var(--c-red-dim); box-shadow: 0 0 0 3px var(--c-red-faint); color: var(--c-white); }
 .search input { flex: 1; min-width: 0; border: 0; background: transparent; font: 0.9rem var(--font-sans); color: var(--c-white); outline: none; }
 .search input::placeholder { color: var(--c-white-50); }
-.count { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-65); font-variant-numeric: tabular-nums; }
+.count { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-65); font-variant-numeric: lining-nums tabular-nums; }
 .kinds { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chip { padding: 0.5rem 0.95rem; border: 1px solid var(--c-line); border-radius: var(--r-pill); font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
 .chip:hover { color: var(--c-white); border-color: var(--c-line-strong); }

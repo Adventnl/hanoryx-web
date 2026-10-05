@@ -100,7 +100,7 @@
 }
 .play:hover { border-color: var(--c-red-dim); color: var(--c-white); background: var(--c-red-faint); transform: translateY(-1px); }
 .play[aria-pressed='true'] { border-color: var(--c-red-dim); color: var(--c-white); }
-.readout { display: inline-flex; align-items: center; gap: var(--space-3); font: 0.66rem var(--font-mono); letter-spacing: 0.18em; color: var(--c-white-50); font-variant-numeric: tabular-nums; }
+.readout { display: inline-flex; align-items: center; gap: var(--space-3); font: 0.66rem var(--font-mono); letter-spacing: 0.18em; color: var(--c-white-50); font-variant-numeric: lining-nums tabular-nums; }
 .readout i { width: 28px; height: 1px; background: var(--c-white-20); }
 
 /* ---------- track ---------- */

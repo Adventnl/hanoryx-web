@@ -3,6 +3,6 @@
 .stats { display: grid; gap: var(--space-3); min-width: 10rem; }
 .stats div { display: grid; gap: 0.2rem; padding-left: 1rem; border-left: 1px solid var(--c-red-dim); }
 .stats dt { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-65); }
-.stats dd { font-family: var(--font-serif); font-size: var(--fs-h2); line-height: 1; color: var(--c-white); font-variant-numeric: tabular-nums; }
+.stats dd { font-family: var(--font-serif); font-size: var(--fs-h2); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .note { margin-top: var(--space-3); max-width: 64ch; font: 0.64rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }
 @media (max-width: 700px) { .rec { grid-template-columns: minmax(0, 1fr); } .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } .stats dd { font-size: var(--fs-h3); } }

@@ -179,7 +179,7 @@
     opacity var(--dur-2) var(--ease-out);
 }
 .chipLabel, .chipCount { position: relative; }
-.chipCount { color: var(--c-white-30); font-variant-numeric: tabular-nums; }
+.chipCount { color: var(--c-white-30); font-variant-numeric: lining-nums tabular-nums; }
 .chipOn .chipCount { color: var(--c-red); }
 
 /* ---- results ---- */
