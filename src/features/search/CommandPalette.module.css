@@ -129,7 +129,9 @@
   position: relative;
   display: flex;
   gap: 4px;
-  padding: 0 var(--space-4) var(--space-3);
+  /* Equal room above and below the pills. The old 0 top padding left the active
+     pill touching the input's red underline while 12px sat below it. */
+  padding: var(--space-3) var(--space-4);
   overflow-x: auto;
   scrollbar-width: none;
   flex: none;
@@ -189,8 +191,11 @@
   overscroll-behavior: contain;
   padding: var(--space-2);
 }
+/* The row highlight bleeds 8px past the content edge; the row's TEXT (and the
+   group label) sit on the same 16px edge as the search icon, the chips and the
+   key hints, so the panel reads as one column. */
 .group {
-  padding: var(--space-2) var(--space-3) var(--space-1);
+  padding: var(--space-3) var(--space-2) var(--space-1);
   color: var(--c-white-30);
   font: 0.6rem var(--font-mono);
   letter-spacing: 0.2em;
@@ -203,7 +208,7 @@
   align-items: flex-start;
   gap: var(--space-3);
   width: 100%;
-  padding: 0.7rem var(--space-3);
+  padding: 0.7rem var(--space-2);
   border: 0;
   border-radius: var(--r-sm);
   background: transparent;
@@ -274,7 +279,7 @@
 }
 .rowOn .rowEnter { opacity: 1; transform: none; }
 
-.empty { padding: var(--space-6) var(--space-4); color: var(--c-white-65); font-size: 0.92rem; }
+.empty { padding: var(--space-6) var(--space-2); color: var(--c-white-65); font-size: 0.92rem; }
 .emptyHint { margin-top: var(--space-2); color: var(--c-white-40); font-size: 0.82rem; }
 .emptyHint button { color: var(--c-red); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 

@@ -7,9 +7,14 @@ import { useEffect, useRef } from 'react';
  *
  *   • pointerdown outside the safe-area refs   -> 'outside'
  *   • Escape                                   -> 'escape'
- *   • scroll / wheel / touchmove start         -> 'scroll'
+ *   • the page scrolling                       -> 'scroll'
  *   • window blur (tab/app switch)             -> 'blur'
  *   • focus moving outside the safe area       -> 'focus'
+ *
+ * Only a scroll that actually moves the page dismisses. Raw `wheel` and
+ * `touchmove` do not: on a page that cannot move (already at the top, or short)
+ * a trackpad's momentum keeps firing wheel events for a second or more after
+ * the gesture, and they used to slam shut a menu the visitor had just opened.
  *
  * `refs` is an array of element refs that together form the safe area (e.g.
  * the nav header + the menu panel). Stored in a ref so callers can pass a
@@ -50,8 +55,6 @@ export function useDismissableLayer(active, onDismiss, refs = []) {
     document.addEventListener('pointerdown', onPointerDown, true);
     document.addEventListener('keydown', onKeyDown);
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('wheel', onScroll, { passive: true });
-    window.addEventListener('touchmove', onScroll, { passive: true });
     window.addEventListener('blur', onBlur);
     document.addEventListener('focusin', onFocusIn);
 
@@ -59,8 +62,6 @@ export function useDismissableLayer(active, onDismiss, refs = []) {
       document.removeEventListener('pointerdown', onPointerDown, true);
       document.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('wheel', onScroll);
-      window.removeEventListener('touchmove', onScroll);
       window.removeEventListener('blur', onBlur);
       document.removeEventListener('focusin', onFocusIn);
     };

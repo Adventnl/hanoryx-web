@@ -56,19 +56,23 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
     scheduleOpen,
     scheduleClose,
     cancelClose,
+    pageMoved,
     trackVelocity,
   } = useNavIntent({ openDelay: 150, closeDelay: 130 });
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
-      // Guaranteed close-on-scroll (no-op when nothing is open).
-      closeGroup({ immediate: true });
+      // A moving page closes an open panel. A hover that is still waiting to
+      // open is NOT dropped: smooth scrolling keeps emitting scroll events for
+      // about a second after the last wheel tick, and cancelling the intent
+      // there left a pointer resting on a link with no menu until it re-entered.
+      pageMoved();
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [closeGroup]);
+  }, [pageMoved]);
 
   // BUG FIX: stale activeGroup must never survive a navigation.
   useEffect(() => {
