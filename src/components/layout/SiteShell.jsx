@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { STORAGE_KEYS } from '../../utils/constants';
+import { lockScroll } from '../../utils/scrollLock';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useLenis } from '../../app/providers/lenis-context';
 import { AdvancedNavbar } from '@/features/navigation/AdvancedNavbar';
@@ -62,25 +63,32 @@ export function SiteShell({ children }) {
     return () => cancelAnimationFrame(id);
   }, [booted]);
 
+  // The page cannot scroll while the intro is on screen — from the START
+  // screen through the final fade — so the visitor lands on the top of the home
+  // page, never mid-page or on the footer. `html.scroll-locked` holds even when
+  // Lenis is absent (reduced motion), and the gate is released only once the
+  // overlay has fully lifted.
   useEffect(() => {
-    if (!booted) {
-      document.body.classList.add('is-locked');
-      lenis.stop();
-    } else {
-      document.body.classList.remove('is-locked');
-      lenis.start();
-    }
-  }, [booted, lenis]);
+    if (!bootMounted) return undefined;
+    // A browser restoring an old scroll position must not carry it past the intro.
+    history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+    const unlock = lockScroll(lenis);
+    return () => {
+      unlock();
+      history.scrollRestoration = 'auto';
+    };
+  }, [bootMounted, lenis]);
 
   useEffect(() => {
     if (menuOpen) {
       document.body.classList.add('is-locked');
       lenis.stop();
-    } else if (booted) {
+    } else if (!bootMounted) {
       document.body.classList.remove('is-locked');
       lenis.start();
     }
-  }, [menuOpen, booted, lenis]);
+  }, [menuOpen, bootMounted, lenis]);
 
   // Any full-screen overlay (synthesis / route transition) closes open menus.
   useEffect(() => {
@@ -96,6 +104,9 @@ export function SiteShell({ children }) {
       /* storage unavailable */
     }
     setBooted(true);
+
+    // The home page always opens at its top, whatever happened before START.
+    window.scrollTo(0, 0);
 
     // Rise the site into view as the overlay lifts, instead of snapping it in.
     const el = contentRef.current;

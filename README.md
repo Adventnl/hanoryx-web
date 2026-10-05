@@ -98,6 +98,8 @@ Navigating does not cover the screen. `features/transitions/` draws a thin red l
 
 `BootSequence` shows the intro; **START** begins the music inside the click (`AudioProvider.start()` is called synchronously, handles a rejected `play()` as a `blocked` state, and the navbar's `AudioSignalButton` shows `idle / loading / live / tap to play / unavailable`). The calibration readout and the log lines are driven by the same progress value and reach 100%. **Skip intro** leaves audio untouched.
 
+The page cannot scroll while the intro is mounted — from the START screen through the final fade — so a visitor always lands on the top of the home page. `SiteShell` holds a `lockScroll()` for as long as `BootSequence` is mounted (`html.scroll-locked`, which also covers reduced motion where Lenis does not exist), and `LenisProvider` remembers a `stop()` requested before its instance is created.
+
 ### Search
 
 `Ctrl/⌘ K` or `/` opens `CommandPalette`: a portal overlay anchored near the top (so a growing result list cannot move it), sized for phones, with section chips, highlighted body-text excerpts built from the page data, and full keyboard handling (↑ ↓ Home End, Enter, Escape, click outside, focus return). `searchEngine.js` ignores structural keys when extracting copy (`SKIP_KEYS`) — add to it when a signature introduces data that is not prose.
