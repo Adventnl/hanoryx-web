@@ -1,0 +1,83 @@
+const page = {
+  key: 'insights',
+  title: 'Insights',
+  accent: '#ff3333',
+  aliases: ['guides', 'articles', 'blog', 'writing', 'learn', 'knowledge', 'how to', 'best practice', 'engineering notes', 'reading'],
+  hero: {
+    scene: 'network-constellation',
+    intensity: 'hero',
+    eyebrow: 'Insights',
+    title: 'Guides for people who run real systems.',
+    intro:
+      'Plain-language guides on the problems that keep recurring in business software: retries, records, access, operations, integrations, handover and motion. Each has something to try, a long-form guide to read, and its own ending.',
+    code: 'INS.00',
+    status: 'EIGHT GUIDES',
+    actions: [
+      { label: 'Browse the guides', to: '/insights#library' },
+      { label: 'Resource centre', to: '/resources', variant: 'outline' },
+    ],
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'insightLibrary',
+      anchor: 'library',
+      railLabel: 'The guides',
+      scene: 'privacy-quiet-grid',
+      minHeight: 760,
+      eyebrow: 'The library',
+      title: 'Pick a problem.',
+      intro: 'Filter by area, search the titles, or order by how long each takes to read. A mark shows which guides have an interactive piece to try first.',
+      articles: [
+        { key: 'insights/idempotency', area: 'Reliability', art: 'retry' },
+        { key: 'insights/triggers', area: 'Reliability', art: 'lanes' },
+        { key: 'insights/runbooks', area: 'Operations', art: 'runbook' },
+        { key: 'insights/handover', area: 'Operations', art: 'handover' },
+        { key: 'insights/audit-trails', area: 'Security', art: 'trail' },
+        { key: 'insights/permissions', area: 'Security', art: 'matrix' },
+        { key: 'insights/api-contracts', area: 'Interfaces', art: 'contract' },
+        { key: 'insights/animation-budgets', area: 'Interfaces', art: 'budget' },
+      ],
+    },
+    {
+      type: 'modules',
+      anchor: 'how',
+      railLabel: 'How they are written',
+      scene: 'architectural-grid',
+      eyebrow: 'How they are written',
+      title: 'Four rules for every guide.',
+      rows: [
+        { k: 'TRY FIRST', v: 'Each guide opens with something to press, drag or tick, so the idea is felt before it is read.' },
+        { k: 'PLAIN WORDS', v: 'Words that need explaining are explained where they appear: hover or focus one and its meaning appears.' },
+        { k: 'GENERAL, NOT A PROMISE', v: 'The guides describe common practice. They are not advice for your situation and not a description of any client’s system.' },
+        { k: 'ENDS WITH A TOOL', v: 'Every guide closes with its own small object: a deck, a template, a checker. None of them is a call to action.' },
+      ],
+    },
+    {
+      type: 'closer',
+      kind: 'randomRead',
+      anchor: 'spin',
+      scene: 'network-constellation',
+      tag: 'End of insights',
+      minHeight: 520,
+      title: 'Can’t choose? Spin for one.',
+      lede: 'A reel of the guide titles turns and lands on one. It never lands on the same one twice in a row.',
+      keys: [
+        'insights/idempotency',
+        'insights/audit-trails',
+        'insights/permissions',
+        'insights/runbooks',
+        'insights/triggers',
+        'insights/api-contracts',
+        'insights/handover',
+        'insights/animation-budgets',
+      ],
+      onward: [
+        { label: 'Glossary', to: '/resources/glossary' },
+        { label: 'Tools', to: '/resources/tools' },
+      ],
+    },
+  ],
+};
+
+export default page;

@@ -1,0 +1,19 @@
+.wrap { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+.svg { width: 100%; height: auto; overflow: visible; }
+.ring { fill: none; stroke: var(--c-white-12); stroke-width: 0.5; }
+.spoke { stroke: var(--c-white-12); stroke-width: 0.5; }
+.shape { fill: rgba(255, 51, 51, 0.22); stroke: var(--c-red); stroke-width: 1.2; stroke-linejoin: round; transition: all 0.5s var(--ease-glide); }
+.dot { fill: var(--c-white); transition: all 0.5s var(--ease-glide); }
+.lbl { font: 5.4px var(--font-mono); letter-spacing: 0.4px; text-transform: uppercase; fill: var(--c-white-80); }
+.controls { display: grid; gap: 0.7rem; }
+.slider { display: grid; gap: 0.35rem; }
+.slider span { display: flex; justify-content: space-between; gap: 1rem; font-size: var(--fs-sm); color: var(--c-white-80); }
+.slider b { font-weight: 500; color: var(--c-white); }
+.slider i { font: normal 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
+.slider input { width: 100%; accent-color: var(--c-red); }
+.result { display: grid; gap: var(--space-3); justify-items: start; margin-top: var(--space-3); padding-top: var(--space-4); border-top: 1px dashed var(--c-white-20); }
+.result p { font-size: var(--fs-body); line-height: 1.6; color: var(--c-white-65); max-width: 50ch; }
+.result b { color: var(--c-white); font-weight: 500; }
+.go { display: inline-flex; align-items: center; gap: 0.3em; font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-red); border-bottom: 1px solid var(--c-red-dim); }
+@media (max-width: 820px) { .wrap { grid-template-columns: minmax(0, 1fr); } .svg { max-width: 20rem; } }
+@media (prefers-reduced-motion: reduce) { .shape, .dot { transition: none; } }

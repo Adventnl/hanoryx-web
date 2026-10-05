@@ -12,7 +12,7 @@ const page = {
       'The principles below describe how Hanoryx approaches system design. They are not a certification, audit result, penetration-test report, or claim about controls in any undisclosed deployment.',
     code: 'CMP.02',
     status: 'DESIGN PRINCIPLES',
-    actions: [{ label: 'Discuss a project', to: '/contact', variant: 'outline' }],
+    actions: [{ label: 'Trust centre', to: '/trust' }, { label: 'Security disclosure', to: '/trust/disclosure', variant: 'outline' }],
   },
   blocks: [
     {
@@ -77,11 +77,28 @@ const page = {
       note: 'A thinking aid. It does not assess any real system, and nothing you tick is stored or sent.',
     },
     {
-      type: 'cta',
+      type: 'closer',
+      kind: 'gateRun',
       scene: 'concentric-gate',
-      eyebrow: 'Contact',
-      title: 'Discuss the actual boundary.',
-      body: 'Bring the data, people and workflow involved. A useful security review begins with the system that exists or is being designed.',
+      tag: 'End of the security approach',
+      minHeight: 600,
+      title: 'Send a request through the gates.',
+      lede: 'The four review areas are four questions. Pick a request and watch where, if anywhere, it is turned back.',
+      gates: [
+        { id: 'identity', label: 'Identity', ask: 'Who is making the request?' },
+        { id: 'scope', label: 'Scope', ask: 'What may this identity reach?' },
+        { id: 'ownership', label: 'Ownership', ask: 'Whose record is it?' },
+        { id: 'change', label: 'Change', ask: 'Is the action traceable?' },
+      ],
+      scenarios: [
+        { id: 'own', label: 'A customer reads their own order', passes: [true, true, true, true], note: 'A signed-in customer asks for an order they placed.' },
+        { id: 'other', label: 'A customer reads someone else’s order', passes: [true, true, false, true], note: 'A signed-in customer asks for an order number that is not theirs.', why: 'The record belongs to someone else, so the read is refused at the service, before any data leaves it.' },
+        { id: 'admin', label: 'A signed-out visitor opens the admin screen', passes: [false, true, true, true], note: 'Nobody has signed in.', why: 'No identity was presented, so nothing else is even asked.' },
+        { id: 'export', label: 'A service account exports every record', passes: [true, false, true, true], note: 'A background service asks for everything.', why: 'Its role covers reading one table, not exporting all of them.' },
+        { id: 'edit', label: 'An edit that leaves no trace', passes: [true, true, true, false], note: 'A permitted edit, made through a path that records nothing.', why: 'An action that cannot be traced to an actor and a time is not allowed to complete.' },
+        { id: 'refund', label: 'A support agent refunds an order', passes: [true, true, true, true], note: 'An agent with the refund role acts on a customer’s order.' },
+      ],
+      onward: [{ label: 'Trust centre', to: '/trust' }, { label: 'Security disclosure', to: '/trust/disclosure' }],
     },
   ],
 };

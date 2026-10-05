@@ -1,0 +1,19 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.qs { display: grid; gap: var(--space-5); }
+.q { margin-bottom: 0.7rem; font-size: var(--fs-body); line-height: 1.5; color: var(--c-white); }
+.q span { display: block; margin-bottom: 0.3rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red); }
+.opts { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.opt { padding: 0.55rem 1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); font-size: var(--fs-sm); color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.opt:hover { color: var(--c-white); border-color: var(--c-white-30); }
+.on { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.result { position: sticky; top: calc(var(--nav-h) + 1.5rem); display: grid; gap: var(--space-3); min-height: 14rem; align-content: start; padding: var(--space-5); border: 1px dashed var(--c-white-30); border-radius: var(--r-lg); transition: border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out); }
+.ready { border: 1px solid var(--c-red-dim); background: linear-gradient(160deg, var(--c-red-faint), rgba(10, 11, 13, 0.85)); }
+.name { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h1); line-height: 1.05; color: var(--c-white); animation: in 0.5s var(--ease-glide) both; }
+@keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.why { font-size: var(--fs-body); line-height: 1.65; color: var(--c-white-80); }
+.watch { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
+.watch b { color: var(--c-red-bright); font-weight: 500; }
+.wait { font-family: var(--font-serif); font-size: var(--fs-h2); color: var(--c-white-30); }
+.result button { width: fit-content; }
+@media (max-width: 820px) { .rig { grid-template-columns: minmax(0, 1fr); } .result { position: static; } }
+@media (prefers-reduced-motion: reduce) { .name { animation: none; } }

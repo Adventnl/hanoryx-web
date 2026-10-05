@@ -1,0 +1,277 @@
+import { engineeringTerms } from '../glossary';
+
+const page = {
+  key: 'insights/audit-trails',
+  title: 'Audit Trails That Answer Questions',
+  accent: '#ff3333',
+  aliases: ['audit log', 'audit trail', 'logging', 'who did what', 'accountability', 'history', 'change log', 'compliance', 'activity log', 'tamper evident'],
+  hero: {
+    scene: 'timeline-pulse',
+    intensity: 'hero',
+    eyebrow: 'Insights / Security',
+    title: 'A log is only as good as the questions it can answer.',
+    intro:
+      'Most systems record something. Few record the right things. An audit trail is judged on the day somebody asks “who changed this, and why?” — so this guide starts from those questions and works back to the fields.',
+    code: 'INS.02',
+    status: 'GUIDE · ACCOUNTABILITY',
+    actions: [
+      { label: 'Build a log', to: '/insights/audit-trails#try' },
+      { label: 'Read the guide', to: '/insights/audit-trails#guide', variant: 'outline' },
+    ],
+    aside: { kind: 'articleArt', art: 'trail', caption: 'Each entry is a link in a chain that only grows.' },
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'auditLog',
+      anchor: 'try',
+      railLabel: 'Try it',
+      scene: 'privacy-quiet-grid',
+      minHeight: 760,
+      eyebrow: 'Try it',
+      title: 'Choose what the log records. See what it can answer.',
+      intro: 'Switch fields on and off. The questions people really ask light up when the log can answer them, and go dark — with the missing field named — when it cannot.',
+      fields: [
+        { id: 'when', label: 'When', sample: ['09:14:07', '09:14:09', '11:40:31'] },
+        { id: 'what', label: 'What was done', sample: ['order.refund', 'order.note_add', 'stock.adjust'] },
+        { id: 'target', label: 'To which record', sample: ['order_30211', 'order_30211', 'sku_5509'] },
+        { id: 'who', label: 'By whom', sample: ['agent_4417', 'agent_4417', 'system:nightly-sync'] },
+        { id: 'change', label: 'Before → after', sample: ['paid → refunded', '— → “item damaged”', '14 → 12'] },
+        { id: 'why', label: 'Why', sample: ['Ticket 8812: arrived damaged', 'Customer asked by phone', 'Cycle-count correction'] },
+        { id: 'where', label: 'From where', sample: ['support console', 'support console', 'scheduled job'] },
+        { id: 'request', label: 'Request id', sample: ['req_9f3a2c', 'req_9f3a2c', 'job_0417'] },
+        { id: 'outcome', label: 'Outcome', sample: ['success', 'success', 'failed: record locked'] },
+      ],
+      questions: [
+        { id: 'q1', text: 'What happened to order 30211?', needs: ['when', 'what', 'target'] },
+        { id: 'q2', text: 'Who issued this refund?', needs: ['who', 'what', 'target'] },
+        { id: 'q3', text: 'What was the value before it was changed?', needs: ['change'] },
+        { id: 'q4', text: 'Why was it done?', needs: ['why'] },
+        { id: 'q5', text: 'Was it a person or an automated job?', needs: ['who', 'where'] },
+        { id: 'q6', text: 'Did the action succeed?', needs: ['outcome'] },
+        { id: 'q7', text: 'What else happened in the same request?', needs: ['request'] },
+        { id: 'q8', text: 'Can we show the full history of one record, in order?', needs: ['when', 'what', 'target', 'who', 'change'] },
+      ],
+      note: 'The nine fields are a common starting set, not a standard. Whatever a particular system must record is decided by what it is for, and by the rules that apply to it.',
+    },
+    {
+      type: 'signature',
+      kind: 'document',
+      variant: 'article',
+      anchor: 'guide',
+      railLabel: 'The guide',
+      scene: 'architectural-grid',
+      minHeight: 1000,
+      eyebrow: 'The guide',
+      title: 'Audit trails that answer questions.',
+      intro: 'What to record, how to keep it honest, and how to make it something people can actually use.',
+      version: 'General guidance',
+      summary: [
+        'Decide the **questions** first. The fields follow from them.',
+        'Record the **change** (before and after), the **actor** (from the server, not the request) and the **reason**.',
+        'Make it {{append-only}}, keep secrets out, and log who reads it.',
+      ],
+      meta: [
+        { k: 'For', v: 'Anyone running a system in which people change important records' },
+        { k: 'Kind', v: 'General guidance, not legal or compliance advice' },
+      ],
+      terms: engineeringTerms,
+      sections: [
+        {
+          id: 'purpose',
+          title: 'What an audit trail is for',
+          plain: 'Answering questions about the past, with evidence.',
+          body: [
+            'Systems change. People change records, jobs change records, and sometimes both change them in ways nobody intended. An {{audit trail}} is the account of those changes, kept so that somebody can later say **what happened, to what, by whom and why** — and be believed.',
+            'It serves four people at least. A support agent wants to know what happened to a customer’s order. An engineer wants to know why a number changed. A manager wants to know who has been using a powerful feature. And, occasionally, someone with the authority to ask — a customer, an auditor, a regulator — wants proof that the organisation knows what it has done.',
+            'None of them wants a haystack. Each of them wants an answer.',
+          ],
+        },
+        {
+          id: 'different',
+          title: 'Logs, events and audit trails are different things',
+          plain: 'They look alike and do different jobs.',
+          body: [
+            'Teams often say “we have logging” when they mean one of three quite different things. It helps to name them.',
+            {
+              table: {
+                head: ['', 'Application log', 'Event stream', 'Audit trail'],
+                rows: [
+                  ['Written for', 'Engineers, while debugging', 'Other systems, to react', 'People, later, to establish what happened'],
+                  ['Records', 'What the program did and thought', 'That something happened', 'Who changed what, and why'],
+                  ['Kept for', 'Days or weeks', 'As long as consumers need it', 'As long as a rule or a reason requires'],
+                  ['May be lost?', 'Sometimes, and that is accepted', 'Rarely; replay depends on it', 'Never, for the actions it covers'],
+                  ['Who may read it', 'Engineers', 'Services', 'A small, named group'],
+                ],
+              },
+              caption: 'Three jobs. One system rarely does all of them well.',
+            },
+            'Using an application log as an audit trail is the common error. It is written to be useful to the programmer, it rotates away, it is full of other noise, and nobody promised to keep it. When the question arrives, it cannot be answered.',
+          ],
+        },
+        {
+          id: 'questions',
+          title: 'Start from the questions',
+          plain: 'List what people will ask, then work back.',
+          body: [
+            'The best way to design an audit trail is to write down the questions it must answer, in the words of the people who will ask them, and then to ask of each: which fields would I need to answer that?',
+            { list: [
+              'What happened to this order, in order?',
+              'Who did this, and were they allowed to?',
+              'What was the value before it changed?',
+              'Why was it done — is there a ticket, a note, a reason?',
+              'Was it a person or an automated process?',
+              'Did it work?',
+              'What else happened as part of the same action?',
+              'Has anyone used this powerful feature recently?',
+            ] },
+            'The demonstration above makes the point directly: each question needs a particular set of fields, and a log that lacks one of them cannot answer it, however much else it holds.',
+          ],
+        },
+        {
+          id: 'fields',
+          title: 'The fields that matter',
+          plain: 'Nine things a good entry usually says.',
+          body: [
+            {
+              defs: [
+                { k: 'When', v: 'A timestamp, in UTC, from the **server’s** clock, to the millisecond. Never from the client.' },
+                { k: 'Who (the actor)', v: 'The authenticated identity that did it: a person, a service account, or a named system job. See the next section.' },
+                { k: 'What', v: 'A stable action name such as `order.refund`, so entries can be counted, searched and alerted on.' },
+                { k: 'To which record', v: 'The type and the id of the thing changed. An id, not a name: names change.' },
+                { k: 'Before → after', v: 'The old and new values of what changed. This is what turns a log into a history.' },
+                { k: 'Why', v: 'A reason a person can read, or a link to where one lives: a ticket, a case, an approval.' },
+                { k: 'From where', v: 'The surface it came from: the support console, the public API, an import, a scheduled job.' },
+                { k: 'Request id', v: 'A value shared by everything that happened in one request, so the entries can be grouped, and tied to the application log.' },
+                { k: 'Outcome', v: 'Whether it succeeded, was refused, or failed — and why. Refusals are often the most interesting entries.' },
+              ],
+            },
+          ],
+        },
+        {
+          id: 'actor',
+          title: 'Who is the actor?',
+          plain: 'Take it from the session, never from what the caller says.',
+          body: [
+            'The “who” has to come from the **authenticated session** on the server. If an API accepts `"performed_by": "agent_4417"` in the body of a request and writes that to the trail, the trail records what the caller claimed, which is not evidence of anything.',
+            'Three cases need deciding in advance:',
+            { list: [
+              '**Acting on behalf of.** When a support agent makes a change as a customer, record both: the agent who acted and the customer they acted as.',
+              '**Systems.** Scheduled jobs and integrations get their own named identities (`system:nightly-sync`), not a shared “admin” and not an empty field.',
+              '**Impersonation and elevated access.** When someone uses emergency access, say so in the entry itself, so it cannot be mistaken for ordinary work.',
+            ] },
+          ],
+        },
+        {
+          id: 'change',
+          title: 'Record the change, not just the event',
+          plain: '“A refund happened” is not as useful as “paid became refunded”.',
+          body: [
+            'An entry that says only that an order was edited tells you to go and look at the order — which now says what it says today. The thing you wanted to know is what it said **then**. Record the old and the new value of each field that changed.',
+            { code: '{\n  "at": "<server time, in UTC>",\n  "actor": "agent_4417",\n  "action": "order.refund",\n  "target": "order_30211",\n  "change": { "status": ["paid", "refunded"], "refunded_amount": [0, 20.00] },\n  "reason": "Ticket 8812: arrived damaged",\n  "request": "req_9f3a2c",\n  "source": "support-console",\n  "outcome": "success"\n}' },
+            'For records that change often or are large, store the changed fields only, not a whole copy. For records that matter a great deal, consider storing the whole before-and-after as well, so the record can be reconstructed at any moment.',
+          ],
+        },
+        {
+          id: 'appendonly',
+          title: 'Append-only, and honest about tampering',
+          plain: 'Add entries; never edit or remove them.',
+          body: [
+            'A trail that can be edited is an opinion. Make it {{append-only}}: the application can add to it and read from it, but the account it uses cannot update or delete entries. Where practical, keep it in a separate store from the data it describes, so that someone able to change one is not automatically able to change the other.',
+            'Some systems go further and make entries **tamper-evident**: each entry includes a fingerprint of the one before it, so that changing an old entry breaks every fingerprint after it, and the break can be found. That raises the cost of quietly rewriting history, and it makes a rewrite visible.',
+            { note: '“Tamper-evident” is not “tamper-proof”. Someone with enough access can still do damage; the aim is that they cannot do it **unnoticed**. Say plainly which of the two a system offers.', tone: 'warn', label: 'Be precise' },
+          ],
+        },
+        {
+          id: 'exclude',
+          title: 'What not to put in',
+          plain: 'The trail should not become the next thing that leaks.',
+          body: [
+            'An audit trail tends to be kept for a long time and read by people who are not meant to see everything. That argues for restraint.',
+            { list: [
+              '**No secrets.** Passwords, tokens, card numbers and keys never belong in an entry, even redacted by hand. Redact by design: decide which fields are never written.',
+              '**Minimal personal data.** Record an id for the person, not their whole profile. If the record is deleted, the trail should not re-create it.',
+              '**No free-text dumps.** Whole request bodies are tempting and dangerous. Record the fields that matter.',
+            ] },
+            'How long entries are kept is a decision to make on purpose, and to write down. Where personal data is involved, the length is a matter for the organisation’s own rules and the law that applies; see how this site’s own retention notes are written for an example of saying it plainly.',
+          ],
+        },
+        {
+          id: 'fail',
+          title: 'When writing the entry fails',
+          plain: 'Decide, in advance, whether the action should go ahead.',
+          body: [
+            'What should happen if the audit write fails? There are two honest answers, and the system should be built around whichever was chosen.',
+            { list: [
+              '**The action fails too.** The entry is written in the same {{transaction}} as the change, so that either both happen or neither does. This is the right answer for anything where an unrecorded action would be a problem: refunds, permission changes, deletions.',
+              '**The action goes ahead and an alert fires.** Acceptable only for lower-stakes actions, and only if someone is actually watching for the alert.',
+            ] },
+            'What is never acceptable is to lose entries silently. A trail with holes in it, that no one knows about, is worse than none, because it is believed.',
+          ],
+        },
+        {
+          id: 'access',
+          title: 'Who may read it, and who watches the readers',
+          plain: 'Reading the trail is itself an action worth recording.',
+          body: [
+            'The trail describes what powerful people did, which makes it sensitive twice over. Give read access to a small, named group, and keep it separate from the ability to administer the system, so that the people being described are not the only people who can see the description.',
+            'Reading should be recorded too. When someone searches the trail for a particular customer, that is an event: who looked, at what, and when. Systems that hold personal data tend to be asked about exactly this.',
+          ],
+        },
+        {
+          id: 'usable',
+          title: 'Making it usable',
+          plain: 'A trail nobody can search might as well not exist.',
+          body: [
+            'The trail has to be quick to use by someone in a hurry, such as a support agent with a customer on the line. A few habits make the difference.',
+            { list: [
+              '**Search by record.** “Show me everything that happened to order 30211” should be one click from the order.',
+              '**Search by actor and by time.** “What did this account do between these two times?”',
+              '**Show it in plain words.** `order.refund` is a good stored name; “Refund issued” is a better thing to show.',
+              '**Export it.** Be able to produce a record’s history as a file, because someone will ask for one.',
+              '**Group by request.** Show the several entries from one action together.',
+            ] },
+          ],
+        },
+        {
+          id: 'checklist',
+          title: 'A checklist to take away',
+          plain: 'Ten questions to ask of your own trail.',
+          body: [
+            { ol: [
+              'Have we written down the questions it must answer?',
+              'Does every entry say who, what, to which record, when and from where?',
+              'Is the actor taken from the server-side session?',
+              'Are old and new values recorded for changes?',
+              'Is there a reason, or a link to one?',
+              'Is the trail append-only, and kept apart from the data it describes?',
+              'Is it tamper-evident, and are we honest about what that does and does not mean?',
+              'Are secrets and surplus personal data kept out?',
+              'Do we know what happens if an entry cannot be written?',
+              'Who can read it, and is reading it recorded?',
+            ] },
+          ],
+        },
+      ],
+      note: 'General guidance. It is not a description of any client system, and it is not legal, audit or compliance advice.',
+      endLabel: 'End of the guide',
+    },
+    {
+      type: 'closer',
+      kind: 'logLine',
+      anchor: 'write',
+      scene: 'timeline-pulse',
+      tag: 'End of audit trails',
+      minHeight: 640,
+      title: 'Write one entry.',
+      lede: 'Fill in the five things a person will want to know. The server’s part — time, request and source — is added for you, and the entry comes out as a line you can copy. Nothing is stored.',
+      onward: [
+        { label: 'Roles, permissions and scopes', to: '/insights/permissions' },
+        { label: 'Data retention', to: '/legal/retention' },
+        { label: 'All insights', to: '/insights' },
+      ],
+    },
+  ],
+};
+
+export default page;

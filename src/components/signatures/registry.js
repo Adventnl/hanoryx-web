@@ -19,6 +19,7 @@ export const asideRegistry = {
   systemMap: lazy(() => import('./SystemMap')),
   northCompass: lazy(() => import('./NorthCompass')),
   liveBudget: lazy(() => import('./LiveBudget')),
+  articleArt: lazy(() => import('./ArticleArt')),
 };
 
 export const signatureRegistry = {
@@ -64,4 +65,18 @@ export const signatureRegistry = {
   liveStatus: lazy(() => import('./LiveStatus')),
   serviceMap: lazy(() => import('./ServiceMap')),
   licenceTable: lazy(() => import('./LicenceTable')),
+  projectRhythm: lazy(() => import('./ProjectRhythm')),
+  hiringPath: lazy(() => import('./HiringPath')),
+  faqDesk: lazy(() => import('./FaqDesk')),
+  pressKit: lazy(() => import('./PressKit')),
+  brandBoard: lazy(() => import('./BrandBoard')),
+  idempotencyDemo: lazy(() => import('./IdempotencyDemo')),
+  auditLog: lazy(() => import('./AuditLog')),
+  permissionMatrix: lazy(() => import('./PermissionMatrix')),
+  runbookWalk: lazy(() => import('./RunbookWalk')),
+  triggerCompare: lazy(() => import('./TriggerCompare')),
+  contractDiff: lazy(() => import('./ContractDiff')),
+  handoverPack: lazy(() => import('./HandoverPack')),
+  frameBudget: lazy(() => import('./FrameBudget')),
+  insightLibrary: lazy(() => import('./InsightLibrary')),
 };
