@@ -69,16 +69,18 @@ export default function PageVitals({ tag, title, lede, onward }) {
   return (
     <CloserFrame tag={tag} title={title} lede={lede} onward={onward}>
       <div className={styles.rig} {...fx('vitals.rig')}>
-        <dl className={styles.grid} aria-live="polite">
-          {(rows || []).map((r) => (
-            <div key={r.k} className={styles.cell}>
-              <dt>{r.k}</dt>
-              <dd>{r.v}</dd>
-              <small>{r.note}</small>
-            </div>
-          ))}
-          {!rows && <p className={styles.wait}>Measuring…</p>}
-        </dl>
+        {rows ? (
+          <dl className={styles.grid} aria-live="polite">
+            {rows.map((r) => (
+              <div key={r.k} className={styles.cell}>
+                <dt>{r.k}</dt>
+                <dd>{r.v}<small>{r.note}</small></dd>
+              </div>
+            ))}
+          </dl>
+        ) : (
+          <p className={styles.wait} role="status">Measuring…</p>
+        )}
         <div className={styles.side}>
           <button type="button" className={`${shared.btn} ${shared.btnRed}`} onClick={measure} disabled={fps === 'sampling'}><RefreshCw size={14} aria-hidden="true" /> {fps === 'sampling' ? 'Measuring…' : 'Measure again'}</button>
           <p className={styles.fine}>The sizes of a page change from visit to visit and from device to device. On the live site the scripts are a handful of bundled files; on a development server there are hundreds, and the numbers are very different. These describe this visit only, and are not a benchmark.</p>

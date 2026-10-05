@@ -55,11 +55,11 @@ function Item({ item, id, number, terms, hl }) {
   }
   if (item.table) {
     return (
-      <div className={styles.tableWrap} data-block={id} tabIndex={0} role="region" aria-label={item.caption || 'Table'}>
+      <div className={styles.tableWrap} data-block={id} tabIndex={0} role="region" aria-label={item.caption || `Table ${number}`}>
         <table className={styles.table}>
           {item.caption && <caption>{item.caption}</caption>}
           <thead>
-            <tr>{item.table.head.map((h) => <th key={h} scope="col">{h}</th>)}</tr>
+            <tr>{item.table.head.map((h, c) => <th key={c} scope="col">{h || <span className="sr-only">Item</span>}</th>)}</tr>
           </thead>
           <tbody>
             {item.table.rows.map((row) => (

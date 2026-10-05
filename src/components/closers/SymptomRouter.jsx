@@ -15,16 +15,14 @@ export default function SymptomRouter({ tag, title, lede, symptoms = [], onward 
   return (
     <CloserFrame tag={tag} title={title} lede={lede} onward={onward}>
       <div className={styles.rig} {...fx('symptom.rig')}>
-        <ul className={styles.list} role="radiogroup" aria-label="What is going wrong">
+        <div className={styles.list} role="radiogroup" aria-label="What is going wrong">
           {symptoms.map((x) => (
-            <li key={x.id}>
-              <button type="button" role="radio" aria-checked={on === x.id} className={clsx(styles.sym, on === x.id && styles.on)} onClick={() => setOn(x.id)}>
-                <span className={styles.dot} aria-hidden="true" />
-                {x.label}
-              </button>
-            </li>
+            <button key={x.id} type="button" role="radio" aria-checked={on === x.id} className={clsx(styles.sym, on === x.id && styles.on)} onClick={() => setOn(x.id)}>
+              <span className={styles.dot} aria-hidden="true" />
+              {x.label}
+            </button>
           ))}
-        </ul>
+        </div>
         <div className={styles.route} aria-hidden="true"><i className={clsx(on && styles.live)} /></div>
         <div className={clsx(styles.card, s && styles.ready)} role="status" aria-live="polite" {...fx('symptom.result')}>
           {s ? (

@@ -11,9 +11,13 @@
  *   search     the overlay is centred and sized sensibly at three widths, does not
  *              jump while typing, finds body copy (highlighted excerpts), and keeps
  *              keyboard navigation, Enter, Escape and click-outside
+ *   nav        the first hover over a menu item opens it — including straight after a
+ *              scroll, when the smooth-scroll tail is still sending scroll events
  *   keys       ? opens the shortcuts panel (focus moves in and returns), B toggles
  *              blueprint mode and names the marked details
  *   menu       the mobile menu has Search and no Contact
+ *   footer     six named columns, the section row's live counts, a working search field
+ *              and links; on a phone the columns fold into disclosures that really close
  *   motion     scrolling the Motion Systems page stays smooth and, under reduced
  *              motion, nothing loops forever
  *   contact    the contact page builds a mail link from the chosen type and message
@@ -21,6 +25,7 @@
  */
 import assert from 'node:assert/strict';
 import { BASE, launch, newContext, pause, reporter, watchErrors } from './lib.mjs';
+import { pageRouteKeys, siteSections } from '../src/app/routeConfig.js';
 
 const r = reporter('interactions');
 const real = (errors) => errors.filter((e) => !/CERT|net::ERR|Failed to load resource/i.test(e));
@@ -184,6 +189,53 @@ for (const [width, height, tag, mobile] of [[1440, 900, 'desktop', false], [390,
   await context.close();
 }
 
+/* ---------------------------- navigation: the first hover opens the menu ---------------------------- */
+/* The bug this guards: the first time the pointer reached a menu item after a scroll, nothing
+   happened, and only a second pass opened it. The smooth-scroll tail kept sending scroll
+   events with no pointer movement, and each one cancelled the pending hover-intent. */
+{
+  const open = (page) => page.evaluate(() => /NODE MAP/.test(document.querySelector('header[data-chrome]')?.textContent || ''));
+  const opensWithin = async (page, ms) => {
+    const t0 = Date.now();
+    while (Date.now() - t0 < ms) { if (await open(page)) return Date.now() - t0; await pause(40); }
+    return -1;
+  };
+  const hoverMenu = async (page, name) => {
+    const box = await page.locator('nav[aria-label="Primary"] a', { hasText: name }).first().boundingBox();
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 6 });
+  };
+  const cases = [
+    { tag: 'on a fresh page', scroll: false, settle: 0 },
+    { tag: 'straight after scrolling', scroll: true, settle: 0 },
+    { tag: '0.6 s after scrolling', scroll: true, settle: 600 },
+  ];
+  for (const c of cases) {
+    const context = await newContext(browser, { width: 1440, height: 900 });
+    const page = await context.newPage();
+    const errors = watchErrors(page);
+    await page.goto(BASE + '/systems', { waitUntil: 'load' });
+    await pause(2600);
+    await page.mouse.move(720, 500);
+    if (c.scroll) {
+      for (let i = 0; i < 10; i += 1) { await page.mouse.wheel(0, 240); await pause(40); }
+      await pause(1800);
+      for (let i = 0; i < 14; i += 1) { await page.mouse.wheel(0, -240); await pause(40); }
+      await pause(c.settle);
+    }
+    await hoverMenu(page, 'Development');
+    const took = await opensWithin(page, 1500);
+    r.check(`the first hover opens the menu ${c.tag}`, took >= 0, took >= 0 ? `${took} ms` : 'never opened within 1.5 s');
+    if (c.scroll && c.settle === 0) {
+      await page.mouse.move(720, 420, { steps: 8 });
+      await pause(900);
+      await hoverMenu(page, 'Work');
+      r.check('and a different item opens just as readily afterwards', (await opensWithin(page, 1500)) >= 0);
+    }
+    r.check(`no errors while using the menu ${c.tag}`, real(errors).length === 0, real(errors).join(' | '));
+    await context.close();
+  }
+}
+
 /* ---------------------------- ? panel and blueprint mode ---------------------------- */
 {
   const context = await newContext(browser, { width: 1440, height: 900 });
@@ -221,6 +273,66 @@ for (const [width, height, tag, mobile] of [[1440, 900, 'desktop', false], [390,
   await pause(900);
   const menu = await page.locator('[role="dialog"]').first().innerText().catch(() => '');
   r.check('the mobile menu has Search and no Contact', /search/i.test(menu) && !/contact/i.test(menu), menu.replace(/\s+/g, ' ').slice(0, 120));
+  await context.close();
+}
+
+/* ---------------------------- footer: a directory that leads somewhere ---------------------------- */
+{
+  const context = await newContext(browser, { width: 1440, height: 900 });
+  const page = await context.newPage();
+  const errors = watchErrors(page);
+  await page.goto(BASE + '/company/faq', { waitUntil: 'domcontentloaded' });
+  await pause(1800);
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await pause(1400);
+  const footer = page.locator('footer');
+  const titles = (await footer.locator('nav[aria-label="Footer"] h2').allInnerTexts()).map((t) => t.replace(/^\s*\d+\s*/, '').trim().toLowerCase());
+  r.check('the footer has six named columns', JSON.stringify(titles) === JSON.stringify(['company', 'insights', 'resources', 'development', 'trust', 'legal']), titles.join(', '));
+  const groups = await footer.locator('nav[aria-label="Footer"] h3').count();
+  r.check('each column is split into named groups', groups >= 10, `${groups} groups`);
+
+  const counts = await footer.locator('nav[aria-label="Sections of the site"] a').evaluateAll((as) => as.map((a) => [a.firstChild.textContent.trim(), Number(a.querySelector('i').textContent)]));
+  const expected = siteSections.map((s) => [s.label, pageRouteKeys.filter(s.test).length]);
+  r.check('the section row counts the pages in each section', JSON.stringify(counts) === JSON.stringify(expected), JSON.stringify(counts));
+  r.check('the footer states how many pages the site has', new RegExp(`\\b${pageRouteKeys.length} pages\\b`, 'i').test(await footer.innerText()), `${pageRouteKeys.length} expected`);
+  r.check('the legal row carries the six short links', (await footer.locator('ul[aria-label="Legal"] a').count()) === 6);
+  r.check('the "new on the site" strip lists the latest chapters', (await footer.locator('a').filter({ hasText: /^Ch\. \d/ }).count()) >= 2);
+
+  await footer.getByRole('button', { name: /open the site search/i }).click();
+  const dialog = page.getByRole('dialog', { name: 'Search Hanoryx Systems' });
+  await dialog.waitFor({ timeout: 4000 }).catch(() => {});
+  r.check('the footer’s search field opens the search', await dialog.isVisible().catch(() => false));
+  await page.keyboard.press('Escape');
+  await pause(500);
+
+  await footer.locator('a[href="/resources/glossary"]').first().click();
+  await page.waitForURL('**/resources/glossary', { timeout: 6000 }).catch(() => {});
+  await page.locator('main h1').first().waitFor({ timeout: 6000 }).catch(() => {});
+  r.check('a footer link opens its page', new URL(page.url()).pathname === '/resources/glossary' && /glossary/i.test(await page.title()), page.url());
+  r.check('no errors from the footer', real(errors).length === 0, real(errors).join(' | '));
+  await context.close();
+}
+{
+  const context = await newContext(browser, { width: 390, height: 844, mobile: true });
+  const page = await context.newPage();
+  await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await pause(1800);
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await pause(1400);
+  const footer = page.locator('footer');
+  const toggles = footer.locator('nav[aria-label="Footer"] button[aria-expanded]');
+  r.check('on a phone the six columns are disclosures, all closed', (await toggles.count()) === 6 && (await toggles.evaluateAll((bs) => bs.every((b) => b.getAttribute('aria-expanded') === 'false'))));
+  const hiddenLink = () => footer.locator('#footer-legal a').first().evaluate((a) => ({ visibility: getComputedStyle(a).visibility, height: a.closest('[id="footer-legal"]').getBoundingClientRect().height }));
+  const closed = await hiddenLink();
+  r.check('a closed column is out of the tab order, not only clipped', closed.visibility === 'hidden' && closed.height < 2, JSON.stringify(closed));
+  const legal = toggles.filter({ hasText: 'Legal' });
+  await legal.click();
+  await pause(900);
+  const opened = await hiddenLink();
+  r.check('opening a column shows its links', (await legal.getAttribute('aria-expanded')) === 'true' && opened.visibility === 'visible' && opened.height > 60, JSON.stringify(opened));
+  await toggles.filter({ hasText: 'Trust' }).click();
+  await pause(900);
+  r.check('opening another closes the first', (await legal.getAttribute('aria-expanded')) === 'false');
   await context.close();
 }
 

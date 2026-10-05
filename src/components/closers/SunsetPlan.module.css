@@ -12,7 +12,8 @@
 .on .box { border-color: var(--c-red); background: var(--c-red); }
 .on .box::after { transform: rotate(45deg) scale(1); }
 .out { display: grid; gap: var(--space-3); min-width: 0; position: sticky; top: calc(var(--nav-h) + 1.5rem); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, #0e0f12, #060607); }
-.timeline { position: relative; display: grid; gap: 0.6rem; max-height: 26rem; overflow-y: auto; padding-left: 1.2rem; }
+.scroller { max-height: 26rem; overflow-y: auto; }
+.timeline { position: relative; display: grid; gap: 0.6rem; padding-left: 1.2rem; }
 .timeline::before { content: ''; position: absolute; left: 0.3rem; top: 0.3rem; bottom: 0.3rem; width: 1px; background: linear-gradient(var(--c-red-dim), var(--c-line)); }
 .timeline li { position: relative; display: grid; gap: 0.1rem; }
 .timeline li::before { content: ''; position: absolute; left: -1.2rem; top: 0.45rem; width: 7px; height: 7px; border: 1px solid var(--c-red); border-radius: 50%; background: var(--c-black); }

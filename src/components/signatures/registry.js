@@ -99,4 +99,7 @@ export const signatureRegistry = {
   capabilityMatrix: lazy(() => import('./CapabilityMatrix')),
   integrationAtlas: lazy(() => import('./IntegrationAtlas')),
   lifecycleLine: lazy(() => import('./LifecycleLine')),
+  // interface kit
+  componentGallery: lazy(() => import('./ComponentGallery')),
+  kitIndex: lazy(() => import('./KitIndex')),
 };

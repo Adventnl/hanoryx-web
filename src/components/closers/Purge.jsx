@@ -7,9 +7,9 @@ import { fx } from '../../utils/fx';
 import shared from './shared.module.css';
 import styles from './Purge.module.css';
 
-/** A purge button for the site's own items in your browser. Press and hold-free:
- *  one press runs a short "wipe", removes only keys that belong to this site,
- *  and shows what is left (which should be nothing of ours). */
+/** A purge button for the site's own items in your browser. One press runs a
+ *  short "wipe", removes only the keys that belong to this site, and shows what
+ *  is left (which should be nothing of ours). */
 export default function Purge({ tag, title, lede, onward }) {
   const [items, setItems] = useState([]);
   const [phase, setPhase] = useState('idle'); // idle | running | done

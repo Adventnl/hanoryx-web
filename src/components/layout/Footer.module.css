@@ -267,6 +267,9 @@
   .colInner { overflow: hidden; min-height: 0; }
   .accordion.open .colBody { grid-template-rows: 1fr; }
   .accordion.open .colInner { padding-bottom: var(--space-5); }
+  /* a closed column is out of the tab order and the reading order, not just clipped */
+  .accordion .colInner { visibility: hidden; transition: visibility 0s linear 0.6s; }
+  .accordion.open .colInner { visibility: visible; transition-delay: 0s; }
   .colLink { padding: 0.55rem 0; }
   .meta { flex-wrap: wrap; gap: var(--space-4); }
   .count { margin-left: 0; }
@@ -284,5 +287,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .signal::before, .liveDot { animation: none; }
-  .colText, .colArrow, .colLink::after, .top, .topArrow, .topArc, .colBody, .plus { transition: none; }
+  .colText, .colArrow, .colLink::after, .top, .topArrow, .topArc, .colBody, .colInner, .plus { transition: none; }
 }

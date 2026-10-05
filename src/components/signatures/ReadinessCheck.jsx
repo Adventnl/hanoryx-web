@@ -30,6 +30,16 @@ export default function ReadinessCheck({ eyebrow, title, intro, note }) {
   const scored = answered.filter((q) => values[ans[q.id]] !== null);
   const score = scored.length ? scored.reduce((n, q) => n + values[ans[q.id]], 0) / scored.length : 0;
   const band = BANDS.find((b) => score >= b.min);
+  // a verdict on three answers out of twenty would be a guess: hold it back until half are in
+  const enough = answered.length >= Math.ceil(all.length / 2);
+  const left = all.length - answered.length;
+  const verdict = !answered.length
+    ? { name: 'Start anywhere', line: 'Answer honestly. “Partly” is a perfectly good answer, and “No” is the most useful one.' }
+    : !enough
+      ? { name: 'Keep going', line: `${left} questions to go. A verdict on so few answers would only be a guess.` }
+      : left
+        ? { name: `So far: ${band.name.toLowerCase()}`, line: `${left} ${left === 1 ? 'question' : 'questions'} to go. ${band.line}` }
+        : band;
 
   const groupScore = (g) => {
     const s = g.questions.filter((q) => ans[q.id] && values[ans[q.id]] !== null);
@@ -78,8 +88,8 @@ export default function ReadinessCheck({ eyebrow, title, intro, note }) {
           </ProgressRing>
           <p className={tool.k}>{answered.length} of {all.length} answered</p>
           <div role="status" aria-live="polite">
-            <p className={styles.band}>{answered.length ? band.name : 'Start anywhere'}</p>
-            <p className={tool.sm}>{answered.length ? band.line : 'Answer honestly. “Partly” is a perfectly good answer, and “No” is the most useful one.'}</p>
+            <p className={styles.band}>{verdict.name}</p>
+            <p className={tool.sm}>{verdict.line}</p>
           </div>
           {answered.some((q) => ans[q.id] === 'no') && (
             <div className={styles.gaps}>

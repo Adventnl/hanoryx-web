@@ -3,7 +3,7 @@
 .cell { display: grid; gap: 0.3rem; align-content: start; padding: 0.95rem 1.05rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); }
 .cell dt { font: 0.54rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
 .cell dd { margin: 0; font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h2); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
-.cell small { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
+.cell small { display: block; margin-top: 0.4rem; font: 300 var(--fs-xs)/1.5 var(--font-sans); letter-spacing: 0; color: var(--c-white-65); }
 .wait { font: 0.75rem var(--font-mono); color: var(--c-white-65); }
 .side { display: grid; gap: var(--space-3); justify-items: start; }
 .fine { font: 0.62rem var(--font-mono); letter-spacing: 0.04em; line-height: 1.75; color: var(--c-white-50); }

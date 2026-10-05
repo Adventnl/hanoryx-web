@@ -41,10 +41,12 @@ export default function SunsetPlan({ tag, title, lede, groups = [], onward }) {
         </div>
         <div className={styles.out}>
           <p className={shared.label}>{picked.length} steps, in order</p>
-          <ol className={styles.timeline}>
-            {picked.map((p) => <li key={p.id}><b>{label(p.at)}</b><span>{p.text}</span><i>{p.group}</i></li>)}
-            {!picked.length && <li className={styles.empty}>Choose the steps that apply.</li>}
-          </ol>
+          <div className={styles.scroller} role="region" aria-label="The plan, in order" tabIndex={0}>
+            <ol className={styles.timeline}>
+              {picked.map((p) => <li key={p.id}><b>{label(p.at)}</b><span>{p.text}</span><i>{p.group}</i></li>)}
+              {!picked.length && <li className={styles.empty}>Choose the steps that apply.</li>}
+            </ol>
+          </div>
           <div className={shared.row}>
             <button type="button" className={`${shared.btn} ${shared.btnRed}`} onClick={() => downloadText('retirement-plan.md', md, 'text/markdown')} disabled={!picked.length}><Download size={14} aria-hidden="true" /> Download</button>
             <button type="button" className={shared.btn} onClick={() => copy(md)} disabled={!picked.length}>{copied ? 'Copied' : 'Copy'}</button>

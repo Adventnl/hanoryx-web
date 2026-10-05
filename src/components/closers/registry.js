@@ -87,4 +87,12 @@ export const closerRegistry = {
   fixedStep: lazy(() => import('./FixedStep')),
   funnelMath: lazy(() => import('./FunnelMath')),
   lookupRace: lazy(() => import('./LookupRace')),
+  // interface kit
+  kitPicker: lazy(() => import('./KitPicker')),
+  formBuilder: lazy(() => import('./FormBuilder')),
+  wizardRun: lazy(() => import('./WizardRun')),
+  toastBench: lazy(() => import('./ToastBench')),
+  dataShape: lazy(() => import('./DataShape')),
+  focusTrap: lazy(() => import('./FocusTrap')),
+  readingColumn: lazy(() => import('./ReadingColumn')),
 };

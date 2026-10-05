@@ -25,6 +25,8 @@ const SKIP_KEYS = new Set([
   'adminOnly', 'terminal', 'edges', 'reach', 'visibleTo', 'minHeight', 'wide', 'start', 'field',
   // document reader / endings: labels and layout, not prose
   'summaryLabel', 'endLabel', 'tag', 'lang', 'tone', 'readingMinutes',
+  // the component catalogue: which example, which family
+  'demo', 'family',
 ]);
 
 /* lowercase + strip diacritics so "café" matches "cafe". */

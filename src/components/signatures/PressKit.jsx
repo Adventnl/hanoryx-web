@@ -50,10 +50,12 @@ export default function PressKit({ eyebrow, title, intro, boilerplates = [], fac
             {facts.map((f) => (
               <div key={f.k}>
                 <dt>{f.k}</dt>
-                <dd>{f.v}</dd>
-                <button type="button" className={styles.mini} onClick={() => copy(`${f.k}: ${f.v}`)} aria-label={`Copy ${f.k}`}>
-                  {copied === `${f.k}: ${f.v}` ? 'Copied' : <Copy size={12} aria-hidden="true" />}
-                </button>
+                <dd>
+                  <span>{f.v}</span>
+                  <button type="button" className={styles.mini} onClick={() => copy(`${f.k}: ${f.v}`)} aria-label={`Copy ${f.k}`}>
+                    {copied === `${f.k}: ${f.v}` ? 'Copied' : <Copy size={12} aria-hidden="true" />}
+                  </button>
+                </dd>
               </div>
             ))}
           </dl>

@@ -13,8 +13,9 @@ This file explains how that layer is built, the rules it follows, and how to add
 | **toolkit** | `src/components/fx/` | small reusable pieces — a tilting surface, a decoding label, a glide-ink tab list, an odometer. They carry no content. |
 | **hero asides** | `src/components/signatures/*` (registered in `asideRegistry`) | one object per page, in the right half of the hero. Chosen from page data with `hero.aside = { kind, … }`. |
 | **signatures** | `src/components/signatures/*` (registered in `signatureRegistry`) | a whole-block composition with its own interaction. Chosen with `{ type: 'signature', kind, … }`. |
+| **endings** | `src/components/closers/*` (registered in `closerRegistry`) | the last block of a page: a composition of its own that plays the page out — a receipt, a card that turns over, a calculator, a drawing. Chosen with `{ type: 'closer', kind, … }`, framed by `CloserFrame` (an "End of …" tag, a headline, a lede, onward links). Never a call to action, and no two pages share one (`qa/endings.mjs`). |
 
-Signatures and asides are lazy chunks: a page downloads only the ones it renders. The shared block types (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`, `cta`) are themselves foreground too — each has its own pointer, scroll or reveal behaviour — but no two signatures share a composition.
+Signatures, asides and endings are lazy chunks: a page downloads only the ones it renders. The shared block types (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`) are themselves foreground too — each has its own pointer, scroll or reveal behaviour — but no two signatures share a composition.
 
 ### The toolkit (`components/fx`)
 
@@ -24,44 +25,91 @@ Hooks they lean on (`src/hooks/`): `usePointerField` (writes the pointer to CSS 
 
 ### Page by page
 
-| page | hero object | compositions |
-| --- | --- | --- |
-| `/` | orbit nav — four doors on three orbits | work portals · layer stack · chronology strip |
-| `/work` | case deck — the studies as a fanning stack of files | work portals (hover to open, supporting studies quieter) |
-| `/work/musebase` | logo plates drifting at their own depths | coordination lab |
-| `/work/yk-engine` | framed miniature viewport | engine editor · engine pipeline · engine anatomy |
-| `/work/customer-product` | basket tiles that count up | experience storyboard |
-| `/work/internal-crm` | ~750-dot field under a lens | data slab (a synthetic, very large data set) |
-| `/company` | identity card that turns over | surface compare · chronology strip |
-| `/company/principles` | tension dials | principle stack |
-| `/company/security` | — | boundary review |
-| `/company/timeline` | — | chronology scrubber |
-| `/company/careers` | split-flap board | areas explorer |
-| `/systems` | system map | system index · needs finder |
-| `/systems/operational-management` | — | ops flow |
-| `/systems/commerce-infrastructure` | — | order path |
-| `/systems/automation` | — | rule chain |
-| `/systems/internal-platforms` | — | console composer |
-| `/systems/data-interfaces` | — | view shift |
-| `/systems/client-portals` | — | boundary membrane |
-| `/systems/research-systems` | — | research bench |
-| `/north` | compass | accordion list |
-| `/north/engineering` | — | gate walk |
-| `/north/architecture` | — | layer stack |
-| `/north/interface-lab` | — | component bench |
-| `/north/motion-systems` | — | easing studio |
-| `/north/tooling` | — | toolchain map |
-| `/engineering` | live budget | architecture explorer |
-| `/lab` | — | scene lab |
-| `/contact` | — | contact studio |
-| `/sitemap` | — | site directory |
-| `/legal/privacy` | — | data journey |
-| `/legal/terms` | — | clause finder |
-| `/legal/cookies` | — | storage inspector |
-| `/legal/accessibility` | — | keyboard map |
-| `404` | — | nearest pages by edit distance under proximity-reactive type |
+Generated from the page data (`node qa/endings.mjs` keeps the endings honest).
 
-Global, on every page: the **route current** (a travelling line between pages), the **command search** (`Ctrl/⌘ K`), the **shortcuts panel** (`?`), **blueprint mode** (`B`), the designed **cursor** (names what a press does — View, Drag, or a `data-cursor-label`), the scroll rail on long pages and the footer directory.
+| page | hero object | compositions | ending |
+| --- | --- | --- | --- |
+| `/` | orbit nav | work portals · layer stack · chronology strip | try site |
+| `/systems` | system map | system index · needs finder | operation brief |
+| `/systems/operational-management` | — | ops flow | bottleneck |
+| `/systems/commerce-infrastructure` | — | order path | last item |
+| `/systems/automation` | — | rule chain | automation math |
+| `/systems/internal-platforms` | — | console composer | lineage |
+| `/systems/data-interfaces` | — | view shift | role lens |
+| `/systems/client-portals` | — | boundary membrane | exposure desk |
+| `/systems/research-systems` | — | research bench | hypothesis card |
+| `/systems/capabilities` | — | capability matrix | size up |
+| `/systems/integrations` | — | integration atlas | integration sheet |
+| `/systems/lifecycle` | — | lifecycle line | sunset plan |
+| `/north` | north compass | accordion list | symptom router |
+| `/north/engineering` | — | gate walk | spot the bug |
+| `/north/architecture` | — | layer stack | layer sort |
+| `/north/interface-lab` | — | component bench | state sheet |
+| `/north/motion-systems` | — | easing studio | motion modes |
+| `/north/tooling` | — | toolchain map | pipeline maker |
+| `/north/handbook` | — | document | done builder |
+| `/north/design-tokens` | — | token inspector | token playground |
+| `/north/stack` | — | stack map | what if remove |
+| `/north/quality` | — | bug catcher | chaos wheel |
+| `/north/accessibility` | — | page outline · document | alt text lab |
+| `/engineering` | live budget | architecture explorer | page vitals |
+| `/lab` | — | scene lab | sigil maker |
+| `/work` | case deck | work portals | work compare |
+| `/work/musebase` | logo plate | coordination lab | channel count |
+| `/work/yk-engine` | engine aside | engine editor · engine pipeline · engine anatomy | fixed step |
+| `/work/customer-product` | basket aside | experience storyboard | funnel math |
+| `/work/internal-crm` | dot field | data slab | lookup race |
+| `/work/how-to-read` | — | document | case exam |
+| `/company` | identity card | surface compare · chronology strip | end credits |
+| `/company/principles` | tension dials | principle stack | review draw |
+| `/company/security` | — | boundary review | gate run |
+| `/company/timeline` | — | chronology scrubber | horizon |
+| `/company/careers` | split flap | areas explorer | fit radar |
+| `/company/how-we-work` | — | project rhythm | prep sheet |
+| `/company/hiring` | — | hiring path | ask deck |
+| `/company/faq` | — | faq desk | ask the site |
+| `/company/press` | — | press kit | name style |
+| `/company/brand` | — | brand board | mark misuse |
+| `/insights` | — | insight library | random read |
+| `/insights/idempotency` | article art | idempotency demo · document | takeaway deck |
+| `/insights/audit-trails` | article art | audit log · document | log line |
+| `/insights/permissions` | article art | permission matrix · document | least privilege |
+| `/insights/runbooks` | article art | runbook walk · document | pager card |
+| `/insights/triggers` | article art | trigger compare · document | which one |
+| `/insights/api-contracts` | article art | contract diff · document | deprecation notice |
+| `/insights/handover` | article art | handover pack · document | readme maker |
+| `/insights/animation-budgets` | article art | frame budget · document | ease pick |
+| `/resources` | — | resource desk | reading list |
+| `/resources/glossary` | — | glossary browser | flash deck |
+| `/resources/changelog` | — | release notes | history bar |
+| `/resources/downloads` | — | download shelf | bundle builder |
+| `/resources/tools` | — | tool bench | cheat sheet |
+| `/resources/tools/contrast` | — | contrast checker | pair matrix |
+| `/resources/tools/type-scale` | — | type scale tool | clamp maker |
+| `/resources/tools/cron` | — | cron explainer | dst trap |
+| `/resources/tools/readiness` | — | readiness check | launch timeline |
+| `/resources/tools/decision-record` | — | decision record | pre mortem |
+| `/contact` | — | contact studio | — |
+| `/sitemap` | — | site directory | — |
+| `/trust` | — | claims ledger | self audit |
+| `/trust/status` | — | live status | frame tape |
+| `/trust/disclosure` | — | document | scope target |
+| `/trust/third-parties` | — | service map | host scan |
+| `/trust/licences` | — | licence table | notice file |
+| `/legal` | — | legal centre | status ledger |
+| `/legal/privacy` | — | data journey · document | receipt |
+| `/legal/terms` | — | clause finder · document | terms card |
+| `/legal/cookies` | — | storage inspector · document | purge |
+| `/legal/accessibility` | — | keyboard map · document | prefs panel |
+| `/legal/acceptable-use` | — | document | fair line |
+| `/legal/copyright` | — | document | mark desk |
+| `/legal/disclaimer` | — | document | fine print |
+| `/legal/retention` | — | document | lifetime ruler |
+| `/legal/complaints` | — | document | parcel track |
+| `/legal/linking` | — | document | link builder |
+| `404` | — | nearest pages by edit distance under proximity-reactive type | — |
+
+Global, on every page: the **route current** (a travelling line between pages), the **command search** (`Ctrl/⌘ K`), the **shortcuts panel** (`?`), **blueprint mode** (`B`), the designed **cursor** (names what a press does — View, Drag, or a `data-cursor-label`), the scroll rail on long pages and the footer directory (six columns of named groups, a search field, a section row with live page counts, a strip of what is new, a legal row, and on a phone disclosures that close for real).
 
 ---
 
@@ -119,5 +167,6 @@ The count is a floor for the same reason it is honest: it covers marked details 
 5. **Mark the details** with `fx('page.name')` — the composition and each separate behaviour inside it; add any non-prose data keys to `SKIP_KEYS`.
 6. **Check it** — `npm run lint`, `node qa/foreground-inventory.mjs`, then look at it at 1440 and 390 px, with the keyboard, and with `prefers-reduced-motion`.
 7. **Add it to the catalogue** in `src/animation/catalog/inventory.js` (FOREGROUND) and to the table above, then regenerate the list: `node qa/foreground-inventory.mjs --markdown > FOREGROUND-DETAILS.md`.
+8. **Operate it** — `node qa/controls.mjs /your/route` presses every control on the page (add `--phone` for a phone viewport) and fails on any error, fault panel or sideways overflow.
 
-To add a *page* (not only an interaction): write `src/data/pages/<route>.js`, add its key to `pageRouteKeys` in `src/app/routeConfig.js` (and to `directory` if it belongs in the footer), run `npm run build` (the sitemap regenerates).
+To add a *page* (not only an interaction): write `src/data/pages/<route>.js` and end it on a closer of its own (a new one in `components/closers/`, registered in `closers/registry.js` — `node qa/endings.mjs` refuses a repeat or a call to action); add its key to `pageRouteKeys` in `src/app/routeConfig.js` and give it a link in the footer (`footerColumns`) or the menu (`navGroups`); run `npm run build` (the sitemap regenerates).

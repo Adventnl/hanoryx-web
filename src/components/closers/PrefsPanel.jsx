@@ -27,6 +27,7 @@ function apply(prefs) {
   root.dataset.calm = prefs.calm;
 }
 
+/** Display preferences for this view — text size, line spacing, contrast and a calm mode — that take effect at once and last only until the page is reloaded. */
 export default function PrefsPanel({ tag, title, lede, onward }) {
   const [prefs, setPrefs] = useState(remembered);
 
