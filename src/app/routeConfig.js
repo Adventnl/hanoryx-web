@@ -170,67 +170,6 @@ export const redirects = [
   ['/work/experimental-interface-program', '/lab'],
 ];
 
-/* Footer / sitemap / search all read the same directory so a page is added once. */
-export const directory = [
-  {
-    id: 'company',
-    title: 'Company',
-    links: [
-      { label: 'Company', to: '/company' },
-      { label: 'Principles', to: '/company/principles' },
-      { label: 'Security approach', to: '/company/security' },
-      { label: 'Timeline', to: '/company/timeline' },
-      { label: 'Careers', to: '/company/careers' },
-      { label: 'Contact', to: '/contact' },
-    ],
-  },
-  {
-    id: 'work',
-    title: 'Work',
-    links: [
-      { label: 'All work', to: '/work' },
-      { label: 'Musebase', to: '/work/musebase' },
-      { label: 'YK Engine', to: '/work/yk-engine' },
-      { label: 'Customer product', to: '/work/customer-product' },
-      { label: 'Internal CRM', to: '/work/internal-crm' },
-    ],
-  },
-  {
-    id: 'systems',
-    title: 'Systems',
-    links: [
-      { label: 'Systems overview', to: '/systems' },
-      { label: 'Operational management', to: '/systems/operational-management' },
-      { label: 'Commerce infrastructure', to: '/systems/commerce-infrastructure' },
-      { label: 'Automation', to: '/systems/automation' },
-      { label: 'Data interfaces', to: '/systems/data-interfaces' },
-      { label: 'Client portals', to: '/systems/client-portals' },
-    ],
-  },
-  {
-    id: 'resources',
-    title: 'Resources',
-    links: [
-      { label: 'Development', to: '/north' },
-      { label: 'Motion systems', to: '/north/motion-systems' },
-      { label: 'Site engineering', to: '/engineering' },
-      { label: 'Visual lab', to: '/lab' },
-      { label: 'Site map', to: '/sitemap' },
-    ],
-  },
-  {
-    id: 'legal',
-    title: 'Legal',
-    links: [
-      { label: 'Privacy', to: '/legal/privacy' },
-      { label: 'Terms', to: '/legal/terms' },
-      { label: 'Cookies & storage', to: '/legal/cookies' },
-      { label: 'Accessibility', to: '/legal/accessibility' },
-    ],
-  },
-];
-
-
 /* ============================================================
    FOOTER — a directory of the whole site, laid out as columns with named
    groups (the way a large company footer is). It is deliberately NOT the
@@ -333,7 +272,7 @@ export const footerColumns = [
         ],
       },
       {
-        heading: 'Systems reference',
+        heading: 'Reference',
         links: [
           { label: 'Capabilities', to: '/systems/capabilities' },
           { label: 'Integration patterns', to: '/systems/integrations' },
@@ -410,3 +349,14 @@ export const siteSections = [
   { id: 'trust', label: 'Trust', to: '/trust', test: (k) => k === 'trust' || k.startsWith('trust/') },
   { id: 'legal', label: 'Legal', to: '/legal', test: (k) => k === 'legal' || k.startsWith('legal/') },
 ];
+
+/* Everything the menus and the footer link to, flat and de-duplicated: what the
+   404 page ranks by spelling to suggest the nearest real pages. Derived, so a
+   page added to the menu or the footer is suggested without a third list. */
+export const directory = (() => {
+  const seen = new Map();
+  const add = (group, label, to) => { if (!seen.has(to)) seen.set(to, { group, label, to }); };
+  navGroups.forEach((g) => g.children.forEach((c) => add(g.label, c.label === 'Overview' ? g.label : c.label, c.to)));
+  footerColumns.forEach((col) => col.groups.forEach((gr) => gr.links.forEach((l) => add(col.title, l.label, l.to))));
+  return [...seen.values()];
+})();
