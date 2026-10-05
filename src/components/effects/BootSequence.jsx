@@ -175,7 +175,6 @@ export function BootSequence({ onComplete, onExited }) {
             <button className={styles.startBtn} onClick={handleStart} autoFocus {...fx('boot.start-button')}>
               START
             </button>
-            <span className={styles.soundNote}>Begins ambient sound</span>
           </div>
         </div>
       </div>

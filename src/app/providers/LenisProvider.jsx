@@ -14,6 +14,10 @@ import { LenisContext } from './lenis-context';
  */
 export function LenisProvider({ children }) {
   const lenisRef = useRef(null);
+  // Child effects run before this provider's, so the shell asks for a stop
+  // (the boot gate) before the instance exists. Remember the request and apply
+  // it on creation, otherwise the very first lock is silently dropped.
+  const stoppedRef = useRef(false);
   const reduced = usePrefersReducedMotion();
   const { pathname } = useLocation();
 
@@ -27,6 +31,7 @@ export function LenisProvider({ children }) {
       wheelMultiplier: 0.9,
       touchMultiplier: 1.4,
     });
+    if (stoppedRef.current) instance.stop();
     lenisRef.current = instance;
 
     instance.on('scroll', ScrollTrigger.update);
@@ -58,8 +63,14 @@ export function LenisProvider({ children }) {
         else if (typeof target === 'number') window.scrollTo({ top: target, behavior: 'smooth' });
         else if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth' });
       },
-      stop: () => lenisRef.current && lenisRef.current.stop(),
-      start: () => lenisRef.current && lenisRef.current.start(),
+      stop: () => {
+        stoppedRef.current = true;
+        lenisRef.current?.stop();
+      },
+      start: () => {
+        stoppedRef.current = false;
+        lenisRef.current?.start();
+      },
     }),
     []
   );

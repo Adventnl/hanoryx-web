@@ -5,7 +5,9 @@
  *   intro      START begins the music inside the gesture, the navbar audio control
  *              follows, the calibration readout advances to 100%, a rejected play()
  *              is handled, Skip intro still works, the navbar is visible once the
- *              site is revealed and its background eases in on scroll
+ *              site is revealed and its background eases in on scroll; the page
+ *              cannot scroll on the START screen or during the animation, and the
+ *              home page opens at its top
  *   search     the overlay is centred and sized sensibly at three widths, does not
  *              jump while typing, finds body copy (highlighted excerpts), and keeps
  *              keyboard navigation, Enter, Escape and click-outside
@@ -94,6 +96,39 @@ const browser = await launch();
   await page.getByRole('button', { name: 'Skip intro' }).click();
   await page.locator('[aria-label="System boot sequence"]').waitFor({ state: 'detached', timeout: 5000 });
   r.check('Skip intro still works', true);
+  await context.close();
+}
+
+/* ---------------------------- intro: the page does not scroll until the home page is shown ---------------------------- */
+for (const reduced of [false, true]) {
+  const tag = reduced ? 'reduced motion' : 'animated';
+  const context = await newContext(browser, { width: 1440, height: 900, boot: 'play', reduced });
+  const page = await context.newPage();
+  const y = () => page.evaluate(() => Math.round(window.scrollY));
+  const bootUp = () => page.locator('[aria-label="System boot sequence"]').count().then((n) => n > 0);
+  await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+  await pause(1500);
+  await page.mouse.move(700, 450);
+  await page.mouse.wheel(0, 3000);
+  await page.keyboard.press('End');
+  await pause(900);
+  r.check(`START screen cannot be scrolled (${tag})`, (await y()) === 0, `y=${await y()}`);
+  r.check(`START screen locks the page scroller (${tag})`, await page.evaluate(() => getComputedStyle(document.documentElement).overflowY === 'hidden'));
+  r.check(`START screen has no ambient-sound note (${tag})`, !(await page.getByText(/ambient sound/i).count()));
+  await page.getByRole('button', { name: 'START' }).click();
+  let moved = 0;
+  for (let i = 0; i < 60 && (await bootUp()); i += 1) {
+    await page.mouse.wheel(0, 700);
+    if (await bootUp()) moved = Math.max(moved, await y());
+    await pause(250);
+  }
+  r.check(`no scrolling while the intro animation plays (${tag})`, moved === 0, `max y=${moved}`);
+  await page.locator('[aria-label="System boot sequence"]').waitFor({ state: 'detached', timeout: 15000 });
+  await pause(1500);
+  r.check(`the home page opens at its top (${tag})`, (await y()) === 0, `y=${await y()}`);
+  await page.mouse.wheel(0, 800);
+  await pause(1500);
+  r.check(`scrolling works once the intro is gone (${tag})`, (await y()) > 300, `y=${await y()}`);
   await context.close();
 }
 
