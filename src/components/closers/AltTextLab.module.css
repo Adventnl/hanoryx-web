@@ -1,0 +1,25 @@
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--space-4); align-items: start; }
+.card { display: grid; gap: 0.7rem; align-content: start; padding: 1rem 1.1rem 1.2rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, #0e0f12, #060607); min-width: 0; transition: border-color var(--dur-2) var(--ease-out); }
+.ok { border-color: var(--c-white-50); }
+.no { border-color: var(--c-red-dim); }
+.art { border: 1px dashed var(--c-white-20); border-radius: var(--r-md); background: rgba(3, 3, 4, 0.9); line-height: 0; }
+.art svg { width: 100%; height: auto; }
+.ax { stroke: var(--c-white-50); stroke-width: 1; fill: none; }
+.bar { fill: var(--c-white-65); }
+.hot { fill: var(--c-red); stroke: none; }
+.tx { fill: var(--c-white-65); font: 6px var(--font-mono); text-anchor: middle; }
+.btn { fill: none; stroke: var(--c-white-65); stroke-width: 1.2; }
+.ico { fill: none; stroke: var(--c-white); stroke-width: 2; stroke-linecap: round; }
+.key { fill: none; stroke: var(--c-white-50); stroke-width: 1; }
+.hotKey { fill: rgba(255, 51, 51, 0.35); stroke: var(--c-red); stroke-width: 1.2; }
+.ask { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-80); }
+.field textarea { width: 100%; padding: 0.6rem 0.8rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-sm); background: rgba(10, 11, 13, 0.9); color: var(--c-white); font: 0.78rem/1.55 var(--font-mono); resize: vertical; outline: none; color-scheme: dark; }
+.field textarea:focus { border-color: var(--c-red-dim); box-shadow: 0 0 0 3px var(--c-red-faint); }
+.card > button { width: fit-content; }
+.notes { display: grid; gap: 0.5rem; }
+.notes li { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem; font-size: var(--fs-xs); line-height: 1.55; color: var(--c-white-80); }
+.notes svg { margin-top: 0.15rem; color: var(--c-white); }
+.no .notes li:not(.sugg) svg { color: var(--c-red); }
+.sugg { padding-top: 0.5rem; border-top: 1px dashed var(--c-white-20); color: var(--c-white-65) !important; }
+.sugg svg { color: var(--c-white-65) !important; }
+.sugg em { font-style: normal; color: var(--c-white-50); }

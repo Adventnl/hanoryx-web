@@ -90,4 +90,9 @@ export const signatureRegistry = {
   cronExplainer: lazy(() => import('./CronExplainer')),
   readinessCheck: lazy(() => import('./ReadinessCheck')),
   decisionRecord: lazy(() => import('./DecisionRecord')),
+  // development
+  tokenInspector: lazy(() => import('./TokenInspector')),
+  stackMap: lazy(() => import('./StackMap')),
+  bugCatcher: lazy(() => import('./BugCatcher')),
+  pageOutline: lazy(() => import('./PageOutline')),
 };

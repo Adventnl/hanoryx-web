@@ -1,0 +1,20 @@
+.rig { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: center; }
+.wheelWrap { position: relative; display: grid; justify-items: center; gap: var(--space-3); }
+.pointer { position: absolute; top: -4px; left: 50%; z-index: 2; width: 0; height: 0; margin-left: -9px; border: 9px solid transparent; border-top: 16px solid var(--c-red); filter: drop-shadow(0 0 6px rgba(255, 51, 51, 0.6)); }
+.wheel { width: min(100%, 17rem); height: auto; transition-property: transform; transition-timing-function: cubic-bezier(0.12, 0.7, 0.18, 1); }
+.seg { fill: rgba(16, 17, 20, 0.95); stroke: var(--c-white-30); stroke-width: 0.8; }
+.alt { fill: rgba(26, 27, 31, 0.95); }
+.did { fill: rgba(255, 51, 51, 0.28); }
+.num { fill: var(--c-white-80); font: 8px var(--font-mono); text-anchor: middle; }
+.hub { fill: #0a0b0d; stroke: var(--c-red); stroke-width: 1.5; }
+.tally { font: 0.6rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-white-65); }
+.card { display: grid; gap: 0.8rem; align-content: start; min-height: 17rem; padding: var(--space-5); border: 1px dashed var(--c-white-20); border-radius: var(--r-lg); background: rgba(8, 9, 11, 0.88); }
+.ready { border: 1px solid var(--c-red-dim); background: linear-gradient(160deg, var(--c-red-faint), rgba(8, 9, 11, 0) 70%), #08090b; }
+.card h3 { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h2); line-height: 1.1; color: var(--c-white); }
+.card dl { display: grid; gap: 0.6rem; margin: 0; }
+.card dl div { display: grid; gap: 0.15rem; padding-top: 0.6rem; border-top: 1px dashed var(--c-white-20); }
+.card dt { font: 0.54rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.card dd { margin: 0; font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
+.card > button { width: fit-content; }
+.wait { align-self: center; font-size: var(--fs-body); color: var(--c-white-65); }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } .card { min-height: 0; } }

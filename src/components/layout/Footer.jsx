@@ -87,7 +87,7 @@ function Column({ col, index, narrow, open, onToggle, here }) {
   const listId = `footer-${col.id}`;
   const title = (
     <>
-      <span className={styles.colNum}>{String(index + 1).padStart(2, '0')}</span>
+      <span className={styles.colNum} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
       <span className={styles.colName}>{col.title}</span>
     </>
   );

@@ -1,0 +1,25 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.items { display: grid; gap: 0.6rem; min-width: 0; }
+.item { display: grid; gap: 0.6rem; padding: 0.9rem 1.1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); transition: border-color var(--dur-2) var(--ease-out); }
+.ok { border-color: var(--c-white-50); }
+.no { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.88)); }
+.text { display: flex; gap: 0.8rem; font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white); }
+.text span { flex: none; font: 0.6rem var(--font-mono); letter-spacing: 0.14em; padding-top: 0.2rem; color: var(--c-red); }
+.opts { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.opt { padding: 0.35rem 0.8rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); background: transparent; font: 0.56rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.opt:hover:not(:disabled) { border-color: var(--c-white-40); color: var(--c-white); }
+.opt:disabled { opacity: 0.4; cursor: default; }
+.on { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.why { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem; font-size: var(--fs-xs); line-height: 1.6; color: var(--c-white-65); }
+.why svg { margin-top: 0.15rem; color: var(--c-white-80); }
+.no .why svg { color: var(--c-red); }
+.why b { color: var(--c-white); font-weight: 500; }
+.side { display: grid; gap: var(--space-3); position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.help { font: 0.7rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-65); }
+.score { font-family: var(--font-serif); font-size: var(--fs-h3); color: var(--c-white); }
+.score b { font-size: 1.5em; font-weight: 400; }
+.key { display: grid; gap: 0.5rem; padding-top: var(--space-3); border-top: 1px dashed var(--c-white-20); }
+.key li { display: grid; gap: 0.1rem; }
+.key b { font: 500 var(--fs-sm) var(--font-sans); color: var(--c-white); }
+.key span { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } .side { position: static; } }

@@ -54,4 +54,18 @@ export const closerRegistry = {
   dstTrap: lazy(() => import('./DstTrap')),
   launchTimeline: lazy(() => import('./LaunchTimeline')),
   preMortem: lazy(() => import('./PreMortem')),
+  // development
+  symptomRouter: lazy(() => import('./SymptomRouter')),
+  spotTheBug: lazy(() => import('./SpotTheBug')),
+  layerSort: lazy(() => import('./LayerSort')),
+  stateSheet: lazy(() => import('./StateSheet')),
+  motionModes: lazy(() => import('./MotionModes')),
+  pipelineMaker: lazy(() => import('./PipelineMaker')),
+  pageVitals: lazy(() => import('./PageVitals')),
+  sigilMaker: lazy(() => import('./SigilMaker')),
+  doneBuilder: lazy(() => import('./DoneBuilder')),
+  tokenPlayground: lazy(() => import('./TokenPlayground')),
+  whatIfRemove: lazy(() => import('./WhatIfRemove')),
+  chaosWheel: lazy(() => import('./ChaosWheel')),
+  altTextLab: lazy(() => import('./AltTextLab')),
 };
