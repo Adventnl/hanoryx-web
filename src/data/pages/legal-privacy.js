@@ -174,6 +174,26 @@ const page = {
           ],
         },
         {
+          id: 'words',
+          title: 'Words used in this notice',
+          plain: 'A short dictionary, so the rest can stay plain.',
+          body: [
+            'A privacy notice has a reputation for using words nobody uses. This one tries not to, but a few terms are unavoidable, and they mean the same thing every time they appear. Hover or focus any underlined word in the notice to read its meaning again.',
+            { defs: [
+              { k: 'Visitor', v: 'Anyone who opens a page of the site. The notice says “you”.' },
+              { k: 'Your browser', v: 'The program on your device that shows the site. Almost everything the site does happens inside it, on your device.' },
+              { k: 'Personal data', v: 'Information that identifies you or could be used to identify you: a name, an email address, an {{IP address}}.' },
+              { k: 'Static site', v: 'A website made of ready-made files. It has no database and no accounts; the browser does the work of showing it.' },
+              { k: 'Session storage', v: 'A small store that belongs to one tab and is cleared when the tab closes. The browser looks after it.' },
+              { k: 'Request log', v: 'A record a web server keeps of the requests it receives, usually the time, the address asked for and the sender’s IP address.' },
+              { k: 'Third party', v: 'Someone other than you and the company: here, the services your browser is asked to contact so the page can be shown.' },
+              { k: 'Cache', v: 'Copies your browser keeps of files it has fetched, so it does not fetch them again. It belongs to the browser, not to the site.' },
+              { k: 'Browser tool', v: 'One of the small utilities in the Resources section. It runs in your browser and sends nothing anywhere.' },
+            ] },
+            'Where the notice says “the site’s code”, it means the scripts and files that make up this website, as opposed to the services around it: the host that delivers the files, the font service, your own browser and your own network.',
+          ],
+        },
+        {
           id: 'short',
           title: 'The short version',
           plain: 'Little is asked, and little is kept.',
@@ -193,7 +213,40 @@ const page = {
             { defs: [
               { k: 'Typed text', v: 'What you type in the search box or on the contact page lives in the page’s memory while you type. It is not sent anywhere and is gone when you leave or reload.' },
               { k: 'Pointer and keys', v: 'The site reacts to your pointer and keyboard while you use it, for example to light a card or move a cursor. These movements are not recorded or sent.' },
-              { k: 'Device settings', v: 'The site reads a few display settings, such as reduced motion and screen width, to decide how to show itself. They are not stored or sent.' },
+              { k: 'Device settings', v: 'The site reads a few display and device settings to decide how much animation to draw: whether you asked for reduced motion, how wide the screen is and, where your browser reports them, the number of processor cores and the amount of memory. They are not stored or sent.' },
+            ] },
+          ],
+        },
+        {
+          id: 'pages',
+          title: 'Page by page',
+          plain: 'What each part of the site does with information, in turn.',
+          body: [
+            'A notice that says “nothing is collected” is easier to believe when it shows its working. Here is what each part of the site does, as far as information about you is concerned.',
+            { sub: 'The intro and the home page', body: [
+              'The intro is a short sequence with a START button. Pressing START asks your browser to play the intro track, which is a file served by the site, and remembers in your tab whether you turned the music on. “Skip intro” leaves the music alone. The track’s sound is read by the page only to draw the spectrum; the site never asks for your microphone or any other input device.',
+              'Whether the intro has played is remembered in session storage so that it does not repeat on every page of the same tab.',
+            ] },
+            { sub: 'The menus, the search and the shortcuts', body: [
+              'The menus open when you point at them or press a key. The search opens with Ctrl or ⌘ and K (or the slash key). It looks through the text of the site’s pages, which your browser loads when the search first opens, and ranks the matches on your device. What you type is not sent anywhere and is not kept; only the pages you open from the results are remembered, in session storage, so they can be offered first next time.',
+              'The shortcut keys, blueprint mode and the keyboard help work entirely in the page.',
+            ] },
+            { sub: 'Work, Systems, Development and Company', body: [
+              'These are pages of text, diagrams and small interactive illustrations. The illustrations respond to your pointer and keys while you use them. They are drawn from sample data written for the site, not from information about you, and they do not record what you do.',
+            ] },
+            { sub: 'Insights and Resources', body: [
+              'The guides are long-form documents; the find bar, the contents list and the print view work in the page. The tools — the contrast checker, the type scale, the cron explainer, the readiness check and the decision-record writer — are small programs that run in your browser. What you type into them stays in the page’s memory until you leave, and nothing about it is sent.',
+              'The downloads are files built in your browser at the moment you press the button, and saved through your browser’s ordinary download feature. Nothing is fetched from anywhere to make them.',
+            ] },
+            { sub: 'The live status page', body: [
+              'This page measures your visit and shows the results to you: the frame rate of the page, how the page loaded, the connection details your browser reports, your screen size, your language and time zone, and the processor cores and memory your browser reports. None of it is stored or sent.',
+              'There is one exception, and it happens only when you press **Run the test**. The page then makes three tiny requests for the site’s robots file, to the same host that delivered the page, and times how long each takes to come back. They are ordinary requests, and the host may log them like any other.',
+            ] },
+            { sub: 'The contact page', body: [
+              'The contact page helps you write a message and builds a mail link from what you chose and typed. Pressing the button hands the link to your mail app. The page also offers to copy the company’s address to your clipboard; copying happens only when you press the button.',
+            ] },
+            { sub: 'The cookies page and the receipt', body: [
+              'The cookies and storage page reads what your browser holds for this site — its cookies, local storage and session storage — and shows it to you. It can remove the site’s own items on request. It reads your own browser; it does not report anything onward.',
             ] },
           ],
         },
@@ -235,6 +288,28 @@ const page = {
           ],
         },
         {
+          id: 'requests',
+          title: 'What a page view asks for',
+          plain: 'The kinds of file your browser fetches, and from whom.',
+          body: [
+            'Behind every page is a set of requests: for the page itself, the scripts that make it work, its styles, its images and its typefaces. The table lists the kinds of request and where they go. It deliberately does not give counts, because the numbers change as the site changes and as your browser decides what it already has.',
+            { table: {
+              caption: 'What showing a page involves',
+              head: ['Kind of request', 'Goes to', 'What it carries'],
+              rows: [
+                ['The page shell and its scripts', 'The site’s host', 'The usual details of a web request: the address asked for, your IP address and your browser’s user-agent'],
+                ['Styles and images', 'The site’s host', 'The same'],
+                ['Page text for the search', 'The site’s host', 'The same, when the search or a page needs it'],
+                ['The intro track', 'The site’s host', 'The same, only when you press START'],
+                ['Three typefaces', '{{Google Fonts}}', 'The same, and the page that asked for them, as with any font request'],
+                ['Three timing requests for the robots file', 'The site’s host', 'The same, only when you press Run the test on the live status page'],
+              ],
+            } },
+            'Once your browser has fetched a file it may keep a copy in its {{cache}}, so the next page needs fewer requests. The cache belongs to the browser: the site cannot read it, and clearing it is a setting in your browser.',
+            { note: 'The site’s code has no way to read the host’s or the font service’s logs, and it sends them nothing but the requests described here.', label: 'Plainly' },
+          ],
+        },
+        {
           id: 'contact',
           title: 'When you write to the company',
           plain: 'You send it from your own email app, not from the site.',
@@ -271,6 +346,31 @@ const page = {
           ],
         },
         {
+          id: 'situations',
+          title: 'Some particular situations',
+          plain: 'Shared computers, VPNs, blocked fonts and screen readers.',
+          body: [
+            { sub: 'If you use a shared computer', body: [
+              'Everything the site keeps lives in the tab and goes when the tab closes, so there is nothing for the next person to find from the site’s own storage. Your browser’s history, however, belongs to the browser and the account you use it in. {{Browser history}} is not something the site sees or controls.',
+            ] },
+            { sub: 'If you use a VPN or a proxy', body: [
+              'The services your browser contacts see the address of the network your traffic leaves from, not the one you are sitting on. The site does not mind, and does nothing different.',
+            ] },
+            { sub: 'If you block the font request', body: [
+              'The site still works. Your browser falls back to its own typefaces and the layout adapts. Blocking the request means Google Fonts is never contacted for this site.',
+            ] },
+            { sub: 'If your browser blocks storage', body: [
+              'The site carries on without remembering. The intro may play again on each page, the music will not remember its state, and the search will not offer recent pages. Nothing else changes.',
+            ] },
+            { sub: 'If you use a screen reader or other assistive technology', body: [
+              'Assistive technology works through your browser. The site does not detect it, does not ask whether you use it, and does not record that you do. The accessibility statement says how the site tries to work well with it.',
+            ] },
+            { sub: 'If you print or save a page', body: [
+              'Printing and saving are done by your browser. The long documents are laid out to print cleanly. The company never sees what you print.',
+            ] },
+          ],
+        },
+        {
           id: 'transfers',
           title: 'Where the information travels',
           plain: 'Web requests cross borders; the site stores nothing to move.',
@@ -293,6 +393,40 @@ const page = {
           ],
         },
         {
+          id: 'asking',
+          title: 'Making a request, step by step',
+          plain: 'How to ask what the company holds, or for it to be deleted.',
+          body: [
+            'Because the site collects nothing from visitors, the honest answer to “what do you hold about me?” is usually “nothing, apart from any message you sent”. You can still ask, and the company will look.',
+            { steps: [
+              { title: 'Decide what you want', body: 'To know what the company holds, to have a message deleted, or to ask a question about this notice.' },
+              { title: 'Write from the contact page', body: 'Choose Feedback & problems and say, in your own words, what you would like. Include the address you wrote from if you sent an email before.' },
+              { title: 'Say what would identify it', body: 'For a message: roughly when you sent it and what it was about. The company has no other way to find it.' },
+              { title: 'Expect an honest answer', body: 'The reply will say what was found and what was done. If there is nothing, it will say so.' },
+            ] },
+            { note: 'Questions about what the host or the font service logged about your visit are best put to those services, which hold the logs. The site’s own code does not read them.', label: 'A limit' },
+          ],
+        },
+        {
+          id: 'faq',
+          title: 'Questions people ask',
+          plain: 'Twelve short answers.',
+          body: [
+            { sub: 'Does the site track me?', body: ['The site’s code does not. It contains no analytics, advertising or tracking scripts, and it sets no cookies.'] },
+            { sub: 'Then why is there a table of things stored in my tab?', body: ['Because “none” would have been a simplification. Three small items are kept so the intro and the search feel continuous. They are listed so you can see them, and clear them.'] },
+            { sub: 'Do you know who I am?', body: ['No. The site has no accounts and asks for no name. The host and the font service see an IP address, as every website does.'] },
+            { sub: 'Is my search remembered?', body: ['What you type is not. Only the pages you opened from the results are, in your tab, and they go when the tab closes.'] },
+            { sub: 'Does the contact page send my message?', body: ['No. It prepares an email in your own mail app. You send it, from your own account.'] },
+            { sub: 'Do the tools upload what I put into them?', body: ['No. They run in your browser and nothing you enter is sent anywhere.'] },
+            { sub: 'Why is there no cookie banner?', body: ['Because there is nothing for it to ask about. A banner for storage that does not follow you would be noise.'] },
+            { sub: 'Can I use the site without the fonts?', body: ['Yes. Block the font request and the site uses your system’s typefaces.'] },
+            { sub: 'What if the site changes?', body: ['This notice would be updated before the change goes live, and the version here is the current one.'] },
+            { sub: 'Who is responsible for this notice?', body: ['The company, Hanoryx Systems. The contact page is the way to reach it.'] },
+            { sub: 'Is this legal advice?', body: ['No. It is a plain description of what the site does, and it has not been reviewed by a lawyer.'] },
+            { sub: 'What should I do if I think the site does something this notice does not say?', body: ['Tell the company through the contact page, and say what you saw. That is exactly the kind of report the notice exists to invite.'] },
+          ],
+        },
+        {
           id: 'security',
           title: 'Keeping things safe',
           plain: 'Less held means less to lose.',
@@ -303,11 +437,42 @@ const page = {
           ],
         },
         {
+          id: 'notcovered',
+          title: 'What this notice does not cover',
+          plain: 'The parts of your visit that belong to someone else.',
+          body: [
+            'A website is only one link in the chain between you and what you read. The links before and after it have their own practices, and this notice cannot describe them. In particular it does not cover:',
+            { list: [
+              'your browser, its settings, its extensions and the account you use it in;',
+              'your device and your network, including any filtering or monitoring on a work, school or public network;',
+              'the host that delivers the site’s files, and the font service, beyond what is said above;',
+              'your email provider, and how it handles a message you choose to send;',
+              'any other website you reach by following a link from this one.',
+            ] },
+            'If one of those is a concern, the place to read about it is that service’s own policy.',
+          ],
+        },
+        {
           id: 'changes',
           title: 'Changes to this notice',
           plain: 'The version on this page is the current one.',
           body: [
             'This notice may change as the site changes, for example if analytics, a form service or another provider is ever added. If that happens, this page will be updated before the change goes live. The version on this page is the current one.',
+          ],
+        },
+        {
+          id: 'history',
+          title: 'History of this notice',
+          plain: 'What has changed, newest first.',
+          body: [
+            { table: {
+              caption: 'Versions of this notice',
+              head: ['Version', 'What changed'],
+              rows: [
+                ['Draft 1.0', 'The first complete notice, written for the site as it stands: no analytics, three session items, the font service, a mail link for contact.'],
+              ],
+            } },
+            'The site does not publish dates for its changes, and nothing here is derived from the dates of files or deployments. When a change is made, the version above is updated and the change is described in this table.',
           ],
         },
         {

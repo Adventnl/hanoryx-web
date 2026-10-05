@@ -64,6 +64,22 @@ const page = {
           ],
         },
         {
+          id: 'words',
+          title: 'Words used on this page',
+          plain: 'A short dictionary.',
+          body: [
+            'These words are used the same way throughout. Hover or focus an underlined word anywhere in the document to read its meaning again.',
+            { defs: [
+              { k: 'Feedback', v: 'Anything you tell the company about the site that it can use: a mistake, a difficulty, a suggestion.' },
+              { k: 'Complaint', v: 'Feedback that says something went wrong or was unfair, and asks for it to be put right.' },
+              { k: 'Fault', v: 'Something on the site that does not do what it should, or that some people cannot use.' },
+              { k: 'Reproduce', v: 'To make a problem happen again, so that it can be understood and fixed.' },
+              { k: 'Second look', v: 'A fresh reading of a report after you have said that the first answer did not settle it.' },
+              { k: 'Outside body', v: 'A public organisation that hears complaints independently of the company, such as a {{data-protection authority}}.' },
+            ] },
+          ],
+        },
+        {
           id: 'what',
           title: 'What counts',
           plain: 'Almost anything about the site.',
@@ -79,11 +95,32 @@ const page = {
           ],
         },
         {
+          id: 'kinds',
+          title: 'Where each kind of report goes',
+          plain: 'Seven kinds, and what you can expect to hear.',
+          body: [
+            'Almost everything goes to the same place, the contact page. The one exception is a security weakness, which has a procedure of its own.',
+            { table: {
+              caption: 'Kinds of report, where they go and what you will hear',
+              head: ['Kind of report', 'For example', 'Where to send it', 'What you will hear'],
+              rows: [
+                ['A mistake', 'A fact is wrong, or a link leads nowhere', 'The contact page, under Feedback & problems', 'Whether it was a mistake, and that it is corrected or will be'],
+                ['Something hard to use', 'A control the keyboard cannot reach, or text too small to read', 'The contact page, under Feedback & problems', 'That it is treated as a fault, and added to the accessibility statement if it is new'],
+                ['A privacy question', 'What a particular item in storage is for', 'The contact page, under Feedback & problems', 'An answer, and a clearer document if the document was unclear'],
+                ['A concern about content', 'A statement that seems misleading, or a use of someone’s work', 'The contact page, under Feedback & problems', 'A reply saying what was looked at and what, if anything, changed'],
+                ['A security weakness', 'A way to run script through a link', 'The contact page, with a message that begins “Security report”', 'What the security disclosure policy describes'],
+                ['A reply that did not settle it', 'The answer missed what you asked', 'A reply to the message you received', 'A second look'],
+                ['A suggestion', 'A page or a tool you would like to see', 'The contact page, under Feedback & problems', 'It is read. Nothing is promised'],
+              ],
+            } },
+          ],
+        },
+        {
           id: 'how',
           title: 'How to raise it',
           plain: 'The contact page, with enough detail to act on.',
           body: [
-            'Use the contact page and choose the topic that fits best. It helps to include:',
+            'Use the contact page and choose **Feedback & problems**. It helps to include:',
             { steps: [
               { title: 'The page', body: 'The address of the page, or its title.' },
               { title: 'What you did', body: 'What you tried, in the order you tried it.' },
@@ -91,6 +128,28 @@ const page = {
               { title: 'Your set-up', body: 'The browser, device, and any assistive technology, if it matters. Leave it out if you would rather not say.' },
             ] },
             'You do not need to give your name, though an address to reply to is needed if you would like an answer.',
+          ],
+        },
+        {
+          id: 'good',
+          title: 'A weak report and a strong one',
+          plain: 'The difference is what the reader can do with it.',
+          body: [
+            'A report is easiest to act on when the reader can see exactly what you saw. Here is the same problem reported twice. The example is invented, to show the shape.',
+            { sub: 'A weak report', body: [
+              { code: 'Your site is broken.' },
+              'The reader has no page to look at, nothing to try and no idea what “broken” means. The first reply has to be a question.',
+            ] },
+            { sub: 'A strong report', body: [
+              { code: 'Page: the cookies and storage policy.\nWhat I did: pressed the Clear button, then pressed Tab.\nWhat I expected: focus to stay near the button.\nWhat happened: focus jumped to the top of the page.\nMy set-up: a laptop, keyboard only, a screen reader.' },
+              'The reader can go to the page, follow the steps and see the same thing. That is most of the work of fixing it.',
+            ] },
+            { list: [
+              '**Say where.** The address of the page, or its title.',
+              '**Say what you did, in order.** Even if it seems obvious.',
+              '**Say what you expected and what happened.** The gap between the two is the report.',
+              '**Say what you were using, if it matters.** You never have to.',
+            ] },
           ],
         },
         {
@@ -108,12 +167,45 @@ const page = {
           ],
         },
         {
+          id: 'priority',
+          title: 'What gets looked at first',
+          plain: 'Broken and misleading before wished-for.',
+          body: [
+            'The company reads everything it receives. When several reports arrive together, it intends to start with those that describe something broken, misleading or unusable for some people, and to come to suggestions after that.',
+            'This is an intention, not a queue you can see. The company does not publish response times or a ranking, and it cannot promise to follow this order every time.',
+          ],
+        },
+        {
           id: 'unhappy',
           title: 'If you are not satisfied',
           plain: 'Say so, in your reply.',
           body: [
             'If the answer does not settle what you raised, reply and say so. A second look is part of the procedure.',
             'If your concern is about how information about you is handled, you may also have the right to contact the data-protection authority in your country. This page does not limit that.',
+          ],
+        },
+        {
+          id: 'limits',
+          title: 'What this procedure cannot do',
+          plain: 'Its limits, stated plainly.',
+          body: [
+            'A procedure that promised everything would promise nothing. These are the things this one does not do.',
+            { list: [
+              'It cannot promise a particular outcome. A report is looked at honestly, and the answer may be that nothing will change.',
+              'It cannot make the company change the site. It can make sure the report is read and answered.',
+              'It is not legal advice, and it does not settle a legal dispute.',
+              'It does not cover work agreed separately between the company and someone else. That work would have its own terms.',
+              'It cannot deal with other people’s services. A problem with the hosting platform, the font service or GitHub belongs to their owners.',
+            ] },
+          ],
+        },
+        {
+          id: 'outside',
+          title: 'Bodies outside the company',
+          plain: 'Where to go if you would rather not use the company’s procedure.',
+          body: [
+            'You do not have to use this procedure first, and you do not have to use it at all. Some countries have public bodies that hear complaints about privacy, accessibility or the conduct of businesses. Which one applies depends on where you live and on what your complaint is about, and this page cannot name it for you.',
+            'The company does not discourage you from going to such a body, and nothing in this procedure limits your right to do so.',
           ],
         },
         {
@@ -133,6 +225,31 @@ const page = {
           ],
         },
         {
+          id: 'examples',
+          title: 'Six worked examples',
+          plain: 'What to send, and what happens.',
+          body: [
+            { sub: 'A link that goes nowhere', body: [
+              'Send the address of the page the link is on, and say which link it was. The reply will say that it has been fixed, or why it has not.',
+            ] },
+            { sub: 'A page you could not use with a keyboard', body: [
+              'Say which page, which control, and what happened when you pressed which key. It is treated as a fault in the site. If it is new, it is added to the accessibility statement as a known problem until it is fixed.',
+            ] },
+            { sub: 'A statement you think is misleading', body: [
+              'Quote it and say why it misleads. The company will read it in context and tell you whether it agrees. If it does, the wording changes. If it does not, the reply explains why.',
+            ] },
+            { sub: 'A copy of the site on another address', body: [
+              'Send the address of the copy and what you noticed. The acceptable use page says what is and is not allowed, and the reply will say what the company can and cannot do about it.',
+            ] },
+            { sub: 'A reply that missed the point', body: [
+              'Reply to it and say what it did not answer. A second look is part of the procedure.',
+            ] },
+            { sub: 'A question about what the site stores', body: [
+              'Name the item you saw. The cookies and storage page lists what the site keeps, and the reply will say whether the item is on the list and, if not, why not.',
+            ] },
+          ],
+        },
+        {
           id: 'records',
           title: 'What is kept',
           plain: 'The message, for as long as it takes to deal with it.',
@@ -141,10 +258,34 @@ const page = {
           ],
         },
         {
+          id: 'confidential',
+          title: 'Who sees what you send',
+          plain: 'The people who deal with it, and no one else.',
+          body: [
+            'What you write is read by the people at the company who deal with it. The company does not publish reports, and it does not publish the names or addresses of the people who make them.',
+            'If a report leads to a change, the change may be described in general terms. It would not say who raised the problem unless you have asked to be named. The same applies to security reports.',
+          ],
+        },
+        {
           id: 'changes',
           title: 'Changes to this procedure',
           plain: 'The version on this page is the current one.',
           body: ['This procedure may change as the company grows. The version on this page is the current one.'],
+        },
+        {
+          id: 'history',
+          title: 'History of this procedure',
+          plain: 'What has changed, newest first.',
+          body: [
+            { table: {
+              caption: 'Versions of this procedure',
+              head: ['Version', 'What changed'],
+              rows: [
+                ['Draft 1.0', 'The first complete procedure, written for the site as it stands: one place to report, no promised response times, and a second look on request.'],
+              ],
+            } },
+            'The site does not publish dates for its changes. When a change is made, the version above is updated and the change is described in this table.',
+          ],
         },
       ],
       note: 'A plain-language procedure written for this site. It is not legal advice and it has not been reviewed by a lawyer.',

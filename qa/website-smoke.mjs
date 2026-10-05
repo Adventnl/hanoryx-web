@@ -22,7 +22,10 @@ import { directory, navGroups } from '../src/app/routeConfig.js';
 const r = reporter('website smoke');
 const WIDTHS = [280, 320, 360, 390, 768, 1024, 1440, 1920];
 const known = new Set(pageRoutes);
-const BANNED = /e-?commerce|hosting|public repositor|repository count|software engineering\b.*status|\bstars?\b.*\brepos?\b/i;
+// Claims the site no longer makes. "Hosting" and "public repository" are fine when they name the vendor
+// that delivers the files or the one repository YK Engine links to; what is banned is offering hosting,
+// talking about public repositories in the plural, and anything that reads like GitHub statistics.
+const BANNED = /e-?commerce|\b(?:web|cloud|managed) hosting\b|public repositories|repository count|software engineering\b.*status|\bstars?\b.*\brepos?\b/i;
 const NO_CLOSER = new Set(['/contact', '/sitemap']); // the contact details and the directory are their own endings
 const CTA = /contact us|get in touch|start a (project|conversation)|talk to us|let.s talk/i;
 

@@ -70,6 +70,31 @@ const page = {
           ],
         },
         {
+          id: 'why',
+          title: 'Why shorter is better',
+          plain: 'What is never made cannot leak, go stale or need guarding.',
+          body: [
+            'Most privacy effort goes into protecting information that has already been collected. A simpler approach is not to collect it. Information that was never made cannot be stolen, cannot be wrong, does not have to be kept up to date and never needs to be explained to anyone.',
+            'That is the approach this site takes. The question this page answers, how long information is kept, has a short answer because the site’s code creates very little in the first place. What is left is small, it lives on your device, and most of it goes when you leave.',
+          ],
+        },
+        {
+          id: 'words',
+          title: 'Words used on this page',
+          plain: 'A short dictionary.',
+          body: [
+            'These words are used the same way throughout. Hover or focus an underlined word anywhere in the document to read its meaning again.',
+            { defs: [
+              { k: 'Retention period', v: 'How long a piece of information is kept before it is deleted.' },
+              { k: 'Deletion', v: 'Removing information so that the holder can no longer read it. Copies that other people hold are not affected.' },
+              { k: 'Backup', v: 'A spare copy kept so that information can be recovered if the original is lost. Email and hosting services commonly keep them.' },
+              { k: 'Log', v: 'A running record that a service keeps of what it did, usually the time, the thing asked for and the sender’s address.' },
+              { k: 'Cache', v: 'Copies of files your browser keeps so it does not need to fetch them again.' },
+              { k: 'Controller', v: 'The person or organisation that decides how a piece of information is kept and used. The last column of the schedule says who that is.' },
+            ] },
+          ],
+        },
+        {
           id: 'table',
           title: 'The schedule',
           plain: 'Seven kinds of information, none kept by the site.',
@@ -91,6 +116,33 @@ const page = {
           ],
         },
         {
+          id: 'where',
+          title: 'Where information can be during a visit',
+          plain: 'A map of twelve places, and who looks after each.',
+          body: [
+            'The schedule above lists what the site creates. This map is wider. It lists every place something connected with a visit may be found, including places that have nothing to do with the site’s code, so that you can see what lies inside this page’s promises and what lies outside.',
+            { table: {
+              caption: 'Places information connected with a visit can be, and who controls each',
+              head: ['Place', 'What may be there', 'Who controls it'],
+              rows: [
+                ['The page’s memory', 'What you typed, while the page is open', 'You, until you leave'],
+                ['Your tab’s storage', 'The three small items', 'You. The browser clears it when the tab closes'],
+                ['Your browser’s cache', 'Copies of scripts, styles, images and typefaces', 'Your browser'],
+                ['Your browser’s history', 'The addresses of the pages you visited', 'You, through your browser'],
+                ['Your downloads', 'Files you saved from the Resources section', 'You'],
+                ['Your clipboard', 'The address, if you pressed the copy button', 'You and your device'],
+                ['Your network', 'Records kept by a router, proxy or filter, on a work, school or public network', 'Whoever runs the network'],
+                ['The host that delivers the files', 'Ordinary request logs', 'The hosting service'],
+                ['The font service', 'Ordinary request logs for the font request', 'The font service'],
+                ['Your email provider', 'A message you chose to send', 'You and your provider'],
+                ['The company’s mailbox', 'A message that reached it', 'The company'],
+                ['GitHub', 'Whatever it keeps if you follow the link to the YK Engine repository', 'GitHub'],
+              ],
+            } },
+            'This page speaks for the company about the first two rows, which the site itself creates, and about the company’s mailbox. For the rest it can only describe what is usual and point you to the place that decides.',
+          ],
+        },
+        {
           id: 'page',
           title: 'In the page',
           plain: 'Gone when you leave.',
@@ -107,11 +159,38 @@ const page = {
           ],
         },
         {
+          id: 'caches',
+          title: 'Copies your browser keeps',
+          plain: 'The cache and the history outlast the tab.',
+          body: [
+            'Some of what your browser keeps does not go when the tab closes. The browser’s {{cache}} may hold copies of the site’s scripts, styles, images and typefaces so that the next visit is quicker. Its {{browser history}} holds the addresses of the pages you visited.',
+            'Both belong to your browser and to the account you use it in. The site cannot read them, and it does not ask the browser to keep anything in them that it would not keep for any other site. How long they last, and how to clear them, are settings in your browser.',
+            { note: 'On a shared computer, the browser’s history and cache are the places a later user might see signs of your visit. The site’s own storage is not, because it goes when the tab closes.', label: 'Worth knowing' },
+          ],
+        },
+        {
           id: 'none',
           title: 'What is not created',
           plain: 'Nothing to delete.',
           body: [
             'The site’s code sets no {{cookie}}s, uses no {{local storage}}, has no accounts and writes no visitor records to a database. There is nothing in those places to retain, and so nothing to delete.',
+          ],
+        },
+        {
+          id: 'visit',
+          title: 'A visit, step by step',
+          plain: 'What exists at each stage, and where.',
+          body: [
+            'Here is an imagined visit, with an account of what exists at each stage and who holds it.',
+            { steps: [
+              { title: 'Arriving', body: 'You follow a link or type the address. Your browser asks the host for the page. The host may log the request in the ordinary way.' },
+              { title: 'Settling in', body: 'The page arrives with its scripts and styles, and your browser asks the font service for three typefaces. The font service may log that request. Your browser may keep copies in its cache.' },
+              { title: 'The intro', body: 'You press START or skip the intro. One or two small items are written to your tab’s storage. They stay until the tab closes.' },
+              { title: 'Searching', body: 'You open the search and type. What you type lives in the page’s memory and goes nowhere. If you open a result, a short list of such pages is written to your tab’s storage.' },
+              { title: 'Timing the connection', body: 'On the live status page you press Run the test. Three small requests go to the host and are timed. The host may log them like any others. The timings are shown to you and kept nowhere.' },
+              { title: 'Writing to the company', body: 'On the contact page you write a message and open it in your mail app. The page keeps nothing. Your mail app, your provider and the company’s mailbox deal with the message from then on.' },
+              { title: 'Leaving', body: 'You close the tab. The page’s memory is gone and the browser clears the tab’s storage. What remains is in places other people control: your browser’s cache and history, the services’ logs, and any message you sent.' },
+            ] },
           ],
         },
         {
@@ -139,10 +218,62 @@ const page = {
           ],
         },
         {
+          id: 'deleting',
+          title: 'What deletion can and cannot reach',
+          plain: 'A request is only as far-reaching as what the company holds.',
+          body: [
+            { table: {
+              caption: 'What the company can and cannot delete when asked',
+              head: ['What you ask about', 'What the company can do', 'What it cannot do'],
+              rows: [
+                ['A message you sent to the company', 'Delete it from its own mailbox, and any note it made about it', 'Delete your copy, or copies held by email providers along the way'],
+                ['A report about the site', 'The same as for a message', 'The same as for a message'],
+                ['Items in your tab', 'Nothing. They are yours', 'Clear them for you. The cookies and storage page does it'],
+                ['A line in the host’s or the font service’s logs', 'Nothing directly. Those services hold them', 'Delete them. Ask those services'],
+                ['Your browser’s history, cache and downloads', 'Nothing. They are in your browser', 'Reach them. See your browser’s settings'],
+              ],
+            } },
+            'Email and hosting services commonly keep backups, so a deleted item can persist for a while in a copy the company cannot see. That is true of most services, and it is not a promise this page can end.',
+          ],
+        },
+        {
           id: 'changes',
           title: 'Changes to this schedule',
           plain: 'The version on this page is the current one.',
           body: ['If the site ever starts to keep something, this schedule will be updated first. The version on this page is the current one.'],
+        },
+        {
+          id: 'triggers',
+          title: 'What would change this schedule',
+          plain: 'Things the company would have to tell you about first.',
+          body: [
+            'The schedule describes the site as it stands. Any of the following would make it wrong, so any of them would be preceded by an update to this page, the privacy notice and the cookies policy.',
+            { list: [
+              'Adding analytics, advertising or any other measuring service.',
+              'Adding accounts, sign-in or anything else that needs a database.',
+              'Adding a form that sends what you type to a service instead of preparing an email.',
+              'Adding a newsletter, comments, a chat widget or an embedded video.',
+              'Setting a cookie, or using local storage or any other store.',
+              'Adding another item to session storage.',
+              'Loading anything from a new outside service.',
+            ] },
+            'If you ever see one of these on the site without a change to these documents, that is a mistake and worth reporting.',
+          ],
+        },
+        {
+          id: 'history',
+          title: 'History of this schedule',
+          plain: 'What has changed, newest first.',
+          body: [
+            { table: {
+              caption: 'Versions of this schedule',
+              head: ['Version', 'What changed'],
+              rows: [
+                ['Draft 1.0', 'The first complete schedule, written for the site as it stands: no visitor records, three items in the tab, and everything else left to the services that hold it.'],
+              ],
+            } },
+            'The site does not publish dates for its changes. When a change is made, the version above is updated and the change is described in this table.',
+          ],
         },
       ],
       note: 'A plain-language schedule written for this site. It is not legal advice and it has not been reviewed by a lawyer.',

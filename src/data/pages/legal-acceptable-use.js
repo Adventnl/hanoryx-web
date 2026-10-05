@@ -71,6 +71,24 @@ const page = {
           ],
         },
         {
+          id: 'words',
+          title: 'Words used in this policy',
+          plain: 'A few terms that have a particular meaning here.',
+          body: [
+            'These words are used the same way throughout. Hover or focus an underlined word anywhere in the document to read its meaning again.',
+            { defs: [
+              { k: 'Automated access', v: 'Visiting the site with a program instead of a person at a browser: a crawler, a checker, a script, a monitoring service.' },
+              { k: 'Crawler', v: 'A program that follows links from page to page and reads or copies what it finds.' },
+              { k: 'Scraping', v: 'Collecting the content of pages automatically, usually to reuse or analyse it.' },
+              { k: 'Rate', v: 'How many requests are made in a given time. A slow, steady rate is gentle. A burst from many machines at once is not.' },
+              { k: 'Load', v: 'The work the site’s host has to do to answer requests. A flood of requests raises it for everyone.' },
+              { k: 'Good faith', v: 'Acting honestly, to help the site and its visitors and not to harm them or to gain from a weakness.' },
+              { k: 'Impersonation', v: 'Presenting yourself, a page or a message as being from the company when it is not.' },
+            ] },
+            'Two more terms, the {{robots file}} and the {{user-agent}}, are explained where they first appear.',
+          ],
+        },
+        {
           id: 'welcome',
           title: 'What is welcome',
           plain: 'Ordinary use, and plenty beyond it.',
@@ -85,16 +103,48 @@ const page = {
           ],
         },
         {
+          id: 'principles',
+          title: 'The four ideas behind the rules',
+          plain: 'Proportion, honesty, care and asking first.',
+          body: [
+            'Every rule in this policy comes from one of four ideas. When a situation is not covered, asking which of the four it touches is usually enough to settle it.',
+            { defs: [
+              { k: 'Proportion', v: 'Use the site in the way, and at the scale, that a person reading it would. A reader opens a few pages a minute, and a program should behave like a considerate reader.' },
+              { k: 'Honesty', v: 'Say who you are and what you are doing. Do not pass the company’s work off as yours, or yours off as the company’s.' },
+              { k: 'Care for others', v: 'The site is shared. Do not make it slower, riskier or less trustworthy for the next visitor.' },
+              { k: 'Asking first', v: 'Where you are unsure, ask through the contact page before you act. A short question is always welcome.' },
+            ] },
+          ],
+        },
+        {
           id: 'reasonable',
           title: 'Keep the load reasonable',
           plain: 'Don’t make the site slower for other people.',
           body: [
-            'The site is a set of ready-made files delivered by a hosting service. Ordinary browsing puts no strain on it. Automated access is a different matter.',
+            'The site is a set of ready-made files delivered by a {{hosting}} service. Ordinary browsing puts no strain on it. Automated access is a different matter.',
             { list: [
               'Do not run automated tools against the site at a rate that could slow it down or interrupt it for others.',
-              'If you collect pages automatically, for example to build a search index or an archive, do it gently, respect the robots file at the site’s root, and identify your tool in its user-agent string.',
+              'If you collect pages automatically, for example to build a search index or an archive, do it gently, respect the {{robots file}} at the site’s root, and identify your tool in its {{user-agent}} string.',
               'Do not use the site to test the capacity of other systems.',
             ] },
+          ],
+        },
+        {
+          id: 'automated',
+          title: 'Automated access, in practice',
+          plain: 'How to run a crawler or a checker politely.',
+          body: [
+            'Automated access is welcome in moderation. Search engines, link checkers, accessibility monitors and archives all use it. The aim is that the site cannot tell your program is there, except by the courtesy it shows.',
+            { steps: [
+              { title: 'Start from the sitemap', body: 'The site publishes a sitemap file that lists its pages, and the robots file points to it. That is a better starting point than following every link.' },
+              { title: 'Read the robots file', body: 'It sits at the root of the site. At present it welcomes all visitors. If that changes, follow what it says.' },
+              { title: 'Identify yourself', body: 'Put the name of your program, and a way to reach you, in its user-agent string, so that a person can get in touch if something goes wrong.' },
+              { title: 'Go slowly', body: 'Make requests one at a time, with a pause between them, from a single machine. A reader opens a page every few seconds at most, and a program that keeps to that pace will never be noticed.' },
+              { title: 'Do not repeat yourself', body: 'Keep what you have fetched and do not fetch it again without a reason.' },
+              { title: 'Stop when asked', body: 'If the company asks you to slow down or stop, do so, and use the contact page to say what you were doing.' },
+            ] },
+            { note: 'The site is client-rendered. A plain download of a page returns a small shell, and the text appears when scripts run in a browser. A program that wants the text has to run the page as a browser does, which is heavier. That is one more reason to go slowly.', label: 'Practical' },
+            { note: 'Whether the site’s text may be used to build, train or test machine-learning systems has not been decided. The robots file is the only signal the site currently gives, and it welcomes all visitors. Until the company says more, please ask first through the contact page.', label: 'Open item' },
           ],
         },
         {
@@ -107,12 +157,64 @@ const page = {
           ],
         },
         {
+          id: 'examples',
+          title: 'More examples of what is and is not fine',
+          plain: 'Seventeen situations, with a reason for each.',
+          body: [
+            'The closing section of this page lets you try eight cases. This table is longer, and is there to be searched and skimmed.',
+            { table: {
+              caption: 'More examples of what is and is not fine',
+              head: ['Situation', 'Verdict', 'Why'],
+              rows: [
+                ['Reading every page in one sitting', 'Fine', 'This is what the site is for.'],
+                ['Using your browser’s translate, reader or read-aloud tools', 'Fine', 'They work inside your own browser and are part of ordinary use.'],
+                ['Saving a page for offline reading', 'Fine', 'For your own reference.'],
+                ['Checking your own links to the site with a script', 'Fine, gently', 'A handful of requests, spaced out.'],
+                ['Monitoring the site from a service', 'Fine, gently', 'A check every few minutes is plenty. Ask if you need more.'],
+                ['Indexing the site for a search engine or an archive', 'Fine, gently', 'Follow the robots file and identify your program.'],
+                ['Quoting a paragraph with a credit and a link', 'Fine', 'Short, credited quotation is ordinary.'],
+                ['Linking from a page that disagrees with the site', 'Fine', 'Linking is welcome whether or not you agree.'],
+                ['Describing the company accurately in an article', 'Fine', 'Referring to it by name to describe it is ordinary.'],
+                ['Using the tools on confidential information', 'Fine, with your own rules', 'The tools send nothing, but your employer or client may have rules of its own.'],
+                ['Running a load test against the site', 'Not fine', 'The site is not there to test capacity, yours or anyone’s.'],
+                ['Running a vulnerability scanner at full speed', 'Not fine', 'Follow the security disclosure policy instead.'],
+                ['Fetching pages from many machines at once', 'Not fine', 'That is a flood however polite each machine is.'],
+                ['Republishing a whole guide under your name', 'Not fine', 'That presents the company’s work as yours.'],
+                ['Naming your product after the company’s', 'Not fine', 'That suggests a connection that does not exist.'],
+                ['Showing the site inside a frame on your page', 'Please don’t', 'It is not built for it. Link to it instead.'],
+                ['Using the text to train a machine-learning system', 'Ask first', 'Not decided yet. See the open item under automated access.'],
+              ],
+            } },
+          ],
+        },
+        {
           id: 'security',
           title: 'Security testing',
           plain: 'Report what you find; don’t make use of it.',
           body: [
             'If you believe you have found a security weakness, please follow the security disclosure policy: tell the company, give enough detail to reproduce it, and give it a fair chance to be fixed before you share it more widely.',
             'Good-faith research that follows that policy is welcome. This policy cannot grant legal permission beyond what the law itself allows, and it cannot speak for the hosting service or any other third party.',
+          ],
+        },
+        {
+          id: 'testing',
+          title: 'Security testing, in practice',
+          plain: 'What a careful tester does, and what a careless one does not.',
+          body: [
+            'The security disclosure policy is the full account. From the point of view of acceptable use, it comes down to staying within what you need in order to show that a problem exists.',
+            { table: {
+              caption: 'Careful and careless security testing',
+              head: ['A careful tester', 'A careless one'],
+              rows: [
+                ['Uses their own browser and device', 'Uses other people’s'],
+                ['Shows that a problem exists, then stops', 'Keeps going to see how far it goes'],
+                ['Looks at what the site makes public', 'Tries to reach what it does not'],
+                ['Sends a few requests, spaced out', 'Runs a scanner at full speed'],
+                ['Reports privately and gives a fair chance to fix it', 'Posts the details publicly first'],
+                ['Says plainly what they did and found', 'Exaggerates, or demands something in return'],
+              ],
+            } },
+            'Reports from the left-hand column are read gladly. The company does not run a reward programme, and it does not promise response times.',
           ],
         },
         {
@@ -134,6 +236,21 @@ const page = {
           plain: 'No unlawful or harmful use.',
           body: [
             'Do not use the site, or what you copy from it, to break the law, to harass or deceive anyone, or to spread malicious software. The site has no way for visitors to post content, so there is no user-generated content to moderate; this rule applies to how you use the site and its material elsewhere.',
+          ],
+        },
+        {
+          id: 'scenarios',
+          title: 'Some scenarios',
+          plain: 'Eight real-life situations and how the policy reads them.',
+          body: [
+            { sub: 'A student who wants to cite a guide', body: ['Cite it as you would any web page: the title, the address and the day you read it. Quote briefly if you need to. No permission is needed.'] },
+            { sub: 'A journalist writing about the company', body: ['Naming the company and quoting briefly are fine. The press page has a short description to start from, and the contact page is the way to have a fact checked.'] },
+            { sub: 'A teacher who wants to use a guide in a course', body: ['Linking to the guide from course materials is welcome. If you want to reproduce a guide in full, ask first and say how it will be used.'] },
+            { sub: 'A developer building a link checker', body: ['Fine. Start from the sitemap, identify the program, keep a gentle pace and stop if asked.'] },
+            { sub: 'A researcher measuring how quickly the site loads', body: ['A few visits from an ordinary browser are fine. For repeated or automated measurement, keep to a gentle rate and tell the company what you are doing. The live status page shows what your own browser measures.'] },
+            { sub: 'A company putting the site in a list of examples', body: ['Linking and naming it accurately are welcome. Do not suggest that the company endorses the list or whoever sponsors it.'] },
+            { sub: 'Someone who finds a typo', body: ['Tell the company through the contact page. That is a contribution, not a breach of anything.'] },
+            { sub: 'A person using assistive technology or their own style sheet', body: ['That is ordinary use. A screen reader, a magnifier, a browser extension or a custom style sheet is part of your browser and does not count as automated access.'] },
           ],
         },
         {
@@ -161,10 +278,40 @@ const page = {
           ],
         },
         {
+          id: 'response',
+          title: 'What usually happens first',
+          plain: 'Asking comes before blocking, where there is time.',
+          body: [
+            'Most problems are mistakes: a script left running, a name used carelessly, a passage copied without a credit. The company’s first step, where it can take one, is to ask.',
+            { ol: [
+              'If a program is straining the site, the first step is usually to reach whoever runs it, if they can be found, or to slow it down at the network level.',
+              'If a name or mark is used in a way that suggests a connection, the first step is a request to change it.',
+              'If material has been copied, the first step is a request to remove it or to credit it.',
+              'If the rules are broken knowingly, or the harm is serious, or asking has not worked, the company may block access, tell a hosting service or other provider, or take whatever step the law allows.',
+            ] },
+            'None of this is a promise to proceed in that order. The company may need to act at once, and may do so without notice, as the section above says.',
+          ],
+        },
+        {
           id: 'changes',
           title: 'Changes to this policy',
           plain: 'The version on this page is the current one.',
           body: ['This policy may change as the site does. The version on this page is the current one.'],
+        },
+        {
+          id: 'history',
+          title: 'History of this policy',
+          plain: 'What has changed, newest first.',
+          body: [
+            { table: {
+              caption: 'Versions of this policy',
+              head: ['Version', 'What changed'],
+              rows: [
+                ['Draft 1.0', 'The first complete policy, written for the site as it stands: reading, linking and printing are welcome, automated access is welcome in moderation, and the question of machine-learning use is left open.'],
+              ],
+            } },
+            'The site does not publish dates for its changes. When a change is made, the version above is updated and the change is described in this table.',
+          ],
         },
       ],
       note: 'A plain-language policy written for this site. It is not legal advice and it has not been reviewed by a lawyer.',

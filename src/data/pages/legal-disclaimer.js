@@ -67,11 +67,62 @@ const page = {
           ],
         },
         {
+          id: 'why',
+          title: 'Why this page exists',
+          plain: 'So that a description is not mistaken for a promise.',
+          body: [
+            'A website that explains how a company thinks and works can easily be taken for a set of promises. A guide reads like advice. A demonstration looks like a product. A tidy figure looks like a result. None of those readings is intended, and the page you are reading exists to say so in plain words.',
+            'It is not meant to be hostile, and it is not meant to hide anything. It marks the edges of the site so that you can lean on the parts that are solid, and know which parts are illustration.',
+          ],
+        },
+        {
+          id: 'words',
+          title: 'Words used on this page',
+          plain: 'A short dictionary.',
+          body: [
+            'These words are used the same way throughout. Hover or focus an underlined word anywhere in the document to read its meaning again.',
+            { defs: [
+              { k: 'Disclaimer', v: 'A statement that limits what a reader may take from something. This page is a set of them.' },
+              { k: 'Warranty', v: 'A promise that something is as described or will work as stated.' },
+              { k: 'Advice', v: 'A recommendation about what you should do in your circumstances, from someone who has looked at them.' },
+              { k: 'Illustration', v: 'A diagram, demonstration or sample record made to explain an idea.' },
+              { k: 'Sample data', v: 'Invented records used in a demonstration so that it has something to show.' },
+              { k: 'Measurement', v: 'A figure your own browser works out about your own device, such as a frame rate or a timing.' },
+              { k: 'Opinion', v: 'A view on which reasonable people can differ.' },
+              { k: 'Reliance', v: 'Acting on something because you believe it to be true or suitable.' },
+            ] },
+          ],
+        },
+        {
           id: 'information',
           title: 'Information only',
           plain: 'The site informs; it does not offer.',
           body: [
             'The site presents the company, its development team and its work. It is provided for information. Nothing on it is an offer to supply anything, a quotation, a proposal, or a promise that any particular result can be achieved.',
+          ],
+        },
+        {
+          id: 'claims',
+          title: 'What the site says, and what it does not',
+          plain: 'Ten subjects, each with both sides.',
+          body: [
+            'It is easier to read a disclaimer when you can see what it sits beside. For each subject, the left column says what the site does say. The right column says what you should not conclude from it.',
+            { table: {
+              caption: 'What the site says about ten subjects, and what it does not',
+              head: ['Subject', 'What the site says', 'What it does not say'],
+              rows: [
+                ['The company’s work', 'The kinds of system it builds, and how it approaches them', 'That it can deliver any particular result for you, at any cost or time'],
+                ['Its products', 'That Musebase and YK Engine exist, and what they are', 'That either is for sale, supported, or suited to your use'],
+                ['Its clients', 'Nothing. No clients are named', 'That anyone uses, recommends or has approved the work'],
+                ['Results', 'Nothing. No outcomes or measured results are published', 'That any approach produces a particular improvement'],
+                ['The guides', 'General explanations of how the company thinks about a subject', 'That they are complete, current or right for your case'],
+                ['The tools', 'That each does the calculation it describes, in your browser', 'That a result suits the decision you are making'],
+                ['The demonstrations', 'That they illustrate an idea', 'That they are working systems or hold real data'],
+                ['The status page', 'What your own browser measures, live', 'That the site is up for anyone else, or anything about the company’s reliability'],
+                ['Security', 'How the company approaches it, and how to report a problem', 'That the site, or any system, is free of weaknesses'],
+                ['The future', 'Nothing that is a commitment', 'That any page, feature or policy will stay or arrive'],
+              ],
+            } },
           ],
         },
         {
@@ -97,12 +148,48 @@ const page = {
           ],
         },
         {
+          id: 'pagebypage',
+          title: 'Part by part',
+          plain: 'What to bear in mind in each section of the site.',
+          body: [
+            { table: {
+              caption: 'Cautions for each section of the site',
+              head: ['Section', 'Bear in mind'],
+              rows: [
+                ['Work', 'The descriptions show the shape of the work. They name no clients and report no results.'],
+                ['Systems', 'The capability pages describe kinds of system in general. They are not a list of what the company will build for you.'],
+                ['Development', 'The demonstrations and the interface components show ideas, with sample data. The gallery is not a product.'],
+                ['Company', 'Principles and the timeline describe how the company works. Unless a page says a role is open, the careers pages are not job adverts.'],
+                ['Insights', 'The guides give general explanations. A threshold or an example illustrates a point and is not a recommendation for your numbers.'],
+                ['Resources', 'The tools and templates are starting points. Check what they produce before you rely on it.'],
+                ['Trust', 'The status page shows figures from your own device. The security pages do not claim that your risk is nil.'],
+                ['Legal', 'These documents are plain-language drafts and have not been reviewed by a lawyer.'],
+              ],
+            } },
+          ],
+        },
+        {
           id: 'advice',
           title: 'No advice',
           plain: 'Articles and tools are general.',
           body: [
             'The articles in Insights and the tools in Resources are general information and general-purpose utilities. They are not professional advice of any kind, whether technical, legal, financial, security-related or otherwise. They do not take your circumstances into account.',
             'If a decision matters, take advice from someone who knows your situation. Check results from a tool before you rely on them.',
+          ],
+        },
+        {
+          id: 'toollimits',
+          title: 'What each tool can and cannot tell you',
+          plain: 'Five tools, five limits.',
+          body: [
+            'The tools in the Resources section do small, well-defined jobs. Each job has an edge, and it is worth knowing where.',
+            { defs: [
+              { k: 'Contrast checker', v: 'Works out the contrast ratio between two colours and says whether it meets the usual thresholds. It cannot judge whether a design is readable: size, weight, background images and your readers’ eyes also matter.' },
+              { k: 'Type scale', v: 'Calculates sizes from a base and a ratio and writes the CSS. It does not choose a good base or ratio for your design.' },
+              { k: 'Cron explainer', v: 'Reads a schedule in English and lists its next runs in your browser’s time zone. Different schedulers read some expressions differently, and yours may run in a different time zone.' },
+              { k: 'Readiness check', v: 'Asks twenty questions before something goes live and returns the gaps as a list. It starts a conversation. It is not an audit, and a clean result does not mean a system is ready.' },
+              { k: 'Decision-record writer', v: 'Helps you write a decision down in a standard form. It does not make the decision, check it or keep it.' },
+            ] },
           ],
         },
         {
@@ -119,6 +206,21 @@ const page = {
           plain: 'The articles say what the authors think.',
           body: [
             'The articles express general engineering opinions. Reasonable people disagree about many of the things they discuss, and your context may call for a different choice.',
+          ],
+        },
+        {
+          id: 'misreadings',
+          title: 'Eight common misreadings',
+          plain: 'Things the site does not mean, and why.',
+          body: [
+            { sub: 'The site says the company “builds” systems. Does that mean it will build mine?', body: ['Not necessarily. Nothing on the site is an offer. Any real work would be agreed separately, in writing.'] },
+            { sub: 'A guide says to do something a particular way. Is that the company’s advice to me?', body: ['No. It is a general explanation of a way of working. It has not looked at your circumstances.'] },
+            { sub: 'The status page says my page is running smoothly. Is the site reliable?', body: ['The page says only that this page is running smoothly on your device at that moment. It measures nothing about the site as a service.'] },
+            { sub: 'A demonstration showed a screen of orders. Are those real?', body: ['No. They are invented records, made so that the demonstration has something to show.'] },
+            { sub: 'The security pages explain how to report a problem. Does the site have no weaknesses?', body: ['No claim of that kind is made. A report policy exists because every system can have weaknesses.'] },
+            { sub: 'The principles page says what the company values. Is that a contract?', body: ['No. It describes how the company works and what it tries to do. It creates no obligation to you.'] },
+            { sub: 'The timeline shows phases. Are those dates?', body: ['No. The site publishes no dates for the company’s history. The phases show order, not a calendar.'] },
+            { sub: 'The licences page lists libraries. Do their authors endorse or support the site?', body: ['No. Listing a library says only that the site uses it, under its licence.'] },
           ],
         },
         {
@@ -155,6 +257,15 @@ const page = {
           ],
         },
         {
+          id: 'rights',
+          title: 'Rights you may have anyway',
+          plain: 'This page does not try to take them away.',
+          body: [
+            'Some places give people rights that cannot be signed away, and some kinds of responsibility cannot be limited by anyone. This page does not try to do either. Where it says “to the extent the law allows”, it means exactly that: the limit applies up to the point where the law says it must stop.',
+            'The site sells nothing, so the rights people have as customers are unlikely to arise from it. If you think a right of yours has been affected, say so through the contact page and describe what happened.',
+          ],
+        },
+        {
           id: 'yours',
           title: 'Your responsibility',
           plain: 'Use judgement.',
@@ -167,6 +278,21 @@ const page = {
           title: 'Changes',
           plain: 'The version on this page is the current one.',
           body: ['These disclaimers may change as the site does. The version on this page is the current one.'],
+        },
+        {
+          id: 'history',
+          title: 'History of this page',
+          plain: 'What has changed, newest first.',
+          body: [
+            { table: {
+              caption: 'Versions of this page',
+              head: ['Version', 'What changed'],
+              rows: [
+                ['Draft 1.0', 'The first complete page, written for the site as it stands: no clients named, no results published, and nothing offered for sale.'],
+              ],
+            } },
+            'The site does not publish dates for its changes. When a change is made, the version above is updated and the change is described in this table.',
+          ],
         },
       ],
       note: 'A plain-language page written for this site. It is not legal advice and it has not been reviewed by a lawyer.',
