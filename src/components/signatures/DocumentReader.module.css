@@ -149,6 +149,12 @@
   .layout { display: block; }
   .summary, .plain, .note { background: none !important; border-color: #999 !important; }
   .sHead h3, .p, .list, .ol, .def dd, .steps span, .steps strong, .note p, .plain p, .summary li, .table td, .table th { color: #000 !important; }
+  /* every word prints black on white — bold, defined words, code, links — whatever its colour on screen */
+  .root *:not(svg):not(svg *) { color: #000 !important; background: none !important; box-shadow: none !important; text-shadow: none !important; }
+  .root hr, .root [class*='rule'] { border-color: #bbb !important; }
   .num { display: none; }
   .section { break-inside: auto; border-color: #bbb; }
+  /* keep a note, a code sample, a definition or a table row in one piece, and a heading with what follows it */
+  .note, .pre, .quote, .def, .steps li, .table tr { break-inside: avoid; }
+  .sHead, .sub h4, .table caption { break-after: avoid; }
 }

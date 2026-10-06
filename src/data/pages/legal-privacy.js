@@ -199,7 +199,7 @@ const page = {
           plain: 'Little is asked, and little is kept.',
           body: [
             'The site is a {{static site}}: ready-made files that your browser turns into pages. There is no database behind it and no way to create an account or sign in.',
-            'The site’s code contains **no analytics, advertising or tracking scripts**, sets **no {{cookie}}** and does not use {{local storage}}. It keeps up to three small items in {{session storage}} so that the intro and the search feel continuous within a tab.',
+            'The site’s code contains **no analytics, advertising or tracking scripts**, sets **no {{cookie}}s** and does not use {{local storage}}. It keeps up to three small items in {{session storage}} so that the intro and the search feel continuous within a tab.',
             { list: ['No accounts, passwords or profiles.', 'No forms that send what you type to a server.', 'No advertising, and no sharing of visitor information with advertisers.', 'No tracking of you from one site to another.'] },
           ],
         },

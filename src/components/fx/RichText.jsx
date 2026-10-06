@@ -20,7 +20,7 @@ export function RichText({ text, terms, highlight }) {
   if (typeof text !== 'string') return null;
   return text.split(TOKEN).map((part, i) => {
     if (!part) return null;
-    if (part.startsWith('**')) return <strong key={i}><Marked text={part.slice(2, -2)} highlight={highlight} /></strong>;
+    if (part.startsWith('**')) return <strong key={i}><RichText text={part.slice(2, -2)} terms={terms} highlight={highlight} /></strong>; // a defined word can sit inside bold
     if (part.startsWith('`')) return <code key={i} className={styles.code}>{part.slice(1, -1)}</code>;
     if (part.startsWith('{{')) {
       const word = part.slice(2, -2);
