@@ -95,4 +95,5 @@ export const closerRegistry = {
   dataShape: lazy(() => import('./DataShape')),
   focusTrap: lazy(() => import('./FocusTrap')),
   readingColumn: lazy(() => import('./ReadingColumn')),
+  blockPicker: lazy(() => import('./BlockPicker')),
 };

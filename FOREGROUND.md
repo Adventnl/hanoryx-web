@@ -15,7 +15,7 @@ This file explains how that layer is built, the rules it follows, and how to add
 | **signatures** | `src/components/signatures/*` (registered in `signatureRegistry`) | a whole-block composition with its own interaction. Chosen with `{ type: 'signature', kind, … }`. |
 | **endings** | `src/components/closers/*` (registered in `closerRegistry`) | the last block of a page: a composition of its own that plays the page out — a receipt, a card that turns over, a calculator, a drawing. Chosen with `{ type: 'closer', kind, … }`, framed by `CloserFrame` (an "End of …" tag, a headline, a lede, onward links). Never a call to action, and no two pages share one (`qa/endings.mjs`). |
 
-Signatures, asides and endings are lazy chunks: a page downloads only the ones it renders. The shared block types (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`) are themselves foreground too — each has its own pointer, scroll or reveal behaviour — but no two signatures share a composition.
+Signatures, asides and endings are lazy chunks: a page downloads only the ones it renders. The shared block types (`split`, `cards`, `process`, `modules`, `stats`, `manifesto`) are themselves foreground too — each has its own pointer, scroll or reveal behaviour — but no two signatures share a composition. Twelve more block types take plain data and are made from the interface kit (`callout`, `table`, `timeline`, `faq`, `compare`, `snippet`, `tabs`, `quote`, `checklist`, `facts`, `links`, `numbers`); the full list is `src/data/blockTypes.js`, and `/north/blocks` shows each at work. Each marks one detail in the DOM like any other piece of foreground (`callout.remark`, `faq.disclosures`, `checklist.items`, …).
 
 ### The toolkit (`components/fx`)
 
@@ -51,7 +51,15 @@ Generated from the page data (`node qa/endings.mjs` keeps the endings honest).
 | `/north/design-tokens` | — | token inspector | token playground |
 | `/north/stack` | — | stack map | what if remove |
 | `/north/quality` | — | bug catcher | chaos wheel |
-| `/north/accessibility` | — | page outline · document | alt text lab |
+| `/north/accessibility` | — | page outline · document · checklist block | alt text lab |
+| `/north/components` | — | kit index | kit picker |
+| `/north/components/inputs` | — | component gallery | form builder |
+| `/north/components/navigation` | — | component gallery | wizard run |
+| `/north/components/feedback` | — | component gallery | toast bench |
+| `/north/components/data` | — | component gallery | data shape |
+| `/north/components/overlays` | — | component gallery | focus trap |
+| `/north/components/content` | — | component gallery | reading column |
+| `/north/blocks` | — | table block · callout block · timeline block · faq block · compare block · snippet block · tabs block · quote block · checklist block · facts block · links block · numbers block | block picker |
 | `/engineering` | live budget | architecture explorer | page vitals |
 | `/lab` | — | scene lab | sigil maker |
 | `/work` | case deck | work portals | work compare |
@@ -82,18 +90,18 @@ Generated from the page data (`node qa/endings.mjs` keeps the endings honest).
 | `/resources` | — | resource desk | reading list |
 | `/resources/glossary` | — | glossary browser | flash deck |
 | `/resources/changelog` | — | release notes | history bar |
-| `/resources/downloads` | — | download shelf | bundle builder |
+| `/resources/downloads` | — | download shelf · faq block | bundle builder |
 | `/resources/tools` | — | tool bench | cheat sheet |
 | `/resources/tools/contrast` | — | contrast checker | pair matrix |
 | `/resources/tools/type-scale` | — | type scale tool | clamp maker |
 | `/resources/tools/cron` | — | cron explainer | dst trap |
 | `/resources/tools/readiness` | — | readiness check | launch timeline |
 | `/resources/tools/decision-record` | — | decision record | pre mortem |
-| `/contact` | — | contact studio | — |
+| `/contact` | — | contact studio · faq block | — |
 | `/sitemap` | — | site directory | — |
 | `/trust` | — | claims ledger | self audit |
 | `/trust/status` | — | live status | frame tape |
-| `/trust/disclosure` | — | document | scope target |
+| `/trust/disclosure` | — | document · checklist block | scope target |
 | `/trust/third-parties` | — | service map | host scan |
 | `/trust/licences` | — | licence table | notice file |
 | `/legal` | — | legal centre | status ledger |
@@ -109,7 +117,7 @@ Generated from the page data (`node qa/endings.mjs` keeps the endings honest).
 | `/legal/linking` | — | document | link builder |
 | `404` | — | nearest pages by edit distance under proximity-reactive type | — |
 
-Global, on every page: the **route current** (a travelling line between pages), the **command search** (`Ctrl/⌘ K`), the **shortcuts panel** (`?`), **blueprint mode** (`B`), the designed **cursor** (names what a press does — View, Drag, or a `data-cursor-label`), the scroll rail on long pages and the footer directory (six columns of named groups, a search field, a section row with live page counts, a strip of what is new, a legal row, and on a phone disclosures that close for real).
+Global, on every page: the **route current** (a travelling line between pages), the **command search** (`Ctrl/⌘ K`), the **shortcuts panel** (`?`), **blueprint mode** (`B`) — the single-key shortcuts (`?`, `B`, `/`) can be switched off in the display preferences on the accessibility page, and `Ctrl/⌘ K` stays — the **route announcer** (a polite status line that says the new page's title after a page change and hands focus to the main region), the designed **cursor** (names what a press does — View, Drag, or a `data-cursor-label`), the scroll rail on long pages and the footer directory (six columns of named groups, a search field, a section row with live page counts, a strip of what is new, a legal row, and on a phone disclosures that close for real).
 
 ---
 

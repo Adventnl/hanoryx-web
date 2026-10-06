@@ -125,6 +125,23 @@ const page = {
         { code: 'LOOK.03', title: 'Careers', body: 'The kinds of work the company does, for people who would like to introduce themselves.', glyph: 'people', to: '/company/careers' },
       ],
     },
+    {
+      type: 'faq',
+      anchor: 'questions',
+      railLabel: 'Questions',
+      scene: 'privacy-quiet-grid',
+      eyebrow: 'Questions',
+      title: 'Before you write.',
+      items: [
+        { q: 'What happens when I press the button?', a: ['Your mail app opens with a message already started. Nothing is sent from this page; you decide whether to send it.'] },
+        { q: 'Is my message stored by the site?', a: ['No. What you type lives in the page while you write and is gone when you leave. The site has no server that receives it.'] },
+        { q: 'My message is long. What do I do?', a: ['A long message may not fit in a mail link. Copy the address and paste the message into your mail app instead.'] },
+        { q: 'Can I send files?', a: ['Not from this page, which prepares text only. Start the conversation by email and say what you would like to share.'] },
+        { q: 'Will I get a reply?', a: ['Someone at the company reads every message. What a reply can say depends on what you ask. A report about the site itself always gets an answer, as the feedback and complaints page describes.'] },
+        { q: 'I want to report a problem with this site. Which topic?', a: ['Choose Feedback & problems. The feedback and complaints page says what makes a report easy to act on.'] },
+        { q: 'I would like to work with the company.', a: ['Choose Careers. No roles are listed, and introductions are welcome.'] },
+      ],
+    },
   ],
 };
 

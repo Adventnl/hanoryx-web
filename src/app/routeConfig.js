@@ -107,6 +107,7 @@ export const pageRouteKeys = [
   'north/components/data',
   'north/components/overlays',
   'north/components/content',
+  'north/blocks',
   'engineering',
   'lab',
   'work',
@@ -289,6 +290,7 @@ export const footerColumns = [
           { label: 'Data display', to: '/north/components/data' },
           { label: 'Overlays', to: '/north/components/overlays' },
           { label: 'Content and layout', to: '/north/components/content' },
+          { label: 'Page blocks', to: '/north/blocks' },
         ],
       },
       {

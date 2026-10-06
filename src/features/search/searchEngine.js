@@ -27,6 +27,8 @@ const SKIP_KEYS = new Set([
   'summaryLabel', 'endLabel', 'tag', 'lang', 'tone', 'readingMinutes',
   // the component catalogue: which example, which family
   'demo', 'family',
+  // the data-first page blocks: code, units and a snippet's file name are not copy
+  'language', 'filename', 'series', 'unit', 'sample',
 ]);
 
 /* lowercase + strip diacritics so "café" matches "cafe". */

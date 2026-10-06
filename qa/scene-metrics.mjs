@@ -73,7 +73,7 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 
   };
   check(page.hero?.scene, LIMIT_HERO, 'hero');
   (page.blocks || []).forEach((block, i) => {
-    if (block.type !== 'cta') check(block.scene, LIMIT_BLOCK, `block ${i + 1} (${block.type}${block.kind ? ` ${block.kind}` : ''})`);
+    check(block.scene, LIMIT_BLOCK, `block ${i + 1} (${block.type}${block.kind ? ` ${block.kind}` : ''})`);
   });
 }
 r.check('text-dense blocks use calm scenes and heroes stay readable', offenders.length === 0, offenders.join(' ; '));

@@ -46,6 +46,22 @@ const page = {
       ],
     },
     {
+      type: 'faq',
+      anchor: 'questions',
+      railLabel: 'Questions',
+      scene: 'privacy-quiet-grid',
+      eyebrow: 'Questions',
+      title: 'About the downloads.',
+      items: [
+        { q: 'Can I use the templates in my own work?', a: ['Yes. They are starting points written for this site, and they are meant to be changed. Use a document you make from one for your own work.'] },
+        { q: 'Can I pass the templates on to other people?', a: ['Please ask first through the contact page. The site does not yet say on what conditions the templates themselves may be redistributed, and until it does, asking is the safe course.'] },
+        { q: 'Is anything uploaded when I press Download?', a: ['No. The file is built in your browser from text the page already holds, and your browser saves it. Nothing is sent.'] },
+        { q: 'Does the site count downloads?', a: ['No. It does not know which documents you chose, or whether you chose any.'] },
+        { q: 'Why are most of them Markdown?', a: ['Markdown opens in any text editor and reads well as plain text. The reference files that are not prose use the format that suits them: CSV, JSON, CSS or plain text.'] },
+        { q: 'Are they legal or professional advice?', a: ['No. They are general. A template for a runbook or a decision record is a shape to fill in, not a statement of what you ought to decide.'] },
+      ],
+    },
+    {
       type: 'closer',
       kind: 'bundleBuilder',
       anchor: 'bundle',

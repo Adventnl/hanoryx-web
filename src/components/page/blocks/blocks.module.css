@@ -49,7 +49,7 @@
 }
 .pointRow:hover, .pointRow:focus-visible { background: linear-gradient(90deg, var(--c-red-faint), transparent 75%); }
 .pointRow:hover::before, .pointRow:focus-visible::before { height: 62%; }
-.pointKey { font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.14em; color: var(--c-white-40); transition: color var(--dur-2) var(--ease-out); }
+.pointKey { font-family: var(--font-mono); font-size: var(--fs-2xs); letter-spacing: 0.14em; color: var(--c-white-50); transition: color var(--dur-2) var(--ease-out); }
 .pointVal { font-size: var(--fs-sm); color: var(--c-white-80); text-align: right; transition: transform 0.5s var(--ease-glide); }
 .pointRow:hover .pointKey, .pointRow:focus-visible .pointKey { color: var(--c-red); }
 .pointRow:hover .pointVal, .pointRow:focus-visible .pointVal { transform: translateX(-5px); }
@@ -74,10 +74,10 @@
   padding: clamp(1.4rem, 2.5vw, 2rem);
 }
 .cardTop { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--space-4); }
-.cardCode { font: 0.65rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-30); }
-.cardGlyph { color: var(--c-white-30); transition: color var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); }
+.cardCode { font: 0.65rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-50); }
+.cardGlyph { color: var(--c-white-50); transition: color var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); }
 .cardWrap:hover .cardGlyph, .cardWrap:focus-visible .cardGlyph { color: var(--c-red); transform: translateY(-3px) rotate(-5deg); }
-.cardLabel { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.cardLabel { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red-bright); }
 .cardTitle {
   font-family: var(--font-serif);
   font-size: var(--fs-h3);
@@ -90,8 +90,8 @@
 .cardBody { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-50); }
 .cardFoot { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); margin-top: auto; padding-top: var(--space-5); }
 .cardTags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.cardStatus { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-40); white-space: nowrap; }
-.cardArrow { margin-left: auto; color: var(--c-white-30); transition: transform var(--dur-3) var(--ease-glide), color var(--dur-2) var(--ease-out); }
+.cardStatus { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-50); white-space: nowrap; }
+.cardArrow { margin-left: auto; color: var(--c-white-50); transition: transform var(--dur-3) var(--ease-glide), color var(--dur-2) var(--ease-out); }
 .cardWrap:hover .cardArrow { transform: translate(3px, -3px); color: var(--c-red); }
 .bento > :first-child .cardTitle { font-size: clamp(1.8rem, 3vw, 2.6rem); }
 .bento > :first-child .cardBody { font-size: var(--fs-body); max-width: 40ch; }
@@ -138,7 +138,7 @@
 .step {
   --lit: clamp(0, calc((var(--p) * (var(--n) - 1) - var(--i)) * 2 + 1), 1);
   position: relative;
-  opacity: calc(0.38 + 0.62 * var(--lit));
+  opacity: calc(0.9 + 0.1 * var(--lit));
   transform: translate3d(0, calc((1 - var(--lit)) * 16px), 0);
 }
 .stepNode {
@@ -161,14 +161,14 @@
   font-variant-numeric: lining-nums;
 }
 .stepTitle { margin: var(--space-3) 0 var(--space-2); font-family: var(--font-serif); font-size: var(--fs-h3); font-weight: 400; color: var(--c-white); }
-.stepBody { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-50); }
+.stepBody { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-65); }
 
 /* ---------------- Modules ---------------- */
 .lensGrid { margin-top: var(--space-10); }
 .lensCard { height: 100%; transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out); }
 .lensGrid:hover .lensCard:not(:hover) { opacity: 0.45; }
 .lensCard > .lensInner { padding: clamp(1.4rem, 2.5vw, 2rem); }
-.lensLabel { display: block; margin-bottom: var(--space-5); font: 0.65rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); }
+.lensLabel { display: block; margin-bottom: var(--space-5); font: 0.65rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red-bright); }
 .lensList { display: flex; flex-direction: column; gap: var(--space-3); }
 .lensList li { display: flex; align-items: baseline; gap: 0.7em; font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-65); }
 
@@ -198,7 +198,7 @@
 .modRow:hover, .modRow:focus-visible { background: linear-gradient(90deg, var(--c-red-faint), transparent 70%); }
 .modRow:hover::after, .modRow:focus-visible::after { transform: scaleX(1); }
 .ledger:hover .modRow:not(:hover) { opacity: 0.5; }
-.modKey { font: 0.68rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-40); text-transform: uppercase; transition: color var(--dur-2) var(--ease-out); }
+.modKey { font: 0.68rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-50); text-transform: uppercase; transition: color var(--dur-2) var(--ease-out); }
 .modRow:hover .modKey, .modRow:focus-visible .modKey { color: var(--c-red); }
 .modVal { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
 
@@ -222,7 +222,7 @@
 .stat:hover .statGhost { transform: translateX(-10px); -webkit-text-stroke-color: var(--c-red-dim); }
 .statValue { position: relative; font-family: var(--font-serif); font-weight: 300; font-size: clamp(2.8rem, 6vw, 4.8rem); line-height: 1; color: var(--c-white); }
 .statLabel { position: relative; margin-top: 0.4rem; font-size: var(--fs-sm); color: var(--c-white-65); }
-.statNote { position: relative; font: 0.62rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-30); }
+.statNote { position: relative; font: 0.62rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-50); }
 
 /* ---------------- Manifesto ---------------- */
 .manifesto { overflow: hidden; }
@@ -231,26 +231,6 @@
 .manifestoLead { max-width: 20ch; }
 .manifestoLine { max-width: 26ch; color: var(--c-white); }
 .manifestoRail { margin-top: var(--space-8); }
-
-/* ---------------- CTA ---------------- */
-.cta { position: relative; padding-block: clamp(5rem, 11vw, 10rem); overflow: hidden; border-top: var(--border-faint); }
-.ctaField { position: relative; transition: --mx 0.7s var(--ease-glide), --my 0.7s var(--ease-glide); }
-.ctaField::before {
-  content: '';
-  position: absolute;
-  inset: -25% -10%;
-  background: radial-gradient(560px circle at var(--mx) var(--my), rgba(255, 51, 51, 0.13), transparent 66%);
-  opacity: 0;
-  transition: opacity 0.9s var(--ease-out);
-  pointer-events: none;
-}
-.ctaField[data-hot]::before { opacity: 1; }
-.ctaInner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-6); }
-.ctaEyebrow { color: var(--c-white-50); }
-.ctaTitle { max-width: 16ch; margin: 0; }
-.ctaBody { align-items: center; }
-.ctaLead { max-width: 52ch; }
-.ctaActions { justify-content: center; gap: var(--space-5); }
 
 /* ---------------- Responsive ---------------- */
 @media (max-width: 1100px) {
@@ -278,7 +258,6 @@
   .step { transform: none; }
   .cardTitle, .cardGlyph, .cardArrow, .pointVal, .statGhost { transition: none; }
   .cardWrap:hover .cardTitle, .cardWrap:hover .cardGlyph, .cardWrap:hover .cardArrow { transform: none; }
-  .ctaField::before { transition: none; }
 }
 
 /* ---------------- Closer (the ending of a page) ---------------- */

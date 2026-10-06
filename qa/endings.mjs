@@ -26,6 +26,7 @@ const PAGES = path.join(ROOT, 'src/data/pages');
 const SKIP_CLOSER = new Set(['contact', 'sitemap']);
 const r = reporter('page endings');
 
+const { blockTypes } = await import(pathToFileURL(path.join(ROOT, 'src/data/blockTypes.js')).href);
 const { closerRegistry } = await import(pathToFileURL(path.join(ROOT, 'src/components/closers/registry.js')).href);
 const { signatureRegistry } = await import(pathToFileURL(path.join(ROOT, 'src/components/signatures/registry.js')).href);
 
@@ -42,6 +43,16 @@ const real = (to) => routes.has((to || '').split('#')[0].split('?')[0] || '/');
 r.check('every page file has a route, and every route a page file',
   pageRouteKeys.every((k) => keys.has(k)) && pages.every((p) => pageRouteKeys.includes(p.key)),
   [...pageRouteKeys.filter((k) => !keys.has(k)), ...pages.filter((p) => !pageRouteKeys.includes(p.key)).map((p) => p.file)].join(', '));
+
+/* every block is a kind the page loader knows, and the catalogue matches the loader */
+const loader = fs.readFileSync(path.join(ROOT, 'src/components/page/PageBlocks.jsx'), 'utf8');
+const loaderTypes = new Set([...loader.matchAll(/^  (\w+): (?:lazy|\w+Block)\b/gm)].map((m) => m[1]));
+const catalogued = new Set(blockTypes.map((b) => b.type));
+r.check(`the block catalogue and the page loader list the same ${catalogued.size} kinds of block`,
+  [...catalogued].every((t) => loaderTypes.has(t)) && [...loaderTypes].every((t) => catalogued.has(t)),
+  `in the loader only: ${[...loaderTypes].filter((t) => !catalogued.has(t)).join(', ') || 'none'}; in the catalogue only: ${[...catalogued].filter((t) => !loaderTypes.has(t)).join(', ') || 'none'}`);
+const unknownBlock = pages.flatMap((p) => p.blocks.filter((b) => !catalogued.has(b.type)).map((b) => `${p.key} -> ${b.type}`));
+r.check('every block on every page is a kind the loader knows', unknownBlock.length === 0, unknownBlock.slice(0, 4).join(', '));
 
 /* no call to action anywhere */
 const withCta = pages.filter((p) => p.blocks.some((b) => b.type === 'cta'));
