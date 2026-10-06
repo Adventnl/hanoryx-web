@@ -28,6 +28,7 @@ const routes = only.length ? only : pageRoutes;
 const problems = [];
 const groups = new Map(); // kind of element -> where it falls short, across all pages
 let measured = 0;
+const MIN_TEXTS = 20; // a page that measured fewer than this did not really draw
 
 /** Runs in the page: measure everything currently on screen, keep the worst reading per element. */
 function measureVisible() {
@@ -113,11 +114,13 @@ function measureVisible() {
 /** One page: walk it a screen at a time, then return what fell short. */
 async function scan(page, route) {
   await page.goto(BASE + route, { waitUntil: 'load' });
+  // wait for the page to draw: a busy machine can take a while to mount the first screen
+  await page.locator('main h1, main h2').first().waitFor({ timeout: 20000 }).catch(() => {});
   await pause(900);
-  const height = await page.evaluate(() => document.documentElement.scrollHeight);
   const viewport = await page.evaluate(() => window.innerHeight);
   await page.evaluate(() => { window.__contrastSeen = new Map(); });
-  for (let y = 0; y < height; y += Math.round(viewport * 0.7)) {
+  // the page grows as its lazy sections mount, so the height is read again at every step
+  for (let y = 0; y < (await page.evaluate(() => document.documentElement.scrollHeight)); y += Math.round(viewport * 0.7)) {
     await page.evaluate((top) => window.scrollTo(0, top), y);
     await pause(600);
     await page.evaluate(measureVisible); // note what is on screen
@@ -149,6 +152,7 @@ await Promise.all(Array.from({ length: WORKERS }, async () => {
 for (const route of routes) {
   const found = results.get(route);
   measured += found.total;
+  if (found.total < MIN_TEXTS) problems.push(`${route}: only ${found.total} pieces of text were measured, so the page did not draw`);
   if (!found.bad.length) continue;
   const byName = new Map();
   for (const row of found.bad) {

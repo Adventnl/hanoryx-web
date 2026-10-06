@@ -107,34 +107,48 @@ const browser = await launch();
 /* ---------------------------- intro: the page does not scroll until the home page is shown ---------------------------- */
 for (const reduced of [false, true]) {
   const tag = reduced ? 'reduced motion' : 'animated';
-  const context = await newContext(browser, { width: 1440, height: 900, boot: 'play', reduced });
-  const page = await context.newPage();
-  const y = () => page.evaluate(() => Math.round(window.scrollY));
-  const bootUp = () => page.locator('[aria-label="System boot sequence"]').count().then((n) => n > 0);
-  await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
-  await pause(1500);
-  await page.mouse.move(700, 450);
-  await page.mouse.wheel(0, 3000);
-  await page.keyboard.press('End');
-  await pause(900);
-  r.check(`START screen cannot be scrolled (${tag})`, (await y()) === 0, `y=${await y()}`);
-  r.check(`START screen locks the page scroller (${tag})`, await page.evaluate(() => getComputedStyle(document.documentElement).overflowY === 'hidden'));
-  r.check(`START screen has no ambient-sound note (${tag})`, !(await page.getByText(/ambient sound/i).count()));
-  await page.getByRole('button', { name: 'START' }).click();
-  let moved = 0;
-  for (let i = 0; i < 60 && (await bootUp()); i += 1) {
-    await page.mouse.wheel(0, 700);
-    if (await bootUp()) moved = Math.max(moved, await y());
-    await pause(250);
+  let result;
+  // Wheel events are sent every quarter of a second while the intro plays. If one lands in the instant the
+  // intro unmounts it is a genuine scroll, and the run says nothing about the lock, so that run is repeated.
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    const context = await newContext(browser, { width: 1440, height: 900, boot: 'play', reduced });
+    const page = await context.newPage();
+    const y = () => page.evaluate(() => Math.round(window.scrollY));
+    const bootUp = () => page.locator('[aria-label="System boot sequence"]').count().then((n) => n > 0);
+    await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
+    await pause(1500);
+    await page.mouse.move(700, 450);
+    await page.mouse.wheel(0, 3000);
+    await page.keyboard.press('End');
+    await pause(900);
+    const run = { startY: await y(), locked: await page.evaluate(() => getComputedStyle(document.documentElement).overflowY === 'hidden'), note: !(await page.getByText(/ambient sound/i).count()) };
+    await page.getByRole('button', { name: 'START' }).click();
+    let moved = 0;
+    let ambiguous = false;
+    for (let i = 0; i < 60 && (await bootUp()); i += 1) {
+      await page.mouse.wheel(0, 700);
+      if (await bootUp()) moved = Math.max(moved, await y());
+      else ambiguous = true; // it was sent as the intro was leaving
+      await pause(250);
+    }
+    await page.locator('[aria-label="System boot sequence"]').waitFor({ state: 'detached', timeout: 15000 });
+    await pause(1500);
+    run.moved = moved;
+    run.topY = await y();
+    if (run.topY !== 0 && ambiguous && attempt < 3) { await context.close(); continue; }
+    await page.mouse.wheel(0, 800);
+    await pause(1500);
+    run.afterY = await y();
+    result = run;
+    await context.close();
+    break;
   }
-  r.check(`no scrolling while the intro animation plays (${tag})`, moved === 0, `max y=${moved}`);
-  await page.locator('[aria-label="System boot sequence"]').waitFor({ state: 'detached', timeout: 15000 });
-  await pause(1500);
-  r.check(`the home page opens at its top (${tag})`, (await y()) === 0, `y=${await y()}`);
-  await page.mouse.wheel(0, 800);
-  await pause(1500);
-  r.check(`scrolling works once the intro is gone (${tag})`, (await y()) > 300, `y=${await y()}`);
-  await context.close();
+  r.check(`START screen cannot be scrolled (${tag})`, result.startY === 0, `y=${result.startY}`);
+  r.check(`START screen locks the page scroller (${tag})`, result.locked);
+  r.check(`START screen has no ambient-sound note (${tag})`, result.note);
+  r.check(`no scrolling while the intro animation plays (${tag})`, result.moved === 0, `max y=${result.moved}`);
+  r.check(`the home page opens at its top (${tag})`, result.topY === 0, `y=${result.topY}`);
+  r.check(`scrolling works once the intro is gone (${tag})`, result.afterY > 300, `y=${result.afterY}`);
 }
 
 /* ---------------------------- search overlay ---------------------------- */

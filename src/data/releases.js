@@ -3,7 +3,26 @@
    site is derived from repository or deployment dates), so each entry is a
    chapter of the work, in the order it happened. The footer's "new on the site"
    strip and the release-notes page both read this file. */
+import { kit } from './kit';
+
 export const releases = [
+  {
+    id: 'kit',
+    chapter: 10,
+    title: 'The kit and the depth',
+    lede: 'The pages get longer, the parts get named, and the site checks what it says about itself.',
+    tags: ['Added', 'Changed', 'Fixed'],
+    to: '/north/components',
+    notes: [
+      { tag: 'Added', text: `An interface kit: ${kit.length} components in six families — inputs, navigation, feedback, data display, overlays, content and layout — each with a live example, its code, its props and its keyboard behaviour.`, to: '/north/components' },
+      { tag: 'Added', text: 'Page blocks: twelve data-first kinds of block built from the kit, a catalogue of all twenty, and a page that shows each at work.', to: '/north/blocks' },
+      { tag: 'Changed', text: 'The ten legal documents are now long-form: each has a word list with hover definitions, tables, worked examples, questions and a version history, between about 2,700 and 5,600 words.', to: '/legal' },
+      { tag: 'Added', text: 'A Feedback & problems topic on the contact page, which the legal documents point to.', to: '/contact' },
+      { tag: 'Added', text: 'Moving to another page is announced to assistive technology, and keyboard focus moves to the new page when the link used has gone.' },
+      { tag: 'Added', text: 'The single-key shortcuts (?, B and /) can be turned off in the display preferences.', to: '/legal/accessibility#display' },
+      { tag: 'Fixed', text: 'Text contrast is now measured on every page, a screen at a time. Small labels, dimmed steps and decorative codes were raised to at least 4.5 to 1 or hidden from assistive technology.', to: '/legal/accessibility' },
+    ],
+  },
   {
     id: 'library',
     chapter: 9,

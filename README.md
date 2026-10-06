@@ -54,7 +54,7 @@ Every page is **data**. `src/data/pages/<route>.js` default-exports `{ key, titl
 }
 ```
 
-- **Block types** (`components/page/blocks/`) are the shared vocabulary: split (scroll-lit lead + decoding key/value panel), cards (spotlight grid, bento, or drag rail), process (scroll-filled rail), modules (lens columns / ledger), stats (odometers), manifesto (word-by-word scroll text + velocity marquee), signature (below) and closer (below). A `cta` block type still exists but no page uses it: a page ends on a closer, not on a line pointing at the contact page.
+- **Block types** (`components/page/blocks/`) are the shared vocabulary, listed with the data each takes in `data/blockTypes.js` and shown at work on `/north/blocks`. Eight were built for this site and have a motion identity of their own: split (scroll-lit lead + decoding key/value panel), cards (spotlight grid, bento, or drag rail), process (scroll-filled rail), modules (lens columns / ledger), stats (odometers), manifesto (word-by-word scroll text + velocity marquee), signature (below) and closer (below). Twelve more are made from the interface kit, take only data and are lazy chunks: callout, table, timeline, faq, compare, snippet, tabs, quote, checklist, facts, links, numbers. There is no call-to-action block: a page ends on a closer, not on a line pointing at the contact page. `qa/endings.mjs` fails if the catalogue and `PageBlocks.jsx` list different kinds.
 - **Signatures** (`components/signatures/`) are the page-specific compositions, one lazy chunk each, registered in `signatures/registry.js` (`signatureRegistry` for blocks, `asideRegistry` for hero objects). A page only downloads the signatures it renders. `kind: 'document'` is the long-form reader (`DocumentReader`) behind the legal pages, the guides and the handbooks: a contents rail, find-in-document, section links, a plain-language summary at the top of every section and a print view; its body items are strings, lists, notes, tables, definitions, steps, code, quotes and sub-sections (see the component's header for the shapes).
 - **Closers** (`components/closers/`) are the page endings, one lazy chunk each, registered in `closers/registry.js`. Each page closes on a composition of its own — a receipt, a card that turns over, a cron trap, a readiness check, a drawing — and no two pages share one. `CloserFrame` supplies only the "End of …" tag, a headline, a lede and the onward links. `qa/endings.mjs` holds the rule.
 - **The resource data** lives beside the pages: `data/glossary.js` (the glossary, also the hover definitions in the long-form readers), `data/resources.js` (the tools and the downloadable files, each built in the browser), `data/releases.js` (the chapters of the site's history, read by the release-notes page and the footer's "new on the site" strip), `data/readiness.js` (the readiness check's questions) and `data/licences.js` (what the site is built from).
@@ -72,7 +72,7 @@ The copy follows rules that are easy to break by accident — `qa/website-smoke.
 - **Contact** is a footer destination with its own page. The email address lives there only; other pages point at the page rather than repeating a `mailto:`.
 - **Careers** lists no roles. **Legal** pages describe what the site's own code does and make no promises about anything else.
 - **The legal, trust, insight, resource and reference pages are drafts for the owner to review.** The legal documents are plain-language descriptions of the site's own behaviour, flagged on the page as not reviewed by a lawyer; the guides and reference pages are general guidance, labelled as such, and claim nothing about any client or project. Anything an owner has not supplied — dates, names, an address for postal notices, a security contact beyond the contact page — is left out rather than made up.
-- **Every page ends on its own composition**, never a "get in touch" block. The contact page ends on the contact details and the site map on the directory; the other 76 pages each close on a different closer.
+- **Every page ends on its own composition**, never a "get in touch" block. The contact page ends on the contact details and the site map on the directory; the other 84 pages each close on a different closer.
 
 ---
 
@@ -111,7 +111,11 @@ The page cannot scroll while the intro is mounted — from the START screen thro
 
 ### Keys and blueprint mode
 
-`?` opens a shortcuts panel; `B` switches **blueprint mode**, which outlines every marked detail on the page, names it (`data-fx` ids) and counts them. The key list lives in `src/data/shortcuts.js` and also drives the keyboard map on the accessibility page.
+`?` opens a shortcuts panel; `B` switches **blueprint mode**, which outlines every marked detail on the page, names it (`data-fx` ids) and counts them. The key list lives in `src/data/shortcuts.js` and also drives the keyboard map on the accessibility page. The single-key shortcuts (`?`, `B`, `/`) can be switched off in the display preferences at the end of that page (`html[data-keys='off']`, read by `GlobalKeys` and the search; `Ctrl/⌘ K` stays), because a one-character shortcut can clash with assistive technology (WCAG 2.1.4).
+
+### Announcing a page change
+
+Moving between pages does not reload the document, so `RouteAnnouncer` (in `SiteShell`) waits for the page's `document.title` to settle and says it in a polite `role="status"` region; if the link that was used went with the old page, it moves keyboard focus to `main#main` so the next Tab starts from the content. `qa/interactions.mjs` holds the check.
 
 ---
 
@@ -142,11 +146,13 @@ All scripts read `QA_BASE` (default `http://127.0.0.1:5173`) and `CHROME_PATH`. 
 | `qa/website-smoke.mjs` | every page at eight widths (280–1920): loads, no errors, no overflow, header controls inside the viewport; unique titles; links resolve; no stray external or `mailto:` links; every page ends on its own composition and never a call to contact; every page is linked from the menu or the footer; the footer is a directory of 50+ pages and leads to 40+ the menu does not; no Contact in the primary navigation; redirects; 404; favicon files; search opens; at 320 px under reduced motion, nothing loops forever and every heading is visible |
 | `qa/interactions.mjs` | START / audio / calibration / skip, navbar reveal, search at three widths, a menu's first hover (fresh, straight after a scroll, shortly after), `?` and `B`, mobile menu, the footer (six columns, live section counts, search, links; on a phone disclosures that really close), Motion Systems scroll smoothness, reduced motion, contact studio, storage inspector |
 | `qa/tools.mjs` | the browser tools do what they say (contrast, type scale, cron, readiness, decision record), the glossary lists and filters its terms, every download builds with the promised name and content, the release notes show every chapter, and a distinctive word finds each new section's page in the search |
-| `qa/controls.mjs` | operates every button, tab, switch, radio, checkbox, slider, select and text field in `<main>` on every page (`--phone` for a phone viewport, or pass routes) and fails on any console error, fault panel or sideways overflow |
+| `qa/controls.mjs` | operates every button, tab, switch, radio, checkbox, slider, select and text field in `<main>` on every page (`--phone` for a phone viewport, or pass routes; the operating routine is `qa/operate.mjs`, shared with `qa/kit.mjs`) and fails on any console error, fault panel or sideways overflow |
 | `qa/accessibility.mjs` | axe-core (WCAG 2 / 2.1 A and AA, best-practice) over every page at desktop and phone width; fails on any violation |
+| `qa/contrast.mjs` | text contrast where axe cannot see it: walks each page a screen at a time and, for every piece of text that is on screen, works out the WCAG ratio of the colour actually painted over the nearest solid backdrop (4.5 : 1, or 3 : 1 for large text); decoration that is `aria-hidden` and disabled controls are exempt; `--phone` for a phone viewport, or pass routes |
+| `qa/kit.mjs` | every component in the interface kit, opened in its gallery, its Usage / Props / Keyboard / Notes tabs checked against the catalogue, and its live example operated (`--phone`, or pass families) |
 | `qa/foreground-inventory.mjs` | loads every page, scrolls it, and counts the distinct `data-fx` details that are on screen (plus the overlays that only exist while open); fails under the per-page floor; `--markdown` writes `FOREGROUND-DETAILS.md` |
 | `qa/scene-metrics.mjs` | the foreground/background balance rule above |
 
 ## Assets
 
-`src/assets/HS.jpg` is the company mark (navbar logo); `public/favicon.svg` redraws the same artwork and the PNG/ICO fallbacks are rendered from it (`npm run render:icons`). `src/assets/music.mp3` is the intro track (off until START). `src/assets/Musebase.jpg` is the Musebase mark.
+`src/assets/HS.jpg` is the company mark (navbar logo); `public/favicon.svg` redraws the same artwork and the PNG/ICO fallbacks are rendered from it (`npm run render:icons`). `src/assets/music.mp3` is the intro track (off until START). Its origin is an open question — the file's tags name a third-party recording; see `WHATS-NEXT.md`. `src/assets/Musebase.jpg` is the Musebase mark.
