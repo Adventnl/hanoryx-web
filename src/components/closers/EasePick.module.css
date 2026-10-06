@@ -1,0 +1,15 @@
+.rig { display: grid; gap: var(--space-4); }
+.opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: var(--space-3); }
+.opt { display: grid; gap: 0.4rem; width: 100%; padding: 0.8rem; text-align: left; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
+.opt:hover { border-color: var(--c-white-30); }
+.on { border-color: var(--c-red-dim); background: var(--c-red-faint); }
+.stage { position: relative; display: block; height: 7rem; border-radius: var(--r-sm); background: var(--c-void); overflow: hidden; }
+.menu { position: absolute; left: 14%; right: 14%; top: 10%; height: 72%; border: 1px solid var(--c-white-30); border-radius: 6px; background: linear-gradient(180deg, var(--c-white-08), var(--c-white-03)); transform-origin: top; opacity: 1; }
+.go { animation: open 1.1s var(--ease) both; }
+@keyframes open { from { transform: scaleY(0.05) translateY(-8px); opacity: 0; } to { transform: none; opacity: 1; } }
+.opt b { font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
+.opt code { font: 0.6rem var(--font-mono); color: var(--c-white-65); overflow-wrap: anywhere; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+.verdict { max-width: 56ch; font-size: var(--fs-body); line-height: 1.6; color: var(--c-white-65); }
+.verdict b { color: var(--c-white); font-weight: 500; }
+@media (prefers-reduced-motion: reduce) { .go { animation: none; } }

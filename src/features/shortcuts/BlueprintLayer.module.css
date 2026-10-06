@@ -32,7 +32,7 @@
   white-space: nowrap;
 }
 .hud b { font-weight: 400; color: var(--c-red); }
-.hud i { font-style: normal; color: var(--c-white-30); }
+.hud i { font-style: normal; color: var(--c-white-50); }
 @media (max-width: 640px) {
   .hud i { display: none; }
 }

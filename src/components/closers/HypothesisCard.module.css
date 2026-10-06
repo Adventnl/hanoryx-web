@@ -1,0 +1,18 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.form { display: grid; gap: var(--space-3); min-width: 0; }
+.out { display: grid; gap: var(--space-3); min-width: 0; position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.card { display: grid; gap: 0.8rem; padding: var(--space-5); border: 1px solid var(--c-red-dim); border-radius: var(--r-lg); background: linear-gradient(160deg, var(--c-red-faint), rgba(8, 9, 11, 0) 70%), #08090b; }
+.q { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h3); line-height: 1.2; color: var(--c-white); }
+.h { font-size: var(--fs-body); line-height: 1.6; color: var(--c-white-80); }
+.h b { color: var(--c-white); font-weight: 500; }
+.card dl { display: grid; gap: 0.5rem; margin: 0; padding-top: 0.8rem; border-top: 1px dashed var(--c-white-20); }
+.card dl div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 0.8rem; }
+.card dt { font: 0.56rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red-bright); padding-top: 0.2rem; }
+.card dd { margin: 0; font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-80); }
+.checks { display: grid; gap: 0.45rem; }
+.checks li { display: grid; grid-template-columns: auto 1fr; gap: 0.6rem; font-size: var(--fs-xs); line-height: 1.55; color: var(--c-white-80); }
+.checks svg { margin-top: 0.15rem; color: var(--c-white); }
+.no { color: var(--c-white) !important; }
+.no svg { color: var(--c-red) !important; }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } .out { position: static; } }
+.form label textarea { min-height: 3.4rem; }

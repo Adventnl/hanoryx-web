@@ -1,0 +1,87 @@
+const page = {
+  key: 'north/design-tokens',
+  title: 'Design Tokens',
+  accent: '#ff3333',
+  aliases: ['tokens', 'css variables', 'custom properties', 'design system', 'colour palette', 'spacing', 'typography', 'theme', 'style guide'],
+  hero: {
+    scene: 'interface-lab-shape',
+    intensity: 'hero',
+    eyebrow: 'Development / Design tokens',
+    title: 'The values behind the look.',
+    intro:
+      'Every colour, size, space and duration on this site is a named token, defined once and used everywhere. The list below is not typed in: it is read from the stylesheet this page is wearing, so it cannot drift from the truth.',
+    code: 'NTH.07',
+    status: 'READ LIVE',
+    actions: [
+      { label: 'Inspect the tokens', to: '/north/design-tokens#tokens' },
+      { label: 'Change a few', to: '/north/design-tokens#playground', variant: 'outline' },
+    ],
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'tokenInspector',
+      anchor: 'tokens',
+      railLabel: 'The tokens',
+      scene: 'privacy-quiet-grid',
+      minHeight: 900,
+      eyebrow: 'The tokens',
+      title: 'Read from the live stylesheet.',
+      intro: 'Search by name or value, filter by kind, and copy any token as var(--name). Each row shows what the token looks like.',
+      note: 'Computed values are shown as the browser resolves them. If a browser does not let a page read its own stylesheet, the list is empty and says so.',
+    },
+    {
+      type: 'split',
+      anchor: 'why',
+      railLabel: 'Why tokens',
+      scene: 'topographic-lines',
+      eyebrow: 'Why tokens',
+      code: 'TOK.01',
+      title: 'Decide once. Change in one place.',
+      body: [
+        'A token is a name for a decision. Instead of writing a particular shade of red in two hundred places, the stylesheet says “the accent colour” in two hundred places and defines it once. Changing the decision changes everything that depends on it.',
+        'Tokens also make a design checkable. A reviewer can ask whether a colour is in the set, whether a space is on the scale, whether a duration is one of the few the site uses, and the answer is a search rather than an opinion.',
+      ],
+      asideLabel: 'THE KINDS HERE',
+      asideCode: 'TOK.MAP',
+      points: [
+        { k: 'COLOUR', v: 'Ink, paper, greys and one accent' },
+        { k: 'TYPE', v: 'A scale of sizes, three faces' },
+        { k: 'SPACE', v: 'A rhythm, not a free-for-all' },
+        { k: 'SHAPE', v: 'A few radii' },
+        { k: 'MOTION', v: 'A few durations, one family of curves' },
+      ],
+    },
+    {
+      type: 'modules',
+      anchor: 'rules',
+      railLabel: 'Rules for tokens',
+      scene: 'architectural-grid',
+      eyebrow: 'Rules for tokens',
+      title: 'Five habits that keep a set healthy.',
+      rows: [
+        { k: 'NAME BY PURPOSE', v: 'Call a token what it is for, not what it looks like. “Text on a dark background” survives a redesign; “light grey” does not.' },
+        { k: 'FEW, NOT MANY', v: 'Every token is a choice someone must make again. The set stays small on purpose.' },
+        { k: 'NO ONE-OFFS', v: 'A value used once is not a token. If a screen needs something unusual, it is a signal about the design, not the set.' },
+        { k: 'ONE SOURCE', v: 'Defined in a single file, read everywhere. Copies drift.' },
+        { k: 'MOTION IS A TOKEN TOO', v: 'Durations and curves belong in the set, so that everything moves in one voice and reduced motion has one place to apply.' },
+      ],
+    },
+    {
+      type: 'closer',
+      kind: 'tokenPlayground',
+      anchor: 'playground',
+      scene: 'interface-lab-shape',
+      tag: 'End of design tokens',
+      minHeight: 780,
+      title: 'Change a decision. Watch it spread.',
+      lede: 'Five tokens on a small interface: an accent colour, a corner radius, a space unit, a transition time and a base text size. Change one and everything that uses it follows. The values are set on the preview alone.',
+      onward: [
+        { label: 'Brand', to: '/company/brand' },
+        { label: 'Type scale', to: '/resources/tools/type-scale' },
+      ],
+    },
+  ],
+};
+
+export default page;

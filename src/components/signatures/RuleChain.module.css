@@ -2,8 +2,8 @@
 .pickers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
 .picker { margin: 0; padding: var(--space-4); border: 1px solid var(--c-line); border-radius: var(--r-lg); background: var(--c-white-03); min-width: 0; }
 .picker legend { display: flex; align-items: baseline; gap: 0.7rem; padding: 0 0.5rem; }
-.picker legend b { font: 0.66rem var(--font-mono); font-weight: 400; letter-spacing: 0.22em; color: var(--c-red); }
-.picker legend span { font: 0.56rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-40); }
+.picker legend b { font: 0.66rem var(--font-mono); font-weight: 400; letter-spacing: 0.22em; color: var(--c-red-bright); }
+.picker legend span { font: 0.56rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); }
 .options { display: flex; flex-direction: column; gap: 0.4rem; }
 .option { position: relative; display: block; padding: 0.65rem 0.8rem; border: 1px solid transparent; border-radius: var(--r-sm); font-size: var(--fs-sm); color: var(--c-white-50); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), transform 0.6s var(--ease-glide); }
 .option input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
@@ -29,8 +29,8 @@
 .pulse { position: absolute; z-index: 2; top: 50%; left: calc((var(--at) + 0.5) / 4 * 100%); width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--c-red); box-shadow: 0 0 0 6px var(--c-red-ghost), var(--glow-red); opacity: 0; transition: left 0.8s var(--ease-glide), opacity var(--dur-2) var(--ease-out); }
 .chain:not([data-step='-1']) .pulse { opacity: 1; }
 .block { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; padding: 1rem 1.1rem 1.1rem; border: 1px solid var(--c-line); border-radius: var(--r-lg); background: rgba(8, 9, 11, 0.96); transition: border-color var(--dur-3) var(--ease-out), box-shadow var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide), opacity var(--dur-3) var(--ease-out); }
-.blockGlyph { color: var(--c-white-40); transition: color var(--dur-3) var(--ease-out); }
-.blockK { font: 0.6rem var(--font-mono); letter-spacing: 0.24em; color: var(--c-red); }
+.blockGlyph { color: var(--c-white-50); transition: color var(--dur-3) var(--ease-out); }
+.blockK { font: 0.6rem var(--font-mono); letter-spacing: 0.24em; color: var(--c-red-bright); }
 .blockV { font-size: var(--fs-sm); line-height: 1.4; color: var(--c-white-65); }
 .lit { border-color: var(--c-red-dim); }
 .lit .blockGlyph { color: var(--c-white); }
@@ -40,13 +40,13 @@
 
 .log { margin-top: var(--space-5); padding: var(--space-4) var(--space-5) var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.86), rgba(5, 5, 5, 0.6)); }
 .logHead { display: flex; justify-content: space-between; padding-bottom: var(--space-3); margin-bottom: var(--space-3); border-bottom: 1px solid var(--c-white-08); font: 0.58rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-50); }
-.logHead span:last-child { color: var(--c-white-30); }
+.logHead span:last-child { color: var(--c-white-50); }
 .log ol { display: flex; flex-direction: column; gap: 0.5rem; list-style: none; min-height: 4rem; }
 .log li { display: grid; grid-template-columns: 5.2rem minmax(0, 1fr); gap: var(--space-3); font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-80); animation: line-in 0.7s var(--ease-glide) both; }
-.runN { font: 0.6rem var(--font-mono); letter-spacing: 0.12em; color: var(--c-red); padding-top: 0.2em; }
-.empty { display: block !important; font: 0.7rem var(--font-mono) !important; color: var(--c-white-30) !important; animation: none !important; }
+.runN { font: 0.6rem var(--font-mono); letter-spacing: 0.12em; color: var(--c-red-bright); padding-top: 0.2em; }
+.empty { display: block !important; font: 0.7rem var(--font-mono) !important; color: var(--c-white-50) !important; animation: none !important; }
 @keyframes line-in { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: none; } }
-.note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
+.note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); }
 
 @media (max-width: 860px) {
   .pickers { grid-template-columns: minmax(0, 1fr); }

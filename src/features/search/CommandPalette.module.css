@@ -95,7 +95,7 @@
   overflow: hidden;
   white-space: nowrap;
   pointer-events: none;
-  color: var(--c-white-40);
+  color: var(--c-white-50);
   font: 1.08rem var(--font-sans);
   font-weight: 300;
 }
@@ -129,7 +129,9 @@
   position: relative;
   display: flex;
   gap: 4px;
-  padding: 0 var(--space-4) var(--space-3);
+  /* Equal room above and below the pills. The old 0 top padding left the active
+     pill touching the input's red underline while 12px sat below it. */
+  padding: var(--space-3) var(--space-4);
   overflow-x: auto;
   scrollbar-width: none;
   flex: none;
@@ -177,7 +179,7 @@
     opacity var(--dur-2) var(--ease-out);
 }
 .chipLabel, .chipCount { position: relative; }
-.chipCount { color: var(--c-white-30); font-variant-numeric: tabular-nums; }
+.chipCount { color: var(--c-white-50); font-variant-numeric: lining-nums tabular-nums; }
 .chipOn .chipCount { color: var(--c-red); }
 
 /* ---- results ---- */
@@ -189,9 +191,12 @@
   overscroll-behavior: contain;
   padding: var(--space-2);
 }
+/* The row highlight bleeds 8px past the content edge; the row's TEXT (and the
+   group label) sit on the same 16px edge as the search icon, the chips and the
+   key hints, so the panel reads as one column. */
 .group {
-  padding: var(--space-2) var(--space-3) var(--space-1);
-  color: var(--c-white-30);
+  padding: var(--space-3) var(--space-2) var(--space-1);
+  color: var(--c-white-50);
   font: 0.6rem var(--font-mono);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -203,7 +208,7 @@
   align-items: flex-start;
   gap: var(--space-3);
   width: 100%;
-  padding: 0.7rem var(--space-3);
+  padding: 0.7rem var(--space-2);
   border: 0;
   border-radius: var(--r-sm);
   background: transparent;
@@ -242,7 +247,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-.rowPath { color: var(--c-white-30); font: 0.62rem var(--font-mono); }
+.rowPath { color: var(--c-white-50); font: 0.62rem var(--font-mono); }
 .excerpt {
   color: var(--c-white-50);
   font-size: 0.83rem;
@@ -252,7 +257,7 @@
 }
 .excerptHeading {
   margin-right: 0.55em;
-  color: var(--c-white-30);
+  color: var(--c-white-50);
   font: 0.58rem var(--font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -274,8 +279,8 @@
 }
 .rowOn .rowEnter { opacity: 1; transform: none; }
 
-.empty { padding: var(--space-6) var(--space-4); color: var(--c-white-65); font-size: 0.92rem; }
-.emptyHint { margin-top: var(--space-2); color: var(--c-white-40); font-size: 0.82rem; }
+.empty { padding: var(--space-6) var(--space-2); color: var(--c-white-65); font-size: 0.92rem; }
+.emptyHint { margin-top: var(--space-2); color: var(--c-white-50); font-size: 0.82rem; }
 .emptyHint button { color: var(--c-red); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---- footer ---- */
@@ -287,7 +292,7 @@
   flex: none;
   padding: var(--space-3) var(--space-4);
   border-top: var(--border);
-  color: var(--c-white-40);
+  color: var(--c-white-50);
   font: 0.62rem var(--font-mono);
   letter-spacing: 0.06em;
 }
@@ -305,7 +310,7 @@
   color: var(--c-white-65);
   font: inherit;
 }
-.count { margin-left: auto; color: var(--c-white-30); }
+.count { margin-left: auto; color: var(--c-white-50); }
 
 @media (max-width: 560px) {
   .root { padding-top: 12px; }

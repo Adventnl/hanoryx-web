@@ -30,7 +30,7 @@
   font-family: var(--font-mono);
   font-size: var(--fs-2xs);
   letter-spacing: 0.22em;
-  color: var(--c-white-40);
+  color: var(--c-white-50);
 }
 @media (prefers-reduced-motion: reduce) {
   .bar::after { animation: none; transform: translateX(120%); }

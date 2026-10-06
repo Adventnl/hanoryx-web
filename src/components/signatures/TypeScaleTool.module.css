@@ -1,0 +1,10 @@
+.btn { display: inline-flex; align-items: center; gap: 0.6em; padding: 0.6rem 1rem; border: 1px solid var(--c-red-dim); border-radius: var(--r-pill); background: var(--c-red-ghost); font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white); cursor: pointer; transition: box-shadow var(--dur-2) var(--ease-out); }
+.btn:hover { box-shadow: var(--glow-red-soft); }
+.specimen { display: grid; gap: 0; min-width: 0; border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.92), rgba(5, 5, 5, 0.78)); overflow: hidden; }
+.specimen li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1rem; align-items: baseline; padding: 0.7rem 1.2rem; border-bottom: 1px solid var(--c-line); }
+.specimen li:last-child { border-bottom: 0; }
+.base { background: var(--c-red-faint); }
+.meta { display: grid; gap: 0.1rem; font: 0.62rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-red-bright); }
+.meta small { font-size: 0.56rem; letter-spacing: 0.04em; text-transform: none; color: var(--c-white-50); }
+.line { font-family: var(--font-serif); line-height: 1.15; color: var(--c-white); white-space: nowrap; overflow: hidden; text-overflow: clip; }
+@media (max-width: 520px) { .specimen li { grid-template-columns: 1fr; gap: 0.2rem; } }

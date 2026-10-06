@@ -1,0 +1,72 @@
+.board { margin-top: var(--space-8); display: grid; gap: var(--space-5); }
+.panel { min-height: 18rem; animation: in 0.5s var(--ease-glide) both; }
+.panel[hidden] { display: none; }
+@keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.kicker { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
+.small { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
+.small b { color: var(--c-white); font-weight: 500; }
+
+.markGrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: center; }
+.stage { display: grid; place-items: center; min-height: 20rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: radial-gradient(circle at 50% 50%, var(--c-white-05), transparent 70%), var(--c-void); }
+.markBox { position: relative; box-sizing: content-box; padding: calc(160px * var(--cs-n, 0.25)); transition: padding 0.5s var(--ease-glide); }
+.markBox img { position: relative; width: 160px; height: 160px; border-radius: 6px; object-fit: cover; }
+.clear { position: absolute; inset: 0; border: 1px dashed var(--c-red-dim); background: repeating-linear-gradient(45deg, var(--c-red-faint) 0 4px, transparent 4px 8px); }
+.side { display: grid; gap: var(--space-4); }
+.slider { display: grid; gap: 0.6rem; font-size: var(--fs-sm); color: var(--c-white-80); }
+.slider b { color: var(--c-red); font-weight: 500; }
+.slider input { width: 100%; accent-color: var(--c-red); }
+.sizes { display: flex; align-items: flex-end; gap: var(--space-5); flex-wrap: wrap; padding-top: var(--space-4); border-top: 1px dashed var(--c-white-20); }
+.sizes figure { display: grid; gap: 0.5rem; justify-items: start; }
+.sizes img { border-radius: 3px; object-fit: cover; }
+.sizes figcaption { font: 0.56rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.6; color: var(--c-white-65); }
+
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: var(--space-4); }
+.swatches li { display: grid; gap: 0.4rem; align-content: start; }
+.swatch { display: grid; gap: 0.35rem; padding: 0 0 0.8rem; text-align: left; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); overflow: hidden; cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), transform 0.6s var(--ease-glide); }
+.swatch:hover { border-color: var(--c-white-30); transform: translateY(-3px); }
+.copied { border-color: var(--c-red-dim); }
+.chip { display: block; height: 4.6rem; border-bottom: 1px solid var(--c-line); }
+.sName { padding: 0.4rem 0.9rem 0; font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
+.swatch code { padding: 0 0.9rem; font: 0.7rem var(--font-mono); color: var(--c-white-80); }
+.tok { color: var(--c-white-50) !important; font-size: 0.62rem !important; }
+.use { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-65); }
+.ratio { font: 0.58rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-80); }
+.low { color: var(--c-red-bright); }
+
+.faces { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--space-4); }
+.face { display: grid; gap: 0.9rem; align-content: start; padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: rgba(10, 11, 13, 0.82); }
+.specimen { font-size: clamp(1.4rem, 3vw, 2.1rem); line-height: 1.15; color: var(--c-white); }
+.aa { font-size: 1.1rem; color: var(--c-white-50); }
+
+.curves { display: grid; gap: var(--space-3); }
+.curves li { display: grid; grid-template-columns: 5rem minmax(0, 1.2fr) minmax(8rem, 1fr) auto; gap: var(--space-4); align-items: center; padding: 1rem 1.2rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); }
+.curve { width: 5rem; height: 5rem; overflow: visible; }
+.diag { stroke: var(--c-white-12); stroke-dasharray: 3 3; fill: none; }
+.bez { stroke: var(--c-red); stroke-width: 2; fill: none; }
+.cBody { display: grid; gap: 0.2rem; min-width: 0; }
+.cBody b { font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
+.cBody code { font: 0.62rem var(--font-mono); color: var(--c-white-65); overflow-wrap: anywhere; }
+.cBody span { font-size: var(--fs-sm); color: var(--c-white-65); }
+.lane { position: relative; height: 2px; background: var(--c-white-12); }
+.ball { position: absolute; left: 0; top: -6px; width: 14px; height: 14px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+.go { animation: run 1.4s var(--ease) both; }
+@keyframes run { from { left: 0; } to { left: calc(100% - 14px); } }
+.play { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--c-line-strong); border-radius: 50%; color: var(--c-white-80); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
+.play:hover { border-color: var(--c-red-dim); background: var(--c-red-faint); }
+
+.voice { display: grid; gap: var(--space-3); }
+.voice li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-3) var(--space-5); padding: 1.1rem 1.3rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); }
+.say, .not { display: grid; gap: 0.3rem; font-size: var(--fs-body); line-height: 1.5; }
+.say { color: var(--c-white); }
+.not { color: var(--c-white-50); text-decoration: line-through; text-decoration-color: var(--c-red-dim); }
+.say span, .not span { font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; display: block; }
+.say span { color: var(--c-red); }
+.not span { color: var(--c-white-50); }
+.why { grid-column: 1 / -1; font-size: var(--fs-sm); color: var(--c-white-65); }
+@media (max-width: 860px) {
+  .markGrid { grid-template-columns: minmax(0, 1fr); }
+  .curves li { grid-template-columns: 4rem minmax(0, 1fr) auto; }
+  .lane { grid-column: 1 / -1; order: 5; }
+  .voice li { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .panel { animation: none; } .go { animation-duration: 0.01s; } .swatch { transition: none; } }

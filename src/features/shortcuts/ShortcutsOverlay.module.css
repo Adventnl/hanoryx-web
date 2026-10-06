@@ -19,7 +19,7 @@
   box-shadow: var(--shadow-lift), 0 0 0 1px rgba(255, 51, 51, 0.06);
 }
 .head { display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--space-3); border-bottom: 1px solid var(--c-white-08); }
-.eyebrow { font: 0.62rem var(--font-mono); letter-spacing: 0.26em; text-transform: uppercase; color: var(--c-red); }
+.eyebrow { font: 0.62rem var(--font-mono); letter-spacing: 0.26em; text-transform: uppercase; color: var(--c-red-bright); }
 .close { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--c-line); border-radius: 50%; color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
 .close:hover { border-color: var(--c-red-dim); color: var(--c-white); }
 .close:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
@@ -29,10 +29,12 @@
 @keyframes row-in { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: none; } }
 .keys { display: inline-flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
 .keyGroup { display: inline-flex; align-items: center; gap: 0.35rem; }
-.keyGroup i { font: normal 0.6rem var(--font-mono); color: var(--c-white-30); }
+.keyGroup i { font: normal 0.6rem var(--font-mono); color: var(--c-white-50); }
 .what { display: flex; flex-direction: column; gap: 0.15rem; }
 .what b { font-weight: 500; font-size: var(--fs-sm); color: var(--c-white); }
 .what small { font-size: var(--fs-xs); line-height: 1.4; color: var(--c-white-50); }
+.off { margin: var(--space-4) 0 0; font: 0.64rem/1.7 var(--font-mono); letter-spacing: 0.04em; color: var(--c-white-65); }
+.off a { color: var(--c-white); text-decoration: underline; text-decoration-color: var(--c-red-dim); text-underline-offset: 0.2em; }
 .more { display: inline-flex; align-items: center; gap: 0.5em; margin-top: var(--space-4); font: 0.62rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-65); border-bottom: 1px solid var(--c-red-dim); padding-bottom: 0.25rem; transition: color var(--dur-2) var(--ease-out), gap 0.5s var(--ease-glide); }
 .more:hover, .more:focus-visible { color: var(--c-white); gap: 0.9em; }
 

@@ -37,7 +37,7 @@
   letter-spacing: 0.14em;
   white-space: nowrap;
 }
-.sep { color: var(--c-white-30); }
+.sep { color: var(--c-white-50); }
 /* the state word re-mounts on every status change and settles in, so the
    readout glides from IDLE → LOADING → LIVE instead of snapping */
 .state {

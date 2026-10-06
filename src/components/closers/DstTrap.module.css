@@ -1,0 +1,13 @@
+.rig { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.form { display: grid; gap: var(--space-4); }
+.out { display: grid; gap: var(--space-3); min-width: 0; }
+.none { padding: var(--space-5); border: 1px dashed var(--c-white-20); border-radius: var(--r-md); font-size: var(--fs-body); line-height: 1.6; color: var(--c-white-80); }
+.none b { color: var(--c-white); font-weight: 500; }
+.change { display: grid; gap: 0.5rem; padding: 1.1rem 1.3rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); }
+.bite { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.82)); }
+.change h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h4); line-height: 1.15; color: var(--c-white); }
+.change h3 span { font: 0.66rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-65); }
+.verdict { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
+.verdict b { color: var(--c-white); font-weight: 500; }
+.bite .verdict b { color: var(--c-red-bright); }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } }

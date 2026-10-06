@@ -1,6 +1,6 @@
 .root { position: relative; }
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-8); }
-.label { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-30); }
+.label { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); }
 .stage { margin-top: var(--space-5); }
 .panel { display: flex; flex-direction: column; gap: var(--space-4); }
 
@@ -48,7 +48,7 @@
   border-top: 1px solid var(--c-line-faint);
 }
 .lane:first-child { border-top: 0; }
-.laneName { position: absolute; left: 10px; top: 8px; font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-30); }
+.laneName { position: absolute; left: 10px; top: 8px; font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-50); }
 .tick { position: absolute; top: 0; bottom: 0; left: calc(var(--slot) * 100% / var(--slots)); width: 1px; background: var(--c-line-faint); }
 
 .block {
@@ -80,12 +80,12 @@
 .cmp { position: absolute; inset: 0; padding: var(--space-4); }
 .cmp .grid { height: 100%; min-height: 280px; }
 
-.hint { font: 0.68rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-40); }
+.hint { font: 0.68rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }
 .roleName { color: var(--c-red); }
 .roleRow { display: flex; }
 .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-5); margin-top: var(--space-8); }
 .notes li { display: flex; flex-direction: column; gap: 0.4rem; padding-top: var(--space-4); border-top: var(--border); font-size: var(--fs-sm); color: var(--c-white-50); line-height: 1.6; }
-.notes span { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.notes span { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red-bright); }
 
 @media (max-width: 640px) {
   .grid { height: 260px; }

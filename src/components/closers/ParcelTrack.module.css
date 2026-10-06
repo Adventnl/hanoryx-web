@@ -1,0 +1,18 @@
+.line { position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); margin-bottom: var(--space-5); padding-top: 1.6rem; }
+.rail { position: absolute; left: calc(100% / var(--n) / 2); right: calc(100% / var(--n) / 2); top: 2.4rem; height: 2px; background: var(--c-white-12); }
+.done { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--at) / (var(--n) - 1) * 100%); background: var(--c-red); box-shadow: var(--glow-red); transition: width 0.9s var(--ease-glide); }
+.parcel { position: absolute; top: 1.7rem; left: calc(100% / var(--n) / 2 + (100% - 100% / var(--n)) * var(--at) / (var(--n) - 1)); width: 26px; height: 26px; margin-left: -13px; border: 1px solid var(--c-red); border-radius: 5px; background: var(--c-black-3); box-shadow: 0 0 0 5px var(--c-red-ghost); transition: left 0.9s var(--ease-glide); pointer-events: none; z-index: 2; }
+.parcel::before, .parcel::after { content: ''; position: absolute; background: var(--c-red); }
+.parcel::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+.parcel::after { top: 50%; left: 0; right: 0; height: 1px; }
+.station { display: flex; justify-content: center; }
+.station button { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; padding: 0 0.4rem; cursor: pointer; }
+.node { position: relative; z-index: 1; width: 12px; height: 12px; margin-top: 0.4rem; border-radius: 50%; border: 1px solid var(--c-white-50); background: var(--c-black); transition: border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out); }
+.reached .node { border-color: var(--c-red); background: var(--c-red); }
+.name { font: 0.62rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-50); transition: color var(--dur-2) var(--ease-out); }
+.here .name, .station button:hover .name { color: var(--c-white); }
+.card { display: flex; flex-direction: column; gap: var(--space-3); max-width: 40rem; animation: card-in 0.6s var(--ease-glide) both; }
+.text { font-size: var(--fs-lead); font-weight: 300; line-height: 1.55; color: var(--c-white-80); }
+@keyframes card-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 520px) { .name { font-size: 0.5rem; letter-spacing: 0.08em; } }
+@media (prefers-reduced-motion: reduce) { .done, .parcel { transition: none; } .card { animation: none; } }

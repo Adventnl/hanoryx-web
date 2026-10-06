@@ -1,4 +1,5 @@
 import { shortcutKeys, shortcutRows } from '../shortcuts';
+import { legalTerms } from '../legalTerms';
 
 const page = {
   key: 'legal/accessibility',
@@ -15,7 +16,7 @@ const page = {
     code: 'LEGAL.04',
     status: 'AS IT STANDS',
     actions: [
-      { label: 'Tell us what is wrong', to: '/contact', variant: 'outline' },
+      { label: 'Feedback & complaints', to: '/legal/complaints', variant: 'outline' },
     ],
   },
   blocks: [
@@ -73,12 +74,407 @@ const page = {
       ],
     },
     {
-      type: 'cta',
-      scene: 'topology-pulse',
-      eyebrow: 'Tell us',
-      title: 'Something not working for you?',
-      body: 'Describe what you tried and what happened. That is genuinely useful.',
-      links: [{ label: 'Privacy', to: '/legal/privacy' }],
+      type: 'signature',
+      kind: 'document',
+      anchor: 'statement',
+      railLabel: 'The full statement',
+      scene: 'privacy-quiet-grid',
+      minHeight: 900,
+      eyebrow: 'The full statement',
+      title: 'Accessibility statement, in full.',
+      intro: 'What the site does, what has and has not been checked, where it falls short, and how to tell the company when something does not work for you.',
+      version: 'Draft 1.0',
+      summary: [
+        'The site is built to be usable from the keyboard, with visible focus, headings, landmarks and **reduced-motion** support.',
+        'It has had **automated** accessibility checks. It has **not** had a formal audit, so it **claims no conformance** with {{WCAG}} or any other standard.',
+        'Some things are known to fall short, and they are listed plainly below.',
+      ],
+      meta: [
+        { k: 'Standard claimed', v: 'None' },
+        { k: 'Audit', v: 'Not carried out' },
+      ],
+      terms: legalTerms,
+      sections: [
+        {
+          id: 'aim',
+          title: 'Our aim',
+          plain: 'To be usable by as many people as possible.',
+          body: [
+            'Hanoryx Systems wants its website to be usable by as many people as possible, whatever device they use and however they get around a page. Accessibility is treated as part of building the site, not something added afterwards.',
+            'This statement is honest about where that stands. It is better to say what has and has not been done than to claim a standard that has not been checked.',
+          ],
+        },
+        {
+          id: 'words',
+          title: 'Words used in this statement',
+          plain: 'A short dictionary for a subject full of jargon.',
+          body: [
+            'Accessibility has a vocabulary of its own, and the words are often used loosely. These are the meanings this statement uses. Hover or focus an underlined word anywhere in the document to read its meaning again.',
+            { defs: [
+              { k: 'Accessible', v: 'Usable by people with a wide range of abilities, including people who use {{assistive technology}}, a keyboard instead of a pointer, or a very small or very large screen.' },
+              { k: 'Conformance', v: 'Meeting a named standard, such as {{WCAG}}. It can be claimed only after the site has been checked against all of the standard. This site claims none.' },
+              { k: 'Automated check', v: 'A test that a program runs by itself, such as {{axe-core}}. It is fast and repeatable, and it finds only a part of the problems that exist.' },
+              { k: 'Manual check', v: 'A test that a person runs by using the site with the tools its readers use. It finds what a program cannot, and it has not yet been done here.' },
+              { k: 'Keyboard-only', v: 'Using the site without a mouse or touch: Tab to move, Enter and Space to act, and the arrow keys within groups.' },
+              { k: 'Single-key shortcut', v: 'A shortcut made of one character with no modifier key, such as ? or B. These can clash with assistive technology, so the site lets you turn them off.' },
+              { k: 'Display preferences', v: 'Settings at the end of this page that change how the site looks for you: text size, line spacing, contrast, calm mode and the single-key shortcuts.' },
+              { k: 'Known limitation', v: 'A place where the site is known to fall short, listed in this statement so that nobody has to find it out for themselves.' },
+            ] },
+          ],
+        },
+        {
+          id: 'scope',
+          title: 'What this statement covers',
+          plain: 'Every page of the website.',
+          body: [
+            'The statement covers the website at its public address, including its interactive diagrams, tools, long-form documents and the search. It does not cover other sites it links to, or the font service it loads typefaces from.',
+          ],
+        },
+        {
+          id: 'who',
+          title: 'Who the site tries to work for',
+          plain: 'Nine kinds of reader, and what has and has not been checked for each.',
+          body: [
+            'A statement that says “accessible to everyone” says nothing. This table is more specific. For each kind of reader it gives what they need, what the site does about it and, in the last column, what has not been checked.',
+            { table: {
+              caption: 'Who the site tries to work for',
+              head: ['Reader', 'What they need', 'What the site does', 'What has not been checked'],
+              rows: [
+                ['Someone using only a keyboard', 'To reach and operate everything without a pointer', 'Menus, tabs, sliders, the search and the demonstrations work from the keyboard. Focus is visible, a skip link jumps past the header, and shortcuts never fire while you type.', 'A complete keyboard-only walk of every demonstration by a person'],
+                ['Someone using a screen reader', 'To hear the structure and the names of things', 'Pages use headings, landmarks and labelled controls. Decorative graphics are hidden. A page change is announced.', 'Any manual testing with a screen reader. Only automated checks have been run'],
+                ['Someone using a magnifier or zoom', 'To enlarge without losing content', 'Text follows the browser’s size. Pages reflow to one column and showed no sideways scroll at any of eight widths from 280 to 1920 pixels. Wide tables scroll inside a region of their own.', 'Very high zoom on every page'],
+                ['Someone using voice control', 'To say the name of what they see', 'Controls are real buttons and links with visible text.', 'Any voice-control software'],
+                ['Someone using a switch device', 'To operate the page through one or two inputs', 'It relies on the same keyboard interface as everything above.', 'Any switch device'],
+                ['Someone sensitive to motion', 'Stillness', 'The system setting is honoured, and calm mode stops animation and freezes the backgrounds.', 'Testing with people who are sensitive to motion'],
+                ['Someone with low vision', 'Readable contrast and size', 'Text reaches its contrast ratio, as the colour section below describes. Display preferences make text larger, spacing wider and dim text brighter.', 'Text drawn over the animated backgrounds'],
+                ['Someone with colour vision deficiency', 'Meaning that does not depend on colour', 'The status page and the interface components write states out in words and icons, with colour as a second signal.', 'Every diagram'],
+                ['Someone who finds dense text hard', 'Short sections and plain wording', 'The legal documents give each section a one-line summary, a contents list, a word list and a print view.', 'Formal readability testing'],
+              ],
+            } },
+          ],
+        },
+        {
+          id: 'status',
+          title: 'Conformance status',
+          plain: 'No standard is claimed.',
+          body: [
+            'The site has not been through a formal audit against {{WCAG}} or any other standard, so it does not claim conformance with one.',
+            'Its automated checks and the fixes they prompted are described below. They show that some kinds of problem are absent. They cannot show that a page is accessible in the ways that matter most to people.',
+          ],
+        },
+        {
+          id: 'inplace',
+          title: 'What is in place',
+          plain: 'The basics, taken seriously.',
+          body: [
+            { list: [
+              '**Keyboard.** Menus, tabs, sliders, the search and the interactive demos are meant to be used from the keyboard, with a visible focus ring on every control.',
+              '**Structure.** Pages have a single main heading, an ordered outline, and landmarks for the header, navigation, main content and footer. A skip link jumps to the content.',
+              '**Motion.** When {{reduced motion}} is on in your system, animations are shortened or removed, the animated backgrounds show one still frame, and the custom cursor and smooth scrolling switch off.',
+              '**Text.** Text sizes follow your browser’s settings, and pages reflow rather than scroll sideways at narrow widths.',
+              '**Names and labels.** Controls have accessible names; decorative graphics are hidden from {{assistive technology}}.',
+              '**Documents.** The long documents have a contents list, headings you can jump between, and a print view.',
+            ] },
+          ],
+        },
+        {
+          id: 'structure',
+          title: 'How a page is built',
+          plain: 'The scaffolding that assistive technology relies on.',
+          body: [
+            'Most of what makes a page usable with assistive technology is invisible. It is the scaffolding under the design, and it is where most of the effort goes.',
+            { list: [
+              '**One main heading.** Every page has a single top-level heading, and the headings below it follow in order without skipping a level.',
+              '**Landmarks.** The header, the navigation, the main content and the footer are marked as such, so that a screen-reader user can jump between them. A “Skip to content” link is the first thing the keyboard reaches.',
+              '**A title for every page.** The title in the browser tab names the page and changes when you move to another.',
+              '**A language.** The page declares that it is in English, so that speech software chooses the right voice.',
+              '**Page changes are announced.** Moving between pages does not reload the document, so the site says the new page’s title in a polite announcement. If the link you used has gone with the old page, keyboard focus moves to the new page’s main region, so that the next Tab starts from the content.',
+              '**Real controls.** Actions are buttons, movement is by links, choices are radio buttons, checkboxes and lists, and sliders are range inputs. Where the site builds a control of its own it follows the standard keyboard pattern for it.',
+              '**Names.** Every control has a name a person can hear, taken from its visible text wherever there is some. Icons that stand alone are labelled, and decorative ones are hidden.',
+              '**Tables and lists are real.** Data tables have a caption and header cells. Lists are lists.',
+            ] },
+          ],
+        },
+        {
+          id: 'colour',
+          title: 'Colour and contrast',
+          plain: 'Light text on near-black, and what each shade measures.',
+          body: [
+            'The site is light text on a near-black ground. Contrast is the difference between the two, written as a ratio. The guidelines ask for 4.5 to 1 for ordinary text and 3 to 1 for large text. Higher is easier to read.',
+            { table: {
+              caption: 'Text colours and their contrast against the page background',
+              head: ['Used for', 'Colour', 'Contrast ratio', 'Meets 4.5 to 1'],
+              rows: [
+                ['Headings and emphasis', 'White', '20.4 to 1', 'Yes'],
+                ['Strong body text', 'White at 95 percent', '18.4 to 1', 'Yes'],
+                ['Body text', 'White at 80 percent', '12.8 to 1', 'Yes'],
+                ['Secondary text', 'White at 65 percent', '8.6 to 1', 'Yes'],
+                ['Small labels and captions', 'White at 50 percent', '5.3 to 1', 'Yes'],
+                ['Accent text', 'The red, #ff3333', '5.6 to 1', 'Yes'],
+                ['Brighter accent text', 'The bright red, #ff4d4d', '6.2 to 1', 'Yes'],
+              ],
+            } },
+            'These figures are computed from the colour values in the style sheet, against the near-black of the page. They are not measurements of the screen. A script, described under the checks below, measures the colour that is actually painted on every page, and the site is held to the same targets.',
+            'Two paler greys, 40 and 30 percent white, are used for lines, borders and backgrounds. They fall below the ratio for text, so text set in them would not be readable; any that remains is decoration, and it is hidden from assistive technology.',
+            { note: 'Text drawn over the animated backgrounds cannot be measured by any automatic tool. The backgrounds behind text are the calmest scenes the site has, kept dark by a measurement of their own, but a person with low vision may still find some text over them harder to read than a table of ratios suggests.', label: 'Limit' },
+          ],
+        },
+        {
+          id: 'zoom',
+          title: 'Zoom, text size and small screens',
+          plain: 'Pages reflow instead of scrolling sideways.',
+          body: [
+            'Text is sized in units that follow the browser’s own setting, so raising the default size in your browser raises the text on the site. Zooming the page works too, and the layout folds into a single column rather than scrolling sideways.',
+            { list: [
+              'Scripts load every page at eight widths from 280 to 1920 pixels and fail if a page scrolls sideways or lets a control spill out of the window. A width of 320 pixels is what a laptop shows at 400 percent zoom.',
+              'The display preferences make text a step or two larger and spacing wider, without touching the browser.',
+              'Wide tables and code blocks scroll inside a region of their own, which can be reached and scrolled from the keyboard, so that the page itself does not grow sideways.',
+            ] },
+          ],
+        },
+        {
+          id: 'forms',
+          title: 'Forms and fields',
+          plain: 'Labels, hints and errors.',
+          body: [
+            'The site has few forms: the search, the contact page’s message composer, the browser tools and the demonstrations of the interface components. The same habits apply to all of them.',
+            { list: [
+              'Every field has a name that is read out, from a visible label wherever there is one.',
+              'In the interface components, hints and error messages are tied to the field they belong to, so a screen reader reads them when the field is reached, and a field with a problem says so.',
+              'Choices that can be made with a standard control use it: a checkbox, a radio group, a select or a range input.',
+              'No form on the site has a time limit.',
+            ] },
+          ],
+        },
+        {
+          id: 'docs',
+          title: 'Tables, long documents and code',
+          plain: 'The parts of a page that carry the most text.',
+          body: [
+            { list: [
+              '**Tables** have a caption, header cells for the columns and a header cell at the start of each row, so that a screen reader can say which column and row a cell is in. A table that is wider than the screen scrolls inside a region that has a name and can be focused.',
+              '**Long documents**, like this one, have a contents list that follows you, a one-line summary at the head of every section, a find bar, a link for every section and a print view that drops the colours and the animation.',
+              '**Code samples** sit in a region that can be focused and scrolled with the keyboard.',
+              '**Word lists** are definition lists, so that a term and its meaning are tied together in the markup and not only side by side.',
+            ] },
+          ],
+        },
+        {
+          id: 'checks',
+          title: 'How it has been checked',
+          plain: 'Automated checks on every page; no manual audit yet.',
+          body: [
+            'Every page is tested with {{axe-core}}, an open-source accessibility engine, at a desktop width and a phone width, using automated browser scripts. The run must be free of violations before changes are accepted. It found real problems along the way, such as tab roles with nothing to control, a skipped heading level and small low-contrast labels, and they were fixed. A second script measures the contrast of the text itself, a screen at a time, because axe can work out the background only where it is a plain colour.',
+            { note: 'Automated tools find only a part of the problems that exist. They cannot hear a {{screen reader}}, press a key as a person would, or judge text drawn over the animated backgrounds.', tone: 'warn', label: 'What that means' },
+            'The site has not been tested with the full range of {{assistive technology}}. Manual screen-reader passes, a keyboard-only walk of every demonstration and checks on touch hardware are still to be done.',
+          ],
+        },
+        {
+          id: 'tested',
+          title: 'What has and has not been tested',
+          plain: 'Eleven kinds of check, with an honest yes or no for each.',
+          body: [
+            'A list of what was done is only half of an honest account. The other half is what was not. This table has both.',
+            { table: {
+              caption: 'Kinds of accessibility check and whether each has been done',
+              head: ['Check', 'What it covers', 'Done'],
+              rows: [
+                ['Automated rules (axe-core)', 'Every page, at 1280 and 390 pixels wide, against the WCAG 2.0 and 2.1 A and AA rules and the engine’s best-practice rules', 'Yes, before every change is accepted'],
+                ['Text contrast measurement', 'Every page, a screen at a time, the colour actually painted over the nearest solid backdrop, against 4.5 to 1 and 3 to 1', 'Yes, with a script of its own'],
+                ['Operating every control', 'Scripts click, tick, choose, type and drag the controls on every page and look for errors', 'Yes'],
+                ['Layout at eight widths', '280 to 1920 pixels, looking for sideways scroll and a header that spills out of the window', 'Yes'],
+                ['Reduced motion', 'Pages at 320 pixels under the reduced-motion setting: nothing loops and the headings are fully visible', 'Yes'],
+                ['Manual screen-reader testing', 'A person using a screen reader on the real pages', 'Not done'],
+                ['Keyboard-only walk by a person', 'A person reaching and operating every control, demonstration by demonstration', 'Not done'],
+                ['Voice control and switch devices', 'A person using the software that depends on names and the keyboard interface', 'Not done'],
+                ['Real phones and tablets', 'Touch, orientation and the screen readers on mobile devices', 'Not done; phone widths are emulated only'],
+                ['Other browsers', 'Firefox and Safari. The scripts run in a Chromium-based browser', 'Not done'],
+                ['Independent review', 'An accessibility specialist outside the company, or a formal audit', 'Not done'],
+              ],
+            } },
+          ],
+        },
+        {
+          id: 'planned',
+          title: 'What is planned',
+          plain: 'The next checks, in order. No dates.',
+          body: [
+            'These are intentions. They have no dates, because the site does not publish dates it cannot keep.',
+            { ol: [
+              'A manual pass with at least two screen readers on the pages people use most.',
+              'A keyboard-only walk of every demonstration, written up demonstration by demonstration, with each gap added to the list of known limitations.',
+              'Checks on real phones and tablets, and in Firefox and Safari.',
+              'A review by an independent accessibility specialist.',
+              'A formal audit against the current guidelines. A claim of conformance would be made only if the audit supported it.',
+            ] },
+          ],
+        },
+        {
+          id: 'limits',
+          title: 'Known limitations',
+          plain: 'Where the site falls short today.',
+          body: [
+            { table: {
+              caption: 'Known limitations',
+              head: ['Area', 'What is not ideal', 'What helps'],
+              rows: [
+                ['Animated backgrounds', 'The {{canvas}} scenes are decorative, hidden from assistive technology and drawn behind text. Contrast of text over them cannot be measured automatically.', 'They pause off screen and show one frame under reduced motion; text blocks use the calmest scenes.'],
+                ['Pointer-first demos', 'Some demonstrations are easiest with a pointer.', 'Most also work from the keyboard. Where one does not, that is a bug worth reporting.'],
+                ['Custom cursor', 'On devices with a mouse, the site replaces the system cursor with its own.', 'It is off for touch and for reduced motion, and text fields keep the normal caret.'],
+                ['Not formally audited', 'No audit has been carried out.', 'The checks above, and your feedback.'],
+                ['Fonts from a third party', 'If the font service is blocked, the site shows in system typefaces.', 'It stays readable; the layout adapts.'],
+                ['Single-key shortcuts', 'The ?, B and / keys are single characters, which can clash with the one-letter navigation of some assistive technology.', 'They never act in a field, with a modifier key held or while a dialog is open, and they can be switched off in the display preferences.'],
+                ['Display preferences on one page', 'Text size, spacing, contrast, calm mode and the shortcut switch are on this page, not within reach on every page.', 'Once set they apply to the whole site until you reload.'],
+              ],
+            } },
+          ],
+        },
+        {
+          id: 'nopointer',
+          title: 'Demonstrations and pointers',
+          plain: 'Where a keyboard route is meant to exist, and where it has not been proved.',
+          body: [
+            'Many of the site’s demonstrations respond to the pointer. They follow it, light up under it or let you drag something. The intention is that each also has a way in from the keyboard: a range slider that the arrow keys move, a button that does what hovering would do, or the same information given as text.',
+            'An intention is not a proof. The scripts that work through the controls on every page use a pointer, so they show that nothing breaks, not that a route exists for a person who cannot use a mouse. Until a person has walked through each demonstration with the keyboard alone, a few of them may turn out to be pointer-only. If you find one, that is a fault to report, and it will be added to the list of known limitations.',
+          ],
+        },
+        {
+          id: 'motion',
+          title: 'Motion and animation',
+          plain: 'The site respects your system setting.',
+          body: [
+            'The site is animated by design. It reads the reduced-motion setting of your system and, when it is on, shortens or removes movement: page transitions are brief, nothing loops, the background scenes draw a single still frame and the intro resolves immediately.',
+            'The display preferences panel at the end of this page lets you calm the site down further for the current view without changing anything in your system.',
+          ],
+        },
+        {
+          id: 'prefs',
+          title: 'Display preferences',
+          plain: 'Five settings that last until you reload.',
+          body: [
+            'The closing section of this page holds the site’s display preferences. They apply to every page from the moment you change them and last until you reload. Nothing is stored and nothing is sent.',
+            { defs: [
+              { k: 'Text size', v: 'Normal, Large (12.5 percent bigger) or Larger (25 percent bigger).' },
+              { k: 'Line spacing', v: 'Wider lines, letters and words, which some readers find easier.' },
+              { k: 'Text contrast', v: 'Higher brightens the dimmer greys, so that every piece of text is easier to read.' },
+              { k: 'Calm mode', v: 'Stops animation and freezes the backgrounds.' },
+              { k: 'Single-key shortcuts', v: 'Turns off the ?, B and / keys, which can clash with assistive technology. Ctrl or ⌘ + K stays.' },
+            ] },
+            'Your system settings count as well. If your device asks for reduced motion, the site follows it without being asked.',
+            { note: 'The preferences live on this page, not on every page. A control that was always within reach would be better, and it is on the list of things to improve.', label: 'Limit' },
+          ],
+        },
+        {
+          id: 'keyboard',
+          title: 'Keyboard shortcuts',
+          plain: 'A handful of keys, none of which fire while you type.',
+          body: [
+            'The keyboard map near the top of this page draws every key that does something here. In summary:',
+            { defs: [
+              { k: 'Ctrl / ⌘ + K', v: 'Opens the search from anywhere. The slash key does the same when you are not typing.' },
+              { k: '?', v: 'Opens a short list of these keys.' },
+              { k: 'B', v: 'Switches blueprint mode, which outlines and names the marked parts of a page.' },
+              { k: 'Esc', v: 'Closes what is open and returns focus to where you were.' },
+              { k: 'Arrow keys', v: 'Move within tabs, sliders, carousels, lists and search results. Home and End jump to the ends.' },
+            ] },
+            'Shortcuts are ignored while you are typing in a field or holding a modifier key, and they never replace the standard behaviour of Tab, Enter or Space. The single-key ones (?, B and /) can be turned off in the display preferences at the end of this page; Ctrl or ⌘ + K stays.',
+          ],
+        },
+        {
+          id: 'tech',
+          title: 'Technical specifications',
+          plain: 'What the site relies on.',
+          body: [
+            'The site relies on HTML, CSS, JavaScript, SVG and the Canvas API. A browser that does not support these will not show it as intended. It is a client-rendered application, so JavaScript must be enabled.',
+          ],
+        },
+        {
+          id: 'browsers',
+          title: 'Browsers and assistive technology',
+          plain: 'What the checks were run in.',
+          body: [
+            'The scripted checks run in a Chromium-based browser, the engine behind Chrome and Edge. The site is built from standard web features and is meant to work in current versions of Chrome, Edge, Firefox and Safari, but only Chromium has been tested by the company’s scripts.',
+            'No pairing of browser and screen reader has been tested by a person. The pairings that many people rely on, such as NVDA with Firefox or Chrome, JAWS with Chrome or Edge, and VoiceOver with Safari, are the first that the planned manual testing will cover.',
+          ],
+        },
+        {
+          id: 'alternatives',
+          title: 'Other ways to get the same thing',
+          plain: 'If a part of the site does not work for you.',
+          body: [
+            { list: [
+              'Every page is real text in the page, not pictures of text. Your browser’s reader view, text-to-speech and translation tools can work on it.',
+              'The site map lists every page as a plain list of links, and the search (Ctrl or ⌘ + K) finds words across all of them.',
+              'The long documents can be printed or saved as a PDF from the print button.',
+              'The downloads give reference material as plain text, Markdown, CSV, JSON and CSS files, which open in anything.',
+              'If a demonstration does not work for you, the text around it says what it shows. If it does not, tell the company.',
+              'You can ask for something in another form through the contact page, and the company will say what is possible.',
+            ] },
+          ],
+        },
+        {
+          id: 'feedback',
+          title: 'Feedback and contact',
+          plain: 'Tell the company what is not working for you.',
+          body: [
+            'If something on the site does not work for you, please say so through the contact page. It helps to include the page, what you tried, what you expected, what happened, and the browser and any assistive technology you use.',
+            'The feedback and complaints page explains how a report moves, and what to do if you are not satisfied with the answer.',
+          ],
+        },
+        {
+          id: 'faq',
+          title: 'Questions people ask',
+          plain: 'Eleven short answers.',
+          body: [
+            { sub: 'Does the site meet WCAG?', body: ['It does not claim to. It has not been audited against the guidelines, and a claim would need a full audit. What it has had is described under the checks.'] },
+            { sub: 'Is the site accessible, then?', body: ['It is built to be, and the checks run so far find no automated problems. Whether it is accessible to you depends on how you use it. If it is not, that is a fault, and the company wants to hear about it.'] },
+            { sub: 'Can I stop the animation?', body: ['Yes. Turn on reduced motion in your system, or use calm mode in the display preferences. The backgrounds then hold still and the movement stops.'] },
+            { sub: 'Does the music start by itself?', body: ['No. The intro track plays only after you press START, and the audio control in the header turns it off.'] },
+            { sub: 'Is there a text-only version?', body: ['There is no separate version. The pages are real text, so your browser’s reader view works on them.'] },
+            { sub: 'Do the shortcuts clash with my screen reader?', body: ['The single-key shortcuts (?, B and /) can clash with the one-letter navigation that some assistive technology offers. They never act inside a field, with a modifier key held, or while a dialog is open. You can turn them off in the display preferences. Ctrl or ⌘ + K stays.'] },
+            { sub: 'Why is there a custom cursor?', body: ['On devices with a mouse, the site draws its own cursor while motion is allowed. It never replaces the caret in a text field, and it is off on touch devices and under reduced motion.'] },
+            { sub: 'Some labels are very small. Why?', body: ['Small capital labels are used for codes and captions. They reach the contrast ratio, but they are small. The text-size preference and your browser’s zoom both enlarge them.'] },
+            { sub: 'How do I report a barrier?', body: ['Use the contact page and choose Feedback & problems. Say which page, what you tried and what happened. Your set-up is useful but never required.'] },
+            { sub: 'What happens to my report?', body: ['It is treated as a fault in the site, as the feedback and complaints page describes. If it is new, it is added to the known limitations until it is fixed.'] },
+            { sub: 'Will this statement change?', body: ['Yes. It is updated as checks are added and problems are fixed, and the version on this page is the current one.'] },
+          ],
+        },
+        {
+          id: 'prepared',
+          title: 'How this statement was prepared',
+          plain: 'By the company, from its own checks.',
+          body: [
+            'This statement was prepared by the company from its own automated checks and its own review of how the site behaves. It has not been reviewed by an external accessibility specialist. It will be updated as checks are added and problems are fixed.',
+          ],
+        },
+        {
+          id: 'history',
+          title: 'History of this statement',
+          plain: 'What has changed, newest first.',
+          body: [
+            { table: {
+              caption: 'Versions of this statement',
+              head: ['Version', 'What changed'],
+              rows: [
+                ['Draft 1.0', 'The first complete statement, written for the site as it stands: automated checks and a contrast measurement on every page, no manual testing, and no conformance claimed.'],
+              ],
+            } },
+            'The site does not publish dates for its changes. When a change is made, the version above is updated and the change is described in this table.',
+          ],
+        },
+      ],
+      note: 'A plain-language statement written for this site. It claims no conformance with any standard.',
+    },
+    {
+      type: 'closer',
+      kind: 'prefsPanel',
+      anchor: 'display',
+      scene: 'architectural-grid',
+      tag: 'End of accessibility',
+      minHeight: 520,
+      title: 'Tune the site to you.',
+      lede: 'Five settings you can change right now. They apply until you reload and are not stored.',
+      onward: [{ label: 'Feedback & complaints', to: '/legal/complaints' }, { label: 'Keyboard shortcuts', to: '/legal/accessibility#keys' }],
     },
   ],
 };

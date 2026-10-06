@@ -1,0 +1,13 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.form { display: grid; gap: var(--space-4); }
+.form label { display: grid; gap: 0.4rem; }
+.form span { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
+.form span b { margin-left: 0.6rem; color: var(--c-white); font-weight: 500; letter-spacing: 0.1em; }
+.form input[type='text'], .form input:not([type]) { padding: 0.7rem 0.9rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-sm); background: var(--c-white-03); color: var(--c-white); font: 0.8rem var(--font-mono); outline: none; }
+.form input:focus { border-color: var(--c-red-dim); box-shadow: 0 0 0 3px var(--c-red-faint); }
+.range input { accent-color: var(--c-red); }
+.tip { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
+.out { display: grid; gap: var(--space-3); min-width: 0; }
+.out pre { padding: 1rem 1.2rem; overflow-x: auto; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(3, 3, 4, 0.92); font: 0.72rem/1.7 var(--font-mono); color: var(--c-white-80); white-space: pre-wrap; overflow-wrap: anywhere; }
+.out button { width: fit-content; }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } }

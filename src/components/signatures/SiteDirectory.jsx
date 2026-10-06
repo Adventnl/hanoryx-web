@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import clsx from 'clsx';
 import { ArrowUpRight, Search, Shuffle } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
-import { pages } from '../../data/pages';
+import { loadAllPages } from '../../data/pages';
 import { pageRouteKeys, routePath } from '../../app/routeConfig';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { fx } from '../../utils/fx';
@@ -15,7 +15,10 @@ const GROUPS = [
   { id: 'work', label: 'Work', test: (k) => k === 'work' || k.startsWith('work/') },
   { id: 'systems', label: 'Systems', test: (k) => k === 'systems' || k.startsWith('systems/') },
   { id: 'development', label: 'Development', test: (k) => k === 'north' || k.startsWith('north/') || k === 'engineering' || k === 'lab' },
-  { id: 'legal', label: 'Legal', test: (k) => k.startsWith('legal/') },
+  { id: 'insights', label: 'Insights', test: (k) => k === 'insights' || k.startsWith('insights/') },
+  { id: 'resources', label: 'Resources', test: (k) => k === 'resources' || k.startsWith('resources/') },
+  { id: 'trust', label: 'Trust', test: (k) => k === 'trust' || k.startsWith('trust/') },
+  { id: 'legal', label: 'Legal', test: (k) => k === 'legal' || k.startsWith('legal/') },
   { id: 'site', label: 'The site', test: (k) => k === 'home' || k === 'sitemap' },
 ];
 
@@ -36,12 +39,20 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [query, setQuery] = useState('');
+  const [pages, setPages] = useState(null);
+
+  // Every page's title and opening line, read from the page data itself.
+  useEffect(() => {
+    let live = true;
+    loadAllPages().then((all) => { if (live) setPages(all); });
+    return () => { live = false; };
+  }, []);
 
   const items = useMemo(
     () =>
       pageRouteKeys
         .map((key) => {
-          const page = pages[key];
+          const page = pages?.[key];
           if (!page) return null;
           return {
             key,
@@ -51,7 +62,7 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
           };
         })
         .filter(Boolean),
-    []
+    [pages]
   );
 
   const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);

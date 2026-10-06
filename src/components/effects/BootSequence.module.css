@@ -43,7 +43,7 @@
   background: transparent;
   border: none;
   border-bottom: 1px solid var(--c-white-20);
-  color: var(--c-white-40);
+  color: var(--c-white-50);
   font-family: var(--font-sans);
   font-size: 0.8rem;
   letter-spacing: 0.45rem;
@@ -128,7 +128,7 @@
   font-size: 0.72rem;
   line-height: 2.3;
   letter-spacing: 1px;
-  color: var(--c-white-40);
+  color: var(--c-white-50);
   z-index: 4;
 }
 /* Terminal lines unlock as calibration passes their threshold (data-on is
@@ -152,7 +152,7 @@
   font-size: 0.72rem; letter-spacing: 2px;
   color: #fff; z-index: 4;
 }
-.percent { font-variant-numeric: tabular-nums; }
+.percent { font-variant-numeric: lining-nums tabular-nums; }
 /* thin calibration bar under the readout — scaleX is driven by the same value */
 .track {
   flex-basis: 100%;
@@ -189,7 +189,7 @@
   font-size: var(--fs-2xs);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--c-white-30);
+  color: var(--c-white-50);
   padding: 0.5rem 1rem;
   border: 1px solid var(--c-line-faint);
   border-radius: var(--r-pill);

@@ -47,15 +47,15 @@
   background-size: 22px 22px;
   pointer-events: none;
 }
-.plateCode { position: relative; font: 0.62rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red); }
+.plateCode { position: relative; font: 0.62rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red-bright); }
 .plateName { position: relative; font-family: var(--font-serif); font-size: clamp(1.2rem, 2.2vw, 1.7rem); line-height: 1.1; }
 
 .detail { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
-.dCode { font: 0.66rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red); }
+.dCode { font: 0.66rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red-bright); }
 .dGlyph { color: var(--c-white-65); }
 .dTitle { font-family: var(--font-serif); font-size: var(--fs-h2); font-weight: 300; color: var(--c-white); }
 .dBody { max-width: 40ch; font-size: var(--fs-body); line-height: 1.7; color: var(--c-white-65); }
-.note { max-width: 44ch; font: 0.66rem var(--font-mono); letter-spacing: 0.06em; line-height: 1.7; color: var(--c-white-30); }
+.note { max-width: 44ch; font: 0.66rem var(--font-mono); letter-spacing: 0.06em; line-height: 1.7; color: var(--c-white-50); }
 
 @media (max-width: 900px) {
   .stage { grid-template-columns: minmax(0, 1fr); }

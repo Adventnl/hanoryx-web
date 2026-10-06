@@ -23,6 +23,12 @@ const SKIP_KEYS = new Set([
   // structure of the interactive compositions, not readable copy
   'anchor', 'railLabel', 'marker', 'defaultOpen', 'match', 'lives', 'command', 'x', 'y', 'span',
   'adminOnly', 'terminal', 'edges', 'reach', 'visibleTo', 'minHeight', 'wide', 'start', 'field',
+  // document reader / endings: labels and layout, not prose
+  'summaryLabel', 'endLabel', 'tag', 'lang', 'tone', 'readingMinutes',
+  // the component catalogue: which example, which family
+  'demo', 'family',
+  // the data-first page blocks: code, units and a snippet's file name are not copy
+  'language', 'filename', 'series', 'unit', 'sample',
 ]);
 
 /* lowercase + strip diacritics so "café" matches "cafe". */
@@ -89,6 +95,9 @@ const SECTION_BY_ROOT = {
   lab: 'Development',
   company: 'Company',
   contact: 'Company',
+  insights: 'Resources',
+  resources: 'Resources',
+  trust: 'Trust',
   legal: 'Legal',
   sitemap: 'Site',
 };

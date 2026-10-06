@@ -1,0 +1,18 @@
+.expr { font-size: 1.15rem !important; letter-spacing: 0.08em; }
+.legend { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; margin-top: -0.4rem; font: 0.5rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-50); }
+.fields td code { font: 0.8rem var(--font-mono); color: var(--c-white); }
+.say { display: grid; gap: 0.6rem; }
+.sentence { font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1.25; color: var(--c-white); }
+.notes { display: grid; gap: 0.5rem; }
+.notes li { display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: start; padding: 0.7rem 0.9rem; border: 1px solid var(--c-red-dim); border-radius: var(--r-md); background: var(--c-red-faint); font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-80); }
+.notes svg { margin-top: 0.2rem; color: var(--c-red); }
+.toggle { margin-left: auto; display: inline-flex; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); overflow: hidden; }
+.tz { padding: 0.3rem 0.8rem; border: 0; background: transparent; font: 0.56rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; }
+.tzOn { background: var(--c-red-faint); color: var(--c-white); }
+.runs { display: grid; gap: 0.15rem; margin: 0.8rem 0 1rem; }
+.runs li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.6rem; padding: 0.4rem 0; border-bottom: 1px dashed var(--c-line); font: 0.8rem var(--font-mono); color: var(--c-white-80); }
+.runs span { color: var(--c-red); font-size: 0.6rem; padding-top: 0.15rem; }
+.btn { display: inline-flex; align-items: center; gap: 0.6em; padding: 0.55rem 0.95rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); background: transparent; font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-80); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
+.btn:hover:not(:disabled) { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.btn:disabled { opacity: 0.4; cursor: default; }
+@media (max-width: 520px) { .legend { display: none; } }

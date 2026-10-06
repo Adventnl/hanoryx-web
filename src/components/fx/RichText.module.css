@@ -1,0 +1,57 @@
+.code {
+  padding: 0.08em 0.4em;
+  border: 1px solid var(--c-white-12);
+  border-radius: 3px;
+  background: var(--c-white-05);
+  color: var(--c-white-80);
+  font: 0.86em var(--font-mono);
+  overflow-wrap: anywhere;
+}
+.mark {
+  padding: 0 1px;
+  border-radius: 2px;
+  background: rgba(255, 51, 51, 0.28);
+  color: var(--c-white);
+}
+
+/* A defined word: dotted underline, definition on hover or focus. */
+.term {
+  position: relative;
+  border-bottom: 1px dotted var(--c-red-dim);
+  color: var(--c-white-80);
+  cursor: help;
+  outline: none;
+  transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+.term:hover, .term:focus-visible { color: var(--c-white); border-bottom-color: var(--c-red); }
+.term:focus-visible { outline: 1px solid var(--c-red); outline-offset: 3px; }
+.tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.6rem);
+  z-index: 5;
+  width: max-content;
+  max-width: min(22rem, 78vw);
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-md);
+  background: var(--c-black-3);
+  box-shadow: var(--shadow-panel);
+  color: var(--c-white-80);
+  font: 400 var(--fs-sm)/1.5 var(--font-sans);
+  letter-spacing: 0;
+  text-align: left;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 6px);
+  transition: opacity var(--dur-2) var(--ease-out), transform 0.5s var(--ease-glide);
+}
+.term:hover .tip, .term:focus-visible .tip, .term:focus .tip { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) {
+  .tip { transition: none; }
+}
+/* On paper a definition is a floating card over the text; the word itself already carries the meaning. */
+@media print {
+  .tip { display: none; }
+  .term { border-bottom: 0; }
+}

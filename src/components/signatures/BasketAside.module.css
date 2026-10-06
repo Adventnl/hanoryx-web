@@ -16,5 +16,5 @@
 .tick { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--c-red); color: #000; transform: scale(0); transition: transform 0.45s var(--ease-spring-soft); }
 .on { border-color: var(--c-red); background: var(--c-red-faint); transform: translateY(-3px); }
 .on .tick { transform: scale(1); }
-.caption { display: block; margin-top: var(--space-3); font: 0.58rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-white-30); }
+.caption { display: block; margin-top: var(--space-3); font: 0.58rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-white-50); }
 @media (prefers-reduced-motion: reduce) { .tile { animation: none; } .tile, .tick { transition: none; } }

@@ -1,3 +1,5 @@
+import { legalTerms } from '../legalTerms';
+
 const page = {
   key: 'legal/terms',
   title: 'Terms',
@@ -101,12 +103,378 @@ const page = {
       note: 'A plain-language summary written for this site. It is not legal advice.',
     },
     {
-      type: 'cta',
+      type: 'signature',
+      kind: 'document',
+      anchor: 'terms',
+      railLabel: 'The full terms',
+      scene: 'privacy-quiet-grid',
+      minHeight: 900,
+      eyebrow: 'The full terms',
+      title: 'Terms of use, in full.',
+      intro: 'The eight clauses above, written out as a complete document: what the site is, what you may do with it, and where its limits lie.',
+      version: 'Draft 1.0',
+      summary: [
+        'The site **describes** the company and its work. It is not a shop, a quotation or advice.',
+        'Diagrams, demos and sample records are **illustrations**, not real systems or measurements.',
+        'You are welcome to read, link to and print the site. Reusing its material beyond that means **asking first**.',
+        'It is provided **as it is**, and it may change or be unavailable without notice.',
+      ],
+      meta: [
+        { k: 'Applies to', v: 'This website' },
+        { k: 'Status', v: 'Plain-language draft' },
+      ],
+      terms: legalTerms,
+      sections: [
+        {
+          id: 'about',
+          title: 'About these terms',
+          plain: 'Using the site means accepting them.',
+          body: [
+            'These terms explain how the website of **Hanoryx Systems** may be used. In these terms, “the company” means Hanoryx Systems, “the site” means this website, and “you” means anyone using it.',
+            'By using the site you accept these terms. If you do not accept them, please do not use the site.',
+            { note: 'These terms are a plain-language account written for this site. They are not legal advice and they have not been reviewed by a lawyer.', tone: 'warn', label: 'Please read' },
+          ],
+        },
+        {
+          id: 'definitions',
+          title: 'Words used in these terms',
+          plain: 'Short meanings, so the rest can stay plain.',
+          body: [
+            'Legal writing has a habit of defining a word and then using it in ways nobody expected. These terms define only what they need to, and use each word the same way every time. Hover or focus an underlined word anywhere in the document to read its meaning again.',
+            { defs: [
+              { k: 'The company', v: 'Hanoryx Systems, which runs the site and whose work it describes.' },
+              { k: 'The site', v: 'This website: its pages, text, diagrams, demos, tools, downloads and code.' },
+              { k: 'You', v: 'Anyone who opens a page of the site, once or often, whether or not you have read these terms.' },
+              { k: 'Material', v: 'What the site contains: its text, design, graphics, sample data, code and downloads. The intro track is dealt with separately, in the copyright notice.' },
+              { k: 'Demo', v: 'An interactive illustration of an idea. It is not a real system and it holds no real data.' },
+              { k: 'Browser tool', v: 'A small utility in the Resources section. It runs in your browser and sends what you enter nowhere.' },
+              { k: 'Third party', v: 'Anyone other than you and the company, including the services your browser is asked to contact so that a page can be shown.' },
+              { k: 'Contact page', v: 'The page that helps you write to the company. It is the way to reach the company about anything in these terms.' },
+            ] },
+            { sub: 'How to read “may”, “must” and “should”', body: [
+              '“May” gives permission. “Must” and “must not” are requirements. “Should” is a strong suggestion that you can depart from if you have a good reason. Examples are there to make a point clear; they are not a complete list unless the text says so.',
+            ] },
+            { sub: 'How to read the headings', body: [
+              'Headings, and the short summary under each one, are there to help you find your way. They are not part of the rule they introduce. If a summary and the text beneath it differ, the text is the one to go by.',
+            ] },
+          ],
+        },
+        {
+          id: 'fit',
+          title: 'How these terms fit with the other documents',
+          plain: 'Ten documents, each with its own question.',
+          body: [
+            'The Legal section holds ten documents. Each answers one kind of question, and nobody should need to read all ten to find what they want. This table says which is which.',
+            { table: {
+              caption: 'The legal documents and the question each one answers',
+              head: ['Document', 'The question it answers', 'Read it when'],
+              rows: [
+                ['Terms of use', 'What may I do with the site, and what should I not lean on?', 'You want the ground rules'],
+                ['Privacy notice', 'What does the site do with information about me?', 'You want to know what is collected or kept'],
+                ['Cookies and storage', 'What does the site leave in my browser?', 'You want to see it, or clear it'],
+                ['Data retention', 'How long does anything last?', 'You want to know when things go'],
+                ['Accessibility statement', 'How well does the site work for different people?', 'You use assistive technology, or something does not work for you'],
+                ['Acceptable use', 'What behaviour is and is not welcome?', 'You are building something that visits the site automatically, or testing it'],
+                ['Copyright and marks', 'Who owns what, and how may I reuse it?', 'You want to quote, copy or credit'],
+                ['Disclaimers', 'What does the content not promise?', 'You are about to rely on something here'],
+                ['Feedback and complaints', 'How do I report a problem, or complain?', 'Something is wrong, or you disagree'],
+                ['Linking to this site', 'How do I link to the site well?', 'You are writing about the site elsewhere'],
+              ],
+            } },
+            'Where two documents seem to say different things about the same subject, the more specific one is the better guide to that subject: the privacy notice for what is said about information, the accessibility statement for what is said about accessibility, and so on. These terms cover everything else.',
+            { note: 'These terms are the one document that asks you to accept it, and the acceptable use page sets out in more detail the behaviour they ask for. The others describe how the site is run and what you can expect from it.', label: 'Plainly' },
+          ],
+        },
+        {
+          id: 'what',
+          title: 'What the site is',
+          plain: 'Information about the company and its work.',
+          body: [
+            'The site presents Hanoryx Systems, its development team Hanoryx North, and the work and approach of both. It is provided for information. It is not a service you sign up for, and it has no accounts.',
+            'The work is described in general terms. Some of it is internal and some involves other people’s operations, so the site shows the shape of the work, not its details.',
+          ],
+        },
+        {
+          id: 'parts',
+          title: 'The parts of the site',
+          plain: 'What each section is, and what to keep in mind there.',
+          body: [
+            'The site has several sections. Describing them here lets the terms say what applies where, and lets you see at a glance which parts are descriptions and which are small programs.',
+            { table: {
+              caption: 'The sections of the site',
+              head: ['Section', 'What it is', 'Keep in mind'],
+              rows: [
+                ['Home and the intro', 'The front page, which opens with a short sequence you can skip', 'The sequence and the music are decoration. Skip them whenever you like.'],
+                ['Work', 'The company’s projects — Musebase, YK Engine, a customer product and an internal CRM — described in general terms', 'You see the shape of the work, not its details or its results.'],
+                ['Systems', 'The kinds of system the company builds, from operational management to research systems', 'These are descriptions of capability, not offers.'],
+                ['Development', 'How the development team, Hanoryx North, works, with demos and a gallery of interface components', 'Demos are illustrations, and the components are shown with sample data.'],
+                ['Company', 'Principles, security, careers, hiring, press, brand and common questions', 'Unless a page says a role is open, nothing here is a job offer.'],
+                ['Insights', 'Long-form guides on subjects the company works with', 'General information, not advice.'],
+                ['Resources', 'A glossary, release notes, downloads and five browser tools', 'The tools run in your browser, and the downloads are built there too.'],
+                ['Trust', 'A live status page, security disclosure, third-party services, licences and notices', 'The status figures are measured on your own device.'],
+                ['Legal', 'These ten documents', 'Plain-language, and not yet reviewed by a lawyer.'],
+              ],
+            } },
+          ],
+        },
+        {
+          id: 'offer',
+          title: 'No offer, quotation or advice',
+          plain: 'Descriptions are not promises.',
+          body: [
+            'Nothing on the site is an offer, a quotation, a proposal or a guarantee. Descriptions of work, capabilities, approaches and design models are exactly that: descriptions.',
+            'Nothing on the site is professional advice, whether technical, legal, financial or of any other kind. The articles and tools in the Insights and Resources sections are general information and general utilities. They do not take your circumstances into account.',
+            'Any work between a visitor and the company would be agreed separately, in writing, and those terms would apply to that work instead of anything described here.',
+          ],
+        },
+        {
+          id: 'illustrations',
+          title: 'Illustrations, demos and sample data',
+          plain: 'They show an idea; they are not real systems.',
+          body: [
+            'Interactive diagrams, demos, tools, sample records and live figures on the site illustrate an approach or perform a small calculation in your browser. They are not real systems, real customer data or published measurements.',
+            'Where the site shows a figure measured on your own device, such as the live status page, the figure describes your device at that moment and nothing else.',
+            { list: ['Do not rely on a demo as if it were a product.', 'Do not treat sample data as real data.', 'Do not read an illustration as a claim about the company’s results.'] },
+          ],
+        },
+        {
+          id: 'tools',
+          title: 'Tools and downloads',
+          plain: 'Small programs that run in your browser, and files built there.',
+          body: [
+            'The Resources section holds five browser tools — a contrast checker, a type scale, a cron explainer, a readiness check and a decision-record writer — and a shelf of downloadable templates, checklists and reference files. They are offered in the same spirit as the rest of the site: useful, general and without any promise.',
+            { sub: 'The tools', body: [
+              { list: [
+                'They run in your browser. What you enter stays on your device and is not sent anywhere.',
+                'Their results are only as good as what you enter. Check anything that matters before you act on it.',
+                'They are not professional advice. The readiness check, for example, is a way to start a conversation about a system. It is not an audit, a certification or an assessment of anyone’s work.',
+              ] },
+            ] },
+            { sub: 'The downloads', body: [
+              'Each download is built in your browser when you press its button and saved by your browser in the usual way. The site does not count downloads and does not know which you chose.',
+              'The templates are starting points written for this site. They are general, they are meant to be changed, and they are not legal or professional advice.',
+              { note: 'The site does not yet say on what conditions the templates may be reused or passed on. Until it does, use them for your own purposes and ask through the contact page before sharing or redistributing them.', label: 'Open item' },
+            ] },
+          ],
+        },
+        {
+          id: 'guides',
+          title: 'Guides and reference pages',
+          plain: 'General reading, not advice.',
+          body: [
+            'The Insights section holds long-form guides on subjects the company works with, among them idempotency, audit trails, permissions, runbooks, triggers, API contracts, handover and animation budgets. The Resources section holds a glossary and release notes, and the Development section holds a handbook, a set of design tokens, a description of the stack and an account of how the work is checked.',
+            'These pages are written for a general reader. They are not written for your system, your law or your circumstances, and they are not a substitute for advice from someone who knows them.',
+            { list: [
+              'A guide describes a way of doing something. It is not the only way, and not necessarily the right way for you.',
+              'A figure, threshold or example in a guide is there to make a point. It is not a recommendation for your numbers.',
+              'The guides do not say when they were last revised. Where a subject moves quickly, check a current source as well.',
+              'If a guide is wrong, or has gone out of date, please tell the company through the contact page.',
+            ] },
+            { note: 'The glossary defines words as this site uses them. A word may mean something slightly different elsewhere.', label: 'Plainly' },
+          ],
+        },
+        {
+          id: 'material',
+          title: 'The company’s material',
+          plain: 'The text, design and code are the company’s.',
+          body: [
+            'The text, design, graphics and code of the site belong to Hanoryx Systems unless something says otherwise. Third-party components and typefaces used by the site remain under their own licences, which are listed on the licences page.',
+            '“Hanoryx Systems”, “Hanoryx North”, “Musebase” and “YK Engine” identify the company and its work. Other names mentioned belong to their owners.',
+            'The copyright page explains this in more detail. If you would like to reuse any of the site’s material, ask first through the contact page.',
+          ],
+        },
+        {
+          id: 'allowed',
+          title: 'What you may do',
+          plain: 'Read it, link to it, print it, quote it fairly.',
+          body: [
+            { list: [
+              'Read the site and use its tools and demos for your own purposes.',
+              'Link to any page, and tell others about it. The linking page explains how to do it well.',
+              'Print or save a page for your own reference. The long documents are designed to print cleanly.',
+              'Quote short passages for news, review or commentary, to the extent the law allows, and say where they came from.',
+            ] },
+          ],
+        },
+        {
+          id: 'not-allowed',
+          title: 'What you may not do',
+          plain: 'Don’t break it, copy it wholesale or pass it off as yours.',
+          body: [
+            'Please follow the acceptable use page. In short, do not:',
+            { list: [
+              'copy the site, or substantial parts of it, and present them as your own;',
+              'use the company’s names or marks in a way that suggests it endorses or is connected to you when it is not;',
+              'attempt to disrupt the site, overload it, or gain access to anything that is not meant to be public;',
+              'use the site to break the law or to harm other people.',
+            ] },
+          ],
+        },
+        {
+          id: 'usequestions',
+          title: 'Common questions about using the site',
+          plain: 'Twelve short answers.',
+          body: [
+            { sub: 'Can I print a page, or save it as a PDF?', body: ['Yes. The long documents are laid out for print. Use your browser’s print command, or the Print button on a document.'] },
+            { sub: 'Can I quote the site in an article or a report?', body: ['Yes, briefly and fairly, saying where the words came from, to the extent the law allows. For anything longer, ask first.'] },
+            { sub: 'Can I use a screenshot?', body: ['A screenshot that illustrates a review, an article or a bug report is in the spirit of quoting fairly. Say where it is from. Using the screenshots or the design as the basis of another site is not.'] },
+            { sub: 'Is a description of a capability a promise that the company can do it?', body: ['No. A description says what the company does in general. Any real work would be agreed separately, in writing.'] },
+            { sub: 'If I rely on a guide and it turns out to be wrong, who is responsible?', body: ['The guides are general information, and they can be out of date or mistaken. Check anything that matters. The section on limits of responsibility says where the company’s responsibility stops.'] },
+            { sub: 'Does the live status page promise that the site will be up?', body: ['No. It shows figures measured on your own device at that moment. It says nothing about whether the site is available to anyone else.'] },
+            { sub: 'Can I use the tools on my employer’s information?', body: ['The tools run in your browser and send nothing, so what you enter does not leave your device. Whether you may put your employer’s information into any tool is a question for your employer’s own rules.'] },
+            { sub: 'Can I link to a particular section of a document?', body: ['Yes. The long documents give every section its own link. The linking page shows how.'] },
+            { sub: 'Can I reuse the site’s code or design?', body: ['The site’s code and design belong to the company unless something says otherwise, and the third-party components it uses stay under their own licences, listed on the licences page. To reuse the site’s own code or design, ask first.'] },
+            { sub: 'Can I use the intro music elsewhere?', body: ['Listening to it on the site is fine. The site does not yet say who made the track or on what terms it may be used, so please do not reuse it. The copyright notice lists this as an open item.'] },
+            { sub: 'Do I have to agree to anything to read the site?', body: ['These terms say that using the site means accepting them. Nothing is ticked or signed, and there is no account.'] },
+            { sub: 'What if I find a mistake?', body: ['Please say so through the contact page. A short note saying which page and what looks wrong is all that is needed.'] },
+          ],
+        },
+        {
+          id: 'third-parties',
+          title: 'Other services and sites',
+          plain: 'Fonts come from a third party; links may leave the site.',
+          body: [
+            'To show a page, the site asks your browser to load typefaces from {{Google Fonts}}. That service is outside the company’s control and has its own terms and policies.',
+            'The YK Engine page links to a code repository on GitHub. Following that link takes you to a site the company does not control, under its own terms. The company is not responsible for what other sites do.',
+          ],
+        },
+        {
+          id: 'availability',
+          title: 'Accuracy and availability',
+          plain: 'Provided as it is; it may change or go away.',
+          body: [
+            'The site is provided as it is and as it is available. Content may be out of date or contain mistakes, and the site, or any part of it, may change, move or disappear without notice.',
+            'The company does not promise that the site will be available at any particular time, or free of errors, or that it will work in every browser or on every device.',
+            'If you spot something wrong, please say so through the contact page.',
+          ],
+        },
+        {
+          id: 'disclaimer',
+          title: 'Disclaimers',
+          plain: 'No warranties beyond those the law insists on.',
+          body: [
+            'To the extent the law allows, the company gives no warranty about the site, whether stated or implied, including any warranty of accuracy, fitness for a particular purpose or freedom from interruption.',
+            'The disclaimers page sets out, in plain terms, what the site’s content is and is not.',
+          ],
+        },
+        {
+          id: 'liability',
+          title: 'Limits of responsibility',
+          plain: 'Use the site sensibly; the company cannot cover every outcome.',
+          body: [
+            'To the extent the law allows, the company is not responsible for loss or damage that arises from using the site or relying on its content, including indirect or consequential loss.',
+            'Nothing in these terms limits any responsibility that the law does not allow to be limited, for example for fraud, or for death or personal injury caused by negligence.',
+          ],
+        },
+        {
+          id: 'reliance',
+          title: 'Before you rely on something here',
+          plain: 'Three questions worth asking.',
+          body: [
+            'The terms say that nothing on the site is advice or a promise. That is a statement about the company, and it leaves a practical question: how much should you lean on any given page? Three questions help.',
+            { ol: [
+              'Is it general, or about you? Everything on the site is general. If the decision depends on your circumstances, the page is a starting point for a conversation, not an answer.',
+              'What would a mistake cost? If a wrong reading would cost you little, a guide or a tool is a fine thing to act on. If it would cost a lot, check it against a source that is accountable for being right.',
+              'Can you check it? Most statements on the site can be checked: a tool’s result against the standard it cites, a guide against the documentation it refers to, a demo against the real thing it illustrates.',
+            ] },
+            'None of this is meant to put you off using the site. It is the care you would take with any general reading.',
+          ],
+        },
+        {
+          id: 'stopping',
+          title: 'Stopping, and what carries on',
+          plain: 'You can leave at any time; some parts outlast your visit.',
+          body: [
+            'There is no account to close. You stop using the site by closing it, and you may do so at any moment.',
+            'The company may change, move or remove any part of the site. It may also, with the hosting service, limit or block access that breaks the acceptable use page.',
+            'Some parts of these terms are meant to outlast your visit. In particular, the statements about who owns the material, the disclaimers and the limits of responsibility continue to apply after you have finished using the site.',
+          ],
+        },
+        {
+          id: 'privacy',
+          title: 'Privacy, cookies and storage',
+          plain: 'They have their own documents.',
+          body: [
+            'How the site treats information about visitors is explained in the privacy notice, the cookies and storage policy and the data retention page. They form part of how the site is run, though they are not terms you are asked to agree to.',
+          ],
+        },
+        {
+          id: 'interpretation',
+          title: 'If part of these terms does not work',
+          plain: 'The rest still stands.',
+          body: [
+            'Terms written for a website have to work in many places and for many readers, and no plain-language text anticipates everything. Two rules of thumb apply.',
+            { list: [
+              'If a part of these terms turns out not to be enforceable where you are, that part is read as narrowly as it needs to be and the rest still applies.',
+              'If the company does not enforce a term on one occasion, that does not mean it has given the term up.',
+            ] },
+            { note: 'These are the kinds of sentence a lawyer would check first. They are given here in plain words, and the whole document still awaits that check.', label: 'Open item' },
+          ],
+        },
+        {
+          id: 'notices',
+          title: 'Notices between you and the company',
+          plain: 'How to reach the company, and how it will reach you.',
+          body: [
+            'To tell the company something about these terms — a question, an objection, a request to reuse material, a report of misuse — use the contact page. Say which part you mean and, if you would like an answer, how to reach you.',
+            'The company has no list of visitors and no way of writing to you unless you write first, so any notice it gives to visitors in general is given by publishing it on the site. The version of each document on its own page is the current one. If the company replies to you, it replies to the address you wrote from.',
+          ],
+        },
+        {
+          id: 'changes',
+          title: 'Changes to these terms',
+          plain: 'The version on this page is the current one.',
+          body: [
+            'These terms may change as the site changes. The version on this page is the current one, and using the site after a change means accepting the changed terms.',
+          ],
+        },
+        {
+          id: 'history',
+          title: 'History of these terms',
+          plain: 'What has changed, newest first.',
+          body: [
+            { table: {
+              caption: 'Versions of these terms',
+              head: ['Version', 'What changed'],
+              rows: [
+                ['Draft 1.0', 'The first complete terms, written for the site as it stands: no accounts, no purchases and no content from visitors, with the governing law left open until the company’s details are confirmed.'],
+              ],
+            } },
+            'The site does not publish dates for its changes, and nothing here is taken from the dates of files or releases. When a change is made, the version above is updated and the change is described in this table.',
+          ],
+        },
+        {
+          id: 'law',
+          title: 'Law and disputes',
+          plain: 'The company’s details are not yet published here.',
+          body: [
+            'If a disagreement about the site cannot be settled by talking, the law of the place where the company is established would apply. The company has not yet published its registered details on this site, so this page does not name that place.',
+            'When those details are published, this section will name the applicable law and where disputes would be heard.',
+            { note: 'This section is deliberately incomplete rather than guessed. It will be filled in once the company’s registered details are confirmed.', label: 'Open item' },
+          ],
+        },
+        {
+          id: 'contact',
+          title: 'Contact',
+          plain: 'Use the contact page and say which part you mean.',
+          body: [
+            'Questions about these terms are welcome. Use the contact page and say which section you mean.',
+          ],
+        },
+      ],
+      note: 'A plain-language account written for this site. It is not legal advice and it has not been reviewed by a lawyer.',
+    },
+    {
+      type: 'closer',
+      kind: 'termsCard',
       scene: 'architectural-grid',
-      eyebrow: 'Questions',
-      title: 'Unsure about a clause?',
-      body: 'Use the contact page and say which one you mean.',
-      links: [{ label: 'Privacy', to: '/legal/privacy' }],
+      tag: 'End of terms',
+      minHeight: 560,
+      title: 'The terms, on one card.',
+      lede: 'Turn it over. One side is what you can do; the other is what not to lean on.',
+      can: ['Read, use the tools, print what you need', 'Link to any page, and say where it came from', 'Quote briefly, as the law allows', 'Ask to reuse more, through the contact page'],
+      cant: ['Treat a description as an offer or a quotation', 'Treat a demo or sample record as a real system', 'Expect the site to always be there, or always right', 'Present the site’s material as your own'],
+      onward: [{ label: 'Acceptable use', to: '/legal/acceptable-use' }, { label: 'Disclaimers', to: '/legal/disclaimer' }],
     },
   ],
 };

@@ -53,7 +53,7 @@ export function SectionHeader({
       {(eyebrow || code) && (
         <div className={styles.top}>
           {eyebrow && <span className={clsx('eyebrow', styles.eyebrow)}>{eyebrow}</span>}
-          {code && <span className={clsx('mono', styles.code)}>{code}</span>}
+          {code && <span className={clsx('mono', styles.code)} aria-hidden="true">{code}</span>}
         </div>
       )}
       {title && (

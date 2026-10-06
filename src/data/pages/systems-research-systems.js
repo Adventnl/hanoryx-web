@@ -111,12 +111,18 @@ const page = {
       ],
     },
     {
-      type: 'cta',
+      type: 'closer',
+      kind: 'hypothesisCard',
+      anchor: 'card',
       scene: 'blackout-silhouette',
-      eyebrow: 'Lab',
-      title: 'Inspect the experiments.',
-      body: 'The Lab gives a direct view of selected scenes and their behaviour.',
-      links: [{ label: 'Site engineering', to: '/engineering' }],
+      tag: 'End of research systems',
+      minHeight: 700,
+      title: 'Write the hypothesis down.',
+      lede: 'A small card for a small experiment. A good hypothesis can be wrong, says what would show it, and says when to stop. Fill the five lines; the page flags the usual weaknesses, and the card can be taken away.',
+      onward: [
+        { label: 'Visual lab', to: '/lab' },
+        { label: 'Decision records', to: '/resources/tools/decision-record' },
+      ],
     },
   ],
 };

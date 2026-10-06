@@ -1,0 +1,10 @@
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
+.fields { display: flex; flex-direction: column; gap: var(--space-4); }
+.field { display: flex; flex-direction: column; gap: 0.5rem; }
+.field select { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: var(--c-black-3); color: var(--c-white); font: 0.88rem var(--font-sans); }
+.field select:disabled { opacity: 0.5; }
+.out { display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; align-items: flex-start; }
+.code { width: 100%; padding: 0.9rem 1rem; overflow-x: auto; border: 1px solid var(--c-line-strong); border-radius: var(--r-sm); background: rgba(3, 3, 4, 0.9); font: 0.74rem/1.6 var(--font-mono); color: var(--c-white-80); white-space: pre-wrap; overflow-wrap: anywhere; }
+.preview { font-size: var(--fs-sm); color: var(--c-white-65); }
+.preview a { color: var(--c-white); border-bottom: 1px solid var(--c-red-dim); }
+@media (max-width: 800px) { .grid { grid-template-columns: minmax(0, 1fr); } }

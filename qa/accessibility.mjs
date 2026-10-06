@@ -1,6 +1,6 @@
 /* Accessibility pass — axe-core over every page.
  *
- *   QA_BASE=http://127.0.0.1:5173 node qa/accessibility.mjs
+ *   QA_BASE=http://127.0.0.1:5173 node qa/accessibility.mjs [/route ...]
  *
  * Loads every page at desktop and phone width, scrolls it so lazy sections
  * mount, and runs axe-core (WCAG 2 A/AA, 2.1 A/AA and axe's best-practice
@@ -18,6 +18,8 @@ import { BASE, launch, newContext, pageRoutes, pause, reporter } from './lib.mjs
 
 const require = createRequire(import.meta.url);
 const axePath = require.resolve('axe-core/axe.min.js');
+const only = process.argv.slice(2).filter((a) => a.startsWith('/'));
+const routes = only.length ? only : pageRoutes;
 const r = reporter('accessibility');
 const browser = await launch();
 
@@ -28,7 +30,7 @@ for (const [tag, options] of [
   const context = await newContext(browser, options);
   const page = await context.newPage();
   const problems = [];
-  for (const route of pageRoutes) {
+  for (const route of routes) {
     await page.goto(BASE + route, { waitUntil: 'domcontentloaded' });
     await pause(1500);
     const height = await page.evaluate(() => document.documentElement.scrollHeight);
@@ -53,7 +55,8 @@ for (const [tag, options] of [
     });
     violations.forEach((v) => problems.push(`${route}: ${v.id} [${v.impact}] ×${v.count} — ${v.nodes[0]}`));
   }
-  r.check(`no axe violations on any page (${tag})`, problems.length === 0, problems.slice(0, 4).join(' ; '));
+  r.check(`no axe violations on any page (${tag})`, problems.length === 0, problems.length ? `${problems.length} found` : '');
+  problems.forEach((problem) => console.log(`        ${problem}`));
   await context.close();
 }
 

@@ -1,0 +1,20 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: center; }
+.form { display: grid; gap: var(--space-3); min-width: 0; }
+.key { display: grid; gap: 0.45rem; }
+.key li { display: flex; align-items: center; gap: 0.7rem; font-size: var(--fs-xs); color: var(--c-white-65); }
+.key b { color: var(--c-white); font-weight: 500; margin-right: 0.3rem; }
+.key i { flex: none; width: 22px; height: 0; border-top: 2px solid; }
+.read { font-size: var(--fs-body); line-height: 1.55; color: var(--c-white-80); }
+.read b { color: var(--c-white); font-weight: 500; }
+.warn { color: var(--c-red-bright) !important; }
+.sm { font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-65); max-width: 56ch; }
+.fig { margin: 0; padding: 0.9rem 1rem 0.5rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, #0e0f12, #060607); }
+.fig svg { display: block; width: 100%; height: auto; }
+.fig figcaption { margin-top: 0.3rem; font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); }
+.axis { stroke: var(--c-white-30); }
+.cursor { stroke: var(--c-white-30); stroke-dasharray: 3 3; }
+polyline { fill: none; stroke-linejoin: round; }
+polyline.ref, i.ref { stroke: var(--c-white-50); border-color: var(--c-white-50); stroke-width: 1; stroke-dasharray: 2 3; }
+polyline.fix, i.fix { stroke: var(--c-white); border-color: var(--c-white); stroke-width: 1.6; }
+polyline.var, i.var { stroke: var(--c-red); border-color: var(--c-red); stroke-width: 1.6; }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } }

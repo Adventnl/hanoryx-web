@@ -1,0 +1,14 @@
+.rig { display: grid; gap: var(--space-4); }
+.tally { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
+.tally b { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); letter-spacing: 0; color: var(--c-white); margin-right: 0.3rem; }
+.qs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 0.6rem; }
+.q { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.9rem; padding: 1rem 1.1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); }
+.said { border-color: var(--c-white-40); }
+.partly { border-style: dashed; border-color: var(--c-white-40); }
+.not { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.88)); }
+.n { font: 0.6rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red-bright); padding-top: 0.25rem; }
+.q h3 { font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
+.why { margin-top: 0.15rem; font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
+.say { margin-top: 0.6rem; font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
+.badge { display: inline-flex; align-items: center; gap: 0.35em; margin-right: 0.6rem; padding: 0.1rem 0.55rem; border: 1px solid currentColor; border-radius: var(--r-pill); font: 0.5rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; vertical-align: 0.1em; color: var(--c-white); }
+.not .badge { color: var(--c-red-bright); }

@@ -101,6 +101,9 @@ export function ShortcutsOverlay({ open, onClose }) {
                 </li>
               ))}
             </ul>
+            <p className={styles.off}>
+              The single-key shortcuts can be turned off in the <Link to="/legal/accessibility#display" onClick={onClose}>display preferences</Link>.
+            </p>
             <Link to="/legal/accessibility" className={styles.more} onClick={onClose}>
               Open the full keyboard map <ArrowUpRight size={14} aria-hidden="true" />
             </Link>

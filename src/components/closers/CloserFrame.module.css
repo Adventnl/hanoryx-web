@@ -1,0 +1,16 @@
+.frame { display: flex; flex-direction: column; gap: var(--space-6); }
+.center { align-items: center; text-align: center; }
+.tagRow { display: flex; align-items: center; gap: 0.9rem; width: 100%; }
+.dot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+.tag { flex: none; font: 0.64rem var(--font-mono); letter-spacing: 0.26em; text-transform: uppercase; color: var(--c-white-65); }
+.rule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--c-line-strong), transparent); }
+.head { display: flex; flex-direction: column; gap: var(--space-3); max-width: 46rem; }
+.center .head { align-items: center; }
+.title { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h1); line-height: 1.08; letter-spacing: var(--ls-display); color: var(--c-white); }
+.lede { font-size: var(--fs-lead); font-weight: 300; line-height: 1.6; color: var(--c-white-65); max-width: 56ch; }
+.body { width: 100%; }
+.onward { display: flex; flex-wrap: wrap; gap: 0.6rem 1.8rem; padding-top: var(--space-4); border-top: 1px solid var(--c-line); }
+.center .onward { justify-content: center; }
+.link { display: inline-flex; align-items: center; gap: 0.5em; font: 0.64rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-65); transition: color var(--dur-2) var(--ease-out), gap 0.5s var(--ease-glide); }
+.link:hover, .link:focus-visible { color: var(--c-white); gap: 0.9em; }
+.link svg { color: var(--c-red); }

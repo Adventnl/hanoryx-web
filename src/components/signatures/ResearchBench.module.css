@@ -5,7 +5,7 @@
 .copy p { margin-top: var(--space-3); max-width: 42ch; font-size: var(--fs-body); line-height: var(--lh-normal); color: var(--c-white-65); }
 .demo { min-width: 0; animation: rise 0.7s var(--ease-glide) 0.08s both; }
 @keyframes rise { from { opacity: 0; transform: translate3d(0, 12px, 0); } to { opacity: 1; transform: none; } }
-.note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
+.note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); }
 
 /* ---------- still state ---------- */
 .still { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-6); align-items: center; }
@@ -24,7 +24,7 @@
 .switchRow input:checked + .switch { background: var(--c-red-ghost); border-color: var(--c-red-dim); }
 .switchRow input:checked + .switch i { transform: translateX(18px); background: var(--c-red); }
 .switchRow input:focus-visible + .switch { outline: 2px solid var(--c-red); outline-offset: 2px; }
-.sysLine { margin-top: var(--space-3); font: 0.62rem var(--font-mono) !important; letter-spacing: 0.08em; color: var(--c-white-40) !important; }
+.sysLine { margin-top: var(--space-3); font: 0.62rem var(--font-mono) !important; letter-spacing: 0.08em; color: var(--c-white-50) !important; }
 .sysLine b { color: var(--c-white); font-weight: 400; }
 
 /* ---------- focus ---------- */

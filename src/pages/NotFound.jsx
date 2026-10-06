@@ -29,8 +29,6 @@ function distance(a, b) {
   return row[b.length];
 }
 
-const FLAT = directory.flatMap((col) => col.links.map((l) => ({ ...l, group: col.title })));
-
 /**
  * "Signal lost". The page that does not exist echoes the address that was asked
  * for, then lists the real pages nearest to it — ranked by how close the
@@ -43,7 +41,7 @@ export default function NotFound() {
 
   const nearest = useMemo(() => {
     const asked = pathname.toLowerCase().replace(/\/+$/, '') || '/';
-    return [...FLAT]
+    return [...directory]
       .map((l) => ({ ...l, score: distance(asked, l.to) - (l.to.split('/')[1] === asked.split('/')[1] ? 3 : 0) }))
       .sort((a, b) => a.score - b.score)
       .slice(0, 4);

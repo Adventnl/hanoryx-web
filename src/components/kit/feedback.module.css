@@ -1,0 +1,73 @@
+/* Feedback — telling people what is happening, how far along it is, and what to do. */
+.alert { --tone: var(--c-white-65); display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.2rem 0.8rem; align-items: start; padding: 0.9rem 1rem; border: 1px solid var(--c-line-strong); border-left: 3px solid var(--tone); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.9); }
+.alert[data-tone='info'] { --tone: var(--c-white); }
+.alert[data-tone='success'] { --tone: #6fdc9a; }
+.alert[data-tone='warning'] { --tone: #f2c14e; }
+.alert[data-tone='danger'] { --tone: var(--c-red-bright); border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.9)); }
+.alert > svg { margin-top: 0.15rem; color: var(--tone); }
+.alertBody { min-width: 0; font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
+.alertBody b { display: block; margin-bottom: 0.15rem; font-weight: 500; color: var(--c-white); }
+.alertBody p { margin: 0; }
+.dismiss { display: inline-grid; place-items: center; width: 2rem; height: 2rem; margin: -0.35rem -0.4rem 0 0; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--c-white-65); cursor: pointer; }
+.dismiss:hover { background: var(--c-white-05); color: var(--c-white); }
+
+.toasts { position: fixed; z-index: var(--z-menu); right: clamp(0.8rem, 3vw, 2rem); bottom: clamp(0.8rem, 3vw, 2rem); display: grid; gap: 0.6rem; width: min(24rem, calc(100vw - 1.6rem)); pointer-events: none; }
+.toast { pointer-events: auto; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.2rem 0.8rem; align-items: start; padding: 0.85rem 0.9rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(8, 9, 11, 0.97); box-shadow: var(--shadow-panel); animation: toast-in var(--dur-3) var(--ease-out) both; }
+.toast[data-tone='success'] { border-color: rgba(111, 220, 154, 0.5); }
+.toast[data-tone='danger'] { border-color: var(--c-red-dim); }
+.toast[data-leaving] { animation: toast-out var(--dur-2) var(--ease-out) both; }
+.toast > svg { margin-top: 0.15rem; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(0.8rem); } }
+@keyframes toast-out { to { opacity: 0; transform: translateX(1rem); } }
+
+.banner { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.2rem; padding: 0.8rem 1.1rem; border-top: 1px solid var(--c-red-dim); border-bottom: 1px solid var(--c-line); background: linear-gradient(90deg, var(--c-red-faint), transparent 70%); font-size: var(--fs-sm); color: var(--c-white-80); }
+.banner b { font-weight: 500; color: var(--c-white); }
+.bannerText { flex: 1 1 18rem; min-width: 0; line-height: 1.55; }
+.bannerAction { padding: 0.45rem 0.9rem; border: 1px solid var(--c-red-dim); border-radius: var(--r-pill); background: transparent; color: var(--c-white); font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; text-decoration: none; }
+.bannerAction:hover { background: var(--c-red-ghost); }
+
+.progress { display: grid; gap: 0.4rem; }
+.progressTop { display: flex; justify-content: space-between; gap: 1rem; font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
+.progressTop output { color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
+.track { position: relative; height: 6px; overflow: hidden; border-radius: var(--r-pill); background: var(--c-white-12); }
+.fill { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p, 0)); background: var(--c-red); transition: transform var(--dur-4) var(--ease-out); }
+.track[data-indeterminate] .fill { width: 40%; transform: none; animation: indet 1.6s var(--ease-in-out) infinite; }
+@keyframes indet { from { translate: -100% 0; } to { translate: 250% 0; } }
+
+.meter { display: grid; gap: 0.4rem; }
+.cells { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 3px; }
+.cells i { height: 10px; border-radius: 2px; background: var(--c-white-12); transition: background var(--dur-2) var(--ease-out); }
+.cells i[data-on] { background: var(--c-white); }
+.meter[data-zone='low'] .cells i[data-on] { background: #f2c14e; }
+.meter[data-zone='high'] .cells i[data-on] { background: var(--c-red-bright); }
+
+.spin { --s: 1.6rem; display: inline-flex; align-items: center; gap: 0.7rem; font: 0.6rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-65); }
+.spin svg { width: var(--s); height: var(--s); animation: spin 0.9s linear infinite; }
+.spin circle { fill: none; stroke-width: 2.4; }
+.spin .ring { stroke: var(--c-white-12); }
+.spin .arc { stroke: var(--c-red); stroke-linecap: round; stroke-dasharray: 22 60; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.skel { display: block; border-radius: var(--r-sm); background: linear-gradient(100deg, var(--c-white-05) 30%, var(--c-white-12) 50%, var(--c-white-05) 70%) 0 0 / 250% 100%; animation: shimmer 1.6s linear infinite; }
+@keyframes shimmer { to { background-position: -150% 0; } }
+.skelStack { display: grid; gap: 0.55rem; }
+
+.empty { display: grid; justify-items: center; gap: 0.7rem; padding: var(--space-8) var(--space-5); border: 1px dashed var(--c-white-20); border-radius: var(--r-lg); text-align: center; }
+.empty > svg { color: var(--c-white-50); }
+.empty h3 { margin: 0; font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h3); color: var(--c-white); }
+.empty p { max-width: 38ch; margin: 0; font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
+
+.status { display: inline-flex; align-items: center; gap: 0.55rem; font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-80); }
+.pip { position: relative; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--pip, var(--c-white-50)); }
+.status[data-state='ok'] { --pip: #6fdc9a; }
+.status[data-state='warn'] { --pip: #f2c14e; }
+.status[data-state='down'] { --pip: var(--c-red-bright); }
+.status[data-pulse] .pip::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid var(--pip); animation: pulse 2s var(--ease-out) infinite; }
+@keyframes pulse { from { opacity: 0.9; transform: scale(0.6); } to { opacity: 0; transform: scale(1.5); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .toast, .toast[data-leaving] { animation: none; }
+  .fill { transition: none; }
+  .track[data-indeterminate] .fill { animation: none; width: 100%; opacity: 0.5; }
+  .spin svg, .skel, .status[data-pulse] .pip::after { animation: none; }
+}

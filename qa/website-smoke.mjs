@@ -7,18 +7,30 @@
  * overflow. At desktop width it also checks the things the site's content rules
  * promise: unique titles, every internal link resolves, no external link other
  * than the YK Engine repository, no mailto outside the contact page, none of the
- * retired wording, a footer directory, a primary navigation without Contact,
- * working redirects, a 404, the favicon files, and the search dialog. At 320 px
+ * retired wording, a footer that is a directory of the whole site (and leads to
+ * far more than the menu does), every page linked from the menu or the footer, a
+ * page ending that is its own composition and never a call to contact, a primary
+ * navigation without Contact, working redirects, a 404, the favicon files, and
+ * the search dialog. At 320 px
  * the sweep runs under reduced motion: nothing may loop forever and the heading
  * must be fully visible. At every width the header's controls must stay inside
  * the viewport (the page can report no overflow while a fixed header spills).
  */
+import { readdirSync } from 'node:fs';
 import { BASE, launch, newContext, pageRoutes, redirectRoutes, pause, reporter, watchErrors } from './lib.mjs';
+import { directory, navGroups } from '../src/app/routeConfig.js';
 
 const r = reporter('website smoke');
 const WIDTHS = [280, 320, 360, 390, 768, 1024, 1440, 1920];
 const known = new Set(pageRoutes);
-const BANNED = /e-?commerce|hosting|public repositor|repository count|software engineering\b.*status|\bstars?\b.*\brepos?\b/i;
+const statics = new Set(readdirSync(new URL('../public/', import.meta.url)).map((f) => `/${f}`)); // files, not pages: the press kit links to the mark and the social image
+const OWN_ORIGIN = /^https:\/\/hanoryx\.com(?=\/|$)/; // the link builder shows the address a visitor would paste
+// Claims the site no longer makes. "Hosting" and "public repository" are fine when they name the vendor
+// that delivers the files or the one repository YK Engine links to; what is banned is offering hosting,
+// talking about public repositories in the plural, and anything that reads like GitHub statistics.
+const BANNED = /e-?commerce|\b(?:web|cloud|managed) hosting\b|public repositories|repository count|software engineering\b.*status|\bstars?\b.*\brepos?\b/i;
+const NO_CLOSER = new Set(['/contact', '/sitemap']); // the contact details and the directory are their own endings
+const CTA = /contact us|get in touch|start a (project|conversation)|talk to us|let.s talk/i;
 
 const browser = await launch();
 
@@ -30,6 +42,7 @@ for (const width of WIDTHS) {
   const titles = new Map();
   const externals = new Map();
   const mailtos = [];
+  const endingProblems = [];
 
   for (const route of pageRoutes) {
     errors.length = 0;
@@ -43,6 +56,17 @@ for (const width of WIDTHS) {
       text: document.querySelector('main')?.innerText || '',
       hrefs: Array.from(document.querySelectorAll('a[href]')).map((a) => a.getAttribute('href')),
       looping: document.getAnimations().filter((a) => a.playState === 'running' && a.effect?.getTiming().iterations === Infinity).length,
+      ending: (() => {
+        const sections = Array.from(document.querySelectorAll('main section'));
+        const closer = document.querySelector('main section[aria-label^="End of"]');
+        return {
+          has: Boolean(closer),
+          after: closer ? sections.slice(sections.indexOf(closer) + 1).filter((x) => !closer.contains(x)).length : 0,
+          words: closer ? closer.innerText.trim().split(/\s+/).length : 0,
+          contact: closer ? Array.from(closer.querySelectorAll('a[href]')).some((a) => /^\/contact/.test(a.getAttribute('href'))) : false,
+          text: closer ? closer.innerText : '',
+        };
+      })(),
       headingOpacity: (() => {
         const h = document.querySelector('main h1');
         return h ? Math.min(...[h, ...h.querySelectorAll('*')].map((e) => Number(getComputedStyle(e).opacity))) : 0;
@@ -59,13 +83,21 @@ for (const width of WIDTHS) {
       if (titles.has(state.title)) problems.push(`${route}: duplicate title with ${titles.get(state.title)}`);
       else titles.set(state.title, route);
       state.hrefs.forEach((href) => {
-        if (href.startsWith('/')) {
-          const path = href.split('#')[0].split('?')[0] || '/';
-          if (!known.has(path)) problems.push(`${route}: link to unknown page ${href}`);
+        const local = OWN_ORIGIN.test(href) ? href.replace(OWN_ORIGIN, '') || '/' : href;
+        if (local.startsWith('/')) {
+          const path = local.split('#')[0].split('?')[0] || '/';
+          if (!known.has(path) && !statics.has(path)) problems.push(`${route}: link to unknown page ${href}`);
         } else if (/^https?:/.test(href)) externals.set(href, [...(externals.get(href) || []), route]);
         else if (href.startsWith('mailto:')) mailtos.push(route);
       });
       if (BANNED.test(state.text)) problems.push(`${route}: banned wording found (${state.text.match(BANNED)[0]})`);
+      if (!NO_CLOSER.has(route)) {
+        const e = state.ending;
+        if (!e.has) endingProblems.push(`${route}: no closing composition`);
+        else if (e.after) endingProblems.push(`${route}: ${e.after} section(s) after the ending`);
+        else if (e.words < 25) endingProblems.push(`${route}: ending has only ${e.words} words`);
+        else if (e.contact || CTA.test(e.text)) endingProblems.push(`${route}: ending reads as a call to contact`);
+      }
     }
   }
   r.check(`every page loads cleanly at ${width}px${width === 320 ? ' (reduced motion)' : ''}`, problems.length === 0, problems.slice(0, 4).join(' ; '));
@@ -84,13 +116,22 @@ for (const width of WIDTHS) {
     const yk = [...externals.entries()].filter(([href]) => /YK-Engine/.test(href));
     r.check('the YK Engine repository is linked only from its own page', yk.every(([, rs]) => rs.every((x) => x === '/work/yk-engine')), JSON.stringify(yk));
     r.check('no mailto link outside the contact page', mailtos.every((x) => x === '/contact'), [...new Set(mailtos)].join(', '));
+    r.check('every page ends in its own composition, never a call to contact', endingProblems.length === 0, endingProblems.slice(0, 4).join(' ; '));
+    const linked = new Set(directory.map((d) => d.to));
+    const orphans = pageRoutes.filter((p) => p !== '/' && !linked.has(p));
+    r.check('every page is linked from the menu or the footer', orphans.length === 0, orphans.join(', '));
 
     /* footer directory + navigation */
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded' });
     await pause(1200);
     const footerLinks = await page.locator('footer a[href^="/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
-    r.check('footer is a directory of at least 20 real pages', footerLinks.length >= 20 && footerLinks.every((h) => known.has(h.split('#')[0])), `${footerLinks.length} links`);
+    const footerPages = new Set(footerLinks.map((h) => h.split('#')[0]));
+    const menuPages = new Set(navGroups.flatMap((g) => [g.to, ...g.children.map((c) => c.to)]));
+    const beyondMenu = [...footerPages].filter((p) => !menuPages.has(p));
+    r.check('footer is a directory of at least 50 real pages', footerPages.size >= 50 && [...footerPages].every((h) => known.has(h)), `${footerPages.size} pages from ${footerLinks.length} links`);
+    r.check('footer leads to at least 40 pages the menu does not', beyondMenu.length >= 40, `${beyondMenu.length} beyond the menu`);
     r.check('footer links to a dedicated contact page', footerLinks.includes('/contact'));
+    r.check('footer carries the legal row', ['/legal/privacy', '/legal/terms', '/legal/cookies', '/legal/accessibility'].every((p) => footerLinks.includes(p)));
     const navText = await page.locator('header[data-chrome]').innerText();
     r.check('primary navigation has no Contact', !/contact/i.test(navText), navText.replace(/\s+/g, ' ').slice(0, 120));
     r.check('header chrome says Live, not "Software engineering"', /live/i.test(navText) && !/software engineering/i.test(navText));

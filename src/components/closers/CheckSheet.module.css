@@ -1,0 +1,18 @@
+.sheet { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: start; padding: clamp(1.2rem, 3vw, 2.2rem); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.9), rgba(5, 5, 5, 0.66)); }
+.side { display: grid; gap: var(--space-4); justify-items: start; position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.big { font-family: var(--font-serif); font-size: var(--fs-h2); color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
+.big small { font-size: 0.5em; color: var(--c-white-50); }
+.sheetTitle { margin-bottom: var(--space-3); font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h3); color: var(--c-white); }
+.group { margin: var(--space-4) 0 0.3rem; font: 400 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.list { display: grid; }
+.row { position: relative; display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: start; padding: 0.7rem 0; border-top: 1px solid var(--c-line); cursor: pointer; }
+.row input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; cursor: pointer; }
+.row:focus-within { outline: 1px solid var(--c-red); outline-offset: 2px; }
+.box { width: 18px; height: 18px; margin-top: 0.15em; border: 1px solid var(--c-white-50); border-radius: 3px; position: relative; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
+.box::after { content: ''; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px; border: solid var(--c-white); border-width: 0 2px 2px 0; transform: rotate(45deg) scale(0); transition: transform 0.4s var(--ease-spring-soft); }
+.on .box { border-color: var(--c-red); background: var(--c-red); }
+.on .box::after { transform: rotate(45deg) scale(1); }
+.text { font-size: var(--fs-body); line-height: 1.55; color: var(--c-white-80); transition: color var(--dur-2) var(--ease-out); }
+.on .text { color: var(--c-white-50); text-decoration: line-through; text-decoration-color: var(--c-red-dim); }
+@media (max-width: 760px) { .sheet { grid-template-columns: minmax(0, 1fr); } .side { position: static; grid-template-columns: auto 1fr; align-items: center; } }
+@media (prefers-reduced-motion: reduce) { .box, .box::after { transition: none; } }

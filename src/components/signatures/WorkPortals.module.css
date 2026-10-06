@@ -37,10 +37,10 @@
 .portalTop, .portalBody { position: relative; z-index: 2; }
 .portalTop { display: flex; align-items: flex-start; justify-content: space-between; }
 .kicker { font: 0.64rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); }
-.portalGlyph { color: var(--c-white-40); transition: color var(--dur-3) var(--ease-out); }
+.portalGlyph { color: var(--c-white-50); transition: color var(--dur-3) var(--ease-out); }
 .portal:hover .portalGlyph { color: var(--c-red); }
 .portalBody { display: flex; flex-direction: column; gap: 0.6rem; max-width: 34rem; }
-.portalKind { font: 0.66rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.portalKind { font: 0.66rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red-bright); }
 .portalName {
   font-family: var(--font-serif);
   font-weight: 300;
@@ -90,7 +90,7 @@
 
 /* ---- supporting studies ---- */
 .supportHead { display: flex; align-items: center; gap: var(--space-4); margin: var(--space-10) 0 var(--space-4); }
-.supportLabel { font: 0.64rem var(--font-mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-white-40); white-space: nowrap; }
+.supportLabel { font: 0.64rem var(--font-mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-white-50); white-space: nowrap; }
 .supportRule { flex: 1; height: 1px; background: linear-gradient(90deg, var(--c-line-strong), transparent); }
 .supports { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
 .support {
@@ -118,13 +118,13 @@
 }
 .support:hover, .support:focus-visible { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), var(--c-white-03) 60%); transform: translateX(4px); }
 .support:hover::before, .support:focus-visible::before { transform: scaleY(1); }
-.supportGlyph { color: var(--c-white-40); transition: color var(--dur-3) var(--ease-out); }
+.supportGlyph { color: var(--c-white-50); transition: color var(--dur-3) var(--ease-out); }
 .support:hover .supportGlyph { color: var(--c-red); }
 .supportMain { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
-.supportKind { font: 0.6rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.supportKind { font: 0.6rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red-bright); }
 .supportName { font-family: var(--font-serif); font-size: var(--fs-h3); font-weight: 400; color: var(--c-white); }
 .supportLine { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-50); max-width: 52ch; }
-.supportGo { display: inline-flex; align-items: center; gap: 0.5em; font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-40); white-space: nowrap; transition: color var(--dur-2) var(--ease-out); }
+.supportGo { display: inline-flex; align-items: center; gap: 0.5em; font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); white-space: nowrap; transition: color var(--dur-2) var(--ease-out); }
 .support:hover .supportGo { color: var(--c-white); }
 
 @media (max-width: 1060px) {

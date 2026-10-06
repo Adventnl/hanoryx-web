@@ -1,0 +1,22 @@
+.rig { display: grid; gap: var(--space-5); }
+.scenarios { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.sc { padding: 0.55rem 1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); font-size: var(--fs-sm); color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.sc:hover { color: var(--c-white); }
+.on { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }
+.track { position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 0; padding: 3.2rem 0 0.5rem; }
+.line { position: absolute; left: 0; right: 0; top: 1.5rem; height: 2px; background: var(--c-white-12); }
+.token { position: absolute; top: 1rem; left: calc(100% / var(--n) * var(--at) - 0.5rem); width: 22px; height: 22px; border-radius: 6px; background: var(--c-black-3); border: 1px solid var(--c-red); box-shadow: 0 0 0 5px var(--c-red-ghost), var(--glow-red); transition: left 0.7s var(--ease-glide); z-index: 2; }
+.token.idle { left: -0.2rem; }
+.token.stopped { background: var(--c-red); }
+.gate { position: relative; display: grid; gap: 0.3rem; justify-items: center; padding: 0 0.6rem; text-align: center; }
+.bar { width: 3px; height: 4.4rem; margin-top: -3rem; margin-bottom: 0.4rem; background: var(--c-white-30); border-radius: 2px; transition: background var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); transform-origin: top; }
+.pass .bar { background: var(--c-white); transform: scaleY(0.25); }
+.fail .bar { background: var(--c-red); box-shadow: var(--glow-red); }
+.gate b { font: 500 0.64rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-white); }
+.fail b { color: var(--c-red); }
+.gate i { font: normal var(--fs-xs) var(--font-sans); line-height: 1.45; color: var(--c-white-65); max-width: 14ch; }
+.out { display: grid; gap: var(--space-3); justify-items: start; }
+.verdict { min-height: 3.2em; max-width: 56ch; font-size: var(--fs-lead); font-weight: 300; line-height: 1.5; color: var(--c-white-80); }
+.verdict b { color: var(--c-white); font-weight: 500; }
+@media (max-width: 640px) { .gate i { display: none; } }
+@media (prefers-reduced-motion: reduce) { .token, .bar { transition: none; } }

@@ -1,0 +1,24 @@
+.rig { display: grid; gap: var(--space-5); }
+.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.stage { display: grid; gap: var(--space-3); justify-items: start; }
+.count { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-50); }
+.card { display: grid; place-items: center; width: min(36rem, 100%); min-height: 15rem; padding: clamp(1.4rem, 3vw, 2.2rem); border: 1px solid var(--c-red-dim); border-radius: var(--r-lg); background: linear-gradient(160deg, var(--c-red-faint), rgba(8, 9, 11, 0) 75%), #08090b; text-align: left; cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-3) var(--ease-out); box-shadow: 0 30px 50px -34px rgba(0, 0, 0, 0.95); }
+.card:hover { border-color: var(--c-red); box-shadow: var(--glow-red-soft); }
+.front, .back { display: grid; gap: 0.8rem; width: 100%; animation: turn 0.55s var(--ease-glide) both; }
+.front small { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
+.front b { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h1); line-height: 1.05; color: var(--c-white); overflow-wrap: anywhere; }
+.front em { font-size: var(--fs-sm); font-style: normal; color: var(--c-white-65); }
+.back b { font: 0.64rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red-bright); }
+.back span { font-size: var(--fs-lead); line-height: 1.55; color: var(--c-white); }
+.result { display: grid; gap: var(--space-3); justify-items: start; max-width: 44rem; }
+.score { font-family: var(--font-serif); font-size: var(--fs-h1); line-height: 1; color: var(--c-white); }
+.score span { font-size: 0.4em; color: var(--c-white-50); }
+.result ul { display: grid; gap: 0.8rem; width: 100%; }
+.result li { display: grid; gap: 0.25rem; padding: 0.8rem 1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); }
+.result li b { font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
+.result li span { font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-65); }
+.result li a { display: inline-flex; align-items: center; gap: 0.4em; width: fit-content; font: 0.56rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
+.result li a:hover { color: var(--c-red-bright); }
+.all { font-size: var(--fs-body); color: var(--c-white-80); }
+@keyframes turn { from { opacity: 0; transform: rotateX(-50deg) translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .front, .back { animation: none; } }

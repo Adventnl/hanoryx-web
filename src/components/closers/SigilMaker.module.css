@@ -1,0 +1,9 @@
+.rig { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: center; }
+.form { display: grid; gap: var(--space-4); min-width: 0; }
+.inline { display: inline-flex; align-items: center; gap: 0.6rem; font-size: var(--fs-sm); color: var(--c-white-80); }
+.inline input { accent-color: var(--c-red); }
+.view { margin: 0; display: grid; gap: 0.6rem; justify-items: center; }
+.svg { width: min(100%, 22rem); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); overflow: hidden; line-height: 0; }
+.svg svg { width: 100%; height: auto; }
+.view figcaption { font: 0.62rem var(--font-mono); letter-spacing: 0.12em; color: var(--c-white-65); }
+@media (max-width: 860px) { .rig { grid-template-columns: minmax(0, 1fr); } }

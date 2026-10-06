@@ -48,7 +48,7 @@
 .pipe[data-state='idle'] .token { opacity: 0.35; scale: 0.7; }
 .pipe[data-state='done'] .token { scale: 0.85; }
 
-.stage { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; padding-right: var(--space-2); opacity: 0.45; transition: opacity var(--dur-3) var(--ease-out); }
+.stage { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; padding-right: var(--space-2); opacity: 0.62; transition: opacity var(--dur-3) var(--ease-out); }
 .passed { opacity: 1; }
 .node {
   position: absolute;
@@ -66,28 +66,29 @@
 }
 .passed .node { border-color: var(--c-red-dim); color: var(--c-white); }
 .here .node { border-color: var(--c-red); box-shadow: var(--glow-red); transform: scale(1.1); }
-.stageNum { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red); }
+.stageNum { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red-bright); }
 .stageTitle { font-family: var(--font-serif); font-size: var(--fs-h3); font-weight: 400; color: var(--c-white); }
-.stageBody { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-50); }
+.stageBody { font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-80); }
+.stage:not(.passed) .stageNum { color: var(--c-white-80); }
 
 /* ---------- the request card and the record ---------- */
 .lower { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--space-5); margin-top: var(--space-8); }
 .card, .record { margin: 0; padding: var(--space-4) var(--space-5) var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.86), rgba(5, 5, 5, 0.6)); }
 .cardHead { display: flex; justify-content: space-between; padding-bottom: var(--space-3); margin-bottom: var(--space-3); border-bottom: 1px solid var(--c-white-08); font: 0.58rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-50); }
-.count { color: var(--c-white-30); }
+.count { color: var(--c-white-50); }
 .fields { margin: 0; }
 .field { display: flex; justify-content: space-between; gap: var(--space-3); padding: 0.55rem 0; border-bottom: 1px dashed var(--c-white-08); }
-.field dt { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-40); }
-.field dd { margin: 0; font-size: var(--fs-sm); color: var(--c-white-30); transition: color var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); transform: translateX(8px); }
+.field dt { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-50); }
+.field dd { margin: 0; font-size: var(--fs-sm); color: var(--c-white-50); transition: color var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); transform: translateX(8px); }
 .filled dd { color: var(--c-white); transform: none; }
 .filled dt { color: var(--c-red); }
 
 .record ol { display: flex; flex-direction: column; gap: 0.55rem; list-style: none; min-height: 9.5rem; }
 .record li { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: var(--space-3); font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-80); animation: line-in 0.7s var(--ease-glide) both; }
-.stamp { font: 0.6rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-red); padding-top: 0.2em; }
-.empty { display: block !important; color: var(--c-white-30) !important; font: 0.7rem var(--font-mono) !important; animation: none !important; }
+.stamp { font: 0.6rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-red-bright); padding-top: 0.2em; }
+.empty { display: block !important; color: var(--c-white-50) !important; font: 0.7rem var(--font-mono) !important; animation: none !important; }
 @keyframes line-in { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: none; } }
-.note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
+.note { margin-top: var(--space-3); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); }
 
 @media (max-width: 860px) {
   .pipe { grid-template-columns: minmax(0, 1fr); padding-top: 0; padding-left: 3.6rem; gap: var(--space-5); }

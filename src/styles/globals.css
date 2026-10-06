@@ -38,6 +38,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* the display serif defaults to old-style figures, where 1 reads as a capital I */
+  font-variant-numeric: lining-nums;
 }
 
 #root {
@@ -176,6 +178,12 @@ textarea {
   transform: translate(-50%, 1rem);
 }
 
+/* The page's main region takes focus after a route change (RouteAnnouncer) and from the skip link.
+   It is a place to start from, not a control, so it shows no ring. */
+main#main:focus {
+  outline: none;
+}
+
 /* Overlays (search, shortcuts) lock page scroll through utils/scrollLock.js.
    scrollbar-gutter: stable (above) keeps the layout from shifting. */
 html.scroll-locked {
@@ -219,3 +227,54 @@ html.synthesis-active [data-chrome] {
   transition: opacity 0.25s ease;
 }
 html.synthesis-active { cursor: none; }
+
+/* ---------------- Print ----------------
+   A page that carries a [data-print="doc"] element (the long-form document
+   reader) prints that document alone, black on white — no navigation, canvases,
+   footer or overlays. Everything outside the document's own ancestry is dropped;
+   the ancestors are flattened so nothing clips or transforms the text. */
+@media print {
+  @page { margin: 16mm; }
+  html, body { background: #fff !important; color: #000 !important; }
+  body:has([data-print='doc']) *:not(:has([data-print='doc'])):not([data-print='doc']):not([data-print='doc'] *) {
+    display: none !important;
+  }
+  body:has([data-print='doc']) *:has([data-print='doc']) {
+    position: static !important;
+    transform: none !important;
+    contain: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    background: none !important;
+    opacity: 1 !important;
+  }
+  [data-print='doc'] { color: #000 !important; }
+  [data-print='doc'] * { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+
+/* ---------------- Display preferences ----------------
+   Set from the accessibility page (closers/PrefsPanel). They are attributes on
+   <html>, held in memory only. */
+html[data-text='large'] { font-size: 112.5%; }
+html[data-text='larger'] { font-size: 125%; }
+html[data-spacing='wide'] body { line-height: 1.85; letter-spacing: 0.015em; word-spacing: 0.08em; }
+html[data-contrast='high'] {
+  --c-white-65: rgba(255, 255, 255, 0.92);
+  --c-white-50: rgba(255, 255, 255, 0.86);
+  --c-white-40: rgba(255, 255, 255, 0.78);
+  --c-white-30: rgba(255, 255, 255, 0.68);
+  --c-text-dim: rgba(255, 255, 255, 0.86);
+  --c-text-faint: rgba(255, 255, 255, 0.78);
+}
+/* Calm mode: nothing animates, and the canvas backgrounds hold their last frame
+   (SceneCanvas checks this attribute). */
+html[data-calm='on'] *,
+html[data-calm='on'] *::before,
+html[data-calm='on'] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}

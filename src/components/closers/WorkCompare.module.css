@@ -1,0 +1,7 @@
+.rig { display: grid; gap: var(--space-4); }
+.pick { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--space-3); align-items: end; max-width: 44rem; }
+.pick > button { margin-bottom: 0.1rem; }
+.same th i { font-style: normal; font: 0.5rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-red-bright); }
+.go { display: inline-flex; align-items: center; gap: 0.4em; font: 0.58rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white); border-bottom: 1px solid var(--c-red-dim); }
+.go:hover { color: var(--c-red-bright); }
+@media (max-width: 640px) { .pick { grid-template-columns: minmax(0, 1fr); } .pick > button { width: fit-content; } }

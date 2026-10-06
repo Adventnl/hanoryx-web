@@ -1,0 +1,102 @@
+const page = {
+  key: 'trust',
+  title: 'Trust Centre',
+  accent: '#ff3333',
+  aliases: ['trust', 'security overview', 'assurance', 'compliance', 'certifications', 'verify', 'transparency'],
+  hero: {
+    scene: 'radar-cutaway',
+    intensity: 'hero',
+    eyebrow: 'Trust / Centre',
+    title: 'What you can check, and what you can’t.',
+    intro:
+      'A trust centre that starts from what this website can show you for itself. What it does, what it does not claim, and what is still open — each one with a way for you to look.',
+    code: 'TRUST.00',
+    status: 'CHECK IT YOURSELF',
+    actions: [
+      { label: 'Run the self-audit', to: '/trust#audit' },
+      { label: 'Live status', to: '/trust/status', variant: 'outline' },
+    ],
+  },
+  blocks: [
+    {
+      type: 'signature',
+      kind: 'claimsLedger',
+      anchor: 'ledger',
+      railLabel: 'The ledger',
+      scene: 'privacy-quiet-grid',
+      minHeight: 760,
+      eyebrow: 'The ledger',
+      title: 'Three columns: does, doesn’t claim, still open.',
+      intro: 'Open any row. It says how you can check it, and links to the page that shows it.',
+      columns: [
+        {
+          id: 'does',
+          title: 'What the site does',
+          lede: 'Things you can verify from your own browser.',
+          items: [
+            { title: 'Sets no cookies', how: 'The cookie jar for this site is empty. The cookies and storage page reads it live, and the self-audit below checks it again.', to: '/legal/cookies', toLabel: 'Cookies & storage' },
+            { title: 'Has no analytics, advertising or tracking scripts', how: 'Every script on the page is served by the site itself. The self-audit lists any that are not.', to: '/trust/third-parties', toLabel: 'Third-party services' },
+            { title: 'Keeps no visitor records on a server', how: 'There are no accounts and no database. The retention schedule lists each thing the site touches and when it goes.', to: '/legal/retention', toLabel: 'Data retention' },
+            { title: 'Says what it connects to', how: 'The third-party services page names every host your browser is asked to contact, what it receives, and whether you can avoid it.', to: '/trust/third-parties', toLabel: 'Third-party services' },
+            { title: 'Respects reduced motion and works from the keyboard', how: 'Switch on reduced motion in your system and reload, then use Tab, Enter and the arrow keys. The accessibility statement lists what is known to fall short.', to: '/legal/accessibility', toLabel: 'Accessibility statement' },
+            { title: 'Tests every page for accessibility problems', how: 'Each page goes through axe-core at a desktop and a phone width before a change is accepted. How the work is checked is described on the quality page.', to: '/north/quality', toLabel: 'How we check the work' },
+            { title: 'Lists everything it is built with', how: 'The licences page names every library and typeface, its version and its licence, and can produce a notices file.', to: '/trust/licences', toLabel: 'Licences & notices' },
+          ],
+        },
+        {
+          id: 'doesnt',
+          title: 'What it doesn’t claim',
+          lede: 'Things you might assume, and should not.',
+          items: [
+            { title: 'Conformance with WCAG or any other standard', how: 'Automated checks are not an audit. The accessibility statement says so plainly.', to: '/legal/accessibility', toLabel: 'Accessibility statement' },
+            { title: 'Any security certification or independent audit', how: 'None is claimed. If one is ever held, it will be named here with who issued it.', to: '/company/security', toLabel: 'Security approach' },
+            { title: 'A promised uptime or response time', how: 'The status page measures your own visit and says nothing about availability for anyone else. The complaints procedure promises no response times.', to: '/trust/status', toLabel: 'Live status' },
+            { title: 'That a lawyer has read the legal documents', how: 'None has, and each document says so. The legal centre shows where each stands.', to: '/legal', toLabel: 'Legal centre' },
+            { title: 'Results, clients or outcomes for the company’s work', how: 'The work is described in general terms. The site names no clients and quotes no measured results.', to: '/work', toLabel: 'Selected work' },
+          ],
+        },
+        {
+          id: 'open',
+          title: 'Still open',
+          lede: 'Work that has not been done yet.',
+          items: [
+            { title: 'A manual accessibility audit', how: 'Screen-reader passes, a keyboard-only walk of every demonstration and checks on touch hardware are still to be done.', to: '/north/accessibility', toLabel: 'Accessible by default' },
+            { title: 'Legal review of the documents', how: 'The ten documents in the legal centre have been written and checked against the site, not read by a lawyer.', to: '/legal', toLabel: 'Legal centre' },
+            { title: 'The company’s registered details', how: 'The terms cannot name the governing law, or the privacy notice a registered address, until those details are published.', to: '/legal/terms', toLabel: 'Terms' },
+            { title: 'Measurements on real phones', how: 'Performance numbers so far come from a software-rendered browser. The engineering page measures live on your device instead.', to: '/engineering', toLabel: 'Site engineering' },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'cards',
+      variant: 'grid',
+      columns: 4,
+      anchor: 'pages',
+      railLabel: 'The rest of the centre',
+      scene: 'architectural-grid',
+      eyebrow: 'The rest of the centre',
+      title: 'Four places to look.',
+      intro: 'Each answers one question the ledger raises.',
+      items: [
+        { code: 'TRU.01', title: 'Live status', body: 'How this page is running on your device, measured by your own browser, right now.', glyph: 'pulse', to: '/trust/status' },
+        { code: 'TRU.02', title: 'Security disclosure', body: 'How to report a weakness, what is in scope, and what a good report contains.', glyph: 'shield', to: '/trust/disclosure' },
+        { code: 'TRU.03', title: 'Third-party services', body: 'Every host your browser may contact for this site, and what happens if you block it.', glyph: 'node', to: '/trust/third-parties' },
+        { code: 'TRU.04', title: 'Licences & notices', body: 'Every library and typeface the site is built with, with its licence, and a notices file.', glyph: 'doc', to: '/trust/licences' },
+      ],
+    },
+    {
+      type: 'closer',
+      kind: 'selfAudit',
+      anchor: 'audit',
+      scene: 'secure-boundary',
+      tag: 'End of the trust centre',
+      minHeight: 560,
+      title: 'Don’t take our word for it.',
+      lede: 'Four checks that run on this page, in your browser, and say what they find.',
+      onward: [{ label: 'Third-party services', to: '/trust/third-parties' }, { label: 'Legal centre', to: '/legal' }],
+    },
+  ],
+};
+
+export default page;

@@ -34,7 +34,7 @@
   box-shadow: 0 0 22px rgba(255, 51, 51, 0.12);
 }
 .label, .meta { position: relative; }
-.meta { color: var(--c-red); font-variant-numeric: tabular-nums; }
+.meta { color: var(--c-red); font-variant-numeric: lining-nums tabular-nums; }
 
 /* underline variant: quieter, for in-content switches */
 .line {

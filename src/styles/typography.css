@@ -83,7 +83,7 @@
   font-size: var(--fs-label);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  color: var(--c-text-faint);
+  color: var(--c-white-50);
 }
 
 .eyebrow {
@@ -106,7 +106,7 @@
   font-family: var(--font-mono);
   font-size: var(--fs-2xs);
   letter-spacing: 0.12em;
-  color: var(--c-text-faint);
+  color: var(--c-white-50);
 }
 
 .kicker {
@@ -121,7 +121,7 @@
 /* --- Color modifiers --- */
 .text-strong { color: var(--c-text-strong); }
 .text-dim    { color: var(--c-text-dim); }
-.text-faint  { color: var(--c-text-faint); }
+.text-faint  { color: var(--c-white-50); }
 .text-red    { color: var(--c-red); }
 
 /* --- Inline live red node (preserves original "flashing-red-dot") --- */
