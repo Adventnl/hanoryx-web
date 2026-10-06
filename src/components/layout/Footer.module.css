@@ -16,7 +16,7 @@
 }
 
 .marquee { margin: var(--space-6) calc(-1 * var(--gutter)) var(--space-8); }
-.marqueeText { font-size: clamp(1.1rem, 2.2vw, 1.6rem); letter-spacing: 0.18em; color: var(--c-white-30); }
+.marqueeText { font-size: clamp(1.1rem, 2.2vw, 1.6rem); letter-spacing: 0.18em; color: var(--c-white-50); }
 
 /* ---- head: identity left, search and sections right ---- */
 .head {
@@ -31,7 +31,7 @@
 .brandRow { display: flex; align-items: center; gap: 0.8rem; }
 .logo { width: 34px; height: 34px; border-radius: 3px; object-fit: cover; }
 .brand { font-family: var(--font-serif); font-size: var(--fs-h3); font-weight: 400; color: var(--c-white); }
-.division { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; color: var(--c-red); }
+.division { font: 0.62rem var(--font-mono); letter-spacing: 0.18em; color: var(--c-red-bright); }
 .blurb { max-width: 30ch; font-size: var(--fs-sm); line-height: var(--lh-normal); color: var(--c-white-65); }
 .leadLinks { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); }
 .live { display: inline-flex; align-items: center; gap: 0.6em; font: 0.62rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-65); transition: color var(--dur-2) var(--ease-out); }
@@ -101,10 +101,10 @@
   transition: border-color var(--dur-2) var(--ease-out);
 }
 .newsItem:hover, .newsItem:focus-visible { border-left-color: var(--c-red); }
-.newsNum { grid-area: num; font: 0.56rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-red); text-transform: uppercase; }
+.newsNum { grid-area: num; font: 0.56rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-red-bright); text-transform: uppercase; }
 .newsTitle { grid-area: title; font-size: var(--fs-body); color: var(--c-white); }
 .newsLede { grid-area: lede; font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-50); }
-.newsItem svg { grid-area: arrow; color: var(--c-white-40); transition: transform 0.5s var(--ease-glide), color var(--dur-2) var(--ease-out); }
+.newsItem svg { grid-area: arrow; color: var(--c-white-50); transition: transform 0.5s var(--ease-glide), color var(--dur-2) var(--ease-out); }
 .newsItem:hover svg, .newsItem:focus-visible svg { transform: translate(2px, -2px); color: var(--c-red); }
 
 /* ---- the directory ---- */

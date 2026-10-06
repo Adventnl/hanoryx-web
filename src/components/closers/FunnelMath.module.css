@@ -3,7 +3,7 @@
 .step { display: grid; gap: 0.6rem; padding: 0.9rem 1.1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); transition: opacity var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out); }
 .skip { border-style: dashed; opacity: 0.7; }
 .head { display: flex; align-items: baseline; gap: 0.8rem; }
-.n { font: 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red); }
+.n { font: 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red-bright); }
 .head b { font: 500 var(--fs-sm) var(--font-sans); color: var(--c-white); }
 .drop { margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem; font: 0.54rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; }
 .drop input { accent-color: var(--c-red); }

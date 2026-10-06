@@ -7,7 +7,7 @@
 .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: var(--space-3); margin-bottom: var(--space-5); }
 .case { position: relative; display: flex; flex-direction: column; gap: 0.8rem; padding: 1.1rem 1.2rem 1.2rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); transition: border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out), transform 0.6s var(--ease-glide); }
 .case:hover { transform: translateY(-3px); }
-.n { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red); }
+.n { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red-bright); }
 .text { font-size: var(--fs-body); line-height: 1.55; color: var(--c-white-80); }
 .choices { display: flex; gap: 0.5rem; margin-top: auto; }
 .isFine.answered { border-color: rgba(255, 255, 255, 0.28); }

@@ -14,7 +14,7 @@
 .name b { font: 500 var(--fs-sm) var(--font-sans); color: var(--c-white); }
 .name small { font-size: var(--fs-xs); color: var(--c-white-65); }
 .order { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.25rem; padding-right: 0.7rem; }
-.order span { margin-right: 0.3rem; font: 0.62rem var(--font-mono); color: var(--c-red); }
+.order span { margin-right: 0.3rem; font: 0.62rem var(--font-mono); color: var(--c-red-bright); }
 .order button { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border: 1px solid var(--c-line-strong); border-radius: 50%; background: transparent; color: var(--c-white-80); cursor: pointer; }
 .order button:hover:not(:disabled) { border-color: var(--c-red-dim); color: var(--c-white); }
 .order button:disabled { opacity: 0.35; cursor: default; }

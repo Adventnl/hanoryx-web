@@ -3,7 +3,7 @@
 .colour { width: 100% !important; height: 2.6rem; padding: 0.15rem !important; cursor: pointer; }
 .preview { display: grid; gap: var(--space-3); min-width: 0; font-size: var(--size); }
 .card { display: grid; gap: var(--space); padding: calc(var(--space) * 3); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: calc(var(--radius) * 1.6); background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 14%, transparent), rgba(8, 9, 11, 0) 70%), #08090b; }
-.eyebrow { font: 0.7em var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+.eyebrow { font: 0.7em var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: color-mix(in srgb, var(--accent) 80%, white); }
 .card h3 { font-family: var(--font-serif); font-weight: 300; font-size: 1.9em; line-height: 1.1; color: var(--c-white); }
 .body { max-width: 46ch; line-height: 1.6; color: var(--c-white-80); }
 .field { display: grid; gap: calc(var(--space) * 0.5); }

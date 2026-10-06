@@ -34,7 +34,7 @@
 }
 .head:hover { color: var(--c-white); background: var(--c-white-03); }
 .head:focus-visible { outline: 2px solid var(--c-red); outline-offset: -4px; border-radius: var(--r-lg); }
-.code { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red); }
+.code { font: 0.58rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red-bright); }
 .glyph { color: inherit; }
 .vlabel {
   flex: 1;
@@ -71,7 +71,7 @@
 .ghost { position: absolute; right: -0.1em; top: 0.1rem; font-size: clamp(6rem, 12vw, 10rem); pointer-events: none; opacity: 0.8; }
 .title { position: relative; font-family: var(--font-serif); font-size: var(--fs-h2); font-weight: 300; color: var(--c-white); line-height: var(--lh-tight); }
 .summary { position: relative; max-width: 40ch; font-size: var(--fs-body); line-height: var(--lh-normal); color: var(--c-white-65); }
-.listLabel { margin-top: var(--space-2); font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.listLabel { margin-top: var(--space-2); font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .list { display: flex; flex-direction: column; gap: 0.7rem; list-style: none; }
 .list li {
   position: relative;
@@ -86,7 +86,7 @@
 .list li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 0.7rem; height: 1px; background: var(--c-red); }
 .on .list li { opacity: 1; transform: none; transition-delay: calc(0.4s + var(--k) * 0.09s); }
 .links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-3); }
-.note { margin-top: var(--space-4); max-width: 70ch; font: 0.64rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
+.note { margin-top: var(--space-4); max-width: 70ch; font: 0.64rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); }
 
 /* ---------- phone: the strips become a stack that opens downward ---------- */
 @media (max-width: 820px) {

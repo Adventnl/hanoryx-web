@@ -1,4 +1,4 @@
 .wrap { margin-top: var(--space-8); }
 .body { display: flex; flex-direction: column; gap: var(--space-3); max-width: 62ch; }
 .body p { font-size: var(--fs-body); line-height: var(--lh-normal); color: var(--c-white-65); }
-.note { margin-top: var(--space-4); font: 0.62rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
+.note { margin-top: var(--space-4); font: 0.62rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); }

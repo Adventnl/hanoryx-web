@@ -29,7 +29,7 @@
 .error.sw i { background: var(--c-red); }
 
 .live { padding: 1.1rem 1.3rem 1.3rem; background: var(--c-white-03); }
-.k { margin-bottom: 0.8rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.k { margin-bottom: 0.8rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .liveRow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; }
 .realBtn { padding: 0.6rem 1.2rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); background: transparent; font: 0.64rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-80); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), transform 0.15s var(--ease-out); }
 .realBtn:hover:not(:disabled) { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }

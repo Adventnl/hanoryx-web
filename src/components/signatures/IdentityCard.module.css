@@ -28,7 +28,7 @@
 .name { margin-top: auto; font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 300; line-height: 1; color: var(--c-white); }
 .status { display: inline-flex; align-items: center; gap: 0.6em; margin-top: var(--space-3); font: 0.64rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-65); }
 .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); animation: node-pulse 2.2s ease-in-out infinite; }
-.flip { display: inline-flex; align-items: center; gap: 0.5em; margin-top: var(--space-5); font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-30); transition: color var(--dur-2) var(--ease-out); }
+.flip { display: inline-flex; align-items: center; gap: 0.5em; margin-top: var(--space-5); font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); transition: color var(--dur-2) var(--ease-out); }
 .front:hover .flip { color: var(--c-red); }
 .back { transform: rotateY(180deg); justify-content: space-between; gap: var(--space-4); }
 .list { display: flex; flex-direction: column; gap: var(--space-2); }
@@ -36,7 +36,7 @@
 .entry:hover, .entry:focus-visible { border-color: var(--c-red-dim); background: var(--c-red-faint); transform: translateX(4px); }
 .entryLabel { font-family: var(--font-serif); font-size: var(--fs-h3); color: var(--c-white); }
 .entryLine { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-50); }
-.back2 { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.5em; font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-40); cursor: pointer; }
+.back2 { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.5em; font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); cursor: pointer; }
 .back2:hover { color: var(--c-white); }
 @media (max-width: 560px) {
   .face { padding: var(--space-5); }

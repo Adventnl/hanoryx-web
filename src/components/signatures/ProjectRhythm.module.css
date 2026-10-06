@@ -21,7 +21,7 @@
 .link { width: 1.6rem; height: 1px; background: var(--c-white-30); }
 .col:nth-of-type(2) { grid-area: produces; }
 .col:nth-of-type(3) { grid-area: decides; }
-.kicker { margin-bottom: 0.7rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.kicker { margin-bottom: 0.7rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .col ul { display: grid; gap: 0.5rem; }
 .col li { position: relative; padding-left: 1.1rem; font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-80); }
 .col li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 0.55rem; height: 1px; background: var(--c-red); }

@@ -9,6 +9,7 @@ import { useLenis } from '../../app/providers/lenis-context';
 import { AdvancedNavbar } from '@/features/navigation/AdvancedNavbar';
 import { MobileNav } from '@/features/navigation/MobileNav';
 import { Footer } from './Footer';
+import { RouteAnnouncer } from './RouteAnnouncer';
 import { ErrorBoundary } from './ErrorBoundary';
 import { BootSequence } from '../effects/BootSequence';
 import { HanoryxCursor } from '@/features/cursor/HanoryxCursor';
@@ -131,6 +132,7 @@ export function SiteShell({ children }) {
   return (
     <div className={styles.shell}>
       <a className="skip-link" href="#main">Skip to content</a>
+      <RouteAnnouncer />
 
       <NoiseOverlay />
       <ScanlineOverlay />

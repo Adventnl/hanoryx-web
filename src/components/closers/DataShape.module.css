@@ -10,7 +10,7 @@
 .why { display: grid; gap: 0.5rem; }
 .why p { margin: 0; font-size: var(--fs-sm); line-height: 1.7; color: var(--c-white-80); }
 .why p b { color: var(--c-white); font-weight: 500; }
-.pick { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); }
+.pick { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red-bright); }
 .fine { margin: 0; font: 0.62rem/1.7 var(--font-mono); letter-spacing: 0.04em; color: var(--c-white-50); }
 @media (max-width: 900px) { .rig { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .opt { transition: none; } }

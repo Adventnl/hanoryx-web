@@ -263,6 +263,46 @@ for (const [width, height, tag, mobile] of [[1440, 900, 'desktop', false], [390,
   await context.close();
 }
 
+/* ---------------------------- single-key shortcuts can be turned off ---------------------------- */
+{
+  const context = await newContext(browser, { width: 1440, height: 900 });
+  const page = await context.newPage();
+  const errors = watchErrors(page);
+  await page.goto(BASE + '/legal/accessibility', { waitUntil: 'domcontentloaded' });
+  await pause(1800);
+  const modal = () => page.locator('[role="dialog"][aria-modal="true"]').count();
+  await page.locator('main').click({ position: { x: 5, y: 5 }, force: true }).catch(() => {});
+  await page.keyboard.press('?');
+  await pause(500);
+  r.check('? opens the shortcuts panel while the single-key shortcuts are on', (await modal()) === 1);
+  await page.keyboard.press('Escape');
+  await pause(600);
+  const group = page.getByRole('radiogroup', { name: 'Single-key shortcuts' });
+  await group.scrollIntoViewIfNeeded();
+  await group.getByRole('radio', { name: 'Off' }).click();
+  r.check('turning them off in the display preferences marks the page', (await page.evaluate(() => document.documentElement.dataset.keys)) === 'off');
+  await page.keyboard.press('?');
+  await pause(500);
+  r.check('? then does nothing', (await modal()) === 0);
+  await page.keyboard.press('b');
+  await pause(500);
+  r.check('B then does not switch blueprint mode', !(await page.evaluate(() => document.documentElement.classList.contains('blueprint'))));
+  await page.keyboard.press('/');
+  await pause(500);
+  r.check('/ then does not open the search', (await modal()) === 0);
+  await page.keyboard.press('Control+k');
+  await pause(600);
+  r.check('Ctrl + K still opens the search', (await modal()) === 1);
+  await page.keyboard.press('Escape');
+  await pause(600);
+  await group.getByRole('radio', { name: 'On' }).click();
+  await page.keyboard.press('?');
+  await pause(500);
+  r.check('turning them back on brings ? back', (await modal()) === 1);
+  r.check('no errors from the preferences', real(errors).length === 0, real(errors).join(' | '));
+  await context.close();
+}
+
 /* ---------------------------- mobile menu ---------------------------- */
 {
   const context = await newContext(browser, { width: 390, height: 844, mobile: true });
@@ -307,8 +347,9 @@ for (const [width, height, tag, mobile] of [[1440, 900, 'desktop', false], [390,
 
   await footer.locator('a[href="/resources/glossary"]').first().click();
   await page.waitForURL('**/resources/glossary', { timeout: 6000 }).catch(() => {});
-  await page.locator('main h1').first().waitFor({ timeout: 6000 }).catch(() => {});
-  r.check('a footer link opens its page', new URL(page.url()).pathname === '/resources/glossary' && /glossary/i.test(await page.title()), page.url());
+  // the old page's heading is still there while it leaves, so wait for the new page to set its title
+  await page.waitForFunction(() => /glossary/i.test(document.title), null, { timeout: 8000 }).catch(() => {});
+  r.check('a footer link opens its page', new URL(page.url()).pathname === '/resources/glossary' && /glossary/i.test(await page.title()), `${page.url()} · ${await page.title()}`);
   r.check('no errors from the footer', real(errors).length === 0, real(errors).join(' | '));
   await context.close();
 }
@@ -399,6 +440,31 @@ for (const [width, height, tag, mobile] of [[1440, 900, 'desktop', false], [390,
   await panel.getByRole('button', { name: /Clear the site/ }).click();
   await pause(700);
   r.check('"Clear" removes only the site’s own items', !/hnx\.audio\.on/.test(await panel.innerText()));
+  await context.close();
+}
+
+/* ---------------------------- route changes are announced ---------------------------- */
+{
+  const context = await newContext(browser, { width: 1440, height: 900 });
+  const page = await context.newPage();
+  const errors = watchErrors(page);
+  await page.goto(BASE + '/legal', { waitUntil: 'domcontentloaded' });
+  await pause(1800);
+  const region = page.locator('[data-route-announcer]');
+  r.check('there is one polite status region for page changes, and it starts empty', (await region.count()) === 1 && (await region.getAttribute('role')) === 'status' && (await region.innerText()) === '');
+  const link = page.locator('main a[href="/legal/privacy"]').first();
+  await link.scrollIntoViewIfNeeded();
+  await link.focus();
+  await page.keyboard.press('Enter');
+  await page.waitForFunction(() => (document.querySelector('[data-route-announcer]')?.textContent || '').trim() !== '', null, { timeout: 6000 }).catch(() => {});
+  const said = (await region.innerText()).trim();
+  r.check('after a page change the new page’s title is announced', said === (await page.title()) && /Privacy/.test(said), JSON.stringify(said));
+  r.check('focus moves to the main region when the link that was used has gone', await page.evaluate(() => document.activeElement?.id === 'main'));
+  await page.goBack();
+  await page.waitForFunction(() => /Legal/.test(document.title) && !/Privacy/.test(document.title), null, { timeout: 6000 }).catch(() => {});
+  await pause(2000);
+  r.check('going back announces the page it returns to', /Legal/.test((await region.innerText()).trim()) && !/Privacy/.test((await region.innerText()).trim()), JSON.stringify((await region.innerText()).trim()));
+  r.check('page changes raise no errors', real(errors).length === 0, real(errors).slice(0, 2).join(' | '));
   await context.close();
 }
 

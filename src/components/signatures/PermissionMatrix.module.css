@@ -13,7 +13,7 @@
 .cell i { position: absolute; bottom: -0.9rem; left: 50%; transform: translateX(-50%); font: normal 0.46rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-65); }
 .try { display: grid; gap: var(--space-4); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.9), rgba(5, 5, 5, 0.66)); }
 .who { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
-.k { margin-right: 0.5rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.k { margin-right: 0.5rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .pick, .act { padding: 0.5rem 1rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); font-size: var(--fs-sm); color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
 .pick:hover, .act:hover { color: var(--c-white); border-color: var(--c-white-30); }
 .picked { border-color: var(--c-red-dim); background: var(--c-red-faint); color: var(--c-white); }

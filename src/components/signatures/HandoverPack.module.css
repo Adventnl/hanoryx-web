@@ -16,7 +16,7 @@
 .pct { font-family: var(--font-serif); font-size: var(--fs-h1); color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .pct small { font-size: 0.4em; color: var(--c-white-50); }
 .read { display: grid; gap: 0.5rem; }
-.k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .band { font-family: var(--font-serif); font-size: var(--fs-h2); line-height: 1.1; color: var(--c-white); }
 .line { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
 .worst { margin-top: 0.4rem; padding-top: 0.8rem; border-top: 1px dashed var(--c-white-20); font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }

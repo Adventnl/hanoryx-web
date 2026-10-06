@@ -5,7 +5,7 @@
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
 .grid section { display: grid; gap: 0.5rem; align-content: start; padding: 1.2rem 1.4rem; border-right: 1px solid var(--c-line); border-bottom: 1px solid var(--c-line); }
 .grid h3 { display: flex; align-items: baseline; gap: 0.7rem; font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
-.grid h3 span { font: 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red); }
+.grid h3 span { font: 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red-bright); }
 .grid p { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
 .grid ul { display: grid; gap: 0.35rem; }
 .grid li { position: relative; padding-left: 1.4rem; font: 0.74rem/1.55 var(--font-mono); color: var(--c-white-80); }

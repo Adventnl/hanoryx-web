@@ -12,7 +12,7 @@
 .az { position: sticky; top: calc(var(--nav-h) + 0.5rem); z-index: 2; display: flex; flex-wrap: wrap; gap: 0.15rem; margin-bottom: var(--space-6); padding: 0.4rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(8, 9, 11, 0.94); backdrop-filter: blur(8px); }
 .az button { display: inline-grid; place-items: center; width: 1.9rem; height: 1.9rem; border: 0; border-radius: var(--r-sm); background: transparent; font: 0.7rem var(--font-mono); color: var(--c-white-80); cursor: pointer; transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
 .az button:hover:not(:disabled) { background: var(--c-red-faint); color: var(--c-white); }
-.az button:disabled { color: var(--c-white-30); cursor: default; }
+.az button:disabled { color: var(--c-white-50); cursor: default; }
 .group { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: var(--space-4); margin-bottom: var(--space-6); }
 .letter { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h1); line-height: 1; color: var(--c-red); }
 .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: var(--space-3); }

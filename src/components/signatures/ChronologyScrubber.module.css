@@ -62,7 +62,7 @@
 
 .panelTop { display: inline-flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
 .glyph { color: var(--c-red); }
-.code { font: 0.62rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red); }
+.code { font: 0.62rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red-bright); }
 .status {
   display: inline-flex;
   align-items: center;
@@ -165,7 +165,7 @@
   text-align: center;
   font: 0.6rem var(--font-mono);
   letter-spacing: 0.1em;
-  color: var(--c-white-30);
+  color: var(--c-white-50);
   transition: color var(--dur-3) var(--ease-out);
 }
 .stopLabel b { font-weight: 400; color: inherit; }
@@ -198,7 +198,7 @@
 .track[data-drag] .knobRing { opacity: 1; transform: none; }
 .track[data-drag='true'] .knob { scale: 1.18; }
 
-.note { margin-top: var(--space-2); font: 0.62rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); text-align: center; }
+.note { margin-top: var(--space-2); font: 0.62rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); text-align: center; }
 
 /* ---------- index ---------- */
 .index { list-style: none; margin-top: var(--space-8); border-top: var(--border); }
@@ -223,10 +223,10 @@
   border-left: 2px solid var(--c-red);
   background: linear-gradient(90deg, var(--c-red-faint), transparent 70%);
 }
-.rowCode { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red); }
+.rowCode { font: 0.6rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red-bright); }
 .rowTitle { font-family: var(--font-serif); font-size: var(--fs-h4); color: var(--c-white-80); transition: transform 0.7s var(--ease-glide); }
 .rowHead { font-size: var(--fs-sm); }
-.rowTag { font: 0.56rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-30); }
+.rowTag { font: 0.56rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-50); }
 .row:hover { color: var(--c-white-80); }
 .row:hover .rowTitle { transform: translateX(6px); }
 .rowOn { color: var(--c-white-80); }

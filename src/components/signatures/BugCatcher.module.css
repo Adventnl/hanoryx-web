@@ -7,14 +7,14 @@
 .scroll { overflow-x: auto; border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: rgba(10, 11, 13, 0.88); }
 .grid { width: 100%; border-collapse: collapse; }
 .grid th, .grid td { padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--c-line); text-align: center; vertical-align: middle; }
-.grid thead th { font: 400 0.54rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); background: var(--c-white-03); transition: opacity var(--dur-2) var(--ease-out); }
+.grid thead th { font: 400 0.54rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-80); background: var(--c-white-03); transition: opacity var(--dur-2) var(--ease-out); }
 .grid th:first-child { text-align: left; min-width: 15rem; }
 .grid tbody th { font-weight: 400; }
 .grid tbody th button { padding: 0; border: 0; background: transparent; text-align: left; font-size: var(--fs-sm); line-height: 1.45; color: var(--c-white-80); cursor: pointer; }
 .grid tbody tr:last-child > * { border-bottom: 0; }
 .focus { background: var(--c-white-05); }
 .focus th button { color: var(--c-white); }
-.off { opacity: 0.35; }
+.off { opacity: 0.62; }
 .dot { display: inline-block; width: 13px; height: 13px; border: 1.5px solid var(--c-white-40); border-radius: 50%; vertical-align: middle; }
 .full { background: var(--c-white); border-color: var(--c-white); }
 .half { background: linear-gradient(90deg, var(--c-white) 50%, transparent 50%); border-color: var(--c-white); }

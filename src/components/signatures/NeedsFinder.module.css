@@ -23,14 +23,14 @@
 
 .answer { position: relative; display: grid; align-items: center; min-height: 15rem; padding: clamp(1.4rem, 3vw, 2.4rem); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.86), rgba(5, 5, 5, 0.6)); }
 .panel { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); }
-.kicker { font: 0.6rem var(--font-mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-red); }
+.kicker { font: 0.6rem var(--font-mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-red-bright); }
 .areaTitle { font-family: var(--font-serif); font-size: var(--fs-h2); font-weight: 300; line-height: var(--lh-tight); color: var(--c-white); }
 .why { max-width: 44ch; font-size: var(--fs-body); line-height: var(--lh-normal); color: var(--c-white-65); }
 .go { display: inline-flex; align-items: center; gap: 0.5em; margin-top: var(--space-2); font: 0.66rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white); border-bottom: 1px solid var(--c-red-dim); padding-bottom: 0.3rem; transition: gap 0.5s var(--ease-glide), border-color var(--dur-2) var(--ease-out); }
 .go:hover { gap: 0.9em; border-color: var(--c-red); }
 
 .strip { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: var(--space-6); list-style: none; }
-.chip a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.8rem; border: 1px solid var(--c-line); border-radius: var(--r-pill); color: var(--c-white-40); font: 0.56rem var(--font-mono); letter-spacing: 0.16em; transition: color var(--dur-3) var(--ease-out), border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); }
+.chip a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 0.8rem; border: 1px solid var(--c-line); border-radius: var(--r-pill); color: var(--c-white-50); font: 0.56rem var(--font-mono); letter-spacing: 0.16em; transition: color var(--dur-3) var(--ease-out), border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out), transform 0.7s var(--ease-glide); }
 .chipOn a { color: var(--c-white); border-color: var(--c-red-dim); background: var(--c-red-faint); transform: translateY(-3px); }
 
 @media (max-width: 860px) {

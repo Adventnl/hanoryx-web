@@ -4,7 +4,7 @@
 .ok { border-color: var(--c-white-50); }
 .no { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.88)); }
 .text { display: flex; gap: 0.8rem; font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white); }
-.text span { flex: none; font: 0.6rem var(--font-mono); letter-spacing: 0.14em; padding-top: 0.2rem; color: var(--c-red); }
+.text span { flex: none; font: 0.6rem var(--font-mono); letter-spacing: 0.14em; padding-top: 0.2rem; color: var(--c-red-bright); }
 .opts { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 .opt { padding: 0.35rem 0.8rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); background: transparent; font: 0.56rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-65); cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
 .opt:hover:not(:disabled) { border-color: var(--c-white-40); color: var(--c-white); }

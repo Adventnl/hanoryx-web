@@ -59,7 +59,7 @@ export function DataPanel({
       {(label || code) && (
         <div className={styles.head}>
           {label && <span className={clsx('data-label', styles.label)}>{label}</span>}
-          {code && <span className={clsx('mono', styles.code)}>{code}</span>}
+          {code && <span className={clsx('mono', styles.code)} aria-hidden="true">{code}</span>}
         </div>
       )}
 

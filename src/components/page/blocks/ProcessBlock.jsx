@@ -47,7 +47,7 @@ export function ProcessBlock({ block, accent }) {
         {block.steps.map((s, i) => (
           <li key={s.title} className={styles.step} style={{ '--i': i }} {...fx('process.step-light')}>
             <span className={styles.stepNode} aria-hidden="true" />
-            <span className={styles.stepNum}>{s.step}</span>
+            <span className={styles.stepNum} aria-hidden="true">{s.step}</span>
             <h3 className={styles.stepTitle}>{s.title}</h3>
             <p className={styles.stepBody}>{s.body}</p>
           </li>

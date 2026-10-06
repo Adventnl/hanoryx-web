@@ -13,7 +13,7 @@
 .count { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-65); font-variant-numeric: lining-nums tabular-nums; }
 .answer { display: grid; gap: var(--space-3); max-width: 62ch; padding-bottom: var(--space-2); }
 .answer p { font-size: var(--fs-body); line-height: 1.7; color: var(--c-white-65); }
-.more { display: inline-flex; align-items: center; gap: 0.4em; width: fit-content; font: 0.6rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red); border-bottom: 1px solid var(--c-red-dim); padding-bottom: 0.15rem; }
+.more { display: inline-flex; align-items: center; gap: 0.4em; width: fit-content; font: 0.6rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red-bright); border-bottom: 1px solid var(--c-red-dim); padding-bottom: 0.15rem; }
 .more:hover { color: var(--c-white); }
 .none { padding: var(--space-8) 0; font: 0.8rem var(--font-mono); color: var(--c-white-65); }
 @media (max-width: 860px) {

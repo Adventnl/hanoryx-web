@@ -5,7 +5,7 @@
 .card[data-variant='accent'] { border-color: var(--c-red-dim); background: linear-gradient(160deg, var(--c-red-faint), rgba(8, 9, 11, 0) 70%), #08090b; }
 .card[data-interactive] { cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-3) var(--ease-out); }
 .card[data-interactive]:hover, .card[data-interactive]:focus-within { border-color: var(--c-red-dim); transform: translateY(-2px); }
-.cardEyebrow { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.cardEyebrow { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .cardTitle { margin: 0; font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h3); line-height: 1.1; color: var(--c-white); }
 .cardBody { font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-80); }
 .cardFoot { margin-top: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--c-line); font-size: var(--fs-xs); color: var(--c-white-65); }

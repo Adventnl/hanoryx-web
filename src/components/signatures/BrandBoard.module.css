@@ -2,7 +2,7 @@
 .panel { min-height: 18rem; animation: in 0.5s var(--ease-glide) both; }
 .panel[hidden] { display: none; }
 @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.kicker { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.kicker { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .small { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
 .small b { color: var(--c-white); font-weight: 500; }
 

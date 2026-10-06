@@ -1,7 +1,7 @@
 .rig { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); gap: 0.6rem; margin: 0; }
 .cell { display: grid; gap: 0.3rem; align-content: start; padding: 0.95rem 1.05rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); }
-.cell dt { font: 0.54rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.cell dt { font: 0.54rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red-bright); }
 .cell dd { margin: 0; font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h2); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .cell small { display: block; margin-top: 0.4rem; font: 300 var(--fs-xs)/1.5 var(--font-sans); letter-spacing: 0; color: var(--c-white-65); }
 .wait { font: 0.75rem var(--font-mono); color: var(--c-white-65); }

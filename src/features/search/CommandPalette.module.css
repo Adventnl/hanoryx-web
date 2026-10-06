@@ -95,7 +95,7 @@
   overflow: hidden;
   white-space: nowrap;
   pointer-events: none;
-  color: var(--c-white-40);
+  color: var(--c-white-50);
   font: 1.08rem var(--font-sans);
   font-weight: 300;
 }
@@ -179,7 +179,7 @@
     opacity var(--dur-2) var(--ease-out);
 }
 .chipLabel, .chipCount { position: relative; }
-.chipCount { color: var(--c-white-30); font-variant-numeric: lining-nums tabular-nums; }
+.chipCount { color: var(--c-white-50); font-variant-numeric: lining-nums tabular-nums; }
 .chipOn .chipCount { color: var(--c-red); }
 
 /* ---- results ---- */
@@ -196,7 +196,7 @@
    key hints, so the panel reads as one column. */
 .group {
   padding: var(--space-3) var(--space-2) var(--space-1);
-  color: var(--c-white-30);
+  color: var(--c-white-50);
   font: 0.6rem var(--font-mono);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -247,7 +247,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-.rowPath { color: var(--c-white-30); font: 0.62rem var(--font-mono); }
+.rowPath { color: var(--c-white-50); font: 0.62rem var(--font-mono); }
 .excerpt {
   color: var(--c-white-50);
   font-size: 0.83rem;
@@ -257,7 +257,7 @@
 }
 .excerptHeading {
   margin-right: 0.55em;
-  color: var(--c-white-30);
+  color: var(--c-white-50);
   font: 0.58rem var(--font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -280,7 +280,7 @@
 .rowOn .rowEnter { opacity: 1; transform: none; }
 
 .empty { padding: var(--space-6) var(--space-2); color: var(--c-white-65); font-size: 0.92rem; }
-.emptyHint { margin-top: var(--space-2); color: var(--c-white-40); font-size: 0.82rem; }
+.emptyHint { margin-top: var(--space-2); color: var(--c-white-50); font-size: 0.82rem; }
 .emptyHint button { color: var(--c-red); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---- footer ---- */
@@ -292,7 +292,7 @@
   flex: none;
   padding: var(--space-3) var(--space-4);
   border-top: var(--border);
-  color: var(--c-white-40);
+  color: var(--c-white-50);
   font: 0.62rem var(--font-mono);
   letter-spacing: 0.06em;
 }
@@ -310,7 +310,7 @@
   color: var(--c-white-65);
   font: inherit;
 }
-.count { margin-left: auto; color: var(--c-white-30); }
+.count { margin-left: auto; color: var(--c-white-50); }
 
 @media (max-width: 560px) {
   .root { padding-top: 12px; }

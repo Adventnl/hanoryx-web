@@ -11,6 +11,6 @@
 .pick p { margin: 0; font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }
 .pick a { display: inline-flex; align-items: center; gap: 0.4rem; font: 0.6rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white); text-decoration: none; }
 .pick a:hover { color: var(--c-red-bright); }
-.pick small { font: 0.56rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red); }
+.pick small { font: 0.56rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red-bright); }
 .reset { justify-self: start; }
 @media (prefers-reduced-motion: reduce) { .opt { transition: none; } }

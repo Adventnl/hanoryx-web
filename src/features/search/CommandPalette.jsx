@@ -144,7 +144,7 @@ export function CommandPalette({ enabled = true }) {
         openPalette();
         return;
       }
-      if (event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey && !isEditable(document.activeElement)) {
+      if (event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey && document.documentElement.dataset.keys !== 'off' && !isEditable(document.activeElement)) {
         event.preventDefault();
         openPalette();
       }

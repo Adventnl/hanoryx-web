@@ -13,7 +13,8 @@ function isEditable(el) {
  *   ?  opens the shortcuts panel
  *   B  switches blueprint mode (outlines and names the marked parts of a page)
  * Search (Ctrl/⌘ K and /) lives with the search itself. Nothing fires while you
- * are typing, while a modifier is held, or before the intro has finished.
+ * are typing, while a modifier is held, or before the intro has finished — and
+ * the single-key ones can be switched off in the display preferences (WCAG 2.1.4).
  */
 export function GlobalKeys({ enabled }) {
   const [help, setHelp] = useState(false);
@@ -24,6 +25,7 @@ export function GlobalKeys({ enabled }) {
     if (!enabled) return undefined;
     const onKey = (event) => {
       if (event.metaKey || event.ctrlKey || event.altKey || event.repeat) return;
+      if (document.documentElement.dataset.keys === 'off') return; // turned off in the display preferences
       if (isEditable(document.activeElement) || isEditable(event.target)) return;
       if (document.querySelector('[role="dialog"][aria-modal="true"]')) return; // something else owns the keyboard
       if (event.key === '?') {

@@ -6,7 +6,7 @@
 .said { border-color: var(--c-white-40); }
 .partly { border-style: dashed; border-color: var(--c-white-40); }
 .not { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.88)); }
-.n { font: 0.6rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red); padding-top: 0.25rem; }
+.n { font: 0.6rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red-bright); padding-top: 0.25rem; }
 .q h3 { font: 500 var(--fs-body) var(--font-sans); color: var(--c-white); }
 .why { margin-top: 0.15rem; font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
 .say { margin-top: 0.6rem; font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }

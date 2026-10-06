@@ -45,13 +45,13 @@
 .vpLabel { position: absolute; left: var(--space-3); bottom: var(--space-3); padding: 0.28rem 0.6rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); background: rgba(5, 5, 5, 0.85); font: 0.56rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); pointer-events: none; }
 
 .fields { display: flex; flex-direction: column; gap: 0.35rem; padding: var(--space-3); overflow: auto; }
-.group { margin-top: 0.4rem; font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.group { margin-top: 0.4rem; font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .field { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); align-items: center; gap: 0.5rem; font: 0.62rem var(--font-mono); letter-spacing: 0.06em; color: var(--c-white-50); }
 .field input[type='text'], .field input[type='number'] { width: 100%; min-width: 0; padding: 0.3rem 0.45rem; border: 1px solid var(--c-line-strong); border-radius: 4px; background: var(--c-white-03); color: var(--c-white); font: 0.72rem var(--font-mono); font-variant-numeric: lining-nums tabular-nums; transition: border-color var(--dur-2) var(--ease-out); }
 .field input:focus-visible { outline: none; border-color: var(--c-red); }
 .field input:disabled { opacity: 0.55; }
 .check input { justify-self: start; accent-color: var(--c-red); }
-.empty { padding: var(--space-4); font-size: 0.8rem; color: var(--c-white-40); }
+.empty { padding: var(--space-4); font-size: 0.8rem; color: var(--c-white-50); }
 
 .footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); padding: 0.7rem var(--space-4); border-top: var(--border); background: var(--c-white-03); }
 .profiler { display: flex; align-items: center; gap: var(--space-3); }
@@ -66,7 +66,7 @@
 .exportTrack { width: 90px; height: 2px; background: var(--c-white-12); overflow: hidden; }
 .exportFill { display: block; width: 100%; height: 100%; background: var(--c-red); box-shadow: var(--glow-red); transform: scaleX(0); transform-origin: left; transition: transform 0.55s var(--ease-glide); }
 .exportState { min-width: 11rem; font: 0.58rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-50); }
-.caption { margin-top: var(--space-4); max-width: 70ch; font: 0.68rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-40); }
+.caption { margin-top: var(--space-4); max-width: 70ch; font: 0.68rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }
 
 @media (max-width: 960px) {
   .body { grid-template-columns: minmax(0, 1fr); }

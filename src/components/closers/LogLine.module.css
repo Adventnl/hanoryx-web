@@ -2,7 +2,7 @@
 .form { display: grid; gap: var(--space-4); }
 .pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
 .field { display: grid; gap: 0.35rem; }
-.field span { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.field span { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .field input { padding: 0.7rem 0.9rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-sm); background: var(--c-white-03); color: var(--c-white); font: 0.8rem var(--font-mono); outline: none; transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
 .field input:focus { border-color: var(--c-red-dim); box-shadow: 0 0 0 3px var(--c-red-faint); }
 .field small { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }

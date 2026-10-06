@@ -15,7 +15,7 @@
   overflow: hidden;
   transform-origin: 50% 0;
 }
-.tab { position: absolute; left: 0; right: 0; top: 0; z-index: 2; display: flex; align-items: center; gap: 0.9rem; height: 30px; padding: 0 clamp(1.2rem, 3vw, 2.4rem); border-bottom: 1px solid var(--c-white-05); font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-40); }
+.tab { position: absolute; left: 0; right: 0; top: 0; z-index: 2; display: flex; align-items: center; gap: 0.9rem; height: 30px; padding: 0 clamp(1.2rem, 3vw, 2.4rem); border-bottom: 1px solid var(--c-white-05); font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-50); }
 .tab b { font-weight: 400; color: var(--c-red); }
 .card::after { content: ''; position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 3; }
 .num { position: absolute; right: 1.5rem; top: -0.1em; font-size: clamp(7rem, 16vw, 14rem); pointer-events: none; user-select: none; transition: -webkit-text-stroke-color var(--dur-3) var(--ease-out), transform 1.2s var(--ease-glide); }
@@ -25,7 +25,7 @@
 .title { font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: 300; line-height: 1.05; color: var(--c-white); }
 .text { font-size: var(--fs-body); line-height: 1.7; color: var(--c-white-65); }
 .practice { position: relative; padding-left: var(--space-5); border-left: 1px solid var(--c-red-dim); }
-.practiceLabel { display: block; margin-bottom: 0.5rem; font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.practiceLabel { display: block; margin-bottom: 0.5rem; font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .practice p { font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-50); }
 
 /* where scroll-driven animation exists, buried cards recede */

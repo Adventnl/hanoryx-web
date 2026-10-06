@@ -24,7 +24,7 @@ button.chipMain { cursor: pointer; }
 .avatars > *:first-child { margin-left: 0; }
 
 .stat { display: grid; gap: 0.3rem; padding: var(--space-4) var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.88), rgba(5, 5, 5, 0.66)); }
-.statLabel { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.statLabel { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .statValue { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h1); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .statValue small { margin-left: 0.3rem; font-size: 0.4em; color: var(--c-white-65); }
 .delta { display: inline-flex; align-items: center; gap: 0.3rem; font: 0.62rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-80); font-variant-numeric: lining-nums tabular-nums; }
@@ -79,7 +79,7 @@ th[aria-sort='ascending'] .sort svg, th[aria-sort='descending'] .sort svg { opac
 .pre { margin: 0; padding: 1rem 1.2rem; overflow-x: auto; font: 0.76rem/1.75 var(--font-mono); color: var(--c-white-80); tab-size: 2; }
 .pre:focus-visible { outline-offset: -3px; }
 .pre code { display: block; width: max-content; min-width: 100%; }
-.ln { display: inline-block; width: 2.2em; margin-right: 1em; text-align: right; color: var(--c-white-40); user-select: none; font-variant-numeric: lining-nums tabular-nums; }
+.ln { display: inline-block; width: 2.2em; margin-right: 1em; text-align: right; color: var(--c-white-50); user-select: none; font-variant-numeric: lining-nums tabular-nums; }
 .t-com { color: var(--c-white-50); font-style: italic; }
 .t-str { color: var(--c-white); }
 .t-num { color: var(--c-white); font-weight: 600; }

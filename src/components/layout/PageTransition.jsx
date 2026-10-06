@@ -50,6 +50,7 @@ export function PageTransition({ children, className }) {
   return (
     <motion.main
       id="main"
+      tabIndex={-1}
       className={clsx(styles.page, className)}
       variants={variants}
       initial={skipEnter ? false : 'initial'}

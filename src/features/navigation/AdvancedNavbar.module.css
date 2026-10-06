@@ -178,7 +178,7 @@
   font-size: 0.6rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--c-white-40);
+  color: var(--c-white-50);
   white-space: nowrap;
 }
 .statusDot {

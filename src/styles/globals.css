@@ -178,6 +178,12 @@ textarea {
   transform: translate(-50%, 1rem);
 }
 
+/* The page's main region takes focus after a route change (RouteAnnouncer) and from the skip link.
+   It is a place to start from, not a control, so it shows no ring. */
+main#main:focus {
+  outline: none;
+}
+
 /* Overlays (search, shortcuts) lock page scroll through utils/scrollLock.js.
    scrollbar-gutter: stable (above) keeps the layout from shifting. */
 html.scroll-locked {

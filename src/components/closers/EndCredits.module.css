@@ -5,7 +5,7 @@
 .reel { animation: roll 38s linear infinite; }
 .screen:hover .reel { animation-play-state: paused !important; }
 .block { padding: 0 0 2.6rem; }
-.role { margin-bottom: 0.6rem; font: 0.6rem var(--font-mono); letter-spacing: 0.34em; text-transform: uppercase; color: var(--c-red); }
+.role { margin-bottom: 0.6rem; font: 0.6rem var(--font-mono); letter-spacing: 0.34em; text-transform: uppercase; color: var(--c-red-bright); }
 .name { font-family: var(--font-serif); font-weight: 300; font-size: clamp(1.3rem, 2.8vw, 2rem); line-height: 1.3; color: var(--c-white); }
 @keyframes roll { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 .still { height: auto; }

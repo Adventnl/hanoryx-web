@@ -4,7 +4,7 @@
 .item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--space-4); padding: 1.1rem 1.3rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.82); transition: border-color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out); }
 .pass { border-color: rgba(255, 255, 255, 0.3); }
 .fail { border-color: var(--c-red-dim); background: linear-gradient(90deg, var(--c-red-faint), rgba(10, 11, 13, 0.82)); }
-.n { font: 0.62rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red); }
+.n { font: 0.62rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red-bright); }
 .body { display: grid; gap: 0.3rem; min-width: 0; }
 .body h3 { font: 500 var(--fs-body) var(--font-sans); letter-spacing: 0; color: var(--c-white); }
 .how { font-size: var(--fs-sm); color: var(--c-white-65); }

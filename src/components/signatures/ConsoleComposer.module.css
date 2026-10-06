@@ -30,13 +30,13 @@
 .chrome { display: flex; align-items: center; gap: 6px; padding: 0.7rem 1rem; border-bottom: 1px solid var(--c-white-08); }
 .chrome span { width: 8px; height: 8px; border-radius: 50%; background: var(--c-white-12); }
 .chrome span:first-child { background: var(--c-red-dim); }
-.chrome em { margin-left: auto; font: normal 0.54rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-40); }
+.chrome em { margin-left: auto; font: normal 0.54rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-50); }
 .grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; padding: 12px; min-height: 20rem; align-content: start; }
 .panel { display: flex; flex-direction: column; gap: 0.7rem; padding: 0.85rem 0.9rem 1rem; border: 1px solid var(--c-line); border-radius: var(--r-md); background: var(--c-white-03); }
 .panel header { display: flex; align-items: center; justify-content: space-between; font: 0.54rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-50); }
 .locked { border-style: dashed; background: transparent; }
-.lockText { font: 0.62rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-40); }
-.empty { grid-column: 1 / -1; padding: 3rem 0; text-align: center; font: 0.64rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-30); }
+.lockText { font: 0.62rem var(--font-mono); letter-spacing: 0.08em; color: var(--c-white-50); }
+.empty { grid-column: 1 / -1; padding: 3rem 0; text-align: center; font: 0.64rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-50); }
 
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .tiles span { display: flex; flex-direction: column; gap: 6px; padding: 0.6rem; border-radius: var(--r-sm); background: var(--c-white-05); }
@@ -61,7 +61,7 @@
 .btns b, .btns em { padding: 0.35rem 0.8rem; border-radius: 4px; font: normal 0.54rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
 .btns b { background: var(--c-red-ghost); border: 1px solid var(--c-red-dim); color: var(--c-white); font-weight: 400; }
 .btns em { border: 1px solid var(--c-line-strong); color: var(--c-white-50); }
-.note { margin-top: var(--space-4); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
+.note { margin-top: var(--space-4); font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); }
 
 @media (max-width: 900px) {
   .bench { grid-template-columns: minmax(0, 1fr); }

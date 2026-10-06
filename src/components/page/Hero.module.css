@@ -34,7 +34,7 @@
   align-items: center;
   gap: var(--space-3);
 }
-.cueLabel { font: 0.58rem var(--font-mono); letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-white-30); }
+.cueLabel { font: 0.58rem var(--font-mono); letter-spacing: 0.3em; text-transform: uppercase; color: var(--c-white-50); }
 .cueLine { position: relative; width: 46px; height: 1px; background: var(--c-line-strong); overflow: hidden; }
 .cueDot {
   position: absolute;

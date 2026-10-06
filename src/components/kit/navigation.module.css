@@ -1,7 +1,7 @@
 /* Navigation — ways to know where you are and to move. */
 .crumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 0; margin: 0; padding: 0; list-style: none; font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; }
 .crumbs li { display: inline-flex; align-items: center; }
-.crumbs li + li::before { content: '/'; margin: 0 0.7rem; color: var(--c-white-30); }
+.crumbs li + li::before { content: '/'; margin: 0 0.7rem; color: var(--c-white-50); }
 .crumbs a { color: var(--c-white-65); text-decoration: none; transition: color var(--dur-1) var(--ease-out); }
 .crumbs a:hover { color: var(--c-white); }
 .crumbs [aria-current] { color: var(--c-white); }

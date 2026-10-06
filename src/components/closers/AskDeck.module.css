@@ -4,7 +4,7 @@
 .face { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 0.8rem; padding: 1.2rem 1.3rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: linear-gradient(160deg, #15161a, #08090b 75%); backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: border-color var(--dur-2) var(--ease-out); }
 .card:hover .front { border-color: var(--c-red-dim); }
 .rear { transform: rotateY(180deg); border-color: var(--c-red-dim); background: linear-gradient(160deg, var(--c-red-faint), #08090b 75%); }
-.n { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.n { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .q { font-family: var(--font-serif); font-size: var(--fs-h3); line-height: 1.25; color: var(--c-white); }
 .hint { margin-top: auto; font: 0.56rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); }
 .a { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-80); }

@@ -9,7 +9,7 @@
 
 .stage { display: grid; gap: var(--space-4); min-width: 0; }
 .head h3 { margin: 0 0 0.4rem; font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h2); line-height: 1.05; color: var(--c-white); }
-.head h3 span { margin-left: 0.8rem; font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); vertical-align: middle; }
+.head h3 span { margin-left: 0.8rem; font: 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red-bright); vertical-align: middle; }
 .head p { max-width: 68ch; margin: 0; font-size: var(--fs-sm); line-height: 1.7; color: var(--c-white-80); }
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.8rem; }
 .barLabel { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-65); }

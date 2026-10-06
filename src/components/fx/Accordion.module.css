@@ -31,7 +31,7 @@
   text-align: left;
   cursor: pointer;
 }
-.index { font: 0.65rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-red); }
+.index { font: 0.65rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-red-bright); }
 .title {
   font-family: var(--font-serif);
   font-size: var(--fs-h3);
@@ -42,8 +42,8 @@
 .trigger:hover .title,
 .open .title { color: var(--c-white); }
 .trigger:hover .title { transform: translateX(6px); }
-.meta { font: 0.62rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-40); text-transform: uppercase; }
-.plus { color: var(--c-white-40); transition: transform var(--dur-3) var(--ease-glide), color var(--dur-2) var(--ease-out); }
+.meta { font: 0.62rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-50); text-transform: uppercase; }
+.plus { color: var(--c-white-50); transition: transform var(--dur-3) var(--ease-glide), color var(--dur-2) var(--ease-out); }
 .open .plus { transform: rotate(135deg); color: var(--c-red); }
 .panel { overflow: hidden; }
 .body {

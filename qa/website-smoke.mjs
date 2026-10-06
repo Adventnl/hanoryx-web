@@ -16,12 +16,15 @@
  * must be fully visible. At every width the header's controls must stay inside
  * the viewport (the page can report no overflow while a fixed header spills).
  */
+import { readdirSync } from 'node:fs';
 import { BASE, launch, newContext, pageRoutes, redirectRoutes, pause, reporter, watchErrors } from './lib.mjs';
 import { directory, navGroups } from '../src/app/routeConfig.js';
 
 const r = reporter('website smoke');
 const WIDTHS = [280, 320, 360, 390, 768, 1024, 1440, 1920];
 const known = new Set(pageRoutes);
+const statics = new Set(readdirSync(new URL('../public/', import.meta.url)).map((f) => `/${f}`)); // files, not pages: the press kit links to the mark and the social image
+const OWN_ORIGIN = /^https:\/\/hanoryx\.com(?=\/|$)/; // the link builder shows the address a visitor would paste
 // Claims the site no longer makes. "Hosting" and "public repository" are fine when they name the vendor
 // that delivers the files or the one repository YK Engine links to; what is banned is offering hosting,
 // talking about public repositories in the plural, and anything that reads like GitHub statistics.
@@ -80,9 +83,10 @@ for (const width of WIDTHS) {
       if (titles.has(state.title)) problems.push(`${route}: duplicate title with ${titles.get(state.title)}`);
       else titles.set(state.title, route);
       state.hrefs.forEach((href) => {
-        if (href.startsWith('/')) {
-          const path = href.split('#')[0].split('?')[0] || '/';
-          if (!known.has(path)) problems.push(`${route}: link to unknown page ${href}`);
+        const local = OWN_ORIGIN.test(href) ? href.replace(OWN_ORIGIN, '') || '/' : href;
+        if (local.startsWith('/')) {
+          const path = local.split('#')[0].split('?')[0] || '/';
+          if (!known.has(path) && !statics.has(path)) problems.push(`${route}: link to unknown page ${href}`);
         } else if (/^https?:/.test(href)) externals.set(href, [...(externals.get(href) || []), route]);
         else if (href.startsWith('mailto:')) mailtos.push(route);
       });

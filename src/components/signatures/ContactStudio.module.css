@@ -21,28 +21,28 @@
 .glyph { position: relative; flex: none; color: var(--c-white-50); transition: color var(--dur-2) var(--ease-out); }
 .on .glyph { color: var(--c-red); }
 .typeText { position: relative; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-.code { font: 0.54rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red); }
+.code { font: 0.54rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-red-bright); }
 .typeText strong { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h4); color: var(--c-white); }
 .typeText > span:last-child { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-50); }
 
 .right { display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
 .form { display: flex; flex-direction: column; gap: var(--space-4); padding: clamp(1rem, 2.4vw, 1.6rem); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, rgba(14, 15, 18, 0.86), rgba(5, 5, 5, 0.6)); }
 .field { display: flex; flex-direction: column; gap: 0.45rem; }
-.field > span { display: flex; justify-content: space-between; font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-40); }
+.field > span { display: flex; justify-content: space-between; font: 0.56rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-50); }
 .field input, .field textarea { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--c-line); border-radius: var(--r-sm); background: var(--c-black); color: var(--c-white); font: var(--fs-body) var(--font-sans); outline: none; resize: vertical; transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
 .field textarea { min-height: 8rem; line-height: 1.55; }
 .field input:focus, .field textarea:focus { border-color: var(--c-red-dim); box-shadow: 0 0 0 3px var(--c-red-faint); }
-.field ::placeholder { color: var(--c-white-30); }
-.count { font-style: normal; letter-spacing: 0.1em; color: var(--c-white-30); font-variant-numeric: lining-nums tabular-nums; transition: color var(--dur-2) var(--ease-out); }
+.field ::placeholder { color: var(--c-white-50); }
+.count { font-style: normal; letter-spacing: 0.1em; color: var(--c-white-50); font-variant-numeric: lining-nums tabular-nums; transition: color var(--dur-2) var(--ease-out); }
 .over { color: var(--c-red); }
 .starters { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
-.starters > span { font: 0.56rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-40); margin-right: 0.3rem; }
+.starters > span { font: 0.56rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); margin-right: 0.3rem; }
 .starters button { padding: 0.4rem 0.8rem; border: 1px dashed var(--c-white-20); border-radius: var(--r-pill); font-size: var(--fs-xs); color: var(--c-white-65); cursor: pointer; text-align: left; transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
 .starters button:hover { border-style: solid; border-color: var(--c-red-dim); color: var(--c-white); background: var(--c-red-faint); }
 
 .envelope { padding: 0.9rem 1.1rem 1.1rem; border: 1px solid var(--c-line); border-radius: var(--r-md); background: var(--c-black); }
 .envRow { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: var(--space-3); padding: 0.35rem 0; border-bottom: 1px dashed var(--c-white-08); font-size: var(--fs-sm); }
-.envRow span { font: 0.54rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red); padding-top: 0.25em; }
+.envRow span { font: 0.54rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red-bright); padding-top: 0.25em; }
 .envRow b { font-weight: 400; color: var(--c-white-80); overflow-wrap: anywhere; }
 .envBody { margin-top: 0.7rem; max-height: 6.4em; overflow: hidden; font-size: var(--fs-sm); line-height: 1.55; color: var(--c-white-50); white-space: pre-wrap; overflow-wrap: anywhere; }
 
@@ -55,9 +55,9 @@
 .warn { font-size: var(--fs-xs); color: var(--c-red); }
 
 .address { display: flex; flex-direction: column; gap: 0.3rem; padding-top: var(--space-4); border-top: 1px solid var(--c-white-08); }
-.addrLabel { font: 0.54rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-40); }
+.addrLabel { font: 0.54rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-white-50); }
 .email { font-family: var(--font-serif); font-size: var(--fs-h2); font-weight: 300; color: var(--c-white); overflow-wrap: anywhere; user-select: all; }
-.note { font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-40); }
+.note { font: 0.6rem var(--font-mono); letter-spacing: 0.06em; line-height: var(--lh-normal); color: var(--c-white-50); }
 
 @media (max-width: 900px) {
   .layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }

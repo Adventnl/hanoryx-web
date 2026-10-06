@@ -2,7 +2,7 @@
    ring (a border and a soft halo), has a hit area of at least 40px where it is
    pressed, and reads its colours from the tokens. */
 .field { display: grid; gap: 0.4rem; min-width: 0; }
-.label { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.label { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .req { color: var(--c-white-65); letter-spacing: 0.14em; }
 .hint { margin: 0; font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
 .error { display: flex; align-items: flex-start; gap: 0.4rem; margin: 0; font-size: var(--fs-xs); line-height: 1.5; color: var(--c-red-bright); }
@@ -72,7 +72,7 @@ textarea.bare { min-height: 5.5rem; line-height: 1.6; resize: vertical; }
 .checkText b { display: block; font-weight: 500; color: var(--c-white); }
 .checkText small { display: block; font-size: var(--fs-xs); color: var(--c-white-65); }
 .fieldset { display: grid; gap: 0.5rem; min-width: 0; margin: 0; padding: 0; border: 0; }
-.legend { padding: 0; margin-bottom: 0.4rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.legend { padding: 0; margin-bottom: 0.4rem; font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .options { display: grid; gap: 0.35rem; }
 .options[data-row] { display: flex; flex-wrap: wrap; gap: 0.35rem 1.4rem; }
 

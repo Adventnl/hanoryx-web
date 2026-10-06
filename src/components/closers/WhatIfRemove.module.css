@@ -10,7 +10,7 @@
 .gone .state { color: var(--c-red-bright); }
 .card { display: grid; gap: 0.8rem; align-content: start; min-height: 16rem; padding: var(--space-5); border: 1px dashed var(--c-white-20); border-radius: var(--r-lg); background: rgba(8, 9, 11, 0.88); }
 .ready { border: 1px solid var(--c-red-dim); background: linear-gradient(160deg, var(--c-red-faint), rgba(8, 9, 11, 0) 70%), #08090b; }
-.k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .card h3 { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h3); line-height: 1.15; color: var(--c-white); }
 .card dl { display: grid; gap: 0.7rem; margin: 0; }
 .card dl div { display: grid; gap: 0.15rem; padding-top: 0.7rem; border-top: 1px dashed var(--c-white-20); }

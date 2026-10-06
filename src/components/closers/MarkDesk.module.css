@@ -14,7 +14,7 @@
 .stamp.no { color: var(--c-red); }
 @keyframes stamp { from { opacity: 0; transform: rotate(-12deg) scale(1.8); } to { opacity: 1; transform: rotate(-5deg) scale(1); } }
 .line { max-width: 40ch; font-size: var(--fs-lead); font-weight: 300; line-height: 1.55; color: var(--c-white-80); }
-.next { display: inline-flex; align-items: center; gap: 0.5em; font: 0.64rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red); border-bottom: 1px solid var(--c-red-dim); padding-bottom: 0.2rem; }
+.next { display: inline-flex; align-items: center; gap: 0.5em; font: 0.64rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-red-bright); border-bottom: 1px solid var(--c-red-dim); padding-bottom: 0.2rem; }
 .next:hover { color: var(--c-white); }
 @media (max-width: 760px) { .desk { grid-template-columns: minmax(0, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .stamp { animation: none; } .opt { transition: none; } }

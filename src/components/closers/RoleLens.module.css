@@ -7,7 +7,7 @@
 .role span { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
 .record { display: grid; gap: var(--space-3); padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, #0e0f12, #060607); min-width: 0; }
 .record header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--c-line-strong); }
-.k { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.k { font: 0.6rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .count { font-size: var(--fs-xs); color: var(--c-white-65); }
 .count b { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h4); color: var(--c-white); }
 .record dl { display: grid; gap: 0.1rem; margin: 0; }

@@ -2,7 +2,7 @@
 .figure { display: grid; gap: 0.5rem; justify-items: start; padding: var(--space-5); border: 1px solid var(--c-line-strong); border-radius: var(--r-lg); background: linear-gradient(170deg, #0e0f12, #060607); text-align: left; cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-3) var(--ease-out); }
 .figure:hover { border-color: var(--c-red-dim); box-shadow: var(--glow-red-soft); }
 .opened { border-color: var(--c-red-dim); }
-.k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red); }
+.k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .figure b { font-family: var(--font-serif); font-weight: 300; font-size: clamp(3rem, 7vw, 5rem); line-height: 0.95; color: var(--c-white); }
 .figure small { font-size: var(--fs-sm); color: var(--c-white-65); }
 .trail { position: relative; display: grid; gap: 0.2rem; padding-left: 1.6rem; min-width: 0; }
@@ -10,7 +10,7 @@
 .hop { position: relative; }
 .node { position: absolute; left: -1.62rem; top: 0.5rem; width: 9px; height: 9px; border: 1px solid var(--c-red); border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
 .body { display: grid; gap: 0.4rem; padding: 0.9rem 1.1rem; margin-bottom: 0.4rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); animation: dig 0.5s var(--ease-glide) both; }
-.n { font: 0.56rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red); }
+.n { font: 0.56rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-red-bright); }
 .body h3 { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h4); line-height: 1.15; color: var(--c-white); }
 .body p:not(.n) { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
 .record { padding-top: 0.5rem; border-top: 1px dashed var(--c-white-20); color: var(--c-white-80) !important; }

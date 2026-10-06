@@ -29,7 +29,7 @@
   font-family: var(--font-serif);
   font-weight: 300;
   font-size: clamp(1.3rem, 3vw, 2.2rem);
-  color: var(--c-white-40);
+  color: var(--c-white-50);
 }
 .sep {
   width: 6px;

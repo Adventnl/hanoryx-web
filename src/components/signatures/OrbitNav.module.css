@@ -98,7 +98,7 @@
 }
 .mark { width: 34px; height: 34px; border-radius: 3px; object-fit: cover; }
 .readout { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
-.rCode { font: 0.58rem var(--font-mono); letter-spacing: 0.24em; color: var(--c-red); }
+.rCode { font: 0.58rem var(--font-mono); letter-spacing: 0.24em; color: var(--c-red-bright); }
 .rLabel { font-family: var(--font-serif); font-size: clamp(1.05rem, 2.1vw, 1.5rem); line-height: 1.1; color: var(--c-white); }
 .rLine { max-width: 17ch; font-size: 0.7rem; line-height: 1.4; color: var(--c-white-50); }
 

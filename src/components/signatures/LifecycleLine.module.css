@@ -2,7 +2,7 @@
 .track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.4rem; }
 .stage { display: grid; gap: 0.2rem; justify-items: start; padding: 0.8rem 0.9rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: rgba(10, 11, 13, 0.88); text-align: left; cursor: pointer; transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out); }
 .stage:hover { border-color: var(--c-white-40); }
-.stage .n { font: 0.56rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red); }
+.stage .n { font: 0.56rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red-bright); }
 .stage b { font-family: var(--font-serif); font-weight: 400; font-size: var(--fs-h4); line-height: 1.1; color: var(--c-white); }
 .stage small { font-size: var(--fs-xs); color: var(--c-white-65); }
 .past { border-color: var(--c-white-30); }
@@ -15,7 +15,7 @@
 .line { fill: none; stroke: var(--c-white-80); stroke-width: 1.5; stroke-linejoin: round; }
 .axis { stroke: var(--c-white-30); }
 .panel { display: grid; gap: 0.7rem; padding: var(--space-5); border: 1px solid var(--c-red-dim); border-radius: var(--r-lg); background: linear-gradient(160deg, var(--c-red-faint), rgba(8, 9, 11, 0) 70%), #08090b; animation: rise 0.45s var(--ease-glide) both; }
-.k { font: 0.56rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); }
+.k { font: 0.56rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red-bright); }
 .panel h3 { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h2); line-height: 1.05; color: var(--c-white); }
 .blurb { font-size: var(--fs-body); line-height: 1.65; color: var(--c-white-80); max-width: 62ch; }
 .mostly { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); max-width: 62ch; }

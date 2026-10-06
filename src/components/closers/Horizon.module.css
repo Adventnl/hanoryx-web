@@ -11,7 +11,7 @@
 .layer { position: relative; display: grid; grid-template-columns: 6rem 12rem minmax(0, 1fr); gap: 1rem; align-items: baseline; width: 100%; padding: 1rem 1.2rem; text-align: left; background: rgba(255, 255, 255, calc(0.07 - var(--d) * 0.05)); border-left: 2px solid var(--c-white-12); cursor: pointer; transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), padding 0.6s var(--ease-glide); }
 .strata li:last-child .layer { border-radius: 0 0 var(--r-md) var(--r-md); }
 .layer:hover, .on { background: var(--c-red-faint); border-left-color: var(--c-red); padding-left: 1.8rem; }
-.code { font: 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red); }
+.code { font: 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red-bright); }
 .name { font-family: var(--font-serif); font-size: var(--fs-h3); color: var(--c-white); }
 .line2 { font-size: var(--fs-sm); color: var(--c-white-65); }
 .read { min-height: 3.4em; margin-top: var(--space-4); max-width: 60ch; font-size: var(--fs-body); line-height: 1.6; color: var(--c-white-80); }

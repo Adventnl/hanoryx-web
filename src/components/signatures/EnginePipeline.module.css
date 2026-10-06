@@ -4,7 +4,7 @@
 .token { position: absolute; top: -5px; left: calc(var(--a) / (var(--n) - 1) * 100%); width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); transition: left 0.9s var(--ease-glide); }
 
 .stages { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); list-style: none; }
-.stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; width: 100%; padding: var(--space-3) var(--space-2) var(--space-4); color: var(--c-white-40); cursor: pointer; transition: color var(--dur-3) var(--ease-out); }
+.stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; width: 100%; padding: var(--space-3) var(--space-2) var(--space-4); color: var(--c-white-50); cursor: pointer; transition: color var(--dur-3) var(--ease-out); }
 .stage:hover { color: var(--c-white-80); }
 .node { position: absolute; top: -1.9rem; left: 50%; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; border: 1px solid var(--c-white-30); background: var(--c-black); transition: border-color var(--dur-3) var(--ease-out); }
 .done .node, .on .node { border-color: var(--c-red); }
@@ -15,7 +15,7 @@
 
 .panel { margin-top: var(--space-6); min-height: 220px; }
 .card { max-width: 760px; padding: var(--space-6); border: 1px solid var(--c-line-strong); border-radius: var(--r-md); background: linear-gradient(180deg, var(--c-white-03), transparent 60%), var(--c-panel); }
-.step { font: 0.62rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red); }
+.step { font: 0.62rem var(--font-mono); letter-spacing: 0.22em; color: var(--c-red-bright); }
 .cardTitle { margin: 0.6rem 0 0.8rem; font-family: var(--font-serif); font-size: var(--fs-h2); font-weight: 300; color: var(--c-white); }
 .cardBody { max-width: 56ch; font-size: var(--fs-body); line-height: 1.7; color: var(--c-white-65); }
 .points { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: var(--space-4); }

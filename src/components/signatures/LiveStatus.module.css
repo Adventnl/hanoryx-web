@@ -23,7 +23,7 @@
 .facts dt { font: 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
 .facts dd { font-size: var(--fs-sm); color: var(--c-white); text-align: right; font-variant-numeric: lining-nums tabular-nums; }
 .ping { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3); padding: var(--space-5); border: 1px dashed var(--c-white-30); border-radius: var(--r-md); }
-.pLabel { font: 0.62rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red); }
+.pLabel { font: 0.62rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-red-bright); }
 .pText { font-size: var(--fs-sm); line-height: 1.65; color: var(--c-white-65); }
 .btn { padding: 0.7rem 1.2rem; border: 1px solid var(--c-red-dim); border-radius: var(--r-pill); background: var(--c-red-ghost); font: 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white); cursor: pointer; transition: background var(--dur-2) var(--ease-out); }
 .btn:hover:not(:disabled) { background: rgba(255, 51, 51, 0.22); }

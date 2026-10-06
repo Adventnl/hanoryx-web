@@ -12,8 +12,8 @@
 .slider { display: grid; gap: 0.6rem; font-size: var(--fs-sm); color: var(--c-white-80); }
 .slider input { width: 100%; accent-color: var(--c-red); }
 .list { display: grid; gap: 0.3rem; }
-.list li { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: 1rem; padding: 0.6rem 0.9rem; border: 1px solid var(--c-line); border-radius: var(--r-sm); opacity: 0.35; transition: opacity 0.5s var(--ease-out), border-color 0.5s var(--ease-out), background 0.5s var(--ease-out); }
-.list li.on { opacity: 1; }
+.list li { display: grid; grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr); gap: 1rem; padding: 0.6rem 0.9rem; border: 1px solid var(--c-line); border-radius: var(--r-sm); transition: opacity 0.5s var(--ease-out), border-color 0.5s var(--ease-out), background 0.5s var(--ease-out); }
+.list li:not(.on) b { color: var(--c-white-65); }
 .list li.on:not(.need2) { border-color: var(--c-red-dim); background: var(--c-red-faint); }
 .list b { font: 500 var(--fs-sm) var(--font-sans); color: var(--c-white); }
 .list span { font-size: var(--fs-sm); color: var(--c-white-65); line-height: 1.45; }

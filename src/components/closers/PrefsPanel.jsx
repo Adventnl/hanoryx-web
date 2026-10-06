@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { Contrast, Pause, RotateCcw, Rows3, Type } from 'lucide-react';
+import { Contrast, Keyboard, Pause, RotateCcw, Rows3, Type } from 'lucide-react';
 import CloserFrame from './CloserFrame';
 import { fx } from '../../utils/fx';
 import shared from './shared.module.css';
@@ -9,7 +9,7 @@ import styles from './PrefsPanel.module.css';
 /* Display preferences for this view. They are written to attributes on <html>
    (global.css reacts to them) and kept in memory only — they last until the
    page is reloaded, are never stored, and are sent nowhere. */
-const DEFAULTS = { text: 'normal', spacing: 'normal', contrast: 'normal', calm: 'off' };
+const DEFAULTS = { text: 'normal', spacing: 'normal', contrast: 'normal', calm: 'off', keys: 'on' };
 let remembered = { ...DEFAULTS };
 
 const GROUPS = [
@@ -17,6 +17,7 @@ const GROUPS = [
   { key: 'spacing', label: 'Line spacing', icon: Rows3, options: [['normal', 'Normal'], ['wide', 'Wide']] },
   { key: 'contrast', label: 'Text contrast', icon: Contrast, options: [['normal', 'Normal'], ['high', 'Higher']] },
   { key: 'calm', label: 'Calm mode', icon: Pause, options: [['off', 'Off'], ['on', 'On']], hint: 'Stops animation and freezes the backgrounds.' },
+  { key: 'keys', label: 'Single-key shortcuts', icon: Keyboard, options: [['on', 'On'], ['off', 'Off']], hint: 'The ?, B and / keys. Ctrl or ⌘ + K always works.' },
 ];
 
 function apply(prefs) {
@@ -25,9 +26,10 @@ function apply(prefs) {
   root.dataset.spacing = prefs.spacing;
   root.dataset.contrast = prefs.contrast;
   root.dataset.calm = prefs.calm;
+  root.dataset.keys = prefs.keys;
 }
 
-/** Display preferences for this view — text size, line spacing, contrast and a calm mode — that take effect at once and last only until the page is reloaded. */
+/** Display preferences for this view — text size, line spacing, contrast, a calm mode and the single-key shortcuts — that take effect at once and last only until the page is reloaded. */
 export default function PrefsPanel({ tag, title, lede, onward }) {
   const [prefs, setPrefs] = useState(remembered);
 
