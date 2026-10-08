@@ -1,15 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { ArrowUpRight, Search } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { SpotlightCard } from '../fx/SpotlightCard';
 import { RevealGroup } from '@/animation/reveal/Reveal';
-import { loadAllPages } from '../../data/pages';
+import { usePageCatalog } from '../../hooks/usePageCatalog';
+import { CatalogError } from '../ui/CatalogError';
 import { fx } from '../../utils/fx';
 import styles from './LegalCentre.module.css';
 
 const WORDS_PER_MINUTE = 220;
-const wordsIn = (value) => (typeof value === 'string' ? value.split(/\s+/).length : Array.isArray(value) ? value.reduce((n, v) => n + wordsIn(v), 0) : value && typeof value === 'object' ? Object.values(value).reduce((n, v) => n + wordsIn(v), 0) : 0);
 
 /**
  * Every legal document in one place. The title, section count and reading time
@@ -19,22 +19,15 @@ const wordsIn = (value) => (typeof value === 'string' ? value.split(/\s+/).lengt
  *   docs: [{ key, kind, blurb }]   (kind: Policy · Notice · Statement)
  */
 export default function LegalCentre({ eyebrow, title, intro, docs = [] }) {
-  const [pages, setPages] = useState(null);
+  const { catalog: pages, error, retry } = usePageCatalog();
   const [kind, setKind] = useState('All');
   const [query, setQuery] = useState('');
-
-  useEffect(() => {
-    let live = true;
-    loadAllPages().then((all) => { if (live) setPages(all); });
-    return () => { live = false; };
-  }, []);
 
   const items = useMemo(
     () =>
       docs.map((d, i) => {
         const page = pages?.[d.key];
-        const doc = page?.blocks?.find((b) => b.kind === 'document');
-        const sizes = doc ? doc.sections.map((s) => Math.max(20, wordsIn(s.body))) : [];
+        const sizes = page?.sectionSizes || [];
         const words = sizes.reduce((n, v) => n + v, 0);
         return {
           ...d,
@@ -71,7 +64,9 @@ export default function LegalCentre({ eyebrow, title, intro, docs = [] }) {
             ))}
           </div>
         </div>
-        {shown.length === 0 ? (
+        {error ? (
+          <CatalogError retry={retry} />
+        ) : shown.length === 0 ? (
           <p className={styles.none}>No document matches. Try fewer words.</p>
         ) : (
           <RevealGroup key={`${kind}-${query}`} profile="dataMaterialize" className={styles.grid} itemClassName={styles.cell} stagger={0.06}>

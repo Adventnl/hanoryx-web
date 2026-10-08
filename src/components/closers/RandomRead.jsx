@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Dices } from 'lucide-react';
 import CloserFrame from './CloserFrame';
-import { loadAllPages } from '../../data/pages';
+import { usePageCatalog } from '../../hooks/usePageCatalog';
+import { CatalogError } from '../ui/CatalogError';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { fx } from '../../utils/fx';
 import shared from './shared.module.css';
@@ -12,17 +13,13 @@ import styles from './RandomRead.module.css';
  *  dice with manners: it never lands on the same one twice in a row. */
 export default function RandomRead({ tag, title, lede, keys = [], onward }) {
   const reduced = usePrefersReducedMotion();
-  const [pages, setPages] = useState(null);
+  const { catalog: pages, error, retry } = usePageCatalog();
   const [spin, setSpin] = useState({ at: 0, n: 0, going: false });
   const timer = useRef(0);
 
-  useEffect(() => {
-    let live = true;
-    loadAllPages().then((all) => { if (live) setPages(all); });
-    return () => { live = false; window.clearTimeout(timer.current); };
-  }, []);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
 
-  const list = keys.map((k) => ({ key: k, name: pages?.[k]?.title || k, line: pages?.[k]?.hero?.title || '' }));
+  const list = keys.map((k) => ({ key: k, name: pages?.[k]?.title || k, line: pages?.[k]?.heroTitle || '' }));
   const roll = () => {
     if (!list.length || spin.going) return;
     let next = Math.floor(Math.random() * list.length);
@@ -35,6 +32,7 @@ export default function RandomRead({ tag, title, lede, keys = [], onward }) {
 
   return (
     <CloserFrame tag={tag} title={title} lede={lede} onward={onward}>
+      {error && <CatalogError retry={retry} />}
       <div className={styles.rig} {...fx('randomread.reel')}>
         <div className={styles.window}>
           <ol key={spin.n} className={styles.reel} style={{ '--final': final, '--going': spin.n && !reduced ? 1 : 0 }} aria-hidden="true">
@@ -54,7 +52,7 @@ export default function RandomRead({ tag, title, lede, keys = [], onward }) {
             <p className={styles.wait}>{spin.going ? 'Spinning…' : 'Spin for one.'}</p>
           )}
         </div>
-        <button type="button" className={`${shared.btn} ${shared.btnRed}`} onClick={roll} disabled={spin.going || !list.length} {...fx('randomread.spin')}><Dices size={14} aria-hidden="true" /> Spin</button>
+        <button type="button" className={`${shared.btn} ${shared.btnRed}`} onClick={roll} disabled={error || spin.going || !list.length} {...fx('randomread.spin')}><Dices size={14} aria-hidden="true" /> Spin</button>
       </div>
     </CloserFrame>
   );

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { SITE_ORIGIN } from '../utils/constants';
 
 const BASE = 'Hanoryx Systems';
-const SITE_URL = 'https://hanoryx.com';
 
 function setMeta(selector, attributes, content) {
   let element = document.head.querySelector(selector);
@@ -21,7 +21,7 @@ export function useDocumentTitle(label, description) {
   useEffect(() => {
     const title = label ? `${label} — ${BASE}` : BASE;
     const summary = description || `${label || 'Software systems'} at Hanoryx Systems. Explore engineering, public projects, and interface research.`;
-    const canonical = `${SITE_URL}${window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '')}`;
+    const canonical = `${SITE_ORIGIN}${window.location.pathname === '/' ? '/' : window.location.pathname.replace(/\/$/, '')}`;
     document.title = title;
     setMeta('meta[name="description"]', { name: 'description' }, summary);
     setMeta('meta[property="og:title"]', { property: 'og:title' }, title);

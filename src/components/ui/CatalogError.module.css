@@ -1,0 +1,24 @@
+.notice {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--c-white-20);
+  border-radius: var(--r-sm);
+  background: var(--c-black-2);
+  color: var(--c-white);
+}
+
+.notice button {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--c-red-dim);
+  border-radius: var(--r-sm);
+  color: var(--c-white);
+  cursor: pointer;
+}
+
+.notice button:focus-visible {
+  outline: 2px solid var(--c-red);
+  outline-offset: 2px;
+}

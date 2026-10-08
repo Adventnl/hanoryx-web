@@ -24,6 +24,7 @@ npm run dev          # http://localhost:5173
 npm run build        # sitemap + production build -> dist/
 npm run preview
 npm run lint
+npm test           # scene and route-data checks
 npm run deploy       # build + wrangler deploy (Cloudflare Workers static assets)
 
 node qa/scene-smoke.mjs        # every Canvas scene on a mock 2D context (no browser)
@@ -60,6 +61,7 @@ Every page is **data**. `src/data/pages/<route>.js` default-exports `{ key, titl
 - **The resource data** lives beside the pages: `data/glossary.js` (the glossary, also the hover definitions in the long-form readers), `data/resources.js` (the tools and the downloadable files, each built in the browser), `data/releases.js` (the chapters of the site's history, read by the release-notes page and the footer's "new on the site" strip), `data/readiness.js` (the readiness check's questions) and `data/licences.js` (what the site is built from).
 - **The foreground toolkit** (`components/fx/`) holds the reusable pieces signatures are built from: `TiltSurface`, `SpotlightCard`, `ProximityText`, `ScrambleText`, `ScrollWords`, `Odometer`, `VelocityMarquee`, `GlideTabs`, `Accordion`, `CompareSlider`, `HoverIndex`, `DragRail`, `ScrollRail`, `Glyph` (27 drawn SVG glyphs), `ProgressRing`, `ArrowLink`, `KeyCap`.
 - **Navigation, footer and sitemap** read one source: `src/app/routeConfig.js` (`navGroups`, `pageRouteKeys`, `footerColumns`, `footerLegalRow`, `siteSections`, `redirects`; `directory` is derived from the menu and the footer for the 404 page). A page is added once.
+- **Page loading** starts with the current route. Hovering or focusing an internal link fetches its page data ahead of navigation. Search fetches one generated full-text index when opened; listings and page-list downloads fetch a smaller catalog. Both are rebuilt from page data when the dev server starts and on each build, so the 86 page data files stay out of the initial load. Restart the dev server after editing page data to refresh these indexes.
 
 To add a page: write its data file, add its key to `pageRouteKeys`, give it a place in the footer (`footerColumns`) or the menu — `qa/website-smoke.mjs` fails on a page nothing links to — and an ending (`type: 'closer'`), then run `npm run build` (the sitemap regenerates). To add an interaction: write a signature, register it, reference it from page data — see `FOREGROUND.md`.
 
@@ -143,6 +145,7 @@ All scripts read `QA_BASE` (default `http://127.0.0.1:5173`) and `CHROME_PATH`. 
 | --- | --- |
 | `qa/scene-smoke.mjs` | every Canvas scene on a mock 2D context, all qualities (no browser) |
 | `qa/endings.mjs` | the page-ending rules, from the page data (no browser): no call-to-action block anywhere, every page but two ends on a closer, no two pages share one, every named component exists and every registered closer is used, every internal link in the data goes to a real page |
+| `qa/loading-budget.mjs` | the home page avoids bulk page data, search loads one index asset and still finds body text, and a failed index fetch can be retried |
 | `qa/website-smoke.mjs` | every page at eight widths (280–1920): loads, no errors, no overflow, header controls inside the viewport; unique titles; links resolve; no stray external or `mailto:` links; every page ends on its own composition and never a call to contact; every page is linked from the menu or the footer; the footer is a directory of 50+ pages and leads to 40+ the menu does not; no Contact in the primary navigation; redirects; 404; favicon files; search opens; at 320 px under reduced motion, nothing loops forever and every heading is visible |
 | `qa/interactions.mjs` | START / audio / calibration / skip, navbar reveal, search at three widths, a menu's first hover (fresh, straight after a scroll, shortly after), `?` and `B`, mobile menu, the footer (six columns, live section counts, search, links; on a phone disclosures that really close), Motion Systems scroll smoothness, reduced motion, contact studio, storage inspector |
 | `qa/tools.mjs` | the browser tools do what they say (contrast, type scale, cron, readiness, decision record), the glossary lists and filters its terms, every download builds with the promised name and content, the release notes show every chapter, and a distinctive word finds each new section's page in the search |

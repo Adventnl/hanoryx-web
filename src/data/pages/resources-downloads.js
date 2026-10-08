@@ -10,7 +10,7 @@ const page = {
     intensity: 'hero',
     eyebrow: 'Resources / Downloads',
     title: 'Documents you can keep.',
-    intro: `${downloads.length} templates, checklists and reference files. Each is built in your browser when you press the button, so nothing is fetched, and the ones made from the site's own data are always in step with it.`,
+    intro: `${downloads.length} templates, checklists and reference files. Each file is assembled in your browser. The page list reads a small catalog made from the site's own pages.`,
     code: 'RES.03',
     status: `${downloads.length} DOCUMENTS`,
     actions: [
@@ -37,10 +37,10 @@ const page = {
       railLabel: 'How a download works',
       scene: 'architectural-grid',
       eyebrow: 'How a download works',
-      title: 'Four steps, none of them over a network.',
+      title: 'Four steps, with no upload.',
       steps: [
-        { step: '01', title: 'You press the button', body: 'That is the only request. Nothing is asked of a server.' },
-        { step: '02', title: 'The page builds the file', body: 'From text it already holds, or from the site’s own data: the glossary, the page list.' },
+        { step: '01', title: 'You press the button', body: 'The browser starts building the file. The page list may fetch a small catalog of page titles.' },
+        { step: '02', title: 'The page builds the file', body: 'From text it already holds, or from the site’s own data: the glossary and the page catalog.' },
         { step: '03', title: 'Your browser saves it', body: 'The file is made in memory and handed to a temporary link, the way any download is.' },
         { step: '04', title: 'Nothing is recorded', body: 'The site does not count downloads, and does not know which ones you chose.' },
       ],
@@ -55,7 +55,7 @@ const page = {
       items: [
         { q: 'Can I use the templates in my own work?', a: ['Yes. They are starting points written for this site, and they are meant to be changed. Use a document you make from one for your own work.'] },
         { q: 'Can I pass the templates on to other people?', a: ['Please ask first through the contact page. The site does not yet say on what conditions the templates themselves may be redistributed, and until it does, asking is the safe course.'] },
-        { q: 'Is anything uploaded when I press Download?', a: ['No. The file is built in your browser from text the page already holds, and your browser saves it. Nothing is sent.'] },
+        { q: 'Is anything uploaded when I press Download?', a: ['No. Your browser builds and saves the file. The page list may download a catalog of page titles, but your choices are not uploaded.'] },
         { q: 'Does the site count downloads?', a: ['No. It does not know which documents you chose, or whether you chose any.'] },
         { q: 'Why are most of them Markdown?', a: ['Markdown opens in any text editor and reads well as plain text. The reference files that are not prose use the format that suits them: CSV, JSON, CSS or plain text.'] },
         { q: 'Are they legal or professional advice?', a: ['No. They are general. A template for a runbook or a decision record is a shape to fill in, not a statement of what you ought to decide.'] },

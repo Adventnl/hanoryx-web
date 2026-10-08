@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+src/features/search/searchDocuments.generated.json
+src/data/pageCatalog.generated.json
 qa/review/
 *.local
 

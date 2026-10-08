@@ -1,8 +1,5 @@
-/* The Resources section's shelves: the five browser tools and the documents that
-   can be downloaded. Everything a download contains is generated in the visitor's
-   browser when they press the button — nothing is fetched — so the files can be
-   built from the site's own data (the glossary, the page list) and are always
-   in step with it. */
+/* The Resources section's tools and browser-generated downloads. The page-list
+   download fetches the generated page catalog so its titles stay current. */
 import { glossary } from './glossary';
 import { readinessGroups } from './readiness';
 import { routePath } from '../app/routeConfig';
@@ -219,8 +216,8 @@ const glossaryMd = () =>
   ['# Glossary', '', `${glossary.length} terms, in plain language.`, '', ...[...glossary].sort((a, b) => a.term.localeCompare(b.term)).flatMap((g) => [`**${g.term}** (${g.area})`, `: ${g.def}`, ''])].join('\n');
 
 const pageList = async () => {
-  const { loadAllPages } = await import('./pages'); // loaded on demand: the page index is browser-only
-  const pages = await loadAllPages();
+  const { loadPageCatalog } = await import('./pageCatalog');
+  const pages = await loadPageCatalog();
   const rows = Object.values(pages).map((p) => ({ path: routePath(p.key), title: p.title }));
   return ['PAGES ON THIS SITE', ruler(18), '', ...rows.map((r) => `${r.path.padEnd(38)} ${r.title}`), '', `${rows.length} pages`].join('\n');
 };

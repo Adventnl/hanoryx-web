@@ -4,14 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node scripts/generate-sitemap.mjs && vite build",
+    "dev": "node scripts/generate-page-indexes.mjs && vite",
+    "build": "node scripts/generate-sitemap.mjs && node scripts/generate-page-indexes.mjs && vite build",
     "lint": "eslint .",
+    "test": "node qa/scene-smoke.mjs && node qa/endings.mjs",
     "render:social": "node scripts/render-social.mjs",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
     "render:icons": "node scripts/render-icons.mjs",
-    "qa:inventory": "node qa/foreground-inventory.mjs"
+    "qa:inventory": "node qa/foreground-inventory.mjs",
+    "qa:loading": "node qa/loading-budget.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

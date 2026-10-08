@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { Download } from 'lucide-react';
 import CloserFrame from './CloserFrame';
-import { loadAllPages } from '../../data/pages';
+import { usePageCatalog } from '../../hooks/usePageCatalog';
+import { CatalogError } from '../ui/CatalogError';
 import { routePath } from '../../app/routeConfig';
 import { useCopy } from '../../hooks/useCopy';
 import { downloadText } from '../../utils/clipboard';
@@ -11,7 +12,6 @@ import shared from './shared.module.css';
 import styles from './ReadingList.module.css';
 
 const WPM = 220;
-const wordsIn = (v) => (typeof v === 'string' ? v.split(/\s+/).length : Array.isArray(v) ? v.reduce((n, x) => n + wordsIn(x), 0) : v && typeof v === 'object' ? Object.values(v).reduce((n, x) => n + wordsIn(x), 0) : 0);
 const SECTIONS = { insights: 'Insights', resources: 'Resources', north: 'Development', engineering: 'Development', lab: 'Development', company: 'Company', trust: 'Trust', legal: 'Legal', systems: 'Systems', work: 'Work' };
 const SKIP = new Set(['home', 'contact', 'sitemap']);
 
@@ -19,22 +19,16 @@ const SKIP = new Set(['home', 'contact', 'sitemap']);
  *  from a preset; the list comes out as Markdown with the links and an honest
  *  estimate of the time, ready to send to someone. */
 export default function ReadingList({ tag, title, lede, presets = [], onward }) {
-  const [pages, setPages] = useState(null);
+  const { catalog: pages, error, retry } = usePageCatalog();
   const [picked, setPicked] = useState(() => new Set());
   const [copied, copy] = useCopy();
-
-  useEffect(() => {
-    let live = true;
-    loadAllPages().then((all) => { if (live) setPages(all); });
-    return () => { live = false; };
-  }, []);
 
   const groups = useMemo(() => {
     if (!pages) return [];
     const by = {};
     Object.values(pages).filter((p) => !SKIP.has(p.key)).forEach((p) => {
       const section = SECTIONS[p.key.split('/')[0]] || 'Other';
-      (by[section] ||= []).push({ key: p.key, title: p.title, path: routePath(p.key), minutes: Math.max(1, Math.round(wordsIn(p.blocks) / WPM)) });
+      (by[section] ||= []).push({ key: p.key, title: p.title, path: routePath(p.key), minutes: Math.max(1, Math.round(p.words / WPM)) });
     });
     return Object.entries(by).map(([name, items]) => ({ name, items: items.sort((a, b) => a.path.localeCompare(b.path)) }));
   }, [pages]);
@@ -56,7 +50,7 @@ export default function ReadingList({ tag, title, lede, presets = [], onward }) 
             {presets.map((p) => <button key={p.label} type="button" className={shared.btn} onClick={() => setPicked(new Set(p.keys.filter((k) => flat.some((i) => i.key === k))))}>{p.label}</button>)}
             <button type="button" className={shared.btn} onClick={() => setPicked(new Set())} disabled={!picked.size}>Clear</button>
           </div>
-          {!pages && <p className={styles.wait}>Loading the page list…</p>}
+          {error ? <CatalogError retry={retry} /> : !pages && <p className={styles.wait}>Loading the page list…</p>}
           {groups.map((g) => {
             const n = g.items.filter((i) => picked.has(i.key)).length;
             return (

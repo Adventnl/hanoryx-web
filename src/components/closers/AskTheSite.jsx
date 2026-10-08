@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Search } from 'lucide-react';
 import CloserFrame from './CloserFrame';
-import { loadAllPages } from '../../data/pages';
-import { routePath } from '../../app/routeConfig';
-import { buildDocument, search } from '../../features/search/searchEngine';
+import { getSearchDocuments } from '../../features/search/searchIndex';
+import { search } from '../../features/search/searchEngine';
+import { CatalogError } from '../ui/CatalogError';
 import { fx } from '../../utils/fx';
 import styles from './AskTheSite.module.css';
 
@@ -26,18 +26,23 @@ function Marked({ text, ranges }) {
  *  that matched. If the answer is not on the site, it says so. */
 export default function AskTheSite({ tag, title, lede, examples = [], onward }) {
   const [docs, setDocs] = useState(null);
+  const [error, setError] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [q, setQ] = useState('');
 
   useEffect(() => {
     let live = true;
-    loadAllPages().then((all) => { if (live) setDocs(Object.values(all).map((p) => buildDocument(p, p.path || routePath(p.key)))); });
+    getSearchDocuments()
+      .then((all) => { if (live) { setDocs(all); setError(false); } })
+      .catch(() => { if (live) setError(true); });
     return () => { live = false; };
-  }, []);
+  }, [attempt]);
 
   const results = useMemo(() => (docs && q.trim().length > 1 ? search(docs, q, { limit: 4 }) : []), [docs, q]);
 
   return (
     <CloserFrame tag={tag} title={title} lede={lede} onward={onward}>
+      {error && <CatalogError subject="site search" retry={() => { setError(false); setAttempt((n) => n + 1); }} />}
       <div className={styles.ask} {...fx('askthesite.field')}>
         <label className={styles.field}>
           <Search size={18} aria-hidden="true" />

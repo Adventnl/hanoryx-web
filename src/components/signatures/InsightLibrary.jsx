@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { ArrowUpRight, MousePointerClick, Search } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { SpotlightCard } from '../fx/SpotlightCard';
 import { RevealGroup } from '@/animation/reveal/Reveal';
 import ArticleArtShape from './ArticleArtShape';
-import { loadAllPages } from '../../data/pages';
+import { usePageCatalog } from '../../hooks/usePageCatalog';
+import { CatalogError } from '../ui/CatalogError';
 import { fx } from '../../utils/fx';
 import styles from './InsightLibrary.module.css';
 
 const WPM = 220;
-const wordsIn = (v) => (typeof v === 'string' ? v.split(/\s+/).length : Array.isArray(v) ? v.reduce((n, x) => n + wordsIn(x), 0) : v && typeof v === 'object' ? Object.values(v).reduce((n, x) => n + wordsIn(x), 0) : 0);
 
 /**
  * The guides, as a library: filter by area, search, sort by length, and see at
@@ -20,24 +20,16 @@ const wordsIn = (v) => (typeof v === 'string' ? v.split(/\s+/).length : Array.is
  *   articles: [{ key, area, art }]
  */
 export default function InsightLibrary({ eyebrow, title, intro, articles = [] }) {
-  const [pages, setPages] = useState(null);
+  const { catalog: pages, error, retry } = usePageCatalog();
   const [area, setArea] = useState('All');
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState('area');
-
-  useEffect(() => {
-    let live = true;
-    loadAllPages().then((all) => { if (live) setPages(all); });
-    return () => { live = false; };
-  }, []);
 
   const items = useMemo(
     () =>
       articles.map((a) => {
         const p = pages?.[a.key];
-        const doc = p?.blocks?.find((b) => b.kind === 'document');
-        const demo = p?.blocks?.find((b) => b.type === 'signature' && b.kind !== 'document');
-        return { ...a, to: `/${a.key}`, name: p?.title || a.key, blurb: p?.hero?.intro || '', minutes: doc ? Math.max(1, Math.round(wordsIn(doc.sections) / WPM)) : null, demo: Boolean(demo) };
+        return { ...a, to: `/${a.key}`, name: p?.title || a.key, blurb: p?.intro || '', minutes: p?.documentWords != null ? Math.max(1, Math.round(p.documentWords / WPM)) : null, demo: p?.hasDemo || false };
       }),
     [articles, pages]
   );
@@ -72,7 +64,9 @@ export default function InsightLibrary({ eyebrow, title, intro, articles = [] })
           {areas.map((a) => <button key={a} type="button" className={clsx(styles.chip, area === a && styles.on)} aria-pressed={area === a} onClick={() => setArea(a)}>{a}</button>)}
         </div>
 
-        {shown.length === 0 ? (
+        {error ? (
+          <CatalogError retry={retry} />
+        ) : shown.length === 0 ? (
           <p className={styles.none}>No guide matches. Try fewer words.</p>
         ) : (
           <RevealGroup key={`${area}-${query}-${sort}`} profile="dataMaterialize" className={styles.grid} itemClassName={styles.cell} stagger={0.06}>

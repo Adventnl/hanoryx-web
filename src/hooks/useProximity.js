@@ -55,7 +55,7 @@ export function useProximity(ref, { radius = 220, deps = [] } = {}) {
           moving = true;
         }
       }
-      if (moving || pointer) frame = requestAnimationFrame(tick);
+      if (moving) frame = requestAnimationFrame(tick);
     };
     const kick = () => {
       if (!frame) frame = requestAnimationFrame(tick);
@@ -73,15 +73,20 @@ export function useProximity(ref, { radius = 220, deps = [] } = {}) {
       pointer = null;
       kick();
     };
+    const onScroll = () => {
+      if (pointer) kick();
+    };
 
     root.addEventListener('pointerenter', onEnter);
     root.addEventListener('pointermove', onMove, { passive: true });
     root.addEventListener('pointerleave', onLeave);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(frame);
       root.removeEventListener('pointerenter', onEnter);
       root.removeEventListener('pointermove', onMove);
       root.removeEventListener('pointerleave', onLeave);
+      window.removeEventListener('scroll', onScroll);
       units.forEach((u) => u.style.removeProperty('--k'));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

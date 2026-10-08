@@ -228,7 +228,7 @@ const page = {
               'Whether the intro has played is remembered in session storage so that it does not repeat on every page of the same tab.',
             ] },
             { sub: 'The menus, the search and the shortcuts', body: [
-              'The menus open when you point at them or press a key. The search opens with Ctrl or ⌘ and K (or the slash key). It looks through the text of the site’s pages, which your browser loads when the search first opens, and ranks the matches on your device. What you type is not sent anywhere and is not kept; only the pages you open from the results are remembered, in session storage, so they can be offered first next time.',
+              'The menus open when you point at them or press a key. The search opens with Ctrl or ⌘ and K (or the slash key). It downloads a search index made from the site’s pages when you first open it, then ranks matches on your device. What you type is not sent anywhere and is not kept; only the pages you open from the results are remembered, in session storage, so they can be offered first next time.',
               'The shortcut keys, blueprint mode and the keyboard help work entirely in the page.',
             ] },
             { sub: 'Work, Systems, Development and Company', body: [
@@ -236,7 +236,7 @@ const page = {
             ] },
             { sub: 'Insights and Resources', body: [
               'The guides are long-form documents; the find bar, the contents list and the print view work in the page. The tools — the contrast checker, the type scale, the cron explainer, the readiness check and the decision-record writer — are small programs that run in your browser. What you type into them stays in the page’s memory until you leave, and nothing about it is sent.',
-              'The downloads are files built in your browser at the moment you press the button, and saved through your browser’s ordinary download feature. Nothing is fetched from anywhere to make them.',
+              'The downloads are files built in your browser at the moment you press the button, then saved through your browser’s ordinary download feature. The page-list file may fetch a small catalog of page titles from this site. Your choices and file contents are not uploaded.',
             ] },
             { sub: 'The live status page', body: [
               'This page measures your visit and shows the results to you: the frame rate of the page, how the page loaded, the connection details your browser reports, your screen size, your language and time zone, and the processor cores and memory your browser reports. None of it is stored or sent.',

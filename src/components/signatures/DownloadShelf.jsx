@@ -10,9 +10,8 @@ import styles from './DownloadShelf.module.css';
 
 const size = (n) => (n < 1024 ? `${n} B` : `${(n / 1024).toFixed(1)} KB`);
 
-/** Twelve documents you can keep. Each is generated in your browser when you
- *  press the button — nothing is fetched — so the ones built from the site's own
- *  data (the glossary, the page list) are always in step with it. */
+/** Twelve documents assembled in the browser. The page-list download reads a
+ * generated catalog of page titles; the other files use data already loaded. */
 export default function DownloadShelf({ eyebrow, title, intro, note }) {
   const [area, setArea] = useState('All');
   const [built, setBuilt] = useState({});

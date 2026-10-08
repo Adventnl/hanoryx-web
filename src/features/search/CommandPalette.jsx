@@ -102,6 +102,7 @@ export function CommandPalette({ enabled = true }) {
   const [section, setSection] = useState('All');
   const [active, setActive] = useState(0);
   const [docs, setDocs] = useState(null);
+  const [searchError, setSearchError] = useState(false);
   const [recent, setRecent] = useState([]);
   const [hint, setHint] = useState(0);
 
@@ -111,17 +112,20 @@ export function CommandPalette({ enabled = true }) {
   const chipsRef = useRef(null);
   const returnFocus = useRef(null);
   const lastPointer = useRef({ x: 0, y: 0 });
+  const docsRequest = useRef(null);
 
-  // Load the index lazily; prefetch shortly after idle so first open is instant.
+  // Indexing every page is expensive. Start only when search is opened.
   const ensureDocs = useCallback(() => {
-    if (docs) return;
-    import('./searchIndex').then((mod) => mod.getSearchDocuments()).then(setDocs);
+    if (docs || docsRequest.current) return;
+    setSearchError(false);
+    docsRequest.current = import('./searchIndex')
+      .then((mod) => mod.getSearchDocuments())
+      .then(setDocs)
+      .catch(() => {
+        docsRequest.current = null;
+        setSearchError(true);
+      });
   }, [docs]);
-  useEffect(() => {
-    if (!enabled) return undefined;
-    const id = window.setTimeout(ensureDocs, 2500);
-    return () => window.clearTimeout(id);
-  }, [enabled, ensureDocs]);
 
   const openPalette = useCallback(() => {
     if (!enabled) return;
@@ -295,11 +299,10 @@ export function CommandPalette({ enabled = true }) {
   };
 
   const activeId = results[active] ? `${listId}-opt-${active}` : undefined;
-  const status = !docs
-    ? 'Loading search index'
-    : terms.length
-      ? `${results.length} ${results.length === 1 ? 'result' : 'results'}`
-      : 'Suggested pages';
+  let status = 'Suggested pages';
+  if (searchError) status = 'Search unavailable';
+  else if (!docs) status = 'Loading search index';
+  else if (terms.length) status = `${results.length} ${results.length === 1 ? 'result' : 'results'}`;
 
   const panelMotion = reduced
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0.12 } }
@@ -334,7 +337,7 @@ export function CommandPalette({ enabled = true }) {
             {...panelMotion}
           >
             <div className={styles.inputRow}>
-              <Search size={19} aria-hidden="true" className={clsx(styles.searchIcon, !docs && styles.pulsing)} />
+              <Search size={19} aria-hidden="true" className={clsx(styles.searchIcon, !docs && !searchError && styles.pulsing)} />
               <div className={styles.field}>
                 <label className="sr-only" htmlFor={inputId}>Search the site</label>
                 <input
@@ -457,7 +460,12 @@ export function CommandPalette({ enabled = true }) {
                   </p>
                 </div>
               )}
-              {!docs && <p className={styles.empty}>Indexing pages…</p>}
+              {searchError ? (
+                <div className={styles.empty}>
+                  <p>Search could not load the page index.</p>
+                  <p className={styles.emptyHint}><button type="button" onClick={ensureDocs}>Try again</button></p>
+                </div>
+              ) : !docs && <p className={styles.empty}>Indexing pages…</p>}
             </div>
 
             <div className={styles.footer} {...fx('palette.key-hints')}>

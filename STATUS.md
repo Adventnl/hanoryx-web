@@ -1,12 +1,33 @@
 # Status
 
-Updated 2026-10-06.
+Updated 2026-10-09.
 
 The site is a data-driven React/Vite app: **86 pages** (33 when this body of work began), each with its own animated Canvas background and its own foreground composition (see `FOREGROUND.md`), plus a 404. Work shows selected company work — Musebase and YK Engine first, an unnamed customer-facing product and an internal CRM/data system as quieter supporting studies. The only GitHub project linked anywhere is YK Engine, on its own page. There are no repository counts, language charts or generated GitHub timelines, and the company timeline is told in undated phases.
 
 Nothing has been deployed from this branch.
 
-## What changed in the latest pass
+## Performance and cleanup pass (2026-10-09)
+
+- The 86 routes still use the documented data-driven page model. The current route loads its own data; hovering or focusing a link warms that destination. The app no longer downloads all page modules in the background.
+- Search now fetches one generated full-text index when opened. Listings and the page-list download use a smaller generated catalog. Both are built from page data at dev startup and production build time.
+- A pointer effect stops its frame loop when settled, and reduced-motion pages paint offscreen canvases only when they approach view. Search and catalog failures show a retry action. Dead duplicate route/constants data was removed, and the canonical site origin has one runtime source.
+- Local headless Chrome, seven seconds after loading home: 151 → 58 requests, 127 → 34 scripts, and about 687 → 384 KB transferred. First search open was ready in about 99 ms in local mobile emulation; its single index transfer was about 337 KB compressed. These are local checks, not real-device or field metrics.
+- The downloads page and privacy notice now describe the page catalog request accurately. No change has been deployed.
+
+### Checks for this pass
+
+| check | result |
+| --- | --- |
+| `npm run build`, `npm run lint`, `npm test`, `git diff --check` | pass on the final source |
+| `QA_BASE=http://127.0.0.1:4173 npm run qa:loading` | 7/7: initial loading budget, search, and retry after index/catalog failures |
+| `node qa/tools.mjs` (production preview) | 27/27 on the final build, including all 12 downloads |
+| `node qa/website-smoke.mjs` (production preview) | 32/32 across 86 routes at eight widths on the earlier build in this pass; the final catalog changes were checked separately on affected routes |
+| `node qa/interactions.mjs` (production preview) | 86/86 on the earlier build in this pass; search was rechecked on the final build |
+| `npm audit --omit=dev --audit-level=high` | 0 vulnerabilities |
+
+The full browser sweeps ran before the final error-state and copy changes; targeted checks covered every catalog-backed route on the final build. Real phones, Firefox and Safari remain unmeasured.
+
+## What changed in the previous pass (2026-10-06)
 
 - **Four things that were reported.** The search overlay's padding is even; every page's closing "go to contact" block is gone and replaced by an ending of its own (84 different ones; the contact page and the site map end on their own content); a menu opens on the *first* hover (a smooth-scroll tail used to cancel the pending open); and the footer is a directory of the whole site, not a second navigation bar.
 - **53 new pages.** A legal centre of ten documents, a trust centre (live status measured in your own browser, security disclosure, third-party services, licences), eight guides in Insights, a resource centre (glossary, release notes, downloads, five browser tools), the development handbook, tokens, stack, quality and accessibility pages, systems and work reference pages, company pages (principles, security, timeline, careers, how we work, hiring, questions, press, brand), the interface kit's seven pages and a page that shows the page blocks.
@@ -16,7 +37,7 @@ Nothing has been deployed from this branch.
 - **Accessibility that the statement can stand on.** Page changes are announced and focus moves to the new page's main region; the single-key shortcuts can be switched off (WCAG 2.1.4); every page's text is measured for contrast as painted (`qa/contrast.mjs`) and small labels, dimmed steps and decorative codes were raised to 4.5 : 1 or hidden from assistive technology; the call-to-action block type was deleted.
 - **Honesty fixes.** The readiness check no longer says "ready" until enough has been answered; the copyright notice says "third-party" where GSAP is not open source; the privacy notice describes the device traits the motion budget reads; the privacy notice names the one button on the status page that makes requests.
 
-## Checks run on this state
+## Checks recorded for the previous pass
 
 | check | result |
 | --- | --- |

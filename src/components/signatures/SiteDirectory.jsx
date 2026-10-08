@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import clsx from 'clsx';
 import { ArrowUpRight, Search, Shuffle } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
-import { loadAllPages } from '../../data/pages';
+import { usePageCatalog } from '../../hooks/usePageCatalog';
+import { CatalogError } from '../ui/CatalogError';
 import { pageRouteKeys, routePath } from '../../app/routeConfig';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { fx } from '../../utils/fx';
@@ -39,14 +40,7 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [query, setQuery] = useState('');
-  const [pages, setPages] = useState(null);
-
-  // Every page's title and opening line, read from the page data itself.
-  useEffect(() => {
-    let live = true;
-    loadAllPages().then((all) => { if (live) setPages(all); });
-    return () => { live = false; };
-  }, []);
+  const { catalog: pages, error, retry } = usePageCatalog();
 
   const items = useMemo(
     () =>
@@ -58,7 +52,7 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
             key,
             to: routePath(key),
             title: page.searchTitle || page.title,
-            intro: page.hero?.intro || '',
+            intro: page.intro || '',
           };
         })
         .filter(Boolean),
@@ -74,6 +68,7 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
 
   const surprise = () => {
     const pool = items.filter((it) => it.to !== pathname);
+    if (!pool.length) return;
     navigate(pool[Math.floor(Math.random() * pool.length)].to);
   };
   const onKeyDown = (event) => {
@@ -92,11 +87,12 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
             <input value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={onKeyDown} placeholder="Filter the pages…" spellCheck={false} autoComplete="off" />
             <span className={styles.count} aria-live="polite">{visible.length} / {items.length}</span>
           </label>
-          <button type="button" className={styles.surprise} onClick={surprise} data-cursor="link" {...fx('sitemap.surprise')}>
+          <button type="button" className={styles.surprise} onClick={surprise} disabled={!items.length} data-cursor="link" {...fx('sitemap.surprise')}>
             <Shuffle size={14} aria-hidden="true" /> Take me somewhere
           </button>
         </div>
 
+        {error && <CatalogError retry={retry} />}
         {GROUPS.map((g) => {
           const rows = visible.filter((it) => g.test(it.key));
           if (rows.length === 0) return null;
@@ -127,7 +123,7 @@ export default function SiteDirectory({ eyebrow, title, intro }) {
             </section>
           );
         })}
-        {visible.length === 0 && <p className={styles.none}>No page matches “{query}”.</p>}
+        {pages && visible.length === 0 && <p className={styles.none}>No page matches “{query}”.</p>}
       </div>
     </div>
   );

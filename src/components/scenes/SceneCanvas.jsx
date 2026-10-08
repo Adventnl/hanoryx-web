@@ -191,7 +191,7 @@ export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density =
             ensureBuilt();
             if (!controller.running) drawStill();
           }
-          reportVisibility(controller, ratio);
+          if (!reduced) reportVisibility(controller, ratio);
         },
         { threshold: [0, 0.4, 0.9], rootMargin: '40px 0px' }
       );
@@ -222,10 +222,7 @@ export function SceneCanvas({ scene: name, sceneData, cost = 'medium', density =
       });
       ro.observe(canvas);
 
-      if (reduced) {
-        ensureBuilt();
-        drawStill();
-      } else {
+      if (!reduced) {
         unregister = registerBudget(controller);
       }
     });

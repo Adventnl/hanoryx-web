@@ -4,7 +4,7 @@ import { AnimatePresence } from 'motion/react';
 
 import { pageRouteKeys, redirects, routePath } from './routeConfig';
 import { RouteFallback } from '../components/layout/RouteFallback';
-import { warmPages, warmPath } from '../data/pages';
+import { warmPath } from '../data/pages';
 
 /* Route-level code splitting: every page is its own async chunk, so the initial
    bundle never carries the whole site. Every page — home, work, systems,
@@ -36,10 +36,9 @@ function ProjectRedirect() {
 export function AppRoutes() {
   const location = useLocation();
 
-  // Page data is one chunk per route: fetch it ahead of the click. Everything
-  // trickles in at idle, and a link's page starts the moment it is pointed at.
+  // Fetch the destination on intent. Loading every route in the background
+  // competes with the current page's animation and delays interactions.
   useEffect(() => {
-    warmPages();
     const onIntent = (event) => {
       const link = event.target.closest?.('a[href^="/"]');
       if (link) warmPath(link.getAttribute('href').split(/[?#]/)[0]);
