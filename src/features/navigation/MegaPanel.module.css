@@ -1,0 +1,198 @@
+/* ============================================================
+   MEGA PANEL — the wide menu. A full-width sheet under the bar: a rail of
+   categories on the left, the open category's pages as cards in the middle,
+   and a small orbit diagram on the right. Opacity and transform only.
+   ============================================================ */
+
+.wrap {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+/* the page below dims a little so the sheet reads as the one thing to look at */
+.scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(2, 2, 3, 0.62), rgba(2, 2, 3, 0.4));
+  pointer-events: none;
+}
+
+.sheet {
+  --rail: 252px;
+  position: relative;
+  pointer-events: auto;
+  background:
+    radial-gradient(60% 130% at 0% 0%, rgba(255, 51, 51, 0.07), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 38%),
+    rgba(7, 8, 10, 0.995);
+  border-top: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line-strong);
+  box-shadow: 0 60px 110px -50px #000;
+}
+
+/* the rail's tinted strip runs to the screen edge, as a sidebar does in a wide menu */
+.railBg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(max(0px, (100% - 1760px) / 2) + var(--gutter) + var(--rail) + var(--space-5));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.012), rgba(255, 255, 255, 0.03));
+  border-right: 1px solid var(--c-line);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 var(--space-8);
+  align-items: stretch;
+  max-width: 1760px;
+  min-height: 330px;
+  max-height: calc(100svh - var(--nav-h) - 12px);
+  margin-inline: auto;
+  padding: var(--space-6) var(--gutter) var(--space-6);
+}
+@media (min-width: 1360px) {
+  .sheet { --rail: 280px; }
+  .inner { grid-template-columns: var(--rail) minmax(0, 1fr) 180px; gap: 0 var(--space-6); }
+}
+
+/* corner brackets, as on the old panel */
+.corner { position: absolute; width: 14px; height: 14px; border-color: var(--c-red-dim); opacity: 0; animation: corner-in 0.5s var(--ease-out) 0.12s forwards; pointer-events: none; }
+.tl { top: 10px; left: calc(var(--gutter) - 14px); border-top: 1px solid; border-left: 1px solid; }
+.br { bottom: 10px; right: calc(var(--gutter) - 14px); border-bottom: 1px solid; border-right: 1px solid; }
+@keyframes corner-in { from { opacity: 0; transform: scale(0.6); } to { opacity: 0.85; transform: scale(1); } }
+
+/* ---- left: lead link + rail, or the group's introduction ---- */
+.side {
+  position: relative;
+  min-width: 0;
+  padding-right: var(--space-5);
+  margin-right: calc(-1 * var(--space-3));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.lead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.7rem 0.2rem 0.85rem 1rem;
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-white);
+  transition: color var(--dur-2) var(--ease-out);
+}
+.leadCode { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-red); min-width: 3.4rem; }
+.leadLabel { flex: 1; font-size: var(--fs-sm); }
+.leadArrow { opacity: 0.55; transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
+.lead:hover .leadArrow, .lead:focus-visible .leadArrow { opacity: 1; transform: translateX(3px); }
+
+.rail { display: flex; flex-direction: column; gap: 2px; }
+.tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0.62rem 0.8rem 0.62rem 1rem;
+  border-radius: var(--r-sm);
+  color: var(--c-white-65);
+  text-align: left;
+  transition: color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+}
+.tab::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: var(--c-red);
+  box-shadow: var(--glow-red);
+  transform: scaleY(0);
+  transition: transform 0.35s var(--ease-out);
+}
+.tab:hover { color: var(--c-white); }
+.tab[aria-selected='true'] { color: var(--c-white); background: var(--c-white-05); }
+.tab[aria-selected='true']::before { transform: scaleY(1); }
+.tabCode { font: 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-red); min-width: 1.5rem; }
+.tabLabel { flex: 1; font-size: var(--fs-sm); }
+.tabCount { font: 0.6rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-50); }
+.tabArrow { opacity: 0; transform: translateX(-4px); transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
+.tab[aria-selected='true'] .tabArrow { opacity: 0.9; transform: none; }
+
+.intro { display: grid; gap: var(--space-3); align-content: start; }
+.introTitle { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h3); line-height: 1.1; }
+.introBlurb { font-size: var(--fs-sm); color: var(--c-white-50); text-wrap: pretty; max-width: 34ch; }
+.intro .lead { margin-top: var(--space-2); border-top: 1px solid var(--c-line); border-bottom: 0; padding-left: 0; }
+
+/* ---- middle: the open category ---- */
+.stage {
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding-right: var(--space-2);
+  animation: stage-in 0.28s var(--ease-out) both;
+}
+@keyframes stage-in { from { opacity: 0; } to { opacity: 1; } }
+
+.head { display: grid; gap: 0.35rem; margin-bottom: var(--space-5); }
+.headCode { font-size: var(--fs-2xs); letter-spacing: 0.2em; color: var(--c-red); }
+.headTitle { font-family: var(--font-serif); font-weight: 300; font-size: var(--fs-h2); line-height: 1.05; letter-spacing: var(--ls-display); }
+.headBlurb { font-size: var(--fs-sm); color: var(--c-white-50); max-width: 62ch; text-wrap: pretty; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(216px, 1fr)); gap: var(--space-1) var(--space-3); }
+.card {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+  height: 100%;
+  padding: 0.95rem 1rem 1.05rem;
+  border: 1px solid transparent;
+  border-top-color: var(--c-line);
+  border-radius: var(--r-md);
+  animation: card-in 0.42s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 30ms + 40ms);
+  transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+@keyframes card-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.card:hover, .card:focus-visible, .hot { background: var(--c-white-03); border-color: var(--c-line-strong); }
+.cardTop { display: flex; align-items: center; gap: var(--space-2); }
+.cardCode { flex: 1; font: 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-red); }
+.cardArrow { opacity: 0.4; transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
+.card:hover .cardArrow, .card:focus-visible .cardArrow, .hot .cardArrow { opacity: 1; transform: translate(2px, -2px); }
+.cardTitle { font-size: 1.02rem; font-weight: 400; color: var(--c-white); }
+.cardDesc { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-white-50); text-wrap: pretty; }
+.live { width: 6px; height: 6px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); animation: node-pulse 2s ease-in-out infinite; }
+.current .cardTitle { color: var(--c-white); }
+
+/* ---- right: the orbit diagram ---- */
+.aside { display: none; }
+@media (min-width: 1360px) {
+  .aside { display: grid; place-items: center; align-content: center; }
+  .aside > div { max-width: 180px; }
+}
+
+@media (max-width: 1100px) {
+  .sheet { --rail: 210px; }
+  .inner { gap: 0 var(--space-6); }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+@media (max-width: 900px) {
+  .wrap { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .corner { animation: none; opacity: 0.85; }
+  .card, .stage { animation: none; }
+  .live { animation: none; }
+}

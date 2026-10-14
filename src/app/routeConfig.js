@@ -1,7 +1,7 @@
 /* ============================================================
    ROUTE CONFIG — the single source of truth for routes + navigation.
 
-   `navGroups`      drives the radial mega-menu and the mobile menu (primary
+   `navGroups`      drives the wide mega-menu and the mobile menu (primary
                     navigation only — Contact lives in the footer).
    `pageRouteKeys`  every route rendered through the data-driven PageTemplate,
                     keyed into data/pages/*.js (the page's own data file is
@@ -9,22 +9,50 @@
    `redirects`      retired routes. Old links never land on stale content.
    ============================================================ */
 
-export const navGroups = [
+import { chapters, pagesIn, showcasePages, showcasePath } from '../showcase/pages.js';
+
+/* A menu entry: label, route, a short code, and one line saying what is there. */
+const entry = (label, to, code, desc) => ({ label, to, code, desc });
+
+/* The primary menu is a wide panel, not a list: each group has a `lead` (its
+   overview, drawn above the rail) and `categories` (the left rail). Picking a
+   category fills the right of the panel with its pages, each with a line of
+   description. A group with one category has no rail — its panel opens with the
+   group's introduction in that place instead. Every entry also appears in the
+   flat `children` list (lead first), which the mobile menu, the 404 page's
+   suggestions and the tests read. */
+const menu = [
   {
     id: 'systems',
     label: 'Systems',
     code: 'SYS',
     to: '/systems',
     blurb: 'Operational platforms, commerce infrastructure, automation, and interfaces.',
-    children: [
-      { label: 'Overview', to: '/systems', code: 'SYS.00' },
-      { label: 'Operational Management', to: '/systems/operational-management', code: 'SYS.01' },
-      { label: 'Commerce Infrastructure', to: '/systems/commerce-infrastructure', code: 'SYS.02' },
-      { label: 'Automation', to: '/systems/automation', code: 'SYS.03' },
-      { label: 'Internal Platforms', to: '/systems/internal-platforms', code: 'SYS.04' },
-      { label: 'Data Interfaces', to: '/systems/data-interfaces', code: 'SYS.05' },
-      { label: 'Client Portals', to: '/systems/client-portals', code: 'SYS.06' },
-      { label: 'Research Systems', to: '/systems/research-systems', code: 'SYS.07' },
+    lead: entry('Overview', '/systems', 'SYS.00', 'The design areas Hanoryx builds in, side by side.'),
+    categories: [
+      {
+        id: 'areas',
+        code: '01',
+        label: 'Design areas',
+        blurb: 'Where the company designs and builds.',
+        items: [
+          entry('Operational Management', '/systems/operational-management', 'SYS.01', 'Scheduling, communication, records and role coordination.'),
+          entry('Commerce Infrastructure', '/systems/commerce-infrastructure', 'SYS.02', 'Transactions, catalogue logic and payments as one connected model.'),
+          entry('Automation', '/systems/automation', 'SYS.03', 'Explicit triggers, guarded conditions and inspectable actions.'),
+        ],
+      },
+      {
+        id: 'surfaces',
+        code: '02',
+        label: 'Platforms & interfaces',
+        blurb: 'What people use to work inside a system.',
+        items: [
+          entry('Internal Platforms', '/systems/internal-platforms', 'SYS.04', 'Dashboards, administrative controls and workflow actions.'),
+          entry('Data Interfaces', '/systems/data-interfaces', 'SYS.05', 'Scoped views and status surfaces for complex records.'),
+          entry('Client Portals', '/systems/client-portals', 'SYS.06', 'Role-aware access to records and workflows.'),
+          entry('Research Systems', '/systems/research-systems', 'SYS.07', 'Canvas, motion and performance studies you can inspect.'),
+        ],
+      },
     ],
   },
   {
@@ -33,16 +61,32 @@ export const navGroups = [
     code: 'DEV',
     to: '/north',
     blurb: 'Hanoryx North — our development team. Architecture, interface, motion, tooling.',
-    children: [
-      { label: 'Overview', to: '/north', code: 'NTH.00' },
-      { label: 'Engineering', to: '/north/engineering', code: 'NTH.01' },
-      { label: 'Architecture', to: '/north/architecture', code: 'NTH.02' },
-      { label: 'Interface Lab', to: '/north/interface-lab', code: 'NTH.03' },
-      { label: 'Motion Systems', to: '/north/motion-systems', code: 'NTH.04' },
-      { label: 'Tooling', to: '/north/tooling', code: 'NTH.05' },
-      { label: 'Components', to: '/north/components', code: 'KIT.00' },
-      { label: 'Site Engineering', to: '/engineering', code: 'ENG.01' },
-      { label: 'Visual Lab', to: '/lab', code: 'LAB.01' },
+    lead: entry('Overview', '/north', 'NTH.00', 'The team behind the systems, and how it works.'),
+    categories: [
+      {
+        id: 'north',
+        code: '01',
+        label: 'Hanoryx North',
+        blurb: 'The development team and its disciplines.',
+        items: [
+          entry('Engineering', '/north/engineering', 'NTH.01', 'Durable platforms: architecture, reliability and modular design.'),
+          entry('Architecture', '/north/architecture', 'NTH.02', 'Shaping a system from the data core outward.'),
+          entry('Interface Lab', '/north/interface-lab', 'NTH.03', 'This site as the specimen: navigation, search, components, scenes.'),
+          entry('Motion Systems', '/north/motion-systems', 'NTH.04', 'The easing, cadence and budget behind every movement.'),
+          entry('Tooling', '/north/tooling', 'NTH.05', 'The linter, bundler, smoke harness and browser checks.'),
+        ],
+      },
+      {
+        id: 'kit',
+        code: '02',
+        label: 'Kit & site',
+        blurb: 'What the site itself is built from.',
+        items: [
+          entry('Components', '/north/components', 'KIT.00', 'The interface kit: fields, navigation, feedback, data, overlays, layout.'),
+          entry('Site Engineering', '/engineering', 'ENG.01', 'Scene registry, shared scheduler, quality budget and code splitting.'),
+          entry('Visual Lab', '/lab', 'LAB.01', 'Selected Canvas studies with density and still-frame controls.'),
+        ],
+      },
     ],
   },
   {
@@ -51,12 +95,20 @@ export const navGroups = [
     code: 'WRK',
     to: '/work',
     blurb: 'Selected company work. Two primary projects, two quieter supporting studies.',
-    children: [
-      { label: 'Overview', to: '/work', code: 'WRK.00' },
-      { label: 'Musebase', to: '/work/musebase', code: 'WRK.01' },
-      { label: 'YK Engine', to: '/work/yk-engine', code: 'WRK.02' },
-      { label: 'Customer Product', to: '/work/customer-product', code: 'WRK.03' },
-      { label: 'Internal CRM', to: '/work/internal-crm', code: 'WRK.04' },
+    lead: entry('Overview', '/work', 'WRK.00', 'Two primary projects and two quieter supporting studies.'),
+    categories: [
+      {
+        id: 'selected',
+        code: '01',
+        label: 'Selected work',
+        blurb: 'Described plainly, without client names, dates or figures we cannot stand behind.',
+        items: [
+          entry('Musebase', '/work/musebase', 'WRK.01', 'A coordination application: scheduling, communication and records.'),
+          entry('YK Engine', '/work/yk-engine', 'WRK.02', 'A proprietary 2D engine with an editor, a player and export tooling.'),
+          entry('Customer Product', '/work/customer-product', 'WRK.03', 'A customer-facing product built around the transaction experience.'),
+          entry('Internal CRM', '/work/internal-crm', 'WRK.04', 'An internal data system designed to stay usable at very large scale.'),
+        ],
+      },
     ],
   },
   {
@@ -65,15 +117,41 @@ export const navGroups = [
     code: 'CMP',
     to: '/company',
     blurb: 'Hanoryx Systems — its principles, its security approach, and its chronology.',
-    children: [
-      { label: 'Overview', to: '/company', code: 'CMP.00' },
-      { label: 'Principles', to: '/company/principles', code: 'CMP.01' },
-      { label: 'Security', to: '/company/security', code: 'CMP.02' },
-      { label: 'Timeline', to: '/company/timeline', code: 'CMP.03' },
-      { label: 'Careers', to: '/company/careers', code: 'CMP.04' },
+    lead: entry('Overview', '/company', 'CMP.00', 'Hanoryx Systems, and Hanoryx North as its development team.'),
+    categories: [
+      {
+        id: 'company',
+        code: '01',
+        label: 'Hanoryx Systems',
+        blurb: 'How the company thinks, protects and grows.',
+        items: [
+          entry('Principles', '/company/principles', 'CMP.01', 'Six short rules, and what each one changes in practice.'),
+          entry('Security', '/company/security', 'CMP.02', 'How security shapes system design. An approach, not a certification.'),
+          entry('Timeline', '/company/timeline', 'CMP.03', 'Undated phases of the work, in the order they are told.'),
+          entry('Careers', '/company/careers', 'CMP.04', 'The kinds of work we do, for anyone who would like to introduce themselves.'),
+        ],
+      },
     ],
   },
+  {
+    id: 'showcase',
+    label: 'Showcase',
+    code: 'SHW',
+    to: '/showcase',
+    badge: 'New',
+    blurb: `${showcasePages.length} scroll-driven pages of components for their own sake. Nothing to read, a great deal to touch.`,
+    lead: entry('All pages', '/showcase', 'SHW.00', `The index: every one of the ${showcasePages.length} pages, with how each one moves.`),
+    categories: chapters.map((c) => ({
+      id: c.id,
+      code: c.code,
+      label: c.title,
+      blurb: c.blurb,
+      items: pagesIn(c.id).map((p) => entry(p.title, showcasePath(p.slug), `SHW.${String(showcasePages.indexOf(p) + 1).padStart(2, '0')}`, p.blurb)),
+    })),
+  },
 ];
+
+export const navGroups = menu.map((g) => ({ ...g, children: [g.lead, ...g.categories.flatMap((c) => c.items)] }));
 
 /* Every page rendered through PageTemplate. 'home' resolves to '/'. */
 export const pageRouteKeys = [
@@ -166,6 +244,13 @@ export const pageRouteKeys = [
 ];
 
 export const routePath = (key) => (key === 'home' ? '/' : `/${key}`);
+
+/* The showcase is its own family of routes: an index and one page per entry in
+   showcase/pages.js. They are not rendered through PageTemplate (each is a
+   scroll-driven stage), so they have no data file; `allRouteKeys` is every page
+   of the site, which the sitemap, the footer's counts and the tests use. */
+export const showcaseRouteKeys = ['showcase', ...showcasePages.map((p) => `showcase/${p.slug}`)];
+export const allRouteKeys = [...pageRouteKeys, ...showcaseRouteKeys];
 
 /* Retired routes -> where their visitors belong now. Matched exactly; the
    /projects/:id family is handled by a pattern route in routes.jsx. */
@@ -302,6 +387,18 @@ export const footerColumns = [
           { label: 'How to read the work', to: '/work/how-to-read' },
         ],
       },
+      {
+        heading: 'Showcase',
+        links: [
+          { label: 'All showcase pages', to: '/showcase' },
+          { label: 'Switchboard', to: '/showcase/switchboard' },
+          { label: 'Gauges', to: '/showcase/gauges' },
+          { label: 'Kinetic type', to: '/showcase/kinetic' },
+          { label: 'Tilt cards', to: '/showcase/tilt' },
+          { label: 'Loaders', to: '/showcase/loaders' },
+          { label: 'Handset screens', to: '/showcase/handset' },
+        ],
+      },
     ],
   },
   {
@@ -366,6 +463,7 @@ export const siteSections = [
   { id: 'systems', label: 'Systems', to: '/systems', test: (k) => k === 'systems' || k.startsWith('systems/') },
   { id: 'development', label: 'Development', to: '/north', test: (k) => k === 'north' || k.startsWith('north/') || k === 'engineering' || k === 'lab' },
   { id: 'company', label: 'Company', to: '/company', test: (k) => k === 'company' || k.startsWith('company/') || k === 'contact' },
+  { id: 'showcase', label: 'Showcase', to: '/showcase', test: (k) => k === 'showcase' || k.startsWith('showcase/') },
   { id: 'insights', label: 'Insights', to: '/insights', test: (k) => k === 'insights' || k.startsWith('insights/') },
   { id: 'resources', label: 'Resources', to: '/resources', test: (k) => k === 'resources' || k.startsWith('resources/') },
   { id: 'trust', label: 'Trust', to: '/trust', test: (k) => k === 'trust' || k.startsWith('trust/') },
