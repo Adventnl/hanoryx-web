@@ -1,0 +1,255 @@
+/* 18 · FOLD — a four-panel leaflet that opens and folds with the scroll, and forty-two things to flip, fold, peel and tear. */
+
+@keyframes tearOff { 0% { transform: none; } 60% { transform: rotateX(-150deg) translateY(-6px); } 100% { transform: rotateX(-172deg) translateY(-40px); opacity: 0; } }
+@keyframes sheetFlip { 0% { transform: none; } 100% { transform: rotateX(-175deg); opacity: 0; } }
+@keyframes cycle { 0%, 20% { transform: rotateY(0deg); } 25%, 45% { transform: rotateY(-90deg); } 50%, 70% { transform: rotateY(-180deg); } 75%, 95% { transform: rotateY(-270deg); } 100% { transform: rotateY(-360deg); } }
+@keyframes pageFlip { 0%, 8% { transform: rotateY(0deg) translateZ(var(--z)); } 24%, 76% { transform: rotateY(-178deg) translateZ(var(--z)); } 92%, 100% { transform: rotateY(0deg) translateZ(var(--z)); } }
+@keyframes wavePanel { 0%, 100% { transform: rotateY(-55deg); } 50% { transform: rotateY(55deg); } }
+@keyframes twist { to { transform: rotateX(360deg); } }
+@keyframes pleatOdd { 0%, 100% { transform: rotateY(52deg); } 50% { transform: rotateY(12deg); } }
+@keyframes pleatEven { 0%, 100% { transform: rotateY(-52deg); } 50% { transform: rotateY(-12deg); } }
+
+.reset { appearance: none; margin: 0; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: inherit; cursor: pointer; }
+
+/* ============ the still side: a leaflet ============ */
+.leaf { position: relative; display: grid; place-items: center; width: 100%; height: 100%; perspective: 1600px; }
+.sheet { --fold: calc((1 - clamp(0, var(--pin) * 2.2, 1)) * 150 - clamp(0, (var(--pin) - 0.7) * 3.4, 1) * 150); --o: calc(1 - abs(var(--fold)) / 150); position: relative; width: 92cqw; height: min(62cqh, 120cqw); transform-style: preserve-3d; transform: translateX(calc((1 - var(--o)) * 37.5%)) rotateX(10deg) rotateY(-14deg); }
+.pleat { position: absolute; top: 0; left: 100%; width: 100%; height: 100%; transform-origin: 0 50%; transform-style: preserve-3d; transform: rotateY(calc(var(--fold) * var(--s) * 1deg)); }
+.first { left: 0; width: 25%; transform: none; }
+.front, .back { position: absolute; inset: 0; border: 1px solid var(--c-white-20); backface-visibility: hidden; }
+.front { display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 40%, rgba(255, 51, 51, 0.28), transparent 58%), linear-gradient(150deg, #2a2d35, #0d0e11); filter: brightness(calc(1 + var(--sh) * (1 - var(--o)) * 0.3)); }
+.front b { font: 300 min(15cqw, 9cqh)/1 var(--font-serif); color: #fff; }
+.back { background: #101216; transform: rotateY(180deg); }
+.leafTag { position: absolute; left: 0; right: 0; bottom: 3%; display: flex; align-items: center; justify-content: center; gap: 0.7rem; margin: 0; font: 500 0.6rem var(--font-mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--c-white-50); }
+.leafSmall { position: relative; display: block; width: 14rem; height: 6.4rem; transform-style: preserve-3d; transform: perspective(1000px) translateX(calc((1 - var(--o)) * 37.5%)) rotateX(8deg) rotateY(-12deg); }
+.leafSmall .pleat { transition: transform 0.8s var(--ease-out); }
+.leafSmall .front b { font-size: 1.5rem; }
+.leafSmall .front { filter: brightness(calc(1 + var(--sh) * (1 - var(--o)) * 0.3)); }
+
+/* ============ shared ============ */
+.fig { display: grid; justify-items: center; align-content: center; gap: 0.7rem; width: 100%; container-type: inline-size; }
+.stage { position: relative; display: grid; place-items: center; width: min(100%, 20rem); min-height: 9rem; perspective: 900px; }
+.tall { min-height: 10rem; }
+.waveStage { min-height: 8rem; }
+.track { position: relative; width: min(100%, 15rem); height: 1.4rem; cursor: ew-resize; }
+.track::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: var(--c-white-20); }
+.track i { position: absolute; top: 50%; left: calc(var(--v) * 100%); width: 0.85rem; height: 0.85rem; margin: -0.425rem 0 0 -0.425rem; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+.cap { font: 500 0.58rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-50); }
+.fig i { font-style: normal; }
+.fig b { font: 300 1.5rem var(--font-serif); color: #fff; }
+
+/* 01 flip over · 02 flip up · 03 diagonal flip · 04 twin flip · 05 flip deck · 06 flip tiles */
+.flip { position: relative; display: block; width: 11rem; height: 6.8rem; transform-style: preserve-3d; transition: transform 0.7s var(--ease-spring-soft); }
+.flip > i { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); border-radius: 12px; background: linear-gradient(150deg, #2e3139, #101216); backface-visibility: hidden; }
+.flip > .bk { background: linear-gradient(150deg, rgba(255, 51, 51, 0.38), #101216); transform: rotateY(180deg); }
+[data-hot='true'] .y { transform: rotateY(180deg); }
+.x > .bk { transform: rotateX(180deg); }
+[data-hot='true'] .x { transform: rotateX(180deg); }
+.d > .bkD { background: linear-gradient(150deg, rgba(255, 51, 51, 0.38), #101216); transform: rotate3d(1, 1, 0, 180deg); }
+.d[data-on='true'] { transform: rotate3d(1, 1, 0, 180deg); }
+.twins { display: flex; justify-content: center; gap: 0.8rem; }
+.small { width: 5.2rem; height: 6.4rem; transition-delay: calc(var(--i) * 0.15s); }
+.deck { width: 14rem; height: 7rem; }
+.deck i { position: absolute; left: 1rem; top: 50%; z-index: calc(10 - var(--k)); display: grid; place-items: center; width: 5rem; height: 6.4rem; margin-top: -3.2rem; border: 1px solid var(--c-white-20); border-radius: 10px; background: repeating-linear-gradient(45deg, #1d1f25 0 6px, #14161a 6px 12px); transform: translate(calc(var(--k) * 2px), calc(var(--k) * -2px)); transition: transform 0.6s var(--ease-spring-soft), background 0s 0.3s; }
+.deck i b { opacity: 0; transition: opacity 0s 0.3s; }
+.deck i[data-out='true'] { z-index: calc(var(--k) + 1); background: linear-gradient(150deg, #2e3139, #101216); transform: translate(8rem, 0) rotateY(180deg); }
+.deck i[data-out='true'] b { opacity: 1; transform: scaleX(-1); }
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; width: min(100%, 18rem); perspective: 700px; cursor: crosshair; }
+.tiles i { display: grid; place-items: center; aspect-ratio: 1.3; border: 1px solid var(--c-white-20); border-radius: 8px; background: #15171b; transition: transform 0.5s, background 0.3s; }
+.tiles i b { font: 600 1.2rem var(--font-mono); opacity: 0.25; transition: opacity 0.2s; }
+.tiles i[data-on='true'] { background: var(--c-red); transform: rotateY(180deg); }
+.tiles i[data-on='true'] b { opacity: 1; transform: scaleX(-1); }
+
+/* 07 accordion fold · 08 letter fold · 09 tri-fold · 10 advent doors · 11 peel corner · 12 envelope · 13 notebook spread · 14 page turn */
+.letter { position: relative; display: block; width: 10rem; height: 8.4rem; transform-style: preserve-3d; }
+.letter i { position: absolute; left: 0; right: 0; display: grid; place-items: center; height: 33.34%; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #14161a); transition: transform 0.8s var(--ease-out); }
+.lt { top: 0; transform-origin: 50% 100%; transform-style: preserve-3d; backface-visibility: hidden; }
+.lm { top: 33.33%; }
+.lb { top: 66.66%; transform-origin: 50% 0; transform-style: preserve-3d; backface-visibility: hidden; }
+.lt::after, .lb::after { content: ''; position: absolute; inset: 0; border: 1px solid var(--c-white-20); background: #1a1c21; backface-visibility: hidden; transform: rotateX(180deg); }
+.letter[data-on='true'] .lt { transform: rotateX(-178deg) translateZ(2px); }
+.letter[data-on='true'] .lb { transform: rotateX(178deg); }
+.tri { position: relative; display: block; width: 11rem; height: 6.8rem; transform-style: preserve-3d; }
+.tc, .tl, .tr { position: absolute; top: 0; bottom: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); }
+.tc { left: 0; right: 0; background: radial-gradient(circle, rgba(255, 255, 255, 0.35), rgba(255, 51, 51, 0.25) 60%, #0c0d10); border-radius: 12px; }
+.tl, .tr { width: 50%; background: linear-gradient(150deg, #2e3139, #14161a); transition: transform 0.8s var(--ease-spring-soft); }
+.tl { left: 0; border-radius: 12px 0 0 12px; transform-origin: 0 50%; }
+.tr { right: 0; border-radius: 0 12px 12px 0; transform-origin: 100% 50%; }
+.tri[data-on='true'] .tl { transform: rotateY(-155deg); }
+.tri[data-on='true'] .tr { transform: rotateY(155deg); }
+.advent { display: grid; grid-template-columns: repeat(3, 3.6rem); gap: 0.4rem; }
+.advent button { position: relative; appearance: none; aspect-ratio: 1; padding: 0; border: 0; background: none; perspective: 400px; cursor: pointer; }
+.inside { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); border-radius: 6px; background: radial-gradient(circle, rgba(255, 255, 255, 0.5), #101216 75%); font-size: 1.2rem; color: #fff; }
+.door { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-30); border-radius: 6px; background: linear-gradient(150deg, #3a3d46, #1b1d22); font: 500 1.1rem var(--font-serif); color: #fff; transform-origin: 0 50%; transition: transform 0.6s var(--ease-spring-soft); }
+.door[data-open='true'] { transform: rotateY(-115deg); }
+.peelCard { position: relative; display: grid; place-items: center; width: 11rem; height: 7rem; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #101216); clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%); transition: clip-path 0.4s var(--ease-out); }
+.peelCard i { position: absolute; right: 0; top: 0; width: 22px; height: 22px; background: linear-gradient(135deg, #5a5d68, #3a3d46); clip-path: polygon(0 0, 100% 100%, 0 100%); transition: width 0.4s var(--ease-out), height 0.4s var(--ease-out); }
+[data-hot='true'] .peelCard { clip-path: polygon(0 0, calc(100% - 54px) 0, 100% 54px, 100% 100%, 0 100%); }
+[data-hot='true'] .peelCard i { width: 54px; height: 54px; }
+.peelWrap { position: relative; display: block; width: 11rem; height: 7rem; }
+.peelUnder { position: absolute; right: 0; top: 0; width: 54px; height: 54px; background: linear-gradient(225deg, var(--c-red) 50%, transparent 50%); }
+.env { position: relative; display: block; width: 10rem; height: 6.4rem; margin-top: 2.6rem; transform-style: preserve-3d; }
+.pocket { position: absolute; inset: 0; z-index: 2; border: 1px solid var(--c-white-30); border-radius: 6px; background: linear-gradient(150deg, #2e3139, #14161a); }
+.note { position: absolute; left: 0.9rem; right: 0.9rem; top: 0.6rem; z-index: 1; display: grid; place-items: center; height: 5.4rem; border: 1px solid var(--c-white-20); background: linear-gradient(180deg, #f1f1f4, #c9cad1); transition: transform 0.6s var(--ease-out) 0.3s; }
+.note b { color: #111; }
+.flap { position: absolute; left: 0; right: 0; top: 0; z-index: 3; height: 58%; background: linear-gradient(180deg, #3a3d46, #23252b); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: 50% 0; transition: transform 0.6s var(--ease-out); }
+.env[data-on='true'] .flap { transform: rotateX(180deg); z-index: 0; }
+.env[data-on='true'] .note { transform: translateY(-3.2rem); z-index: 1; }
+.nb { position: relative; display: block; width: 13rem; height: 7.4rem; transform-style: preserve-3d; }
+.pgL, .pgR, .tf, .tb { display: grid; place-items: center; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #14161a); }
+.pgL, .pgR { position: absolute; top: 0; width: 50%; height: 100%; }
+.pgL { left: 0; border-radius: 8px 0 0 8px; }
+.pgR { right: 0; border-radius: 0 8px 8px 0; }
+.turn { position: absolute; right: 0; top: 0; width: 50%; height: 100%; transform-origin: 0 50%; transform-style: preserve-3d; transition: transform 0.9s var(--ease-out); }
+.tf, .tb { position: absolute; inset: 0; backface-visibility: hidden; }
+.tf { border-radius: 0 8px 8px 0; }
+.tb { border-radius: 8px 0 0 8px; background: linear-gradient(150deg, #353840, #17191e); transform: rotateY(180deg); }
+.nb[data-on='true'] .turn { transform: rotateY(-180deg); }
+.book { position: relative; display: block; width: 12rem; height: 6.8rem; transform-style: preserve-3d; }
+.book::before { content: ''; position: absolute; left: 0; top: 0; width: 50%; height: 100%; border: 1px solid var(--c-white-12); border-radius: 8px 0 0 8px; background: #101216; }
+.book > i { position: absolute; left: 50%; top: 0; z-index: calc(10 - var(--k)); width: 50%; height: 100%; transform-origin: 0 50%; transform-style: preserve-3d; transition: transform 0.8s var(--ease-out); }
+.book > i[data-out='true'] { z-index: calc(var(--k) + 1); transform: rotateY(-178deg); }
+.book > i b, .book > i u { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #14161a); backface-visibility: hidden; text-decoration: none; font: 300 1.4rem var(--font-serif); color: #fff; }
+.book > i b { border-radius: 0 8px 8px 0; }
+.book > i u { border-radius: 8px 0 0 8px; background: linear-gradient(150deg, #353840, #17191e); transform: rotateY(180deg); }
+
+/* 15 shutters · 16 blinds · 17 curtain · 18 garage door · 19 fold-down · 20 bellows · 21 hand fan */
+.win { position: relative; display: block; width: 11rem; height: 7rem; border: 2px solid var(--c-white-30); border-radius: 6px; }
+.view { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 4px; background: radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.55), #14161a 75%); }
+.sl, .sr { position: absolute; top: 0; bottom: 0; width: 50%; border: 1px solid var(--c-white-20); background: repeating-linear-gradient(0deg, #2e3139 0 6px, #17191e 6px 8px); transition: transform 0.7s var(--ease-spring-soft); }
+.sl { left: 0; transform-origin: 0 50%; }
+.sr { right: 0; transform-origin: 100% 50%; }
+[data-hot='true'] .sl { transform: rotateY(-105deg); }
+[data-hot='true'] .sr { transform: rotateY(105deg); }
+.slats { position: absolute; inset: 0; display: grid; grid-template-rows: repeat(7, 1fr); }
+.slats i { border-bottom: 1px solid rgba(0, 0, 0, 0.6); background: linear-gradient(180deg, #3d4049, #1b1d22); transition: transform 0.5s; transition-delay: calc(var(--i) * 30ms); }
+[data-hot='true'] .slats i { transform: rotateX(84deg); }
+.curtain { position: relative; display: block; width: 12rem; height: 7.4rem; overflow: hidden; border: 1px solid var(--c-white-20); background: #0b0c0f; }
+.stageBg { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(ellipse at 50% 0, rgba(255, 255, 255, 0.4), transparent 70%), #0c0d10; }
+.cl, .cr { position: absolute; top: 0; bottom: 0; width: 50%; background: repeating-linear-gradient(90deg, #3a0c0c 0 9px, #6b1515 9px 18px); transition: transform 0.8s var(--ease-out); }
+.cl { left: 0; transform-origin: 0 50%; }
+.cr { right: 0; transform-origin: 100% 50%; }
+.curtain[data-on='true'] .cl, .curtain[data-on='true'] .cr { transform: scaleX(0.16); }
+.garage { position: relative; display: block; width: 11rem; height: 7rem; overflow: hidden; border: 1px solid var(--c-white-30); background: #0b0c0f; }
+.garage .inside { border: 0; border-radius: 0; background: radial-gradient(circle at 50% 75%, rgba(255, 255, 255, 0.55), #101216 72%); font: 300 1.3rem var(--font-serif); }
+.gp { position: absolute; left: 0; right: 0; top: calc(var(--i) * 25%); height: 25%; border-bottom: 1px solid rgba(0, 0, 0, 0.6); background: linear-gradient(180deg, #2e3139, #1a1c21); transition: transform 0.6s var(--ease-out); transition-delay: calc((3 - var(--i)) * 0.08s); }
+.garage[data-on='true'] .gp { transform: translateY(calc(-100% * (var(--i) + 1))); }
+.wall { position: relative; display: block; width: 8rem; height: 7rem; border: 1px solid var(--c-white-20); border-radius: 6px; background: #14161a; transform-style: preserve-3d; }
+.shelf { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-30); background: linear-gradient(150deg, #3d4049, #1b1d22); transform-origin: 50% 0; transition: transform 0.8s var(--ease-spring-soft); }
+.wall[data-on='true'] .shelf { transform: rotateX(-80deg); }
+.bell { width: min(100%, 20rem); }
+.bell rect { fill: var(--c-white-30); }
+.bell polygon { fill: #2a2d35; stroke: rgba(0, 0, 0, 0.6); stroke-width: 0.4; }
+.bell polygon[data-hi='true'] { fill: #454955; }
+.fan { position: relative; display: block; width: 12rem; height: 7.6rem; }
+.fan i { position: absolute; left: 50%; bottom: 0; width: 1.9rem; height: 6.8rem; margin-left: -0.95rem; border: 1px solid var(--c-white-20); border-radius: 10px 10px 2px 2px; background: linear-gradient(180deg, #3d4049, #1b1d22); transform-origin: 50% 100%; transform: rotate(calc((var(--i) - 3) * 1.5deg)); transition: transform 0.7s var(--ease-spring-soft); transition-delay: calc(var(--i) * 20ms); }
+.fan i:nth-child(odd) { background: linear-gradient(180deg, rgba(255, 51, 51, 0.55), #1b1d22); }
+.fan::after { content: ''; position: absolute; left: 50%; bottom: -0.2rem; width: 0.8rem; height: 0.8rem; margin-left: -0.4rem; border-radius: 50%; background: #fff; }
+.fan[data-on='true'] i { transform: rotate(calc((var(--i) - 3) * 17deg)); }
+
+/* 22 peel label · 23 sticker sheet · 24 tear off · 25 face roll · 26 split open · 27 diagonal fold · 28 layer peel · 29 scroll roll · 30 spiral pad */
+.label { position: relative; display: block; width: 11rem; height: 5rem; }
+.under { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 6px; background: var(--c-red); }
+.lpart, .lpeel { position: absolute; top: 0; height: 100%; background: linear-gradient(150deg, #ececf0, #c4c5cc); }
+.lpart { right: 0; width: 60%; display: grid; place-items: center; border-radius: 0 6px 6px 0; }
+.lpart b { color: #111; }
+.lpeel { left: 0; width: 40%; border-radius: 6px 0 0 6px; transform-origin: 100% 50%; transition: transform 0.6s var(--ease-out); backface-visibility: visible; }
+[data-hot='true'] .lpeel { transform: rotateY(160deg); background: linear-gradient(150deg, #b0b1b8, #8e8f97); }
+.sheetBox { display: flex; gap: 0.7rem; padding: 0.8rem; border: 1px solid var(--c-white-12); border-radius: 10px; background: #101114; }
+.sheetBox button { position: relative; appearance: none; width: 4.2rem; height: 4.2rem; padding: 0; border: 0; background: none; cursor: pointer; }
+.ghost { position: absolute; inset: 0; border: 1px dashed var(--c-white-20); border-radius: 50%; }
+.sticker { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 50%; background: var(--c-red); box-shadow: 0 4px 8px -3px rgba(0, 0, 0, 0.8); font: 600 1.4rem var(--font-serif); color: #fff; transition: transform 0.5s var(--ease-spring-soft), box-shadow 0.5s; }
+.sticker[data-gone='true'] { transform: translateY(-1.5rem) rotate(var(--r)) scale(1.12); box-shadow: 0 22px 20px -10px #000; }
+.cal { position: relative; display: block; width: 8rem; height: 7rem; transform-style: preserve-3d; }
+.page { position: absolute; left: 0; right: 0; top: 1.1rem; bottom: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); border-radius: 0 0 8px 8px; background: linear-gradient(180deg, #2e3139, #14161a); }
+.page b { font: 300 3.4rem var(--font-serif); font-variant-numeric: lining-nums; }
+.cal u { position: absolute; left: 0; right: 0; top: 0; z-index: 5; height: 1.3rem; border-radius: 8px 8px 0 0; background: var(--c-red); }
+.torn { z-index: 3; transform-origin: 50% 0; animation: tearOff 0.8s ease-in forwards; }
+.prism { position: relative; display: block; width: 10rem; height: 3.4rem; transform-style: preserve-3d; transition: transform 0.6s var(--ease-spring-soft); }
+.prism i { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #14161a); transform: rotateX(calc(var(--i) * 90deg)) translateZ(1.7rem); }
+.prism i b { font-size: 1.2rem; }
+.split { position: relative; display: block; width: 11rem; height: 6.8rem; transform-style: preserve-3d; }
+.core { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 12px; background: radial-gradient(circle, rgba(255, 255, 255, 0.55), rgba(255, 51, 51, 0.3) 60%, #0b0c0f); }
+.halfL, .halfR { position: absolute; top: 0; bottom: 0; width: 50%; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #101216); transition: transform 0.8s var(--ease-spring-soft); }
+.halfL { left: 0; border-radius: 12px 0 0 12px; transform-origin: 0 50%; }
+.halfR { right: 0; border-radius: 0 12px 12px 0; transform-origin: 100% 50%; }
+[data-hot='true'] .halfL { transform: rotateY(-110deg); }
+[data-hot='true'] .halfR { transform: rotateY(110deg); }
+.dg { position: relative; display: block; width: 11rem; height: 7rem; }
+.dgBase { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #101216); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0); transition: clip-path 0.6s var(--ease-out); }
+.dgFold { position: absolute; left: 0; top: 0; width: 2.8rem; height: 2.8rem; background: linear-gradient(135deg, #4a4d57, #2a2d34); clip-path: polygon(100% 0, 0 100%, 100% 100%); opacity: 0; transform: scale(0.01); transform-origin: 100% 100%; transition: transform 0.6s var(--ease-out), opacity 0.3s; }
+.dg[data-on='true'] .dgBase { clip-path: polygon(2.8rem 0, 100% 0, 100% 100%, 0 100%, 0 2.8rem); }
+.dg[data-on='true'] .dgFold { opacity: 1; transform: none; }
+.layers { position: relative; display: block; width: 11rem; height: 7rem; }
+.layers i { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); border-radius: 10px; transition: transform 0.6s var(--ease-spring-soft); }
+.l1 { background: linear-gradient(150deg, rgba(255, 51, 51, 0.5), #14161a); }
+.l2 { background: linear-gradient(150deg, #3d4049, #1b1d22); transform: translate(0.4rem, -0.4rem); }
+.l3 { background: linear-gradient(150deg, #4a4e59, #23252b); transform: translate(0.8rem, -0.8rem); transform-origin: 100% 100%; }
+[data-hot='true'] .l3 { transform: translate(2.2rem, 1rem) rotate(14deg); }
+[data-hot='true'] .l2 { transform: translate(0.9rem, -0.2rem) rotate(4deg); }
+.scroll { display: grid; width: 10rem; }
+.roller { display: block; height: 0.9rem; border-radius: 999px; background: linear-gradient(180deg, #d6d6dc, #7a7d86 55%, #43464e); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); }
+.paper { display: grid; place-items: center; align-content: center; gap: 0.2rem; max-height: 0; overflow: hidden; background: linear-gradient(90deg, #cfcfd6, #f1f1f4 50%, #cfcfd6); transition: max-height 0.7s var(--ease-out); }
+.paper b { color: #111; }
+.paper span { font: 500 0.52rem var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase; color: #555; }
+.scroll[data-on='true'] .paper { max-height: 5.4rem; }
+.pad { position: relative; display: block; width: 8rem; height: 7.4rem; transform-style: preserve-3d; }
+.sheetUnder, .sheetTop { position: absolute; inset: 1rem 0 0 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); border-radius: 0 0 8px 8px; background: linear-gradient(180deg, #2e3139, #14161a); }
+.sheetTop { z-index: 2; transform-origin: 50% 0; }
+.flipUp { animation: sheetFlip 0.8s ease-in-out forwards; }
+.pad u { position: absolute; left: 0; right: 0; top: 0; z-index: 5; display: flex; justify-content: space-around; text-decoration: none; }
+.pad s { width: 0.4rem; height: 1.3rem; border-radius: 999px; background: #b6b7be; text-decoration: none; }
+
+/* 31 leaf cycle · 32 page flipper · 33 wave fold · 34 twist ribbon · 35 pleats · 36 paper steps · 37 fold angle · 38 book edge · 39 card wallet · 40 pocket reveal · 41 perforation · 42 clamshell */
+.cycle { position: relative; width: 5rem; height: 6.4rem; transform-style: preserve-3d; animation: cycle 10s ease-in-out infinite; }
+.cycle i { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--c-white-20); border-radius: 8px; background: linear-gradient(150deg, #2e3139, #14161a); transform: rotateY(calc(var(--i) * 90deg)) translateZ(2.5rem); }
+.cycle i:nth-child(2n) { background: linear-gradient(150deg, rgba(255, 51, 51, 0.4), #14161a); }
+.flipper { position: relative; display: block; width: 11rem; height: 6.8rem; transform-style: preserve-3d; }
+.flipper::before { content: ''; position: absolute; left: 0; top: 0; width: 50%; height: 100%; border: 1px solid var(--c-white-12); border-radius: 8px 0 0 8px; background: #101216; }
+.flipper i { --z: calc((4 - var(--k)) * 0.5px); position: absolute; left: 50%; top: 0; display: grid; place-items: center; width: 50%; height: 100%; border: 1px solid var(--c-white-20); border-radius: 0 8px 8px 0; background: linear-gradient(150deg, #2e3139, #14161a); transform-origin: 0 50%; animation: pageFlip 8s ease-in-out infinite; animation-delay: calc(var(--k) * 0.6s); }
+.wave { display: flex; gap: 2px; transform-style: preserve-3d; }
+.wave i { width: 1.2rem; height: 6rem; background: linear-gradient(180deg, #3d4049, #1b1d22); animation: wavePanel 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * -0.2s); }
+.wave i:nth-child(even) { background: linear-gradient(180deg, rgba(255, 51, 51, 0.5), #1b1d22); }
+.ribbon { display: flex; transform-style: preserve-3d; }
+.ribbon i { width: 1.1rem; height: 3.4rem; background: linear-gradient(180deg, var(--c-red), #7a1010); animation: twist 3.6s linear infinite; animation-delay: calc(var(--i) * -0.3s); }
+.pleats { display: flex; transform-style: preserve-3d; }
+.pleats i { width: 1.1rem; height: 6rem; background: linear-gradient(180deg, #4a4e59, #23252b); }
+.pleats i:nth-child(odd) { animation: pleatOdd 5s ease-in-out infinite; }
+.pleats i:nth-child(even) { background: linear-gradient(180deg, #2a2d35, #14161a); animation: pleatEven 5s ease-in-out infinite; }
+.steps { position: relative; display: block; width: 7rem; height: 7rem; }
+.steps u { position: absolute; inset: 0; border: 1px dashed var(--c-white-20); }
+.steps i { position: absolute; inset: 0; background: linear-gradient(150deg, #ececf0, #a9abb3); transition: clip-path 0.6s var(--ease-out); }
+.steps i[data-k='0'] { clip-path: polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 0 50%); }
+.steps i[data-k='1'] { clip-path: polygon(0 0, 0 0, 0 0, 100% 100%, 0 100%, 0 0); }
+.steps i[data-k='2'] { clip-path: polygon(0 100%, 0 100%, 0 100%, 100% 100%, 100% 100%, 50% 50%); }
+.steps i[data-k='3'] { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%, 50% 0, 50% 0); }
+.hinge { position: relative; display: block; width: 11rem; height: 6.4rem; transform-style: preserve-3d; transform: rotateY(-18deg); }
+.hl, .hr { position: absolute; top: 0; display: grid; place-items: center; width: 50%; height: 100%; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #14161a); }
+.hl { left: 0; border-radius: 8px 0 0 8px; }
+.hr { left: 50%; border-radius: 0 8px 8px 0; transform-origin: 0 50%; transform: rotateY(calc(var(--a) * -1deg)); filter: brightness(calc(1 - var(--a) / 175 * 0.5)); }
+.edge { position: relative; display: block; width: 9rem; height: 6.4rem; }
+.edge i { position: absolute; left: 0; right: 0; bottom: 0; height: 4.8rem; border: 1px solid var(--c-white-20); border-radius: 4px; background: linear-gradient(180deg, #3d4049, #1b1d22); transform-origin: 0 100%; transform: rotate(calc(var(--i) * 0.6deg)); transition: transform 0.6s var(--ease-spring-soft); }
+.edge i:last-child { border-color: var(--c-red); }
+[data-hot='true'] .edge i { transform: rotate(calc(var(--i) * 4deg)); }
+.wallet { position: relative; display: block; width: 10rem; height: 6.6rem; margin-top: 2rem; }
+.wcard { position: absolute; left: 0.8rem; right: 0.8rem; top: 0; z-index: 1; display: grid; place-items: center; height: 5rem; border: 1px solid var(--c-white-30); border-radius: 8px; background: linear-gradient(135deg, var(--c-red), #5a0f0f); transition: transform 0.6s var(--ease-spring-soft); }
+.wfront { position: absolute; inset: 1.4rem 0 0 0; z-index: 2; display: grid; place-items: center; border: 1px solid var(--c-white-30); border-radius: 6px 6px 10px 10px; background: linear-gradient(150deg, #2e3139, #14161a); }
+.wallet[data-on='true'] .wcard { transform: translateY(-1.8rem); }
+.sleeve { position: relative; display: block; width: 10rem; height: 7rem; }
+.scard { position: absolute; left: 0.9rem; bottom: 0.6rem; z-index: 1; display: grid; place-items: center; width: 7.6rem; height: 5.2rem; border: 1px solid var(--c-white-30); border-radius: 8px; background: linear-gradient(135deg, var(--c-red), #5a0f0f); transition: transform 0.6s var(--ease-spring-soft); }
+.sfront { position: absolute; inset: 0; z-index: 2; border: 1px solid var(--c-white-30); border-radius: 6px; background: linear-gradient(150deg, #2e3139, #14161a); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0); -webkit-mask: linear-gradient(90deg, #000 0, #000 62%, transparent 62%); mask: linear-gradient(90deg, #000 0, #000 62%, transparent 62%); }
+[data-hot='true'] .scard { transform: translateX(3.6rem); }
+.coupon { position: relative; display: flex; width: 12rem; height: 5.4rem; }
+.cmain, .cstub { display: grid; place-items: center; border: 1px solid var(--c-white-20); background: linear-gradient(150deg, #2e3139, #14161a); }
+.cmain { flex: 1; border-radius: 8px 0 0 8px; border-right: 1px dashed var(--c-white-50); }
+.cstub { width: 3.6rem; border-left: 0; border-radius: 0 8px 8px 0; transform-origin: 0 100%; transition: transform 0.7s var(--ease-spring-soft); }
+.cstub b { font-size: 1rem; }
+.coupon[data-on='true'] .cstub { transform: translate(0.8rem, 1.4rem) rotate(14deg); }
+.shell { position: relative; display: block; width: 10rem; height: 7.4rem; transform-style: preserve-3d; }
+.shell .base { position: absolute; left: 0; right: 0; bottom: 0; display: grid; place-items: center; height: 50%; border: 1px solid var(--c-white-20); border-radius: 0 0 10px 10px; background: radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.45), #14161a 70%); }
+.lid { position: absolute; left: 0; right: 0; top: 0; display: grid; place-items: center; height: 50%; border: 1px solid var(--c-white-20); border-radius: 10px 10px 0 0; background: linear-gradient(150deg, #2e3139, #14161a); transform-origin: 50% 100%; transition: transform 0.8s var(--ease-spring-soft); }
+.shell[data-on='true'] .lid { transform: rotateX(112deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cycle, .flipper i, .wave i, .ribbon i, .pleats i, .torn, .flipUp { animation: none; }
+}
