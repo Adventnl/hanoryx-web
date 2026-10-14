@@ -6,8 +6,6 @@
 
 /* --- Families --- */
 .font-serif { font-family: var(--font-serif); }
-.font-sans  { font-family: var(--font-sans); }
-.font-mono  { font-family: var(--font-mono); }
 
 /* --- Display / headings (cinematic serif) --- */
 .display {
@@ -109,21 +107,6 @@
   color: var(--c-white-50);
 }
 
-.kicker {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: var(--fs-2xs);
-  letter-spacing: var(--ls-wider);
-  text-transform: uppercase;
-  color: var(--c-text-dim);
-}
-
-/* --- Color modifiers --- */
-.text-strong { color: var(--c-text-strong); }
-.text-dim    { color: var(--c-text-dim); }
-.text-faint  { color: var(--c-white-50); }
-.text-red    { color: var(--c-red); }
-
 /* --- Inline live red node (preserves original "flashing-red-dot") --- */
 .node-dot {
   display: inline-block;
@@ -134,12 +117,4 @@
   background: var(--c-red);
   box-shadow: var(--glow-red);
   animation: node-pulse 1.5s infinite ease-in-out;
-}
-
-/* --- Gradient ink for select headlines --- */
-.ink-fade {
-  background: linear-gradient(180deg, var(--c-white) 0%, var(--c-white-50) 130%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }

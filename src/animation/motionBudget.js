@@ -35,7 +35,7 @@ export function getMotionState() {
   return state;
 }
 
-export function refreshMotionState() {
+function refreshMotionState() {
   state = detect();
   return state;
 }
@@ -79,17 +79,6 @@ export function maxActiveScenes() {
    regardless of a 60/120Hz display; halves/quarters draw work, invisibly. */
 export function sceneFrameInterval() {
   return 1000 / 30;
-}
-
-/* At most one full-quality "hero" scene at a time. */
-let heroLocked = false;
-export function claimHero() {
-  if (heroLocked) return false;
-  heroLocked = true;
-  return true;
-}
-export function releaseHero() {
-  heroLocked = false;
 }
 
 if (typeof window !== 'undefined' && window.matchMedia) {

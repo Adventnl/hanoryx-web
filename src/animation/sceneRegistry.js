@@ -25,10 +25,6 @@ export function getScene(name) {
   return registry.get(name) || null;
 }
 
-export function hasScene(name) {
-  return registry.has(name);
-}
-
 export function listScenes() {
   return Array.from(registry.keys());
 }

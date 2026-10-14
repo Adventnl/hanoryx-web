@@ -28,11 +28,3 @@ const musebaseEntry = Object.entries(musebaseCandidates).find(([path]) =>
 
 export const musebaseLogo = musebaseEntry ? musebaseEntry[1] : null;
 export const hasMusebaseLogo = Boolean(musebaseLogo);
-
-/* Generic resolver for any optional asset by name fragment. */
-export function resolveOptionalImage(fragment) {
-  const entry = Object.entries(musebaseCandidates).find(([path]) =>
-    new RegExp(fragment, 'i').test(path)
-  );
-  return entry ? entry[1] : null;
-}

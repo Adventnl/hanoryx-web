@@ -50,7 +50,7 @@ export function subscribe(callback) {
   return () => unsubscribe(callback);
 }
 
-export function unsubscribe(callback) {
+function unsubscribe(callback) {
   subscribers.delete(callback);
 }
 

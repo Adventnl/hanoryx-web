@@ -1,14 +1,6 @@
 /* Canvas-side colour palette mirroring the CSS tokens. Canvas can't read CSS
    variables cheaply per frame, so scenes use these helpers. */
 
-export const PALETTE = {
-  void: '#020203',
-  black: '#050505',
-  white: '#ffffff',
-  red: '#ff3333',
-  redBright: '#ff4d4d',
-};
-
 export const white = (a = 1) => `rgba(255,255,255,${a})`;
 export const red = (a = 1) => `rgba(255,51,51,${a})`;
 

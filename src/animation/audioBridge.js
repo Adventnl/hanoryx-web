@@ -47,5 +47,3 @@ export function writeAudioBytes(bytes) {
 export function getAudio() {
   return state;
 }
-
-export const AUDIO_BANDS = BANDS;

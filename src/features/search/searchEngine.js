@@ -32,7 +32,7 @@ const SKIP_KEYS = new Set([
 ]);
 
 /* lowercase + strip diacritics so "café" matches "cafe". */
-export function normalize(value) {
+function normalize(value) {
   return String(value || '')
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
@@ -51,7 +51,7 @@ function clean(text) {
 
 /* Walk a page-data object and collect readable passages with the nearest
    heading they sit under. */
-export function extractPassages(node, heading = '', out = []) {
+function extractPassages(node, heading = '', out = []) {
   if (node == null) return out;
   if (typeof node === 'string') {
     const text = clean(node);
@@ -102,7 +102,7 @@ const SECTION_BY_ROOT = {
   sitemap: 'Site',
 };
 
-export function sectionOf(path) {
+function sectionOf(path) {
   if (path === '/') return 'Home';
   const root = path.split('/').filter(Boolean)[0];
   return SECTION_BY_ROOT[root] || 'Site';
@@ -169,7 +169,7 @@ function scoreText(norm, terms, weights) {
 }
 
 /* Highlight ranges for every term inside `text` (case/diacritic-insensitive). */
-export function highlightRanges(text, terms) {
+function highlightRanges(text, terms) {
   const norm = normalize(text);
   // normalize() can change length for some scripts; guard so ranges stay valid.
   if (norm.length !== text.length) return [];
@@ -195,7 +195,7 @@ export function highlightRanges(text, terms) {
 }
 
 /* A ~150 char window around the first match, with ranges relative to the window. */
-export function makeExcerpt(text, terms, width = 150) {
+function makeExcerpt(text, terms, width = 150) {
   const all = highlightRanges(text, terms);
   if (!all.length || text.length <= width) {
     return { text, ranges: all, truncatedStart: false, truncatedEnd: false };

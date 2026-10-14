@@ -170,32 +170,6 @@ export function drawAudioWave(ctx, { w, h, t = 0, bands, level = 0, alpha = 0.5,
   ctx.globalAlpha = 1;
 }
 
-/* ---- HEX: hexagonal lattice ---- */
-export function drawHex(ctx, { w, h, t = 0, size = 34, alpha = 0.08, accent }) {
-  const hw = size * Math.sqrt(3);
-  let row = 0;
-  for (let y = -size; y < h + size; y += size * 1.5, row += 1) {
-    const offset = row % 2 ? hw / 2 : 0;
-    for (let x = -hw; x < w + hw; x += hw) {
-      const cx = x + offset;
-      const flick = hash2(Math.round(cx), Math.round(y));
-      const lit = (Math.sin(t * 1.2 + flick * TAU) * 0.5 + 0.5) > 0.93;
-      ctx.beginPath();
-      for (let k = 0; k < 6; k += 1) {
-        const a = (TAU * k) / 6 + TAU / 12;
-        const px = cx + Math.cos(a) * size * 0.5;
-        const py = y + Math.sin(a) * size * 0.5;
-        if (k === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
-      }
-      ctx.closePath();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = lit && accent ? accent(0.5) : white(alpha);
-      ctx.stroke();
-    }
-  }
-}
-
 /* ---- PARTICLES: procedural drifting points (optionally connected) ---- */
 export function drawParticles(ctx, { w, h, t = 0, count = 60, alpha = 0.4, accent, connect = false, speed = 1 }) {
   const pts = [];
@@ -235,43 +209,6 @@ export function drawParticles(ctx, { w, h, t = 0, count = 60, alpha = 0.4, accen
   return pts;
 }
 
-/* ---- NODES: fixed network of nodes + travelling packets on edges ---- */
-export function drawNodes(ctx, { w, h, t = 0, count = 14, alpha = 0.5, accent }) {
-  const nodes = [];
-  for (let i = 0; i < count; i += 1) {
-    const x = (0.1 + hash(i * 5.1) * 0.8) * w + Math.sin(t * 0.3 + i) * 10;
-    const y = (0.1 + hash(i * 7.3 + 2) * 0.8) * h + Math.cos(t * 0.25 + i) * 10;
-    nodes.push([x, y]);
-  }
-  ctx.lineWidth = 1;
-  for (let i = 0; i < count; i += 1) {
-    const j = (i + 1 + Math.floor(hash(i) * 3)) % count;
-    ctx.strokeStyle = white(0.06);
-    ctx.beginPath();
-    ctx.moveTo(nodes[i][0], nodes[i][1]);
-    ctx.lineTo(nodes[j][0], nodes[j][1]);
-    ctx.stroke();
-    // packet
-    const f = (t * 0.4 + hash(i) ) % 1;
-    const px = nodes[i][0] + (nodes[j][0] - nodes[i][0]) * f;
-    const py = nodes[i][1] + (nodes[j][1] - nodes[i][1]) * f;
-    if (accent) {
-      ctx.fillStyle = accent(0.8);
-      ctx.beginPath();
-      ctx.arc(px, py, 1.6, 0, TAU);
-      ctx.fill();
-    }
-  }
-  for (let i = 0; i < count; i += 1) {
-    const pulse = Math.sin(t * 2 + i) * 0.5 + 0.5;
-    ctx.fillStyle = white(alpha * (0.5 + pulse * 0.5));
-    ctx.beginPath();
-    ctx.arc(nodes[i][0], nodes[i][1], 2 + pulse, 0, TAU);
-    ctx.fill();
-  }
-  return nodes;
-}
-
 /* ---- CONTOURS: flowing topographic contour bands ---- */
 export function drawContours(ctx, { w, h, t = 0, lines = 9, alpha = 0.1, accent }) {
   const step = w > 1200 ? 10 : 8;
@@ -309,38 +246,6 @@ export function drawRibbons(ctx, { w, h, t = 0, count = 5, alpha = 0.12, accent 
     }
     ctx.stroke();
   }
-}
-
-/* ---- VORONOI-ISH: scattered seed cells with nearest-seed shading edges ---- */
-export function drawVoronoi(ctx, { w, h, t = 0, seeds = 12, alpha = 0.08, accent }) {
-  const pts = [];
-  for (let i = 0; i < seeds; i += 1) {
-    pts.push([
-      (0.08 + hash(i * 3.1) * 0.84) * w + Math.sin(t * 0.3 + i) * 18,
-      (0.08 + hash(i * 4.7 + 1) * 0.84) * h + Math.cos(t * 0.27 + i * 1.3) * 18,
-    ]);
-  }
-  ctx.lineWidth = 1;
-  for (let i = 0; i < seeds; i += 1) {
-    // connect each seed to its 2 nearest -> cell-like web
-    const d = pts
-      .map((p, j) => [j, (p[0] - pts[i][0]) ** 2 + (p[1] - pts[i][1]) ** 2])
-      .filter((e) => e[0] !== i)
-      .sort((a, b) => a[1] - b[1]);
-    for (let k = 0; k < 2 && k < d.length; k += 1) {
-      const j = d[k][0];
-      ctx.strokeStyle = white(alpha);
-      ctx.beginPath();
-      ctx.moveTo(pts[i][0], pts[i][1]);
-      ctx.lineTo(pts[j][0], pts[j][1]);
-      ctx.stroke();
-    }
-    ctx.fillStyle = i % 5 === 0 && accent ? accent(0.6) : white(0.3);
-    ctx.beginPath();
-    ctx.arc(pts[i][0], pts[i][1], 1.6, 0, TAU);
-    ctx.fill();
-  }
-  return pts;
 }
 
 /* ---- ISOMETRIC: a field of isometric modules / cubes ---- */
@@ -385,27 +290,6 @@ export function drawRedaction(ctx, { w, h, t = 0, rows = 10, alpha = 0.5, accent
       ctx.fillRect(x, y, bw, rh * 0.34);
       x += bw + w * 0.02;
       if (x > w * 0.9) break;
-    }
-  }
-}
-
-/* ---- GLYPHS: falling glyph/code columns (text rain) ---- */
-const GLYPH = '01<>{}[]/\\=+*#%·—|';
-export function drawGlyphs(ctx, { w, h, t = 0, cols = 22, alpha = 0.4, accent, fontSize = 12 }) {
-  ctx.font = `${fontSize}px var(--font-mono, monospace)`;
-  ctx.textBaseline = 'top';
-  const cw = w / cols;
-  for (let c = 0; c < cols; c += 1) {
-    const speed = 30 + hash(c) * 70;
-    const head = (t * speed) % (h + 120);
-    const len = 6 + Math.floor(hash(c * 2) * 8);
-    for (let k = 0; k < len; k += 1) {
-      const y = head - k * fontSize * 1.4;
-      if (y < -fontSize || y > h) continue;
-      const ch = GLYPH[Math.floor(hash2(c, Math.floor(y / 10) + Math.floor(t * 4)) * GLYPH.length)] || '0';
-      const fade = 1 - k / len;
-      ctx.fillStyle = k === 0 && accent ? accent(0.8) : white(alpha * fade);
-      ctx.fillText(ch, c * cw + cw * 0.3, y);
     }
   }
 }

@@ -62,6 +62,3 @@ export const workItems = [
     code: 'WRK.04',
   },
 ];
-
-export const primaryWork = workItems.filter((w) => w.tier === 'primary');
-export const supportingWork = workItems.filter((w) => w.tier === 'supporting');

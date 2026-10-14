@@ -5,7 +5,7 @@
    current is pure CSS transform + opacity; see TransitionOverlay).
    ============================================================ */
 
-export function categoryOf(pathname = '/') {
+function categoryOf(pathname = '/') {
   if (pathname === '/' || pathname === '') return 'home';
   const seg = pathname.split('/').filter(Boolean)[0];
   switch (seg) {
@@ -22,7 +22,7 @@ export function categoryOf(pathname = '/') {
 }
 
 /* mod -> the CSS module modifier (the direction of travel). */
-export const TRANSITION_PRESETS = {
+const TRANSITION_PRESETS = {
   home: { mod: 'home' },        // rises from the bottom
   systems: { mod: 'systems' },  // crosses left to right
   north: { mod: 'north' },      // falls top to bottom

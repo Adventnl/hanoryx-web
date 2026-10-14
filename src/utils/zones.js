@@ -12,14 +12,14 @@ function formatter(zone) {
 }
 
 /** The wall-clock reading of an instant in a zone, as milliseconds-since-epoch of the same digits in UTC. */
-export function wallOf(ms, zone) {
+function wallOf(ms, zone) {
   const p = {};
   formatter(zone).formatToParts(ms).forEach((part) => { p[part.type] = part.value; });
   return Date.UTC(Number(p.year), Number(p.month) - 1, Number(p.day), Number(p.hour) % 24, Number(p.minute), Number(p.second));
 }
 
 /** The zone's offset from UTC at an instant, in minutes. */
-export const offsetAt = (ms, zone) => Math.round((wallOf(ms, zone) - Math.floor(ms / 1000) * 1000) / 60000);
+const offsetAt = (ms, zone) => Math.round((wallOf(ms, zone) - Math.floor(ms / 1000) * 1000) / 60000);
 
 export function offsetLabel(minutes) {
   const sign = minutes < 0 ? '−' : '+';
@@ -30,7 +30,7 @@ export function offsetLabel(minutes) {
 }
 
 /** How many distinct instants show this wall-clock time in the zone: 0, 1 or 2. */
-export function instantsFor(wall, zone) {
+function instantsFor(wall, zone) {
   const found = new Set();
   for (let off = -14 * 60; off <= 14 * 60; off += 15) {
     const candidate = wall - off * 60000;

@@ -16,7 +16,7 @@ const channel = (c) => {
   return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
 };
 
-export const luminance = ([r, g, b]) => 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
+const luminance = ([r, g, b]) => 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
 
 /** The WCAG contrast ratio of two colours, from 1 (identical) to 21 (black on white). */
 export function contrastRatio(a, b) {
@@ -24,7 +24,7 @@ export function contrastRatio(a, b) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-export function rgbToHsl([r, g, b]) {
+function rgbToHsl([r, g, b]) {
   const [R, G, B] = [r / 255, g / 255, b / 255];
   const max = Math.max(R, G, B);
   const min = Math.min(R, G, B);
@@ -39,7 +39,7 @@ export function rgbToHsl([r, g, b]) {
   return [h * 60, s, l];
 }
 
-export function hslToRgb([h, s, l]) {
+function hslToRgb([h, s, l]) {
   const a = s * Math.min(l, 1 - l);
   const f = (n) => {
     const k = (n + h / 30) % 12;

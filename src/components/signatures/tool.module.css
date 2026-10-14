@@ -2,7 +2,6 @@
    what it produces on the other. Small on purpose; each tool adds its own. */
 .rig { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(1.2rem, 4vw, 3rem); align-items: start; margin-top: var(--space-8); }
 .rigWide { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-.rigOne { grid-template-columns: minmax(0, 1fr); }
 .stack { display: grid; gap: var(--space-4); min-width: 0; }
 .sticky { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
 
@@ -16,7 +15,6 @@
 .field input[type='range'] { accent-color: var(--c-red); width: 100%; }
 .field small { font-size: var(--fs-xs); line-height: 1.5; color: var(--c-white-65); }
 .pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
-.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); }
 .colour { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.6rem; align-items: center; }
 .colour input[type='color'] { width: 3rem; height: 2.6rem; padding: 0.15rem; border: 1px solid var(--c-line-strong); border-radius: var(--r-sm); background: rgba(10, 11, 13, 0.9); cursor: pointer; }
 
@@ -34,7 +32,6 @@
 .k { font: 0.58rem var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--c-red-bright); }
 .big { font-family: var(--font-serif); font-size: var(--fs-h1); line-height: 1; color: var(--c-white); font-variant-numeric: lining-nums tabular-nums; }
 .big small { font-size: 0.4em; color: var(--c-white-50); }
-.lead { font-size: var(--fs-body); line-height: 1.7; color: var(--c-white-80); max-width: 60ch; }
 .sm { font-size: var(--fs-sm); line-height: 1.6; color: var(--c-white-65); }
 .note { margin-top: var(--space-4); max-width: 72ch; font: 0.64rem var(--font-mono); letter-spacing: 0.05em; line-height: 1.7; color: var(--c-white-50); }
 .err { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-red-bright); }
@@ -52,4 +49,4 @@
 .scroll { overflow-x: auto; border: 1px solid var(--c-line-strong); border-radius: var(--r-md); }
 
 @media (max-width: 860px) { .rig, .rigWide { grid-template-columns: minmax(0, 1fr); } .sticky { position: static; } }
-@media (max-width: 520px) { .pair, .trio { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) { .pair { grid-template-columns: minmax(0, 1fr); } }

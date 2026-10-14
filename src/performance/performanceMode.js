@@ -80,10 +80,6 @@ export function getPerformanceMode() {
   return mode;
 }
 
-export function isFastScroll() {
-  return mode === 'fast-scroll';
-}
-
 /** Subscribe to mode changes. Returns an unsubscribe fn. */
 export function subscribePerformanceMode(cb) {
   subscribers.add(cb);
