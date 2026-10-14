@@ -98,6 +98,7 @@
 .colL { left: var(--gutter); transform: translateY(calc((1 - var(--pin)) * var(--travel) * -1)); }
 .colR { right: var(--gutter); transform: translateY(calc(var(--pin) * var(--travel) * -1)); }
 .cell { height: var(--slot); display: grid; align-content: center; }
+.counter .pin > .hud { left: calc(var(--gutter) + min(27rem, 33vw) + 2rem); right: calc(var(--gutter) + min(27rem, 33vw) + 2rem); width: auto; }
 
 /* ============ sideways rail ============ */
 .rail { --cw: 21rem; --gap: 2.5rem; --bed: 15rem; position: relative; height: calc(var(--n) * 34vh + 100vh); }
