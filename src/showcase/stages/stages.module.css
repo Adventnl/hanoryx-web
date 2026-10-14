@@ -1,0 +1,252 @@
+/* ============================================================
+   STAGES — the geometry of each engine. Everything that moves is a transform
+   or an opacity computed from --p / --pin / --f / --y (hooks.js), which are set
+   on `.pin`, `.panel`, `.band` or `.spineRail` once per frame.
+   ============================================================ */
+
+/* first-paint values; the hook's inline numbers (on the root or on its target) win */
+.split, .index, .counter, .rail, .orbit, .spine, .wheel, .tunnel, .slides, .map, .rows, .flow { --p: 0; --pin: 0; --f: 0; --y: 0; }
+
+/* the screen a pinned engine holds */
+.pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+
+/* a still side that is pinned while a list scrolls past it */
+.side { position: relative; min-width: 0; }
+.panel {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 1rem;
+  padding: calc(var(--nav-h) + 1rem) 0 2rem;
+}
+
+/* the box a visual draws in: it sizes itself with cqw / cqh / cqmin */
+.visual { container-type: size; display: grid; place-items: center; width: 100%; height: 100%; min-height: 0; overflow: hidden; }
+
+/* ---- the readout under a pinned visual ---- */
+.hud {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.5rem 1rem;
+  align-items: baseline;
+  font: 500 0.62rem var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-white-50);
+}
+.hudNo { color: var(--c-red); }
+.hudName { color: var(--c-white-80); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hudBar { grid-column: 1 / -1; position: relative; height: 1px; background: var(--c-line-strong); }
+.hudBar i { position: absolute; inset: 0; background: var(--c-red); box-shadow: var(--glow-red); transform-origin: left; transform: scaleX(var(--pin)); }
+
+/* on a pinned screen the readout sits bottom-left, under the still side */
+.pin > .hud { position: absolute; left: var(--gutter); bottom: 1.8rem; width: 26vw; }
+
+/* the still side of the engines that pin a whole screen */
+.sideVisual { position: absolute; left: var(--gutter); top: var(--nav-h); bottom: 5.5rem; width: 28vw; }
+.ghost {
+  position: absolute;
+  z-index: 0;
+  font: 300 clamp(8rem, 22vw, 20rem) / 0.8 var(--font-serif);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--c-white-08);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ============ pinned left / right ============ */
+.split {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 0 clamp(2rem, 5vw, 6rem);
+  max-width: 1760px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.mirror { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); }
+.mirror .side { order: 2; }
+.splitList { display: grid; gap: clamp(5rem, 20vh, 12rem); padding: 24vh 0 30vh; align-content: start; }
+.splitList > li { width: min(100%, 36rem); justify-self: center; }
+
+/* ============ live index ============ */
+.index { position: relative; display: grid; grid-template-columns: minmax(17rem, 24rem) minmax(0, 1fr); gap: 0 clamp(2rem, 5vw, 6rem); max-width: 1760px; margin-inline: auto; padding-inline: var(--gutter); }
+.indexPanel { grid-template-rows: minmax(0, 0.8fr) 15.5rem auto; }
+.indexMain { display: grid; }
+.slot { position: relative; display: grid; place-items: center; min-height: 82vh; }
+.slot .ghost { top: 50%; left: 50%; translate: -50% -52%; }
+.slot :global(.sc-spec) { position: relative; z-index: 1; width: min(100%, 34rem); }
+.drum { position: relative; height: 15.5rem; overflow: hidden; border-block: 1px solid var(--c-line); }
+.drum::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1.9rem; transform: translateY(-50%); background: var(--c-white-05); border-left: 2px solid var(--c-red); pointer-events: none; }
+.drumList { transform: translateY(calc(7.75rem - 0.95rem - var(--f) * 1.9rem)); will-change: transform; }
+.drumList li { height: 1.9rem; opacity: clamp(0.06, calc(1 - abs(var(--k) - var(--f)) * 0.2), 1); }
+.drumList button { display: flex; align-items: center; gap: 0.8rem; width: 100%; height: 100%; padding: 0 0.8rem; font: 500 0.66rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-65); text-align: left; cursor: pointer; }
+.drumList button span { color: var(--c-red); }
+.drumList button[aria-current='true'] { color: var(--c-white); }
+
+/* ============ counter-scroll ============ */
+.counter { --slot: 19.5rem; --col: calc(var(--rows) * var(--slot)); --travel: calc(var(--col) - 74vh); position: relative; height: calc(var(--travel) + 124vh); }
+.counterVisual { position: absolute; top: var(--nav-h); bottom: 5rem; left: calc(var(--gutter) + min(27rem, 33vw) + 2rem); right: calc(var(--gutter) + min(27rem, 33vw) + 2rem); pointer-events: none; }
+.col { position: absolute; top: var(--nav-h); width: min(27rem, 33vw); will-change: transform; }
+.colL { left: var(--gutter); transform: translateY(calc((1 - var(--pin)) * var(--travel) * -1)); }
+.colR { right: var(--gutter); transform: translateY(calc(var(--pin) * var(--travel) * -1)); }
+.cell { height: var(--slot); display: grid; align-content: center; }
+
+/* ============ sideways rail ============ */
+.rail { --cw: 21rem; --gap: 2.5rem; --bed: 15rem; position: relative; height: calc(var(--n) * 34vh + 100vh); }
+.railVisual { position: absolute; left: var(--gutter); top: var(--nav-h); bottom: 5.5rem; width: 26vw; }
+.railWindow { position: absolute; left: 33vw; right: 0; top: var(--nav-h); bottom: 5.5rem; display: flex; align-items: center; overflow: hidden; }
+.railWindow::before { content: ''; position: absolute; z-index: 1; left: 0; top: 0; bottom: 0; width: 4rem; background: linear-gradient(90deg, var(--c-black), transparent); pointer-events: none; }
+.railTrack { display: flex; gap: var(--gap); padding-right: var(--gutter); transform: translateX(calc(var(--pin) * (var(--n) * (var(--cw) + var(--gap)) + var(--gutter) - 67vw) * -1)); will-change: transform; }
+.railTrack > li { flex: none; width: var(--cw); }
+
+/* ============ sticky stack ============ */
+.stackList { padding: calc(var(--nav-h) + 3rem) 0 46vh; }
+.stackList > li { position: sticky; top: calc(var(--nav-h) + 1.5rem + min(var(--k), 5) * 1.7rem); width: min(100%, 36rem); margin: 0 auto 38vh; background: #08090b; box-shadow: 0 -26px 44px -26px #000; }
+
+/* ============ centre stage ============ */
+.orbit { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.75fr) minmax(0, 1fr); gap: 0 2rem; max-width: 1760px; margin-inline: auto; padding-inline: var(--gutter); }
+.orbitCol { display: grid; gap: clamp(7rem, 28vh, 16rem); padding: 20vh 0 30vh; align-content: start; }
+.orbitR { padding-top: 46vh; }
+.orbitCol > li { width: min(100%, 30rem); }
+.orbitL > li { justify-self: end; }
+.orbitR > li { justify-self: start; }
+.orbitMid { min-width: 0; }
+.orbitPanel { padding-inline: 0; }
+@supports (animation-timeline: view()) {
+  .orbitL :global(.sc-spec) { animation: orbit-l linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+  .orbitR :global(.sc-spec) { animation: orbit-r linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+}
+@keyframes orbit-l { from { opacity: 0; transform: translateX(-110px) rotate(-3deg); } to { opacity: 1; transform: none; } }
+@keyframes orbit-r { from { opacity: 0; transform: translateX(110px) rotate(3deg); } to { opacity: 1; transform: none; } }
+
+/* ============ spine ============ */
+.spine { position: relative; max-width: 1320px; margin-inline: auto; padding-inline: var(--gutter); }
+.spineRail { position: absolute; inset: 0; pointer-events: none; }
+.spineRail::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--c-line-strong); }
+.spineFill { position: absolute; left: 50%; top: 0; width: 1px; height: calc(var(--y) * 1px); background: var(--c-red); box-shadow: var(--glow-red); }
+.bead { position: sticky; top: calc(50vh - 8rem); width: 16rem; height: 16rem; margin-inline: auto; }
+.spineList { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 16rem minmax(0, 1fr); row-gap: clamp(2rem, 8vh, 5rem); padding: 26vh 0 32vh; }
+.branch { position: relative; width: min(100%, 28rem); }
+.left { grid-column: 1; justify-self: end; }
+.right { grid-column: 3; justify-self: start; margin-top: clamp(4rem, 14vh, 9rem); }
+.branch::before { content: ''; position: absolute; top: 50%; width: 8rem; height: 1px; background: var(--c-line-strong); transition: background var(--dur-3) var(--ease-out); }
+.left::before { right: -8rem; }
+.right::before { left: -8rem; }
+.node { position: absolute; top: 50%; width: 9px; height: 9px; border-radius: 50%; background: var(--c-black); border: 1px solid var(--c-white-30); transition: background var(--dur-3) var(--ease-out), border-color var(--dur-3) var(--ease-out); z-index: 1; }
+.left .node { right: -8rem; transform: translate(50%, -50%); }
+.right .node { left: -8rem; transform: translate(-50%, -50%); }
+.lit::before { background: var(--c-red-dim); }
+.lit .node { background: var(--c-red); border-color: var(--c-red); box-shadow: var(--glow-red); }
+@supports (animation-timeline: view()) {
+  .left :global(.sc-spec) { animation: orbit-l linear both; animation-timeline: view(); animation-range: entry 0% entry 65%; }
+  .right :global(.sc-spec) { animation: orbit-r linear both; animation-timeline: view(); animation-range: entry 0% entry 65%; }
+}
+
+/* ============ carousel (cover-flow) ============ */
+.wheel { --per: 36vh; --bed: 13rem; position: relative; height: calc(var(--n) * var(--per) + 100vh); }
+.wheelStage { position: absolute; left: 32vw; right: 0; top: var(--nav-h); bottom: 5rem; overflow: hidden; perspective: 1500px; perspective-origin: 50% 50%; }
+.ring { position: absolute; inset: 0; transform-style: preserve-3d; }
+.facet {
+  --d: calc(var(--k) - var(--f));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 23rem;
+  border: 1px solid var(--c-white-08);
+  background: linear-gradient(170deg, #0f1013, #08090b);
+  transform: translate3d(calc(-50% + var(--d) * 17rem), -50%, calc(abs(var(--d)) * -11rem)) rotateY(calc(clamp(-1, var(--d), 1) * -50deg));
+  opacity: clamp(0, calc(1.3 - abs(var(--d)) * 0.34), 1);
+  will-change: transform;
+}
+
+/* ============ fly-through ============ */
+.tunnel { --per: 40vh; --gap: 460px; --bed: 13rem; position: relative; height: calc(var(--n) * var(--per) + 100vh); }
+.deepStage { position: absolute; left: 31vw; right: 0; top: var(--nav-h); bottom: 5rem; perspective: 900px; perspective-origin: 50% 42%; transform-style: preserve-3d; }
+.deep {
+  --d: calc(var(--k) - var(--f));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(27rem, 44vw);
+  border: 1px solid var(--c-white-12);
+  background: linear-gradient(170deg, #101114, #08090b);
+  --o: min(abs(var(--d)) * 0.55, 1);
+  transform: translate3d(calc(-50% + sin(var(--k) * 137.5deg) * 24vw * var(--o)), calc(-50% + cos(var(--k) * 137.5deg) * 13vh * var(--o)), calc(var(--d) * var(--gap) * -1));
+  opacity: calc(clamp(0, 1 - max(var(--d), 0) * 0.11, 1) * clamp(0, 1 + var(--d) * 2.2, 1));
+}
+
+/* ============ wipes ============ */
+.slides { --per: 56vh; --bed: 12rem; position: relative; height: calc(var(--n) * var(--per) + 100vh); }
+.slideStage { position: absolute; left: 31vw; right: var(--gutter); top: var(--nav-h); bottom: 5.5rem; }
+.slide {
+  --r: clamp(0, calc(var(--f) - var(--k) + 1), 1);
+  position: absolute;
+  inset: 0;
+  z-index: calc(var(--k) + 1);
+  display: grid;
+  place-items: center;
+  background-color: var(--c-black);
+  clip-path: inset(calc((1 - var(--r)) * 100%) 0 0 0);
+}
+.slide:nth-child(even) { clip-path: inset(0 0 0 calc((1 - var(--r)) * 100%)); }
+.slide::after { content: ''; position: absolute; left: 0; right: 0; top: calc((1 - var(--r)) * 100%); height: 1px; background: var(--c-red); box-shadow: var(--glow-red); opacity: clamp(0, calc(var(--r) * (1 - var(--r)) * 6), 1); }
+.slide:nth-child(even)::after { top: 0; bottom: 0; left: calc((1 - var(--r)) * 100%); right: auto; width: 1px; height: auto; }
+.slide .ghost { top: 50%; left: 50%; translate: -50% -52%; }
+.slide :global(.sc-spec) { position: relative; z-index: 1; width: min(100%, 30rem); zoom: 1.25; }
+
+/* ============ parallax columns ============ */
+.columnsMain { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 clamp(1.5rem, 3vw, 3rem); align-items: start; }
+.parallax { display: grid; gap: clamp(4rem, 12vh, 8rem); padding: 18vh 0 30vh; will-change: transform; }
+.colA { transform: translateY(calc(var(--p) * 14vh)); }
+.colB { transform: translateY(calc(var(--p) * -14vh)); margin-top: 22vh; }
+.columns .panel { padding-right: 0; }
+
+/* ============ pan map ============ */
+.map { --cw: 22rem; --ch: 16.5rem; --gap: 1.5rem; --bed: 8.5rem; position: relative; height: calc(var(--n) * 38vh + 100vh); }
+.mapField { position: absolute; left: 27vw; right: 0; top: var(--nav-h); bottom: 0; overflow: hidden; }
+.world {
+  --tx: calc(var(--cols) * (var(--cw) + var(--gap)) + 4rem - 73vw);
+  --ty: calc(var(--rows) * (var(--ch) + var(--gap)) + 4rem - (100svh - var(--nav-h)));
+  --sweep: calc(var(--pin) * var(--rows));
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cw));
+  grid-auto-rows: var(--ch);
+  gap: var(--gap);
+  width: max-content;
+  padding: 2rem;
+  transform: translate(calc(var(--tx) * (1 - abs(mod(var(--sweep), 2) - 1)) * -1), calc(var(--ty) * var(--pin) * -1));
+  will-change: transform;
+}
+.tile { display: grid; align-content: center; }
+.mapHud { position: absolute; z-index: 2; left: 0; top: 0; bottom: 0; width: 27vw; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 1rem; padding: calc(var(--nav-h) + 1rem) 2rem 2rem var(--gutter); background: linear-gradient(90deg, var(--c-black) 86%, transparent); }
+
+/* ============ belts ============ */
+.rows { --cw: 16rem; --gap: 1.2rem; --bed: 6.5rem; position: relative; height: calc(var(--n) * 22vh + 100vh); }
+.beltView { position: absolute; left: 31vw; right: 0; top: var(--nav-h); bottom: 5.5rem; display: grid; align-content: center; gap: var(--gap); overflow: hidden; }
+.belt {
+  --dx: calc(var(--per-belt) * (var(--cw) + var(--gap)) - 68vw);
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  transform: translateX(calc(var(--dx) * -1 * (mod(var(--r), 2) * var(--pin) + (1 - mod(var(--r), 2)) * (1 - var(--pin)))));
+  will-change: transform;
+}
+.belt > li { flex: none; width: var(--cw); }
+
+/* ============ flow (phone / reduced motion) and sheet ============ */
+.flow { position: relative; }
+.band { position: sticky; top: var(--nav-h); z-index: 3; height: 32svh; background: linear-gradient(180deg, var(--c-black) 80%, transparent); }
+.flowList { display: grid; gap: 3.2rem; padding: 3rem var(--gutter) 5rem; max-width: 42rem; margin-inline: auto; }
+.sheetWrap { padding: 3rem 0 6rem; }
+.sheetWrap > ol > li { min-width: 0; }
+
+@media (max-width: 900px) {
+  .hud { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbitL :global(.sc-spec), .orbitR :global(.sc-spec), .left :global(.sc-spec), .right :global(.sc-spec) { animation: none; }
+}

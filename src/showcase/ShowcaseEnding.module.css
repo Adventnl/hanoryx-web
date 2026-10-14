@@ -1,0 +1,50 @@
+.end { position: relative; padding: var(--space-12) 0 var(--space-10); border-top: var(--border-faint); background: linear-gradient(180deg, transparent, rgba(255, 51, 51, 0.03)); }
+.inner { display: grid; gap: var(--space-8); }
+.head { display: grid; gap: var(--space-3); max-width: 46rem; }
+.lede { color: var(--c-white-65); max-width: 52ch; }
+
+.index { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 34px;
+  padding: 0 0.9rem 0 0.7rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: var(--c-white-03);
+  color: var(--c-white-80);
+  font: 500 0.64rem var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+}
+.chip span { color: var(--c-red); }
+.chip:hover { color: var(--c-white); border-color: var(--c-red-dim); background: var(--c-white-05); }
+.chip:focus-visible { outline: 2px solid var(--c-red); outline-offset: 2px; }
+
+.nav { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--space-5); align-items: stretch; padding-top: var(--space-6); border-top: 1px solid var(--c-line-strong); }
+.step, .all {
+  position: relative;
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  transition: border-color var(--dur-2) var(--ease-out), background var(--dur-2) var(--ease-out);
+}
+.step:hover, .all:hover, .step:focus-visible, .all:focus-visible { border-color: var(--c-line-strong); background: var(--c-white-03); }
+.step svg { color: var(--c-red); }
+.next { text-align: right; justify-items: end; }
+.all { text-align: center; justify-items: center; align-content: center; }
+.stepKey { font: 500 0.58rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); }
+.stepName { font-family: var(--font-serif); font-size: var(--fs-h3); font-weight: 300; color: var(--c-white); line-height: 1.1; }
+.stepLine { font-size: var(--fs-sm); color: var(--c-white-50); }
+
+@media (max-width: 760px) {
+  .nav { grid-template-columns: minmax(0, 1fr); }
+  .next { text-align: left; justify-items: start; }
+  .all { order: 3; }
+}

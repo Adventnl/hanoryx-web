@@ -1,0 +1,4 @@
+.svg { display: block; width: 100%; height: auto; stroke: var(--c-white-50); overflow: visible; }
+.svg * { vector-effect: non-scaling-stroke; }
+.hot { stroke: var(--c-red); }
+rect.hot { fill: var(--c-red-ghost); }
