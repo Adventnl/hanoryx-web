@@ -126,3 +126,30 @@ export function useHot() {
   };
   return [hot, bind];
 }
+
+/** A pointer (or the arrow keys) over an area: { x, y } in 0..100, or null when it is not there.
+ *  Spread the props on an element with an aria-label. */
+export function usePoint() {
+  const [p, setP] = useState(null);
+  const bind = {
+    role: 'application',
+    'aria-roledescription': 'pointer area',
+    tabIndex: 0,
+    style: { touchAction: 'pan-y' },
+    onPointerMove: (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      setP({ x: clamp(((e.clientX - r.left) / r.width) * 100, 0, 100), y: clamp(((e.clientY - r.top) / r.height) * 100, 0, 100) });
+    },
+    onPointerLeave: (e) => { if (e.pointerType === 'mouse') setP(null); },
+    onBlur: () => setP(null),
+    onKeyDown: (e) => {
+      const d = { ArrowLeft: [-12, 0], ArrowRight: [12, 0], ArrowUp: [0, -12], ArrowDown: [0, 12] }[e.key];
+      if (d) {
+        e.preventDefault();
+        setP((q) => { const b = q || { x: 50, y: 50 }; return { x: clamp(b.x + d[0], 0, 100), y: clamp(b.y + d[1], 0, 100) }; });
+      }
+      if (e.key === 'Escape') setP(null);
+    },
+  };
+  return [p, bind];
+}
