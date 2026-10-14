@@ -216,7 +216,7 @@
 .world {
   --tx: calc(var(--cols) * (var(--cw) + var(--gap)) + 4rem - 73vw);
   --ty: calc(var(--rows) * (var(--ch) + var(--gap)) + 4rem - (100svh - var(--nav-h)));
-  --sweep: calc(var(--pin) * var(--rows));
+  --sweep: calc(var(--pin) * var(--n) / var(--cols));
   display: grid;
   grid-template-columns: repeat(var(--cols), var(--cw));
   grid-auto-rows: var(--ch);

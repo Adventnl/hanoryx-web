@@ -695,8 +695,8 @@ function RadarSweep() {
   }, [live]);
   return (
     <button type="button" className={c.tank} style={{ '--v': v }} aria-label={`Tank at ${Math.round(v * 100)} percent. Click to pump water in`} onClick={() => setV((x) => clamp(x + 0.22))}>
-      <span><i /></span>
-      <ol><li>100</li><li>75</li><li>50</li><li>25</li><li>0</li></ol>
+      <span className={c.vessel}><i /></span>
+      <span className={c.scale}><em>100</em><em>75</em><em>50</em><em>25</em><em>0</em></span>
       <b>{Math.round(v * 100)}%</b>
     </button>
   );

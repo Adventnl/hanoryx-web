@@ -84,7 +84,7 @@
 
 /* 13 touch pad */
 .touch { position: relative; width: 12rem; height: 7rem; overflow: hidden; border: 1px solid var(--c-white-20); border-radius: 10px; background: #0a0b0d; cursor: crosshair; }
-.touch i { position: absolute; left: calc(var(--mx) * 100%); top: calc(var(--my) * 100%); width: 6rem; height: 6rem; margin: -3rem; border-radius: 50%; background: radial-gradient(circle, rgba(255, 51, 51, 0.45), transparent 65%); opacity: 0; transition: opacity 0.2s; }
+.touch i { position: absolute; left: calc(var(--tx) * 100%); top: calc(var(--ty) * 100%); width: 6rem; height: 6rem; margin: -3rem; border-radius: 50%; background: radial-gradient(circle, rgba(255, 51, 51, 0.45), transparent 65%); opacity: 0; transition: opacity 0.2s; }
 .touch[data-on='true'] i { opacity: 1; }
 
 /* 14 soft keys */

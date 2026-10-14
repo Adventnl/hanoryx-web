@@ -331,9 +331,16 @@ function MapStage({ meta, no, Visual: V, items }) {
       <div ref={view} className={s.pin} data-ground={meta.ground}>
         <div className={s.mapField}>
           <div className={s.world}>
-            {items.map((_, i) => (
-              <div key={i} className={s.tile}>{spec(meta, no, items, i, Math.abs(i - active) > 9)}</div>
-            ))}
+            {items.map((_, i) => {
+              /* the path snakes: odd rows run right to left, so the tiles are laid out that way */
+              const row = Math.floor(i / cols);
+              const col = i % cols;
+              return (
+                <div key={i} className={s.tile} style={{ gridRow: row + 1, gridColumn: row % 2 ? cols - col : col + 1 }}>
+                  {spec(meta, no, items, i, Math.abs(i - active) > 9)}
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className={s.mapHud}>
