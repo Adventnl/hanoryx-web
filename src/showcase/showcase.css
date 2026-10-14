@@ -1,0 +1,200 @@
+/* ============================================================
+   SHOWCASE — the specimen frame and the few shared rules the pages use.
+   Global (the frame is styled from the stage that holds it), so every class
+   here is prefixed sc-. A page's own look lives in its CSS module.
+   ============================================================ */
+
+/* ---- a specimen --------------------------------------------------------- */
+.sc-spec {
+  --sc-line: var(--c-line-strong);
+  --sc-fill: rgba(10, 11, 13, 0.9);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.sc-cap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font: 500 0.6rem var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.sc-no { color: var(--c-red); }
+.sc-name { flex: 1; min-width: 0; color: var(--c-white-80); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sc-mode { color: var(--c-white-50); }
+.sc-bed {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--bed, 9.5rem);
+  padding: 0.9rem 0.4rem;
+  min-width: 0;
+}
+.sc-fail { font: 0.7rem var(--font-mono); color: var(--c-white-50); }
+
+/* animation only while the specimen is on screen */
+.sc-spec[data-on='0'],
+.sc-spec[data-on='0'] *,
+.sc-spec[data-on='0'] *::before,
+.sc-spec[data-on='0'] *::after { animation-play-state: paused !important; }
+
+/* small things a specimen author reaches for */
+.sc-m { font: 500 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); }
+.sc-led { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* ---- frames: how a page dresses its specimens (data-frame on the stage) ---- */
+[data-frame='bracket'] .sc-spec {
+  --br: var(--c-red-dim);
+  padding: 1.15rem 1.2rem 1.25rem;
+  background:
+    linear-gradient(var(--br), var(--br)) 0 0 / 14px 1px no-repeat,
+    linear-gradient(var(--br), var(--br)) 0 0 / 1px 14px no-repeat,
+    linear-gradient(var(--br), var(--br)) 100% 0 / 14px 1px no-repeat,
+    linear-gradient(var(--br), var(--br)) 100% 0 / 1px 14px no-repeat,
+    linear-gradient(var(--br), var(--br)) 0 100% / 14px 1px no-repeat,
+    linear-gradient(var(--br), var(--br)) 0 100% / 1px 14px no-repeat,
+    linear-gradient(var(--br), var(--br)) 100% 100% / 14px 1px no-repeat,
+    linear-gradient(var(--br), var(--br)) 100% 100% / 1px 14px no-repeat,
+    radial-gradient(90% 90% at 50% 0%, rgba(255, 255, 255, 0.035), transparent 70%);
+}
+
+[data-frame='plate'] .sc-spec {
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--sc-line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(170deg, rgba(16, 17, 21, 0.92), rgba(6, 6, 8, 0.86));
+}
+
+[data-frame='ticket'] .sc-spec {
+  padding: 1rem 1.2rem 1.15rem;
+  border: 1px solid var(--sc-line);
+  border-radius: 10px;
+  background: linear-gradient(170deg, rgba(15, 16, 20, 0.94), rgba(7, 7, 9, 0.9));
+}
+[data-frame='ticket'] .sc-cap { padding-bottom: 0.7rem; border-bottom: 1px dashed var(--c-white-20); }
+[data-frame='ticket'] .sc-spec::before,
+[data-frame='ticket'] .sc-spec::after {
+  content: '';
+  position: absolute;
+  top: 1.78rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--c-black);
+  border: 1px solid var(--sc-line);
+}
+[data-frame='ticket'] .sc-spec::before { left: -9px; clip-path: inset(0 0 0 50%); }
+[data-frame='ticket'] .sc-spec::after { right: -9px; clip-path: inset(0 50% 0 0); }
+
+[data-frame='bare'] .sc-cap { padding-bottom: 0.55rem; border-bottom: 1px solid var(--c-line); }
+
+[data-frame='slab'] .sc-spec {
+  padding: 1rem 1.15rem 1.15rem;
+  border-top: 2px solid var(--c-red-dim);
+  border-left: 1px solid var(--sc-line);
+  background: linear-gradient(180deg, rgba(14, 15, 18, 0.95), rgba(6, 6, 8, 0.9));
+}
+
+[data-frame='tape'] .sc-spec {
+  margin-top: 0.9rem;
+  padding: 1.5rem 1.1rem 1.1rem;
+  border: 1px solid var(--sc-line);
+  border-radius: 6px;
+  background: rgba(8, 9, 11, 0.88);
+}
+[data-frame='tape'] .sc-cap {
+  position: absolute;
+  top: -0.8rem;
+  left: 0.9rem;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--sc-line);
+  border-radius: var(--r-pill);
+  background: var(--c-black-3);
+}
+[data-frame='tape'] .sc-mode { display: none; }
+
+[data-frame='cross'] .sc-spec {
+  padding: 1.1rem 1.2rem 1.2rem;
+  outline: 1px solid var(--c-white-05);
+  outline-offset: -1px;
+}
+[data-frame='cross'] .sc-spec::before,
+[data-frame='cross'] .sc-spec::after {
+  content: '+';
+  position: absolute;
+  font: 300 1.1rem/1 var(--font-mono);
+  color: var(--c-white-30);
+}
+[data-frame='cross'] .sc-spec::before { top: -0.55rem; left: -0.35rem; }
+[data-frame='cross'] .sc-spec::after { right: -0.35rem; bottom: -0.55rem; }
+
+[data-frame='edge'] .sc-spec {
+  padding: 0.2rem 0 0.4rem 1.2rem;
+  border-left: 1px solid var(--sc-line);
+  transition: border-color var(--dur-2) var(--ease-out);
+}
+[data-frame='edge'] .sc-spec:hover,
+[data-frame='edge'] .sc-spec:focus-within { border-left-color: var(--c-red); }
+
+[data-frame='dash'] .sc-spec {
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px dashed var(--c-white-20);
+  border-radius: 6px;
+}
+
+[data-frame='lift'] .sc-spec {
+  padding: 1.1rem 1.2rem 1.2rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(24, 25, 30, 0.95), rgba(9, 10, 12, 0.95));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 30px 60px -34px #000;
+}
+
+[data-frame='ring'] .sc-spec {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 0.9rem;
+  padding: 0.9rem 1rem 0.9rem 0.8rem;
+  border: 1px solid var(--sc-line);
+  border-radius: 999px 22px 22px 999px;
+}
+[data-frame='ring'] .sc-cap { flex-direction: column; align-items: center; justify-content: space-between; writing-mode: vertical-rl; transform: rotate(180deg); gap: 0.6rem; padding: 0.4rem 0; }
+[data-frame='ring'] .sc-name { flex: 0 1 auto; }
+[data-frame='ring'] .sc-mode { display: none; }
+
+/* ---- grounds: the faint pattern under a stage (data-ground) ---- */
+[data-ground='dots'] { background-image: radial-gradient(circle, var(--c-white-12) 1px, transparent 1.5px); background-size: 26px 26px; }
+[data-ground='lines'] { background-image: linear-gradient(var(--c-white-05) 1px, transparent 1px); background-size: 100% 44px; }
+[data-ground='cross'] { background-image: linear-gradient(var(--c-white-05) 1px, transparent 1px), linear-gradient(90deg, var(--c-white-05) 1px, transparent 1px); background-size: 56px 56px; }
+[data-ground='rings'] { background-image: repeating-radial-gradient(circle at 28% 42%, transparent 0 46px, var(--c-white-05) 46px 47px); }
+[data-ground='ruler'] { background-image: repeating-linear-gradient(90deg, var(--c-white-20) 0 1px, transparent 1px 60px), repeating-linear-gradient(90deg, var(--c-white-12) 0 1px, transparent 1px 12px); background-size: 100% 16px, 100% 8px; background-repeat: repeat-x; background-position: left bottom; }
+
+/* ---- reveal (progressive: where the browser can tie it to the scroll) ---- */
+@supports (animation-timeline: view()) {
+  .sc-reveal .sc-spec {
+    animation: sc-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 4% entry 62%;
+  }
+}
+@keyframes sc-rise { from { opacity: 0; transform: translateY(46px) scale(0.965); } to { opacity: 1; transform: none; } }
+
+/* ---- the sheet: every specimen at once ---- */
+.sc-sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  gap: 1.6rem 1.2rem;
+  padding: 0 var(--gutter);
+  max-width: var(--maxw);
+  margin-inline: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc-reveal .sc-spec { animation: none; }
+}

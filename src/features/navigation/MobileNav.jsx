@@ -20,6 +20,35 @@ const itemV = {
   exit: { opacity: 0, y: 10 },
 };
 
+/* One category of a group: a disclosure of its pages (used when a group has
+   several, so fifty showcase pages are ten short lists, not one long one). */
+function Category({ cat, onClose }) {
+  const [open, setOpen] = useState(false);
+  const listId = `m-cat-${cat.id}`;
+  return (
+    <li className={styles.cat}>
+      <button type="button" className={clsx(styles.catHead, open && styles.catOpen)} aria-expanded={open} aria-controls={listId} onClick={() => setOpen((v) => !v)}>
+        <span className={styles.subCode}>{cat.code}</span>
+        <span className={styles.catLabel}>{cat.label}</span>
+        <span className={styles.catCount}>{cat.items.length}</span>
+        <Plus className={styles.catPlus} size={14} strokeWidth={1.4} aria-hidden="true" />
+      </button>
+      {open && (
+        <ul id={listId} className={styles.catList}>
+          {cat.items.map((c) => (
+            <li key={c.to + c.label}>
+              <NavLink to={c.to} onClick={onClose} className={styles.catLink}>
+                <span className={styles.subCode}>{c.code}</span>
+                {c.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+}
+
 /** Full-screen mobile menu: expandable route groups + live audio + status. */
 export function MobileNav({ open, onClose }) {
   const [expanded, setExpanded] = useState(null);
@@ -58,6 +87,7 @@ export function MobileNav({ open, onClose }) {
                     <NavLink to={g.to} onClick={onClose} className={styles.groupLink}>
                       <span className={styles.index}>{String(i + 1).padStart(2, '0')}</span>
                       <span className={styles.groupLabel}>{g.label}</span>
+                      {g.badge && <span className={styles.badge}>{g.badge}</span>}
                     </NavLink>
                     {multi && (
                       <button
@@ -81,14 +111,22 @@ export function MobileNav({ open, onClose }) {
                         exit={reduced ? undefined : { height: 0, opacity: 0 }}
                         transition={{ duration: reduced ? 0 : 0.34, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        {g.children.map((c) => (
-                          <li key={c.to + c.label}>
-                            <NavLink to={c.to} onClick={onClose} className={styles.subLink}>
-                              <span className={styles.subCode}>{c.code}</span>
-                              {c.label}
-                            </NavLink>
-                          </li>
-                        ))}
+                        <li>
+                          <NavLink to={g.lead.to} end onClick={onClose} className={styles.subLink}>
+                            <span className={styles.subCode}>{g.lead.code}</span>
+                            {g.lead.label}
+                          </NavLink>
+                        </li>
+                        {g.categories.length > 1
+                          ? g.categories.map((cat) => <Category key={cat.id} cat={cat} onClose={onClose} />)
+                          : g.categories[0].items.map((c) => (
+                              <li key={c.to + c.label}>
+                                <NavLink to={c.to} onClick={onClose} className={styles.subLink}>
+                                  <span className={styles.subCode}>{c.code}</span>
+                                  {c.label}
+                                </NavLink>
+                              </li>
+                            ))}
                       </motion.ul>
                     )}
                   </AnimatePresence>

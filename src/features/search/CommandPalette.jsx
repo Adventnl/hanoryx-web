@@ -12,7 +12,7 @@ import styles from './CommandPalette.module.css';
 import { fx } from '../../utils/fx';
 
 const RECENT_KEY = 'hnx.search.recent';
-const SECTIONS = ['All', 'Work', 'Systems', 'Development', 'Company', 'Resources', 'Trust', 'Legal'];
+const SECTIONS = ['All', 'Work', 'Systems', 'Development', 'Showcase', 'Company', 'Resources', 'Trust', 'Legal'];
 const HINTS = ['a feature, e.g. “scheduling”', 'a project, e.g. “engine editor”', 'a principle or a phase', 'anything the pages say'];
 const EASE = [0.16, 1, 0.3, 1];
 

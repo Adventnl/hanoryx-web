@@ -18,4 +18,10 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // A showcase page module default-exports data ({ Visual, items }), not a component;
+    // the specimens are small components that live beside it.
+    files: ['src/showcase/pages/**/*.jsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
 ])

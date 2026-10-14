@@ -7,7 +7,7 @@ import { navGroups } from '../../app/routeConfig';
 import { company } from '../../data/company';
 import { brandLogo } from '../../utils/assetResolver';
 import { AudioSignalButton } from '../audio/AudioSignalButton';
-import { RadialMegaMenu } from './RadialMegaMenu';
+import { MegaPanel } from './MegaPanel';
 import { useNavIntent } from './useNavIntent';
 import { useDismissableLayer } from './useDismissableLayer';
 import styles from './AdvancedNavbar.module.css';
@@ -16,8 +16,9 @@ import { fx } from '../../utils/fx';
 const INK_SPRING = { type: 'spring', stiffness: 380, damping: 34, mass: 0.8 };
 
 /**
- * Primary navigation with an intentional hover-intent controller and a true
- * radial deploy menu. The menu opens only on a deliberate dwell and closes on
+ * Primary navigation with an intentional hover-intent controller and a wide,
+ * full-screen-width menu (categories on the left, pages across the right). The
+ * menu opens only on a deliberate dwell and closes on
  * every dismissal path: route change, link click, outside pointer, Escape,
  * scroll, window blur, focus-out, and the mobile menu opening. Single-child
  * groups never deploy a panel — they are plain links.
@@ -33,7 +34,6 @@ const INK_SPRING = { type: 'spring', stiffness: 380, damping: 34, mass: 0.8 };
  */
 export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
   const [scrolled, setScrolled] = useState(false);
-  const [anchorX, setAnchorX] = useState(null);
   const { pathname } = useLocation();
   // The hovered link is remembered with the path it was hovered on, so a stale
   // hover can never survive a navigation (derived, not reset in an effect).
@@ -84,16 +84,6 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
     if (menuOpen) closeGroup({ immediate: true });
   }, [menuOpen, closeGroup]);
 
-  // Anchor the deploy under the active group so it "emerges" from the item.
-  useLayoutEffect(() => {
-    if (!activeGroup) return;
-    const el = groupRefs.current[activeGroup];
-    if (el) {
-      const r = el.getBoundingClientRect();
-      setAnchorX(r.left + r.width / 2);
-    }
-  }, [activeGroup]);
-
   const isGroupActive = useCallback((g) => pathname === g.to || pathname.startsWith(`${g.to}/`), [pathname]);
   const routeGroup = navGroups.find(isGroupActive);
   const inkId = hoverId || routeGroup?.id || null;
@@ -105,7 +95,8 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
       setInk((prev) => (prev.on ? { ...prev, on: false } : prev));
       return;
     }
-    setInk((prev) => ({ x: el.offsetLeft + 14, w: Math.max(0, el.offsetWidth - 28), on: true, placed: prev.placed || prev.on }));
+    const pad = parseFloat(getComputedStyle(el).paddingLeft) || 14;
+    setInk((prev) => ({ x: el.offsetLeft + pad, w: Math.max(0, el.offsetWidth - pad * 2), on: true, placed: prev.placed || prev.on }));
   }, [inkId]);
 
   useLayoutEffect(() => {
@@ -194,8 +185,10 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
                 onClick={() => closeGroup({ immediate: true })}
                 aria-haspopup={multi || undefined}
                 aria-expanded={multi ? activeGroup === g.id : undefined}
+                aria-controls={multi && activeGroup === g.id ? 'mega-panel' : undefined}
               >
                 <span className={styles.groupLabel}>{g.label}</span>
+                {g.badge && <span className={styles.badge}>{g.badge}</span>}
                 <span className={styles.groupCode}>{g.code}</span>
               </NavLink>
             );
@@ -230,10 +223,9 @@ export function AdvancedNavbar({ menuOpen, onToggleMenu, revealed = true }) {
         </div>
       </div>
 
-      <RadialMegaMenu
+      <MegaPanel
         ref={menuRef}
         group={openMulti}
-        anchorX={anchorX}
         onMouseEnter={cancelClose}
         onMouseLeave={() => scheduleClose()}
         onNavigate={() => closeGroup({ immediate: true })}

@@ -5,6 +5,7 @@ import { AnimatePresence } from 'motion/react';
 import { pageRouteKeys, redirects, routePath } from './routeConfig';
 import { RouteFallback } from '../components/layout/RouteFallback';
 import { warmPath } from '../data/pages';
+import { warmShowcase } from '../showcase/loader';
 
 /* Route-level code splitting: every page is its own async chunk, so the initial
    bundle never carries the whole site. Every page — home, work, systems,
@@ -13,6 +14,10 @@ import { warmPath } from '../data/pages';
 const loadTemplatePage = () => import('../pages/TemplatePage');
 const NotFound = lazy(() => import('../pages/NotFound'));
 const TemplatePage = lazy(loadTemplatePage);
+/* The showcase is its own family of routes: an index and fifty scroll-driven
+   pages, each loading its own code on demand (see showcase/pages.js). */
+const ShowcaseIndex = lazy(() => import('../showcase/ShowcaseIndex'));
+const ShowcasePage = lazy(() => import('../showcase/ShowcasePage'));
 
 /* Every page is the same chunk, so fetch it as soon as the browser is idle:
    the first navigation then never waits on the network. */
@@ -41,7 +46,11 @@ export function AppRoutes() {
   useEffect(() => {
     const onIntent = (event) => {
       const link = event.target.closest?.('a[href^="/"]');
-      if (link) warmPath(link.getAttribute('href').split(/[?#]/)[0]);
+      if (link) {
+        const path = link.getAttribute('href').split(/[?#]/)[0];
+        warmPath(path);
+        warmShowcase(path);
+      }
     };
     document.addEventListener('pointerover', onIntent, { passive: true });
     document.addEventListener('focusin', onIntent);
@@ -58,6 +67,9 @@ export function AppRoutes() {
           {pageRouteKeys.map((key) => (
             <Route key={key} path={routePath(key)} element={<TemplatePage routeKey={key} />} />
           ))}
+
+          <Route path="/showcase" element={<ShowcaseIndex />} />
+          <Route path="/showcase/:slug" element={<ShowcasePage />} />
 
           {redirects.map(([from, to]) => (
             <Route key={from} path={from} element={<Navigate to={to} replace />} />

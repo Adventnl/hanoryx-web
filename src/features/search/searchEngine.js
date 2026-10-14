@@ -95,6 +95,7 @@ const SECTION_BY_ROOT = {
   lab: 'Development',
   company: 'Company',
   contact: 'Company',
+  showcase: 'Showcase',
   insights: 'Resources',
   resources: 'Resources',
   trust: 'Trust',
