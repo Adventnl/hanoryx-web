@@ -379,10 +379,11 @@
 
 /* 37 tank level */
 .tank { composes: reset; position: relative; display: flex; align-items: stretch; gap: 0.5rem; height: 8rem; }
-.tank > span { position: relative; width: 4.6rem; overflow: hidden; border: 2px solid var(--c-white-50); border-top-color: var(--c-white-30); border-radius: 4px 4px 10px 10px; background: rgba(255, 255, 255, 0.03); }
-.tank > span i { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--v) * 100%); background: color-mix(in srgb, var(--c-red) 55%, #101114); transition: height 0.3s linear; }
-.tank > span i::before { content: ''; position: absolute; left: 0; top: -0.4rem; width: 200%; height: 0.4rem; background: radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--c-red) 55%, #101114) 0.38rem, transparent 0.4rem) 0 0 / 1rem 0.4rem repeat-x; animation: waveRem 1.6s linear infinite; }
-.tank ol { display: flex; flex-direction: column; justify-content: space-between; margin: 0; padding: 0; list-style: none; font: 500 0.5rem var(--font-mono); color: var(--c-white-50); }
+.vessel { position: relative; width: 4.6rem; overflow: hidden; border: 2px solid var(--c-white-50); border-top-color: var(--c-white-30); border-radius: 4px 4px 10px 10px; background: rgba(255, 255, 255, 0.03); }
+.vessel i { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--v) * 100%); background: color-mix(in srgb, var(--c-red) 55%, #101114); transition: height 0.3s linear; }
+.vessel i::before { content: ''; position: absolute; left: 0; top: -0.4rem; width: 200%; height: 0.4rem; background: radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--c-red) 55%, #101114) 0.38rem, transparent 0.4rem) 0 0 / 1rem 0.4rem repeat-x; animation: waveRem 1.6s linear infinite; }
+.scale { display: flex; flex-direction: column; justify-content: space-between; font: 500 0.5rem var(--font-mono); color: var(--c-white-50); }
+.scale em { font-style: normal; }
 .tank b { align-self: center; margin-left: 0.4rem; font: 300 1.8rem var(--font-serif); color: #fff; }
 @keyframes waveRem { to { transform: translateX(-1rem); } }
 
@@ -424,5 +425,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .arcMeter, .peak, .drop, .dotArc, .pie, .orbit, .head, .col, .bridge span { animation: none; --gv: 0.62; --gp: 0.8; }
-  .paper, .spin, .jit, .comet, .radar::after, .tickSweep i, .odo b, .wave, .tank > span i::before { animation: none; }
+  .paper, .spin, .jit, .comet, .radar::after, .tickSweep i, .odo b, .wave, .vessel i::before { animation: none; }
 }
