@@ -42,6 +42,10 @@
 .hudBar { grid-column: 1 / -1; position: relative; height: 1px; background: var(--c-line-strong); }
 .hudBar i { position: absolute; inset: 0; background: var(--c-red); box-shadow: var(--glow-red); transform-origin: left; transform: scaleX(var(--pin)); }
 
+/* entrances slide specimens in from beyond the edge: clip that sideways (clip, unlike
+   hidden, makes no scroll container, so sticky panels still stick) */
+.split, .index, .orbit, .spine, .flow { overflow-x: clip; }
+
 /* on a pinned screen the readout sits bottom-left, under the still side */
 .pin > .hud { position: absolute; left: var(--gutter); bottom: 1.8rem; width: 26vw; }
 

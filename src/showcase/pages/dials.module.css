@@ -1,0 +1,279 @@
+/* 02 · DIALS — a bezel and a needle at the still centre, and forty things to turn. */
+
+/* ---- the centre ---- */
+.big { width: min(96cqw, 96cqh); aspect-ratio: 1; }
+.big svg { width: 100%; height: 100%; overflow: visible; }
+.bezel { transform-origin: 100px 100px; transform: rotate(calc(var(--pin) * -720deg)); }
+.bezel line { stroke: var(--c-white-30); stroke-width: 0.8; }
+.bezel text { fill: var(--c-white-50); font: 300 9px var(--font-serif); }
+.ring { fill: none; stroke: var(--c-white-12); }
+.sweep { fill: none; stroke: var(--c-red); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--pin)); transform: rotate(-90deg); transform-origin: 100px 100px; }
+.needle { transform-origin: 100px 100px; transform: rotate(calc(var(--pin) * 300deg - 150deg)); }
+.needle path { fill: var(--c-red); }
+.needle circle { fill: #0b0c0f; stroke: var(--c-red); }
+
+/* ---- the shared knob ---- */
+.knob { position: relative; width: 4.6rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #5c5d64, #1b1c20 70%); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6); transform: rotate(calc(-135deg + var(--v) * 270deg)); cursor: grab; }
+.knob b { position: absolute; left: 50%; top: 6px; width: 3px; height: 28%; margin-left: -1.5px; border-radius: 2px; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 1 detent */
+.detent { position: relative; display: grid; place-items: center; width: 8rem; aspect-ratio: 1; }
+.detent i { position: absolute; left: 50%; top: 50%; width: 2px; height: 7px; margin: -3.5px 0 0 -1px; background: var(--c-white-20); transform: rotate(calc(-135deg + var(--i) * 24.545deg)) translateY(-3.6rem); transition: background 0.2s; }
+.detent i[data-on='true'] { background: var(--c-red); }
+
+/* 2 chicken head */
+.chicken { position: relative; width: 7rem; height: 7rem; cursor: grab; }
+.chicken::before { content: ''; position: absolute; inset: 29%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #4a4b52, #17181c); border: 1px solid var(--c-white-20); }
+.chicken i { position: absolute; inset: 0; background: linear-gradient(90deg, #7c7d84, #e4e5ea, #7c7d84); clip-path: polygon(50% 0, 60% 52%, 50% 62%, 40% 52%); transform: rotate(calc(-135deg + var(--v) * 270deg)); }
+.chicken span { position: absolute; left: 0; right: 0; bottom: -0.2rem; text-align: center; font: 500 0.6rem var(--font-mono); letter-spacing: 0.14em; color: var(--c-white-65); }
+
+/* 3 concentric pair */
+.concentric { position: relative; width: 8rem; aspect-ratio: 1; }
+.outer { position: absolute; inset: 0; border: 1px solid var(--c-white-30); border-radius: 50%; background: conic-gradient(#26272c, #3b3c43, #26272c, #3b3c43, #26272c); transform: rotate(calc(-135deg + var(--v) * 270deg)); cursor: grab; }
+.outer i { position: absolute; top: 5px; left: 50%; width: 3px; height: 11px; margin-left: -1.5px; background: var(--c-white-80); }
+.inner { position: absolute; inset: 26%; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #5a5b62, #1b1c20 70%); transform: rotate(calc(-135deg + var(--v) * 270deg)); cursor: grab; }
+.inner i { position: absolute; top: 4px; left: 50%; width: 3px; height: 30%; margin-left: -1.5px; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 4 jog wheel */
+.jog { position: relative; width: 7rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: repeating-conic-gradient(#2a2b30 0 6deg, #1a1b1f 6deg 12deg); transform: rotate(var(--r)); cursor: grab; }
+.jog i { position: absolute; inset: 30%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #5a5b62, #202126); }
+.jog b { position: absolute; top: 12%; left: 50%; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 5 click wheel */
+.clickWheel { position: relative; width: 7.4rem; aspect-ratio: 1; border: 1px solid var(--c-white-20); border-radius: 50%; background: #202126; cursor: grab; }
+.clickWheel i { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(transparent 0 330deg, var(--c-red-dim) 345deg, transparent 360deg); transform: rotate(var(--r)); }
+.clickWheel button { position: absolute; inset: 31%; border: 1px solid var(--c-white-20); border-radius: 50%; background: #0b0c0f; font: 500 0.7rem var(--font-mono); color: var(--c-white-80); }
+.clickWheel button[aria-pressed='true'] { border-color: var(--c-red); }
+
+/* 6 LED ring */
+.ledRing { position: relative; display: grid; place-items: center; width: 8rem; aspect-ratio: 1; }
+.ledRing i { position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px; border-radius: 50%; background: #2a1213; transform: rotate(calc(-135deg + var(--i) * 18deg)) translateY(-3.6rem); transition: background 0.2s, box-shadow 0.2s; }
+.ledRing i[data-on='true'] { background: var(--c-red); box-shadow: var(--glow-red); }
+.ledRing .knob { width: 4.2rem; }
+
+/* 7 tuning dial */
+.tuning { position: relative; width: min(100%, 17rem); height: 4.6rem; overflow: hidden; border: 1px solid var(--c-white-20); border-radius: 6px; background: #0a0b0d; cursor: grab; }
+.tuning::before { content: ''; position: absolute; left: 0.8rem; right: 0.8rem; top: 1.7rem; height: 9px; background: repeating-linear-gradient(90deg, var(--c-white-30) 0 1px, transparent 1px 8px); }
+.tuning ol { display: flex; justify-content: space-between; padding: 0.4rem 0.7rem; font: 500 0.55rem var(--font-mono); color: var(--c-white-50); }
+.tuning i { position: absolute; top: 0; bottom: 0; left: calc(var(--v) * 100%); width: 2px; background: var(--c-red); box-shadow: var(--glow-red); }
+.tuning span { position: absolute; left: 0.7rem; bottom: 0.45rem; font: 500 0.7rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white); }
+
+/* 8 combination dial */
+.combo { position: relative; width: 8.2rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle, #0b0c0f 52%, #1d1e23 53%); cursor: grab; }
+.combo ol { position: absolute; inset: 0; transform: rotate(calc(var(--v) * -360deg)); }
+.combo li { position: absolute; left: 50%; top: 50%; font: 500 0.5rem var(--font-mono); color: var(--c-white-65); transform: translate(-50%, -50%) rotate(calc(var(--i) * 18deg)) translateY(-3.5rem); }
+.combo b { position: absolute; top: -5px; left: 50%; border: 5px solid transparent; border-top: 9px solid var(--c-red); transform: translateX(-50%); }
+.combo span { position: absolute; inset: 0; display: grid; place-items: center; font: 300 1.8rem var(--font-serif); color: var(--c-white); }
+
+/* 9 padlock rollers */
+.padlock { display: grid; justify-items: center; gap: 0.3rem; }
+.padlock svg { width: 2.6rem; fill: none; stroke: var(--c-white-50); stroke-width: 3; stroke-linecap: round; transform-origin: 80% 100%; transition: transform 0.5s var(--ease-out), stroke 0.3s; }
+.padlock[data-open='true'] svg { stroke: var(--c-red); transform: translateY(-3px) rotate(-20deg); }
+.padlock div { display: flex; gap: 3px; padding: 6px; border: 1px solid var(--c-white-20); border-radius: 6px; background: #0b0c0f; }
+.padlock button { width: 1.9rem; height: 2.7rem; border-radius: 3px; background: linear-gradient(#303137, #1a1b1f); font: 500 1rem var(--font-mono); color: var(--c-white-80); }
+.padlock[data-open='true'] button { color: var(--c-red); }
+
+/* 10 amp gain */
+.marshall { position: relative; display: grid; place-items: center; width: 8.6rem; aspect-ratio: 1; }
+.marshall em { position: absolute; left: 50%; top: 50%; font: normal 500 0.55rem var(--font-mono); color: var(--c-white-50); transform: translate(-50%, -50%) rotate(calc(-135deg + var(--i) * 24.545deg)) translateY(-3.8rem) rotate(calc(135deg - var(--i) * 24.545deg)); }
+.skirt { position: relative; width: 4.8rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle at 50% 30%, #3a3b42, #141518); box-shadow: 0 0 0 5px #0e0f12, 0 0 0 6px var(--c-white-12); transform: rotate(calc(-135deg + var(--v) * 270deg)); cursor: grab; }
+.skirt b { position: absolute; left: 50%; top: 5px; width: 4px; height: 30%; margin-left: -2px; border-radius: 2px; background: #f1f1f1; }
+
+/* 11 knurled knob */
+.knurled { position: relative; width: 6rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: repeating-conic-gradient(#3a3b42 0 3deg, #15161a 3deg 6deg); transform: rotate(calc(-135deg + var(--v) * 270deg)); cursor: grab; }
+.knurled i { position: absolute; inset: 22%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #707178, #202126); }
+.knurled::after { content: ''; position: absolute; top: 9%; left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 12 arc slider */
+.arc { --a: calc(-116deg + var(--v) * 232deg); position: relative; width: 10rem; height: 8rem; cursor: grab; }
+.arc svg { width: 100%; height: 100%; fill: none; stroke: var(--c-white-20); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; }
+.arc .fill { stroke: var(--c-red); }
+.arc i { position: absolute; left: calc(50% + sin(var(--a)) * 40%); top: calc((48.6 - cos(var(--a)) * 40) * 1.25%); width: 1.1rem; aspect-ratio: 1; margin: -0.55rem; border-radius: 50%; background: #fff; box-shadow: var(--glow-red); }
+.arc span { position: absolute; left: 0; right: 0; top: 46%; text-align: center; font: 300 1.7rem var(--font-serif); color: var(--c-white); }
+
+/* 13 pie menu */
+.pie { position: relative; width: 9.4rem; aspect-ratio: 1; }
+.pie button { position: absolute; inset: 0; border-radius: 50%; background: #15161a; clip-path: polygon(50% 50%, 50% 0, 93.3% 25%); transform: rotate(calc(var(--i) * 60deg)); transition: background 0.25s; }
+.pie button:nth-of-type(even) { background: #1b1c21; }
+.pie button[aria-pressed='true'] { background: var(--c-red-dim); }
+.pie button span { position: absolute; left: 66%; top: 21%; font: 500 0.52rem var(--font-mono); letter-spacing: 0.06em; color: var(--c-white-80); text-transform: uppercase; transform: translate(-50%, -50%) rotate(calc(var(--i) * -60deg)); }
+.pie output { position: absolute; inset: 33%; display: grid; place-items: center; border: 1px solid var(--c-white-20); border-radius: 50%; background: #0b0c0f; font: 500 0.55rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white); }
+
+/* 14 needle setter */
+.needleGauge { position: relative; width: 10rem; height: 5.6rem; overflow: hidden; cursor: grab; }
+.needleGauge::before { content: ''; position: absolute; left: 0; right: 0; bottom: -100%; height: 200%; border-radius: 50%; background: repeating-conic-gradient(from -90deg, var(--c-white-30) 0 1deg, transparent 1deg 10deg); }
+.needleGauge::after { content: ''; position: absolute; left: 11%; right: 11%; bottom: -89%; height: 178%; border-radius: 50%; background: #0a0b0d; box-shadow: 0 0 0 1px var(--c-white-12); }
+.needleGauge i { position: absolute; z-index: 1; left: 50%; bottom: 0; width: 2px; height: 82%; margin-left: -1px; background: var(--c-red); box-shadow: var(--glow-red); transform-origin: 50% 100%; transform: rotate(calc(-90deg + var(--v) * 180deg)); }
+.needleGauge b { position: absolute; z-index: 2; left: 50%; bottom: -7px; width: 14px; height: 14px; margin-left: -7px; border: 1px solid var(--c-red); border-radius: 50%; background: #0b0c0f; }
+.needleGauge span { position: absolute; z-index: 1; left: 50%; bottom: 0.7rem; transform: translateX(-50%); font: 500 0.7rem var(--font-mono); color: var(--c-white); }
+
+/* 15 pan knob */
+.pan { display: grid; grid-template-columns: auto auto auto; align-items: center; gap: 0.4rem 0.9rem; }
+.pan span { font: 500 0.6rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-50); }
+.pan output { grid-column: 1 / -1; text-align: center; font: 500 0.6rem var(--font-mono); letter-spacing: 0.18em; color: var(--c-white-80); }
+
+/* 16 rotary phone */
+.phone { display: grid; justify-items: center; gap: 0.4rem; }
+.disc { position: relative; width: 9rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle, #14151a 28%, #0b0c0f 29%); transform: rotate(var(--r)); transition: transform 0.45s var(--ease-out); }
+.disc button { position: absolute; left: 50%; top: 50%; width: 1.35rem; height: 1.35rem; margin: -0.675rem; border: 1px solid var(--c-white-30); border-radius: 50%; background: #050506; font: 500 0.52rem var(--font-mono); color: var(--c-white-65); transform: rotate(calc(35deg + var(--i) * 26deg)) translateY(-3.25rem) rotate(calc(-35deg - var(--i) * 26deg)); }
+.disc button:hover { border-color: var(--c-red-dim); color: #fff; }
+.phone output { font: 500 0.7rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-80); min-height: 1em; }
+
+/* 17 compass bezel */
+.bezelBox { position: relative; display: grid; place-items: center; width: 8rem; aspect-ratio: 1; border: 1px solid var(--c-white-20); border-radius: 50%; background: #0b0c0f; cursor: grab; }
+.bezelBox i { position: absolute; inset: 0; border-radius: 50%; background: repeating-conic-gradient(var(--c-white-50) 0 0.8deg, transparent 0.8deg 10deg); transform: rotate(calc(var(--v) * 360deg - 180deg)); }
+.bezelBox i b { position: absolute; top: -0.1rem; left: 50%; transform: translateX(-50%); font: 600 0.62rem var(--font-mono); color: var(--c-red); background: #0b0c0f; padding: 0 3px; }
+.bezelBox u { position: absolute; inset: 12px; border: 1px solid var(--c-white-12); border-radius: 50%; background: #0b0c0f; }
+.bezelBox span { position: relative; font: 300 1.5rem var(--font-serif); color: var(--c-white); }
+
+/* 18 steering wheel */
+.wheel { position: relative; width: 7.6rem; aspect-ratio: 1; border: 10px solid #26272c; border-radius: 50%; transform: rotate(calc(-110deg + var(--v) * 220deg)); cursor: grab; }
+.wheel::before { content: ''; position: absolute; top: -10px; left: 50%; width: 6px; height: 10px; margin-left: -3px; background: var(--c-red); }
+.wheel i { position: absolute; left: -2px; right: -2px; top: 44%; height: 10%; background: #26272c; }
+.wheel b { position: absolute; left: 45%; top: 50%; width: 10%; height: 46%; background: #26272c; }
+
+/* 19 crank handle */
+.crank { position: relative; width: 8rem; height: 8.6rem; cursor: grab; }
+.crank::before { content: ''; position: absolute; left: 50%; top: 4rem; width: 6.8rem; aspect-ratio: 1; margin: -3.4rem; border: 1px dashed var(--c-white-20); border-radius: 50%; }
+.crank i { position: absolute; left: 50%; top: 4rem; width: 3.4rem; height: 0.6rem; margin-top: -0.3rem; border-radius: 3px; background: linear-gradient(#a2a3ab, #5c5d65); transform-origin: 0 50%; transform: rotate(calc(var(--r) - 90deg)); }
+.crank i b { position: absolute; right: -0.5rem; top: 50%; width: 1.4rem; height: 1.4rem; margin-top: -0.7rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--c-red) 60%, #7d1010); }
+.crank span { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font: 500 0.58rem var(--font-mono); letter-spacing: 0.16em; color: var(--c-white-65); text-transform: uppercase; }
+
+/* 20 gear pair */
+.gears { width: 11rem; }
+.gears svg { width: 100%; }
+.ga, .gb { fill: #17181c; stroke: var(--c-white-50); stroke-width: 1.2; transform-origin: 50px 50px; transition: transform 0.5s var(--ease-out); }
+.gb { stroke: var(--c-red); }
+
+/* 21 alarm hands */
+.alarm { position: relative; width: 8rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle, #0b0c0f 80%, transparent 81%), repeating-conic-gradient(from -0.5deg, var(--c-white-50) 0 1deg, transparent 1deg 30deg); cursor: grab; }
+.alarm i, .alarm b { position: absolute; left: 50%; bottom: 50%; transform-origin: 50% 100%; border-radius: 2px; }
+.alarm i { width: 4px; height: 26%; margin-left: -2px; background: #fff; transform: rotate(calc(var(--v) * 360deg)); }
+.alarm b { width: 2px; height: 38%; margin-left: -1px; background: var(--c-red); transform: rotate(calc(var(--v) * 4320deg)); }
+.alarm span { position: absolute; left: 0; right: 0; bottom: 18%; text-align: center; font: 500 0.62rem var(--font-mono); letter-spacing: 0.12em; color: var(--c-white-65); }
+
+/* 22 thermostat ring */
+.thermo { position: relative; display: grid; place-items: center; width: 8rem; aspect-ratio: 1; cursor: grab; }
+.thermo svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--c-white-12); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 0.78 1; transform: rotate(130deg); }
+.thermo .fill { stroke: var(--c-red); }
+.thermo span { font: 300 1.7rem var(--font-serif); color: var(--c-white); }
+
+/* 23 heat ring */
+.heat { position: relative; display: grid; place-items: center; width: 7.6rem; aspect-ratio: 1; border-radius: 50%; background: conic-gradient(from calc(var(--v) * 360deg - 180deg), var(--c-red), #3a1414 35%, #0b0c0f 65%, #3a1414 100%); cursor: grab; }
+.heat i { position: absolute; inset: 17%; border-radius: 50%; background: #0b0c0f; }
+.heat span { position: relative; font: 500 0.8rem var(--font-mono); color: var(--c-white); }
+
+/* 24 stepped 6-way */
+.stepped { position: relative; width: 7.6rem; aspect-ratio: 1; }
+.stepped em { position: absolute; left: 50%; top: 50%; font: normal 500 0.58rem var(--font-mono); color: var(--c-white-50); transform: translate(-50%, -50%) rotate(calc(-125deg + var(--i) * 50deg)) translateY(-3.4rem) rotate(calc(125deg - var(--i) * 50deg)); transition: color 0.3s; }
+.stepped em[data-on='true'] { color: var(--c-red); }
+.stepped i { position: absolute; inset: 24%; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #5a5b62, #1b1c20 70%); transform: rotate(calc(-125deg + var(--n) * 50deg)); transition: transform 0.5s var(--ease-spring-soft); }
+.stepped i::after { content: ''; position: absolute; top: 4px; left: 50%; width: 3px; height: 30%; margin-left: -1.5px; background: var(--c-red); }
+
+/* 25 potentiometer */
+.pot { position: relative; width: 8rem; aspect-ratio: 1; cursor: grab; }
+.pot svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--c-white-20); stroke-width: 1.4; }
+.pot .zig { stroke: var(--c-white-50); }
+.pot i { position: absolute; left: 50%; bottom: 50%; width: 2px; height: 38%; margin-left: -1px; background: var(--c-red); box-shadow: var(--glow-red); transform-origin: 50% 100%; transform: rotate(calc(-140deg + var(--v) * 280deg)); }
+.pot span { position: absolute; left: 0; right: 0; top: 56%; text-align: center; font: 500 0.6rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-80); }
+
+/* 26 joystick */
+.stick { position: relative; width: 8rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle, #14151a 60%, #0b0c0f); }
+.stick u { position: absolute; inset: 0; background: linear-gradient(var(--c-white-12), var(--c-white-12)) center / 1px 100% no-repeat, linear-gradient(var(--c-white-12), var(--c-white-12)) center / 100% 1px no-repeat; }
+.stick i { position: absolute; left: calc(50% + var(--x) * 34%); top: calc(50% + var(--y) * 34%); width: 2.6rem; aspect-ratio: 1; margin: -1.3rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--c-red) 55%, #7d1010); transition: left 0.14s, top 0.14s; }
+.stick span { position: absolute; left: 0; right: 0; bottom: 0.4rem; text-align: center; font: 500 0.52rem var(--font-mono); color: var(--c-white-50); }
+
+/* 27 trackball */
+.ball { position: relative; width: 6.4rem; aspect-ratio: 1; overflow: hidden; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.18), transparent 40%), radial-gradient(circle, #15161a, #07080a 85%); cursor: grab; }
+.ball i { position: absolute; inset: -20%; border-radius: 50%; background-image: radial-gradient(circle, var(--c-red) 2px, transparent 2.6px); background-size: 22px 22px; background-position: calc(var(--x) * 44px) calc(var(--y) * 44px); opacity: 0.75; transition: background-position 0.2s var(--ease-out); }
+
+/* 28 scroll wheel */
+.scroll { position: relative; display: grid; place-items: center; width: 3.6rem; height: 6rem; border: 1px solid var(--c-white-30); border-radius: 1.8rem; background: #0b0c0f; }
+.scroll i { width: 0.9rem; height: 2.6rem; border-radius: 4px; background: repeating-linear-gradient(0deg, #7a7b83 0 3px, #26272c 3px 6px); background-position: 0 calc(var(--n) * 6px); transition: background-position 0.2s var(--ease-out); }
+.scroll span { position: absolute; left: 0; right: 0; bottom: 0.45rem; text-align: center; font: 500 0.55rem var(--font-mono); color: var(--c-white-50); }
+
+/* 29 throttle pair */
+.throttle { display: grid; grid-template-columns: auto auto; gap: 0.4rem 1.4rem; justify-content: center; }
+.throttle div { position: relative; width: 2.6rem; height: 7rem; border: 1px solid var(--c-white-20); border-radius: 6px; background: #0b0c0f; cursor: grab; }
+.throttle i { position: absolute; left: 0.3rem; right: 0.3rem; bottom: calc(var(--v) * (100% - 1.6rem)); height: 1.6rem; border-radius: 4px; background: linear-gradient(#a2a3ab, #5c5d65); }
+.throttle output { grid-column: 1 / -1; text-align: center; font: 500 0.55rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-65); }
+
+/* 30 roulette */
+.roulette { position: relative; display: grid; justify-items: center; gap: 0.3rem; padding-top: 0.7rem; }
+.roulette button { position: relative; width: 8rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: repeating-conic-gradient(#14151a 0 30deg, #2a1213 30deg 60deg); transform: rotate(var(--t)); transition: transform 3s cubic-bezier(0.12, 0.7, 0.1, 1); }
+.roulette button i { position: absolute; inset: 36%; border: 1px solid var(--c-white-30); border-radius: 50%; background: #0b0c0f; }
+.roulette u { position: absolute; top: 0; left: 50%; border: 6px solid transparent; border-top: 11px solid var(--c-red); transform: translateX(-50%); }
+.roulette output { font: 500 0.62rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-80); }
+
+/* 31 drum picker */
+.drum { position: relative; width: 8rem; height: 6rem; overflow: hidden; border-block: 1px solid var(--c-white-20); cursor: grab; }
+.drum ol { transform: translateY(calc(2.4rem - var(--n) * 1.2rem)); transition: transform 0.3s var(--ease-out); }
+.drum li { height: 1.2rem; line-height: 1.2rem; text-align: center; font: 500 0.7rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-50); }
+.drum i { position: absolute; left: 0; right: 0; top: 2.4rem; height: 1.2rem; border-block: 1px solid var(--c-red-dim); background: var(--c-white-05); pointer-events: none; }
+
+/* 32 gyro rings */
+.gyro { position: relative; width: 7rem; aspect-ratio: 1; perspective: 420px; transform-style: preserve-3d; }
+.gyro i { position: absolute; inset: 0; border: 1.5px solid var(--c-white-50); border-radius: 50%; }
+.gyro i:nth-child(1) { animation: gx 7s linear infinite; }
+.gyro i:nth-child(2) { inset: 9%; animation: gy 5s linear infinite; border-color: var(--c-white-65); }
+.gyro i:nth-child(3) { inset: 18%; animation: gz 3.6s linear infinite; border-color: var(--c-red); }
+.gyro b { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+@keyframes gx { to { transform: rotateX(360deg); } }
+@keyframes gy { to { transform: rotateY(360deg); } }
+@keyframes gz { from { transform: rotateX(60deg) rotateZ(0); } to { transform: rotateX(60deg) rotateZ(360deg); } }
+
+/* 33 kitchen timer */
+.timer { display: grid; grid-template-columns: auto auto; align-items: center; gap: 0.5rem 1.1rem; }
+.timer output { font: 300 2rem var(--font-serif); color: var(--c-white); }
+.timer button { grid-column: 1 / -1; justify-self: center; padding: 0.4rem 1.2rem; border: 1px solid var(--c-white-30); border-radius: 99px; font: 500 0.58rem var(--font-mono); letter-spacing: 0.2em; color: var(--c-white-80); }
+.timer button[aria-pressed='true'] { border-color: var(--c-red); color: var(--c-red); }
+
+/* 34 metronome */
+.metro { display: grid; justify-items: center; gap: 0.5rem; }
+.pend { position: relative; width: 7rem; height: 6rem; }
+.pend i { position: absolute; left: 50%; bottom: 0; width: 3px; height: 100%; margin-left: -1.5px; background: var(--c-white-65); transform-origin: 50% 100%; animation: sway var(--d) ease-in-out infinite alternate; }
+.pend i::after { content: ''; position: absolute; left: -7px; top: 34%; width: 17px; height: 12px; background: var(--c-red); border-radius: 2px; }
+@keyframes sway { from { transform: rotate(-22deg); } to { transform: rotate(22deg); } }
+.track { position: relative; width: 9rem; height: 1.4rem; border: 1px solid var(--c-white-20); border-radius: 99px; background: #0b0c0f; cursor: grab; }
+.track u { position: absolute; top: 2px; bottom: 2px; left: calc(2px + var(--v) * (100% - 1.6rem - 4px)); width: 1.6rem; border-radius: 99px; background: var(--c-white-65); }
+.metro output { font: 500 0.6rem var(--font-mono); letter-spacing: 0.18em; color: var(--c-white-80); }
+
+/* 35 sundial */
+.sundial { position: relative; width: 11rem; height: 6.4rem; overflow: hidden; border: 1px solid var(--c-white-20); border-bottom: 0; border-radius: 11rem 11rem 0 0 / 6.4rem 6.4rem 0 0; background: #0a0b0d; cursor: grab; }
+.sundial i { position: absolute; left: calc(50% - cos(var(--v) * 180deg) * 42%); bottom: calc(sin(var(--v) * 180deg) * 78%); width: 1.3rem; aspect-ratio: 1; margin: 0 0 0 -0.65rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--c-red) 65%); box-shadow: 0 0 18px var(--c-red-dim); }
+.sundial b { position: absolute; left: 50%; bottom: 0; width: 2px; height: 1.6rem; margin-left: -1px; background: #fff; }
+.sundial u { position: absolute; left: 50%; bottom: 0; width: 2px; height: 3.4rem; margin-left: -1px; background: linear-gradient(var(--c-red), transparent); transform-origin: 50% 100%; transform: rotate(calc((0.5 - var(--v)) * 160deg)); }
+.sundial span { position: absolute; right: 0.6rem; bottom: 0.3rem; font: 500 0.55rem var(--font-mono); color: var(--c-white-65); }
+
+/* 36 orbiter */
+.orbiter { --a: calc(var(--v) * 360deg - 180deg); position: relative; width: 8rem; aspect-ratio: 1; border: 1px dashed var(--c-white-30); border-radius: 50%; cursor: grab; }
+.orbiter i { position: absolute; inset: 30%; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle at 35% 30%, #5a5b62, #1b1c20 70%); }
+.orbiter b { position: absolute; left: calc(50% + sin(var(--a)) * 50%); top: calc(50% - cos(var(--a)) * 50%); width: 1rem; aspect-ratio: 1; margin: -0.5rem; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 37 flywheel */
+.fly { position: relative; display: grid; place-items: center; width: 7rem; aspect-ratio: 1; border: 1px solid var(--c-white-30); border-radius: 50%; background: radial-gradient(circle, #0b0c0f 26%, transparent 27%), conic-gradient(#3a3b42 0 25%, #1a1b1f 25% 50%, #3a3b42 50% 75%, #1a1b1f 75%); }
+.fly i { position: absolute; inset: 0; border-radius: 50%; background: repeating-conic-gradient(transparent 0 20deg, rgba(255, 255, 255, 0.14) 20deg 24deg); animation: spin var(--d) linear infinite; }
+.fly i::after { content: ''; position: absolute; top: 8%; left: 50%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--c-red); }
+.fly[data-s='0'] i { animation-play-state: paused; }
+.fly span { position: relative; font: 500 0.52rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-80); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 38 thumbscrew */
+.thumb { position: relative; width: 5rem; height: 6.6rem; }
+.thumb i { position: absolute; left: 50%; top: 0; width: 3.4rem; height: 1.6rem; margin-left: -1.7rem; border-radius: 8px; background: repeating-linear-gradient(90deg, #5a5b62 0 4px, #2a2b30 4px 8px); transition: transform 0.6s var(--ease-out); }
+.thumb b { position: absolute; left: 50%; top: 1.5rem; width: 1rem; height: 3.2rem; margin-left: -0.5rem; background: repeating-linear-gradient(180deg, #8d8e96 0 2px, #3a3b42 2px 4px); }
+.thumb u { position: absolute; left: 0; right: 0; bottom: 0; height: 1rem; border: 1px solid var(--c-white-20); border-radius: 3px; background: #26272c; }
+.thumb[aria-pressed='true'] i { transform: translateY(1.5rem) scaleX(0.96); }
+.thumb[aria-pressed='true'] u { border-color: var(--c-red-dim); }
+
+/* 39 ratchet */
+.ratchet { width: 7rem; }
+.ratchet svg { width: 100%; }
+.ratchet path:first-child { fill: #17181c; stroke: var(--c-white-50); stroke-width: 1.2; transform-origin: 50px 50px; transition: transform 0.25s var(--ease-out); }
+.pawl { fill: var(--c-red); transform-origin: 82px 14px; transition: transform 0.2s; }
+
+/* 40 inclinometer */
+.incl { position: relative; width: 11rem; height: 3.6rem; cursor: grab; }
+.incl i { position: absolute; inset: 0.7rem 0; border: 1px solid var(--c-white-30); border-radius: 99px; background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)); transform: rotate(calc((var(--v) - 0.5) * 60deg)); }
+.incl i b { position: absolute; top: 50%; left: calc(50% - (var(--v) - 0.5) * 70%); width: 1.3rem; height: 1.3rem; margin: -0.65rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, var(--c-red) 62%); }
+.incl span { position: absolute; left: 0; right: 0; bottom: -0.3rem; text-align: center; font: 500 0.55rem var(--font-mono); color: var(--c-white-50); }
