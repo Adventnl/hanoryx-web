@@ -498,12 +498,12 @@ function Visual() {
 export default {
   Visual,
   items: [
-    ['Magnify dock', Magnify, 'hover'], ['Icon rail', IconRail, 'click'], ['Grouped toolbar', Grouped, 'click'], ['Format bar', Format, 'click'],
+    ['Magnify dock', Magnify, 'hover'], ['Icon rail', IconRail, 'click'], ['Grouped toolbar', Grouped, 'click'], ['Type bar', Format, 'click'],
     ['Command bar', Command, 'click'], ['Dot dock', DotDock, 'click'], ['Expanding rail', Expanding, 'click'], ['Transport bar', Transport, 'click'],
     ['Zoom bar', ZoomBar, 'click'], ['Reaction bar', Reactions, 'click'], ['Selection bubble', Bubble, 'click'], ['Speed dial', SpeedDial, 'click'],
     ['Arc dock', ArcDock, 'click'], ['Status strip', StatusStrip, 'click'], ['Section rail', SectionRail, 'click'], ['Rearranging dock', Rearranging, 'click'],
     ['Tooltip dock', TipDock, 'hover'], ['Tool palette', Palette, 'click'], ['Slide-out bar', SlideOut, 'click'], ['Snap dock', Snap, 'click'],
-    ['Mini player', MiniPlayer, 'click'], ['Cart dock', CartDock, 'click'], ['Glow dock', GlowDock, 'click'], ['Split button', SplitButton, 'click'],
+    ['Mini player', MiniPlayer, 'click'], ['Cart dock', CartDock, 'click'], ['Glow dock', GlowDock, 'click'], ['Save split', SplitButton, 'click'],
     ['Search dock', SearchDock, 'click'], ['Filter bar', FilterBar, 'click'], ['Text size bar', TextSize, 'click'], ['Ribbon', Ribbon, 'click'],
     ['Hide on scroll', HideOnScroll, 'click'], ['Island', Island, 'click'], ['Avatar dock', AvatarDock, 'hover'], ['Scrub bar', ScrubBar, 'drag'],
     ['Chat dock', ChatDock, 'click'], ['Paging bar', Paging, 'click'], ['Sticky buy bar', BuyBar, 'click'], ['Selection bar', SelectionBar, 'click'],

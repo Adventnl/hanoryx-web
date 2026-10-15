@@ -808,7 +808,7 @@ export default {
   Visual,
   items: [
     ['Flap word', FlapWord, 'click'], ['Flap clock', FlapClock, 'auto'], ['Departure row', DepartureRow, 'auto'], ['Letterboard', Letterboard, 'type'],
-    ['Scoreboard', Scoreboard, 'click'], ['Page-a-day', PageADay, 'click'], ['Pump price', PumpPrice, 'click'], ['Floor indicator', FloorIndicator, 'auto'],
+    ['Score ticker', Scoreboard, 'click'], ['Page-a-day', PageADay, 'click'], ['Pump price', PumpPrice, 'click'], ['Floor indicator', FloorIndicator, 'auto'],
     ['Segment clock', SegmentClock, 'auto'], ['Launch countdown', LaunchCountdown, 'auto'], ['Platform sign', PlatformSign, 'auto'], ['Badge roll', BadgeRoll, 'click'],
     ['Marquee', Marquee, 'auto'], ['Counter belts', CounterBelts, 'auto'], ['Stock tape', StockTape, 'auto'], ['News crawl', NewsCrawl, 'auto'],
     ['LED scroller', LedScroller, 'auto'], ['Caution tape', CautionTape, 'auto'], ['Wave marquee', WaveMarquee, 'auto'], ['Pause chips', PauseChips, 'hover'],

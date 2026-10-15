@@ -536,11 +536,11 @@ export default {
   Visual,
   items: [
     ['Dropdown', Dropdown, 'click'], ['Select menu', SelectMenu, 'click'], ['Context menu', Context, 'right-click'], ['Radial menu', Radial, 'click'],
-    ['Command list', CommandList, 'type'], ['Mega menu', Mega, 'click'], ['Nested submenu', Submenu, 'hover'], ['Pie menu', Pie, 'hover'],
+    ['Command list', CommandList, 'type'], ['Mega menu', Mega, 'click'], ['Nested submenu', Submenu, 'hover'], ['Wedge menu', Pie, 'hover'],
     ['Accordion menu', AccordionMenu, 'click'], ['Kebab menu', Kebab, 'click'], ['Burger menu', Burger, 'click'], ['Breadcrumb menu', CrumbMenu, 'click'],
     ['Account menu', UserMenu, 'click'], ['Flyout rail', Flyout, 'hover'], ['Combobox', Combobox, 'type'], ['Checklist menu', Checklist, 'click'],
     ['Radio menu', RadioMenu, 'click'], ['Menubar', Menubar, 'click'], ['Slash menu', Slash, 'type'], ['Symbol grid', EmojiGrid, 'click'],
-    ['Quick dates', Quick, 'click'], ['Sort menu', SortMenu, 'click'], ['Share row', ShareRow, 'click'], ['Dropup', Dropup, 'click'],
+    ['Quick dates', Quick, 'click'], ['Sort menu', SortMenu, 'click'], ['Share menu', ShareRow, 'click'], ['Dropup', Dropup, 'click'],
     ['Shortcut menu', WithKeys, 'click'], ['Wheel menu', WheelMenu, 'scroll'], ['Ring menu', RingMenu, 'click'], ['Fan menu', FanMenu, 'click'],
     ['Stagger menu', Stagger, 'click'], ['Underline menu', Underlined, 'hover'], ['Overlay menu', Overlay, 'click'], ['Tree menu', Tree, 'click'],
     ['Region map', MiniMap, 'click'], ['Language menu', Language, 'click'], ['Hour list', HourList, 'keys'], ['Colour menu', ColourMenu, 'click'],

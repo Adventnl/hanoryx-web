@@ -376,7 +376,7 @@ export default {
     ['Typewriter key', Typewriter, 'press'], ['Space bar', SpaceBar, 'press'], ['Chord detect', Chord, 'hold'], ['Rubber dome', Dome, 'click'],
     ['Touch pad', TouchPad, 'hover'], ['Soft keys', SoftKeys, 'click'], ['Liquid fill', Liquid, 'hover'], ['Offset block', Offset, 'press'],
     ['Stroke draw', Stroke, 'hover'], ['Magnet button', Magnet, 'hover'], ['Shimmer', Shimmer, 'auto'], ['Orbit border', SpinBorder, 'auto'],
-    ['Ripple', Ripple, 'click'], ['Pulse CTA', PulseCta, 'auto'], ['Async button', Async, 'click'], ['Double confirm', Double, 'click'],
+    ['Ripple key', Ripple, 'click'], ['Pulse CTA', PulseCta, 'auto'], ['Async button', Async, 'click'], ['Double confirm', Double, 'click'],
     ['Split button', Split, 'click'], ['Style group', IconGroup, 'click'], ['Play pause', PlayPause, 'click'], ['Label swap', LabelSwap, 'hover'],
     ['Arrow through', ArrowThrough, 'hover'], ['Upload ring', UploadRing, 'click'], ['Heart burst', Heart, 'click'], ['Count up', CountUp, 'click'],
     ['Undo redo', UndoRedo, 'click'], ['Reactions', Reactions, 'click'], ['Radial FAB', RadialFab, 'click'], ['Pager', Pager, 'click'],

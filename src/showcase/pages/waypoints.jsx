@@ -494,7 +494,7 @@ export default {
     ['Mile markers', MileMarkers, 'drag'], ['Route trace', Trace, 'click'], ['Reading marks', ReadBar, 'drag'], ['Numbered sections', Numbered, 'click'],
     ['Next and previous', NextPrev, 'click'], ['Sticky chapter', StickyChapter, 'scroll'], ['Scroll cue', ScrollCue, 'auto'], ['Skip link', SkipLink, 'keys'],
     ['Contents tree', Tree, 'click'], ['Dot index', Index, 'click'], ['Gate signs', GateArrows, 'click'], ['Departures board', Board, 'auto'],
-    ['Radar sweep', Radar, 'auto'], ['Coordinate grid', Coords, 'hover'], ['Route legs', Route, 'click'], ['Elevation profile', Elevation, 'hover'],
+    ['Waypoint radar', Radar, 'auto'], ['Coordinate grid', Coords, 'hover'], ['Route legs', Route, 'click'], ['Elevation profile', Elevation, 'hover'],
     ['Bookmark strip', Bookmarks, 'click'], ['Page flags', PageFlags, 'click'], ['Depth marker', Depth, 'drag'], ['Zoom levels', ZoomLevels, 'click'],
     ['Treasure map', Treasure, 'click'], ['Lighthouse beam', Lighthouse, 'auto'], ['Snap dots', SnapDots, 'scroll'], ['Jump select', JumpSelect, 'click'],
     ['Annotation pins', Annotations, 'hover'], ['Landmark index', Landmarks, 'click'], ['Orientation cube', Cube, 'click'], ['Station map', StationMap, 'click'],

@@ -456,7 +456,7 @@ const TRIO = ['Day', 'Week', 'Month'];
 export default {
   Visual,
   items: [
-    ['Underline', Underline, 'click'], ['Pill slide', PillSlide, 'click'], ['Segmented', Segmented, 'click'], ['Folder tabs', FolderTabs, 'click'],
+    ['Underline', Underline, 'click'], ['Pill slide', PillSlide, 'click'], ['Segmented', Segmented, 'click'], ['Manila tabs', FolderTabs, 'click'],
     ['Side tabs', SideTabs, 'click'], ['Counted tabs', Badged, 'click'], ['Closable', Closable, 'click · del'], ['Sortable tabs', Sortable, 'click'],
     ['Scrolling tabs', Scrolling, 'click'], ['Icon tabs', IconOnly, 'click'], ['Chevron steps', Chevrons, 'click'], ['Ink stretch', Ink, 'click'],
     ['Magic line', MagicLine, 'hover'], ['Rolling count', RollCount, 'click'], ['Roman tabs', Roman, 'click'], ['Plan cards', CardRadio, 'click'],
