@@ -198,3 +198,10 @@
 @media (prefers-reduced-motion: reduce) {
   .sc-reveal .sc-spec { animation: none; }
 }
+
+/* ---- line icons (icons.jsx) ---- */
+.sc-ico { width: 1.2em; height: 1.2em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* A canvas simulation (Sim.jsx): a small dark swatch that is also the focus target. */
+.sc-sim { display: block; width: 11rem; height: 6.4rem; border: 1px solid var(--c-white-12); border-radius: 6px; background: #07080a; touch-action: none; }
+.sc-sim:focus-visible { outline: 2px solid var(--c-red); outline-offset: 3px; }

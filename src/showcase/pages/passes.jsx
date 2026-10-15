@@ -1134,7 +1134,7 @@ const items = [
   ['Conductor punch', ConductorPunch, 'click'],
   ['Parcel label', ParcelLabel, 'click'],
   ['Expiring pass', ExpiringPass, 'auto'],
-  ['Sticker sheet', StickerSheet, 'click'],
+  ['Sticker page', StickerSheet, 'click'],
   ['Stub pile', StubPile, 'hover'],
   ['RSVP slip', RsvpSlip, 'click'],
   ['Gate reader', GateReader, 'press'],

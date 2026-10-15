@@ -1,0 +1,7 @@
+/* 43 · DRIFT — a spiral of dots winding up on the still side, and forty-two particle systems on canvases. */
+
+/* ---- the still side ---- */
+.vis { display: grid; gap: 3cqmin; justify-items: center; width: min(92cqw, 92cqh); }
+.spiral { position: relative; width: 100%; aspect-ratio: 1; }
+.spiral i { position: absolute; left: 50%; top: 50%; width: calc(var(--s) * 1.9cqmin); aspect-ratio: 1; border-radius: 50%; background: hsl(calc(10 + var(--k) * 4.5), 85%, 66%); box-shadow: 0 0 1.6cqmin hsl(calc(10 + var(--k) * 4.5), 85%, 60%); translate: -50% -50%; transform: rotate(calc(var(--a) * 1deg + var(--pin) * 520deg)) translateX(calc(var(--r) * 0.62cqmin)); opacity: clamp(0, calc(var(--pin) * 90 - var(--k) + 5), 1); }
+.vis small { font: 500 2.2cqmin var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-50); }

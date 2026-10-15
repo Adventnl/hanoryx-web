@@ -1,0 +1,204 @@
+/* 33 · CURSORS — every specimen is an area publishing --x and --y (0 to 1); CSS makes the effect. */
+
+@property --px { syntax: '<integer>'; inherits: true; initial-value: 0; }
+@property --py { syntax: '<integer>'; inherits: true; initial-value: 0; }
+@keyframes ripple { from { transform: translate(-50%, -50%) scale(0.2); opacity: 1; } to { transform: translate(-50%, -50%) scale(5); opacity: 0; } }
+@keyframes stamp { from { transform: translate(-50%, -50%) rotate(var(--r)) scale(2.4); opacity: 0; } }
+@keyframes drift { 0% { left: 14%; top: 26%; } 33% { left: 78%; top: 38%; } 66% { left: 44%; top: 78%; } 100% { left: 14%; top: 26%; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- the still side ---- */
+.vis { position: relative; width: min(94cqw, 130cqh); display: grid; gap: 5cqmin; justify-items: center; }
+.visField { position: relative; width: 100%; aspect-ratio: 5 / 3; border: 1px dashed var(--c-white-20); border-radius: 2cqmin; overflow: hidden; background: linear-gradient(var(--c-white-05) 1px, transparent 1px) 0 0 / 100% 20%, linear-gradient(90deg, var(--c-white-05) 1px, transparent 1px) 0 0 / 10% 100%; }
+.visField i, .visField b { --t: calc(var(--pin) * 6.2832 - var(--k, 0) * 0.16); position: absolute; left: calc(50% + sin(calc(var(--t) * 1rad)) * 38%); top: calc(50% + sin(calc(var(--t) * 2rad)) * 34%); border-radius: 50%; transform: translate(-50%, -50%); }
+.visField i { width: calc(5cqmin - var(--k) * 0.4cqmin); aspect-ratio: 1; background: var(--c-red); opacity: calc(0.7 - var(--k) * 0.075); }
+.visField b { --k: 0; width: 3.6cqmin; aspect-ratio: 1; background: #fff; box-shadow: 0 0 4cqmin var(--c-red); z-index: 2; }
+.vis small { font: 500 2.2cqmin var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-50); }
+
+/* ---- the area every specimen is built on ---- */
+.area { --x: 0.5; --y: 0.5; --w: 13.5rem; --h: 8rem; position: relative; width: var(--w); height: var(--h); border: 1px dashed var(--c-white-12); border-radius: 8px; overflow: hidden; background: rgba(5, 5, 5, 0.5); outline-offset: 3px; touch-action: none; cursor: crosshair; }
+.area:focus-visible { outline: 1px solid var(--c-red); }
+.area > i, .area > b, .area > span, .area > svg, .area > button, .area > section { position: absolute; }
+
+/* a thing placed on the pointer */
+.dot, .ring, .trail i, .comet i, .caret > *, .smear i, .mirror i, .halo i, .viewLabel i, .bulge i, .orbiters b, .read .dot { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); transform: translate(-50%, -50%); }
+
+/* 1 / 2 / 3 */
+.dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--c-red); box-shadow: 0 0 12px var(--c-red); }
+.ring { width: 2.2rem; height: 2.2rem; border: 1px solid var(--c-white-65); border-radius: 50%; transition: left 0.18s var(--ease-out), top 0.18s var(--ease-out); }
+.slow { width: 3rem; height: 3rem; border-color: var(--c-red-dim); transition-duration: 0.45s; }
+
+/* 4 magnet */
+.magnetArea { display: grid; place-items: center; }
+.magnet { position: relative !important; padding: 0.7rem 1.2rem; border: 1px solid var(--c-white-30); border-radius: 99px; background: #0b0c0f; font: 600 0.56rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: #fff; transform: translate(calc((var(--x) - 0.5) * 2.6rem), calc((var(--y) - 0.5) * 1.6rem)); transition: transform 0.25s var(--ease-out); }
+
+/* 5 trail / 6 comet */
+.trail i, .comet i, .smear i { width: calc(0.8rem - var(--k) * 0.06rem); height: calc(0.8rem - var(--k) * 0.06rem); border-radius: 50%; background: var(--c-red); opacity: calc(1 - var(--k) * 0.11); transition: left calc(0.05s + var(--k) * 0.07s) ease-out, top calc(0.05s + var(--k) * 0.07s) ease-out; }
+.comet i { background: linear-gradient(#fff, var(--c-red)); box-shadow: 0 0 10px var(--c-red); transition-duration: calc(0.03s + var(--k) * 0.045s); }
+.smear i { width: 1.6rem; height: 0.5rem; border-radius: 99px; opacity: calc(0.9 - var(--k) * 0.07); transition-duration: calc(0.04s + var(--k) * 0.06s); background: var(--c-red); }
+
+/* 7 spotlight */
+.spot { display: grid; place-items: center; background: radial-gradient(circle 5rem at calc(var(--x) * 100%) calc(var(--y) * 100%), rgba(255, 255, 255, 0.2), transparent), #08090b; }
+.spot span { font: 300 2rem var(--font-serif); color: var(--c-white-50); mix-blend-mode: screen; }
+
+/* 8 flashlight */
+.flash { display: grid; place-items: center; }
+.flash p { position: absolute; margin: 0; font: 300 1.5rem var(--font-serif); color: var(--c-white-30); }
+.flash p + p { color: #fff; mask-image: radial-gradient(circle 3.2rem at calc(var(--x) * 100%) calc(var(--y) * 100%), #000 30%, transparent); }
+
+/* 9 crosshair */
+.cross i:nth-child(1) { left: 0; right: 0; top: calc(var(--y) * 100%); height: 1px; background: var(--c-white-30); }
+.cross i:nth-child(2) { top: 0; bottom: 0; left: calc(var(--x) * 100%); width: 1px; background: var(--c-white-30); }
+.cross b { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); width: 0.9rem; height: 0.9rem; margin: -0.45rem; border: 1px solid var(--c-red); border-radius: 50%; }
+
+/* 10 readout */
+.read { --px: calc(var(--x) * 100); --py: calc(var(--y) * 100); }
+.read output { position: absolute; left: 0.6rem; bottom: 0.5rem; counter-reset: cx var(--px) cy var(--py); font: 500 0.52rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-65); }
+.read output::before { content: 'x ' counter(cx) '  y ' counter(cy); }
+
+/* 11 glowing grid */
+.gridGlow { display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(5, 1fr); gap: 3px; padding: 4px; }
+.gridGlow i { position: static !important; --d: hypot(calc(var(--cx) - var(--x)), calc((var(--cy) - var(--y)) * 0.6)); border-radius: 3px; background: rgba(255, 51, 51, clamp(0.04, calc(0.9 - var(--d) * 3), 0.9)); box-shadow: 0 0 calc(clamp(0, calc(1 - var(--d) * 3), 1) * 12px) rgba(255, 51, 51, 0.7); }
+
+/* 12 tilt */
+.tilt { display: grid; place-items: center; perspective: 520px; }
+.tilt section { position: relative !important; display: grid; gap: 0.2rem; place-items: center; width: 7.4rem; height: 4.6rem; border: 1px solid var(--c-white-30); border-radius: 10px; background: linear-gradient(calc(135deg + var(--x) * 90deg), #23242b, #0c0d10); transform: rotateX(calc((var(--y) - 0.5) * -26deg)) rotateY(calc((var(--x) - 0.5) * 30deg)); transition: transform 0.12s linear; box-shadow: calc((var(--x) - 0.5) * -1.4rem) calc((var(--y) - 0.5) * -1rem + 1rem) 1.6rem -0.6rem #000; }
+.tilt b { font: 300 1.2rem var(--font-serif); color: #fff; }
+.tilt span { font: 500 0.42rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-50); }
+
+/* 13 depth */
+.depth i { left: 50%; top: 50%; width: 5.4rem; height: 3.2rem; margin: -1.6rem -2.7rem; border: 1px solid var(--c-white-30); border-radius: 8px; background: rgba(255, 255, 255, 0.03); transform: translate(calc((var(--x) - 0.5) * (var(--k) - 1) * -3rem), calc((var(--y) - 0.5) * (var(--k) - 1) * -2rem)); transition: transform 0.1s linear; }
+.depth i:nth-child(2) { background: var(--c-red-ghost); border-color: var(--c-red-dim); }
+
+/* 14 eyes */
+.eyes { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+.eyes span { position: relative !important; width: 3rem; height: 3rem; border-radius: 50%; background: #f2f2f2; display: grid; place-items: center; }
+.eyes i { position: static !important; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: #000; transform: translate(calc((var(--x) - 0.5) * 1.5rem), calc((var(--y) - 0.5) * 1.3rem)); transition: transform 0.08s linear; }
+
+/* 15 needle / 16 arrow / 35 angle */
+.needle i, .angle i { left: 50%; top: 50%; width: 3rem; height: 2px; margin-top: -1px; background: linear-gradient(90deg, var(--c-red), transparent); transform-origin: 0 50%; transform: rotate(atan2(calc(var(--y) * var(--h) - var(--h) / 2), calc(var(--x) * var(--w) - var(--w) / 2))); }
+.needle b, .angle::after { left: 50%; top: 50%; width: 0.6rem; height: 0.6rem; margin: -0.3rem; border-radius: 50%; background: #fff; }
+.arrow { display: grid; place-items: center; }
+.arrow svg { position: relative !important; width: 3rem; height: 3rem; fill: none; stroke: var(--c-red); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transform: rotate(calc(atan2(calc(var(--x) * var(--w) - var(--w) / 2), calc(var(--h) / 2 - var(--y) * var(--h))))); filter: drop-shadow(0 0 4px rgba(255, 51, 51, 0.6)); }
+.angle::after { content: ''; position: absolute; }
+.angle u { position: absolute; left: 50%; top: 50%; width: 1px; height: 0.5rem; background: var(--c-white-30); transform-origin: 0 0; transform: rotate(calc(var(--k) * 30deg)) translateY(-3.4rem); }
+.angle i { width: 3.4rem; }
+
+/* 17 blob */
+.blob > div { position: absolute; inset: 0; filter: url(#cursors-goo); }
+.blob > div i { position: absolute; border-radius: 50%; background: var(--c-red); transform: translate(-50%, -50%); }
+.blob > div i:first-child { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); width: 1.6rem; height: 1.6rem; transition: left 0.1s, top 0.1s; }
+.blob > div i:last-child { left: calc((var(--x) * 0.5 + 0.25) * 100%); top: calc((var(--y) * 0.5 + 0.25) * 100%); width: 3.2rem; height: 3.2rem; transition: left 0.5s var(--ease-out), top 0.5s var(--ease-out); }
+
+/* 18 ripples */
+.ripples { display: grid; place-items: center; cursor: pointer; }
+.ripples span { font: 500 0.5rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-30); pointer-events: none; }
+.ripples i { position: absolute; width: 1.2rem; height: 1.2rem; border: 2px solid var(--c-red); border-radius: 50%; animation: ripple 1.2s var(--ease-out) forwards; pointer-events: none; }
+
+/* 19 painter */
+.paint i { position: absolute; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: hsl(var(--h), 90%, 60%); transform: translate(-50%, -50%); pointer-events: none; }
+.paint button { position: absolute; right: 0.4rem; top: 0.4rem; padding: 0.2rem 0.5rem; border: 1px solid var(--c-white-20); border-radius: 99px; font: 500 0.44rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-white-65); z-index: 2; }
+
+/* 20 caret / 21 crowd */
+.caret svg, .crowd svg { width: 1rem; height: 1.25rem; fill: var(--c-red); stroke: #fff; stroke-width: 1; transform-origin: 0 0; }
+.caret > svg { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); transform: none; transition: left 0.08s, top 0.08s; }
+.caret > b { left: calc(var(--x) * 100% + 0.9rem); top: calc(var(--y) * 100% + 0.9rem); transform: none; padding: 1px 6px; border-radius: 4px; background: var(--c-red); font: 600 0.5rem var(--font-sans); color: #fff; transition: left 0.08s, top 0.08s; }
+.crowd > span { position: absolute; display: flex; align-items: flex-start; gap: 0.1rem; animation: drift 7s ease-in-out infinite; animation-delay: calc(var(--k) * -2.3s); animation-duration: calc(6s + var(--k) * 1.7s); }
+.crowd > span svg { fill: hsl(calc(var(--k) * 90 + 150), 70%, 55%); }
+.crowd > span b { margin-top: 0.8rem; padding: 1px 5px; border-radius: 4px; background: hsl(calc(var(--k) * 90 + 150), 70%, 45%); font: 600 0.46rem var(--font-sans); color: #fff; }
+.crowd .me { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); animation: none; transition: left 0.08s, top 0.08s; }
+.crowd .me b { background: var(--c-red); }
+
+/* 22 cursor styles */
+.gallery { display: grid; grid-template-columns: repeat(4, 3.2rem); gap: 3px; width: 13.6rem; }
+.gallery button { height: 2.4rem; border: 1px solid var(--c-white-12); border-radius: 4px; background: var(--c-white-03); font: 500 0.4rem var(--font-mono); letter-spacing: 0.04em; color: var(--c-white-65); }
+.gallery button:hover { border-color: var(--c-red-dim); color: #fff; }
+.gallery output { grid-column: 1 / -1; padding-top: 0.5rem; text-align: center; font: 500 0.52rem var(--font-mono); letter-spacing: 0.1em; color: var(--c-white-80); }
+
+/* 23 view label */
+.viewLabel { background: linear-gradient(135deg, #ff9a5a, #ff3333 55%, #3a0a1a); cursor: none; }
+.viewLabel i { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: #fff; transition: left 0.15s var(--ease-out), top 0.15s var(--ease-out); }
+.viewLabel b { font: 700 0.56rem var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: #000; }
+
+/* 24 repel */
+.repel i { --dx: calc(var(--cx) - var(--x)); --dy: calc(var(--cy) - var(--y)); --dist: max(0.05, hypot(calc(var(--dx) * 1.7), var(--dy))); --push: clamp(0, calc(1 - var(--dist) * 2.4), 1); left: calc(var(--cx) * 88% + 6%); top: calc(var(--cy) * 80% + 10%); width: 0.45rem; height: 0.45rem; margin: -0.22rem; border-radius: 50%; background: var(--c-white-65); transform: translate(calc(var(--dx) / var(--dist) * var(--push) * 2rem), calc(var(--dy) / var(--dist) * var(--push) * 2rem)); transition: transform 0.12s linear; }
+
+/* 25 attract */
+.attract i { --pull: calc(0.1 + var(--k) * 0.035); left: calc((var(--cx) + (var(--x) - var(--cx)) * var(--pull)) * 100%); top: calc((var(--cy) + (var(--y) - var(--cy)) * var(--pull)) * 100%); width: 0.5rem; height: 0.5rem; border-radius: 50%; background: hsl(calc(var(--k) * 6), 90%, 62%); transition: left 0.15s linear, top 0.15s linear; }
+
+/* 26 strings */
+.strings i { --ax: calc(mod(var(--k), 2) * var(--w)); --ay: calc(round(down, calc(var(--k) / 2), 1) * var(--h)); left: var(--ax); top: var(--ay); width: hypot(calc(var(--x) * var(--w) - var(--ax)), calc(var(--y) * var(--h) - var(--ay))); height: 1px; background: linear-gradient(90deg, var(--c-white-30), var(--c-red-dim)); transform-origin: 0 50%; transform: rotate(atan2(calc(var(--y) * var(--h) - var(--ay)), calc(var(--x) * var(--w) - var(--ax)))); }
+.strings b { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); width: 0.8rem; height: 0.8rem; margin: -0.4rem; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 27 elastic */
+.elastic svg { display: none; }
+.elastic::before, .elastic::after { content: ''; position: absolute; height: 2px; background: var(--c-white-65); transform-origin: 0 50%; }
+.elastic::before { left: 0.8rem; top: 50%; width: hypot(calc(var(--x) * var(--w) - 0.8rem), calc(var(--y) * var(--h) - var(--h) / 2)); transform: rotate(atan2(calc(var(--y) * var(--h) - var(--h) / 2), calc(var(--x) * var(--w) - 0.8rem))); }
+.elastic::after { left: calc(var(--x) * var(--w)); top: calc(var(--y) * var(--h)); width: hypot(calc(var(--w) - 0.8rem - var(--x) * var(--w)), calc(var(--h) / 2 - var(--y) * var(--h))); transform: rotate(atan2(calc(var(--h) / 2 - var(--y) * var(--h)), calc(var(--w) - 0.8rem - var(--x) * var(--w)))); }
+.elastic b { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); width: 0.9rem; height: 0.9rem; margin: -0.45rem; border-radius: 50%; background: var(--c-red); z-index: 2; }
+
+/* 28 bulge */
+.bulge { background: radial-gradient(var(--c-white-08) 1px, transparent 1.5px) 0 0 / 0.9rem 0.9rem; }
+.bulge i { --d: hypot(calc((var(--x) - 0.5) * 1.6), calc(var(--y) - 0.5)); width: 3.4rem; height: 3.4rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffffff44, var(--c-red-ghost) 60%); border: 1px solid var(--c-red-dim); transform: translate(-50%, -50%) scale(calc(0.8 + (1 - var(--d)) * 0.6)); }
+
+/* 29 halo */
+.halo { display: grid; place-items: center; background: #08090b; }
+.halo h4 { margin: 0; font: 800 3.4rem / 1 var(--font-sans); letter-spacing: 0.04em; color: #fff; }
+.halo i { width: 4rem; height: 4rem; border-radius: 50%; background: #fff; mix-blend-mode: difference; transition: left 0.12s, top 0.12s; pointer-events: none; }
+
+/* 30 gear */
+.gear { display: grid; place-items: center; }
+.gear svg { position: relative !important; width: 4.4rem; height: 4.4rem; fill: none; stroke: var(--c-white-65); stroke-width: 1.4; stroke-linecap: round; transform: rotate(calc(var(--x) * 720deg)); transition: transform 0.1s linear; }
+
+/* 31 border light */
+.borderLight { display: grid; place-items: center; }
+.borderLight section { position: relative !important; width: 9rem; height: 5rem; padding: 1px; border-radius: 12px; background: radial-gradient(circle 4.4rem at calc((var(--x) - 0.5) * 13.5rem + 4.5rem) calc((var(--y) - 0.5) * 8rem + 2.5rem), var(--c-red), var(--c-white-12) 70%); }
+.borderLight b { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 11px; background: #0b0c0f; font: 300 1.15rem var(--font-serif); color: #fff; }
+
+/* 32 button gradient */
+.btnGrad { display: grid; place-items: center; }
+.btnGrad button { position: relative !important; padding: 0.9rem 1.8rem; border: 1px solid var(--c-white-20); border-radius: 10px; background: radial-gradient(circle 5rem at calc(var(--x) * 100%) calc(var(--y) * 100%), var(--c-red), #14151a 70%); font: 700 0.62rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+
+/* 33 sliding underline */
+.underline { display: grid; place-items: center; }
+.underline nav { position: relative; display: grid; grid-template-columns: repeat(4, 3rem); }
+.underline span { padding: 0.6rem 0; text-align: center; font: 500 0.56rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-white-80); }
+.underline i { position: absolute; left: calc(round(down, calc(var(--x) * 3.999), 1) * 25%); bottom: 0; width: 25%; height: 2px; background: var(--c-red); box-shadow: var(--glow-red); transition: left 0.3s var(--ease-out); }
+
+/* 34 speed */
+.speed { --s: 0; display: grid; place-items: center; }
+.speed i { position: absolute; left: 1rem; right: 1rem; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: linear-gradient(90deg, #6ee7b7, #ffb347 60%, var(--c-red)) 0 0 / 100% 100%; clip-path: inset(0 calc((1 - var(--s)) * 100%) 0 0 round 3px); transition: clip-path 0.12s linear; }
+.speed::before { content: ''; position: absolute; left: 1rem; right: 1rem; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: var(--c-white-08); }
+.speed span { position: absolute; left: 0; right: 0; bottom: 0.7rem; text-align: center; font: 500 0.48rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--c-white-50); }
+
+/* 36 stamps */
+.stamps { display: grid; place-items: center; cursor: pointer; }
+.stamps span { font: 500 0.5rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-30); pointer-events: none; }
+.stamps b { position: absolute; font: 400 1.6rem var(--font-serif); color: var(--c-red); transform: translate(-50%, -50%) rotate(var(--r)); animation: stamp 0.4s var(--ease-spring-soft); pointer-events: none; }
+
+/* 37 zones */
+.zones i { --lx: clamp(0, calc(var(--sx) * (var(--x) - 0.5) * 1000), 1); --ly: clamp(0, calc(var(--sy) * (var(--y) - 0.5) * 1000), 1); position: absolute; left: calc((var(--sx) + 1) * 25%); top: calc((var(--sy) + 1) * 25%); width: 50%; height: 50%; background: rgba(255, 51, 51, calc(var(--lx) * var(--ly) * 0.35)); border: 1px solid var(--c-white-08); transition: background 0.2s; }
+
+/* 38 target */
+.target { cursor: crosshair; }
+.target button { width: 2.4rem; height: 2.4rem; margin: -1.2rem; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--c-red); background: radial-gradient(circle, var(--c-red) 0 20%, #fff 20% 40%, var(--c-red) 40% 60%, #fff 60% 80%, var(--c-red) 80%); transition: left 0.3s var(--ease-spring-soft), top 0.3s var(--ease-spring-soft); }
+.target button i { display: none; }
+.target output { position: absolute; right: 0.5rem; bottom: 0.4rem; font: 500 0.5rem var(--font-mono); letter-spacing: 0.12em; color: var(--c-white-65); }
+
+/* 39 following wave */
+.sine svg { left: 0; top: 0; width: 100%; height: 100%; fill: none; stroke: var(--c-red); stroke-width: 1.6; vector-effect: non-scaling-stroke; transform: translateX(calc((var(--x) - 0.5) * 30%)) scaleY(calc((1 - var(--y)) * 1.8)); transition: transform 0.1s linear; filter: drop-shadow(0 0 3px rgba(255, 51, 51, 0.7)); }
+.sine svg path { vector-effect: non-scaling-stroke; }
+
+/* 40 orbiters */
+.orbiters b { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #fff; transition: left 0.1s, top 0.1s; }
+.orbiters i { position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); width: 0; height: 0; transition: left 0.18s, top 0.18s; animation: spin 2.4s linear infinite; animation-delay: calc(var(--k) * -0.8s); }
+.orbiters i::before { content: ''; position: absolute; left: 1.2rem; top: -0.25rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 42 mirror */
+.mirror i { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--c-red); transition: none; }
+.mirror i:nth-child(2) { left: calc((1 - var(--x)) * 100%); background: #fff; }
+.mirror i:nth-child(3) { top: calc((1 - var(--y)) * 100%); background: #ffb347; }
+.mirror i:nth-child(4) { left: calc((1 - var(--x)) * 100%); top: calc((1 - var(--y)) * 100%); background: #6ee7b7; }
+.mirror::before, .mirror::after { content: ''; position: absolute; background: var(--c-white-08); }
+.mirror::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+.mirror::after { top: 50%; left: 0; right: 0; height: 1px; }

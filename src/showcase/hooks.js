@@ -15,7 +15,7 @@
    Anything that loops (a spinner, a ticker) runs only while its specimen is on
    screen and never under reduced motion; useLive / useTick do that gating.
    ============================================================ */
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { useLenis } from '../app/providers/lenis-context';
 
@@ -159,12 +159,17 @@ export const StageApiContext = createContext({ register: noop, jump: noop });
  *   locate    (vh) => 0..1, for a layout the generic rules cannot read (a
  *             stack of sticky cards reports where they stuck, not where they are)
  *   count     how many specimens
+ *   onFrame   ({ p, pin, f }) => void, called after the numbers are written, once
+ *             per frame while the page moves: the place for a stage that needs
+ *             more than CSS can work out (the canvas camera)
  */
-export function useStageVars(rootRef, { count, pinned = false, target, locate } = {}) {
+export function useStageVars(rootRef, { count, pinned = false, target, locate, onFrame } = {}) {
   const reduced = usePrefersReducedMotion();
   const lenis = useLenis();
   const api = useContext(StageApiContext);
   const [active, setActive] = useState(0);
+  const frameRef = useRef(onFrame);
+  useEffect(() => { frameRef.current = onFrame; });
 
   useEffect(() => {
     const root = rootRef.current;
@@ -202,6 +207,7 @@ export function useStageVars(rootRef, { count, pinned = false, target, locate } 
       out.style.setProperty('--pin', pin.toFixed(4));
       out.style.setProperty('--f', f.toFixed(3));
       out.style.setProperty('--y', clamp(window.innerHeight / 2 - root.getBoundingClientRect().top, 0, root.offsetHeight).toFixed(1));
+      frameRef.current?.({ p, pin, f });
       const index = Math.round(f);
       if (index !== lastIndex) { lastIndex = index; setActive(index); }
     };

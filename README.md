@@ -137,6 +137,20 @@ Backgrounds are strong; the foreground must read first. `qa/scene-metrics.mjs` m
 
 ---
 
+## The showcase
+
+`/showcase` is fifty scroll-driven pages of interface components for their own sake — each with at least forty specimens that are not on any other page (every specimen name is unique across the whole showcase, and `qa/showcase.mjs` checks it). The one list of them is `src/showcase/pages.js` (plain data, importable from Node): slug, chapter, which **stage** moves the page, which **frame** dresses a specimen, the opening scene and a blurb. The menu, footer, sitemap, search and `/showcase` index all read it.
+
+A page is `src/showcase/pages/<slug>.jsx` plus `<slug>.module.css`. It default-exports `{ Visual, items }`: `Visual` is the still side that the scroll drives (size it in container units and let `--pin` / `--f` move it) and `items` is a list of `[name, Component, mode]`. Pages load on demand through `src/showcase/loader.js`.
+
+**Stages** (`src/showcase/stages/`) turn scroll into the page's motion. `useStageVars` (in `hooks.js`) writes `--p`, `--pin`, `--f` and `--y` onto a small part of the tree and CSS does the rest; nothing re-renders per frame. Fourteen stages pin a panel, run a rail, stack, fly through a tunnel, and so on. Three more are the **canvas family** (`canvas.jsx`, maths in `camera.js`): `canvas`, `atlas` and `spiral` lay every specimen on one plane and fly a camera over it — hold on a specimen, pull back until both it and the next fit, swing across with a slight bank, drop in. A minimap shows the viewfinder, a picture-in-picture shows the page's `Visual`, and clicking a distant specimen jumps to it. The camera transform is written straight onto one element (never as inherited custom properties, which was 3.5× slower). Under 900 px wide or with reduced motion these fall back to the plain `flow` stage. `qa/camera.mjs` tests the camera maths in Node and runs under `npm test`.
+
+Shared pieces a page can use: `icons.jsx` (small line icons), `pointerVars.js` (publishes `--x` / `--y` from the pointer, a wandering virtual pointer when idle, arrow keys), `Sim.jsx` + `draw.js` (a canvas particle or wave system that runs only while on screen and draws one settled frame under reduced motion), `kit.js` (chart and scan helpers) and `hooks.js` (`useLive`, `useTick`, `useCycle`, `useDrag`, `rng`).
+
+Conventions: a specimen must be keyboard-operable and carry an accessible name; animation runs only while on screen (`data-on` on the specimen pauses it) and stops under reduced motion; a CSS-module attribute selector must be scoped under a local class; use `@property` for numbers CSS animates.
+
+`node qa/showcase.mjs [slug …] [--quick]` checks every page (loads, specimens render with names, `--pin` moves with the scroll, the sheet view `?view=sheet` shows them all at once, the phone fallback fits, the ending is there) and the whole (unique names, the index lists every page, the menu reaches them all). `--quick` skips the phone pass.
+
 ## QA
 
 All scripts read `QA_BASE` (default `http://127.0.0.1:5173`) and `CHROME_PATH`. Start `npm run dev` or `npm run preview` first.
@@ -155,6 +169,7 @@ All scripts read `QA_BASE` (default `http://127.0.0.1:5173`) and `CHROME_PATH`. 
 | `qa/kit.mjs` | every component in the interface kit, opened in its gallery, its Usage / Props / Keyboard / Notes tabs checked against the catalogue, and its live example operated (`--phone`, or pass families) |
 | `qa/foreground-inventory.mjs` | loads every page, scrolls it, and counts the distinct `data-fx` details that are on screen (plus the overlays that only exist while open); fails under the per-page floor; `--markdown` writes `FOREGROUND-DETAILS.md` |
 | `qa/scene-metrics.mjs` | the foreground/background balance rule above |
+| `qa/showcase.mjs` | the fifty showcase pages, one by one and as a whole (see *The showcase*); `qa/camera.mjs` tests the canvas-flight camera maths |
 
 ## Assets
 

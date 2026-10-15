@@ -1,0 +1,159 @@
+/* ============================================================
+   CANVAS STAGES — one pinned screen; a world on it that a camera flies across.
+   Every moving number arrives as a custom property (canvas.jsx).
+   ============================================================ */
+
+.canvas {
+  --p: 0; --pin: 0; --f: 0; --y: 0;
+  --bed: 11rem;
+  position: relative;
+  height: calc(var(--n) * 66vh + 100vh);
+}
+
+/* the screen the page holds. `clip`, not `hidden`: focus must never be able to scroll it. */
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: clip;
+  background: radial-gradient(120% 90% at 50% 45%, #0b0c0f, var(--c-void) 80%);
+}
+/* a soft vignette, so the edge of the screen reads as the edge of a lens */
+.pin::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(2, 2, 3, 0.7) 100%);
+}
+
+/* the camera is the middle of the screen (a little under the nav) */
+.eye { position: absolute; left: 50%; top: calc(50% + var(--nav-h) / 2); width: 0; height: 0; }
+
+/* the world is moved the opposite way to the camera (its transform is written by canvas.jsx) */
+.world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* ---- the sheet: a ground that comes with the world, so it zooms and pans with it ---- */
+.sheet { position: absolute; display: block; pointer-events: none; }
+.sheet[data-ground='dots'], .sheet:not([data-ground]) {
+  background-image: radial-gradient(circle, var(--c-white-20) 0.16rem, transparent 0.2rem);
+  background-size: 6rem 6rem;
+  background-position: -3rem -3rem;
+}
+.sheet[data-ground='lines'] { background-image: linear-gradient(var(--c-white-08) 0.12rem, transparent 0.12rem); background-size: 100% 5rem; }
+.sheet[data-ground='cross'] {
+  background-image: linear-gradient(var(--c-white-08) 0.12rem, transparent 0.12rem), linear-gradient(90deg, var(--c-white-08) 0.12rem, transparent 0.12rem);
+  background-size: 8rem 8rem;
+}
+.sheet[data-ground='rings'] { background-image: repeating-radial-gradient(circle at 50% 50%, transparent 0 22rem, var(--c-white-08) 22rem 22.25rem); }
+.sheet[data-ground='ruler'] {
+  background-image: repeating-linear-gradient(90deg, var(--c-white-20) 0 0.14rem, transparent 0.14rem 10rem), repeating-linear-gradient(90deg, var(--c-white-08) 0 0.1rem, transparent 0.1rem 2rem);
+  background-size: 100% 4rem, 100% 2rem;
+  background-repeat: repeat-x;
+}
+.sheet[data-ground='none'] { background-image: radial-gradient(circle, var(--c-white-08) 0.14rem, transparent 0.18rem); background-size: 12rem 12rem; }
+
+/* ---- the trail between specimens ---- */
+.trail { position: absolute; overflow: visible; pointer-events: none; }
+.leg { fill: none; stroke: var(--c-white-20); stroke-width: 0.34; stroke-dasharray: 1.2 2.2; stroke-linecap: round; transition: stroke 0.6s var(--ease-out); }
+.flown { stroke: var(--c-red);  }
+
+/* ---- a place on the canvas ---- */
+.node {
+  position: absolute;
+  left: calc(var(--x) * 1rem);
+  top: calc(var(--y) * 1rem);
+  width: var(--w);
+  translate: -50% -50%;
+  opacity: 0.4;
+  transition: opacity 0.5s var(--ease-out);
+}
+.here, .pin[data-out='1'] .node { opacity: 1; }
+.node:not(.here) { cursor: zoom-in; }
+.node:not(.here) :global(.sc-spec) { pointer-events: auto; }
+
+/* a numeral behind each specimen, and its coordinates: landmarks for when the view is wide */
+.ghost {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  translate: -50% -52%;
+  font: 300 22rem / 0.8 var(--font-serif);
+  color: transparent;
+  -webkit-text-stroke: 0.1rem var(--c-white-12);
+  pointer-events: none;
+  user-select: none;
+}
+.tag {
+  position: absolute;
+  left: 0;
+  top: -2.4rem;
+  font: 500 0.8rem var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-white-30);
+  white-space: nowrap;
+}
+.node :global(.sc-spec) { position: relative; z-index: 1; }
+.node > :global(.sc-spec) { background-color: var(--c-black); }
+
+/* ---- furniture that stays on the glass: one overlay, so the hook's numbers reach only these ---- */
+.rail { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.pip, .map, .hudBox { position: absolute; z-index: 2; pointer-events: auto; }
+
+/* the page's own visual, as a small monitor */
+.pip {
+  left: var(--gutter);
+  bottom: 5.2rem;
+  width: min(15rem, 19vw);
+  aspect-ratio: 1;
+  border: 1px solid var(--c-line-strong);
+  background: rgba(5, 5, 5, 0.94);
+  padding: 0.4rem;
+}
+.pip::before, .map::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 0.5rem;
+  top: -1.05rem;
+  font: 500 0.5rem var(--font-mono);
+  letter-spacing: 0.2em;
+  color: var(--c-white-40);
+}
+
+/* the map: every specimen, the trail, and the screen's view as a red frame */
+.map {
+  right: var(--gutter);
+  bottom: 1.8rem;
+  width: min(17rem, 21vw);
+  border: 1px solid var(--c-line-strong);
+  background: rgba(5, 5, 5, 0.94);
+  padding: 0.5rem 0.5rem 0.4rem;
+}
+.map svg { display: block; width: 100%; height: auto; max-height: 11rem; }
+.mapTrail { fill: none; stroke: var(--c-white-20); stroke-width: 1; }
+.mapDot { fill: var(--c-black); stroke: var(--c-white-40); stroke-width: 0.9; }
+.mapLit { fill: var(--c-red-dim); stroke: var(--c-red-dim); }
+.mapHere { fill: var(--c-red); stroke: var(--c-red); }
+.mapView { fill: rgba(255, 51, 51, 0.07); stroke: var(--c-red); stroke-width: 1.1; }
+.readout { display: block; margin-top: 0.4rem; font: 500 0.54rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-white-65); }
+
+.hudBox { left: var(--gutter); bottom: 1.8rem; width: min(26vw, 28rem); }
+
+@media (max-width: 1100px) {
+  .pip { display: none; }
+}
+@media (max-height: 640px) {
+  .pip, .map svg { max-height: 7rem; }
+  .pip { width: 11rem; }
+}

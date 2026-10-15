@@ -44,27 +44,30 @@ export const engines = {
   columns: { label: 'Parallax', hint: 'Columns move at different speeds beside a fixed panel.' },
   map: { label: 'Pan map', hint: 'The page pans across a large field along a path.' },
   rows: { label: 'Belts', hint: 'Rows slide in alternating directions.' },
+  canvas: { label: 'Canvas flight', hint: 'The page is a canvas: scrolling pulls the camera out, flies it left, right, up or down to the next specimen, and drops it back in.' },
+  atlas: { label: 'Atlas', hint: 'Every specimen sits on one sheet. The camera dives into each, and at the end of every row pulls right out to show the whole sheet.' },
+  spiral: { label: 'Spiral', hint: 'The specimens wind outward in a spiral and the camera follows them round, banking as it turns.' },
 };
 
 const P = (slug, title, chapter, engine, frame, scene, ground, line, blurb) => ({ slug, title, chapter, engine, frame, scene, ground, line, blurb });
 
 export const showcasePages = [
   /* 01 — Controls */
-  P('switchboard', 'Switchboard', 'controls', 'split', 'bracket', 'status-pulse-grid', 'dots', 'Forty ways to flip a state.', 'Switches, latches and breakers on a pinned console.'),
-  P('dials', 'Dials', 'controls', 'orbit', 'plate', 'polar-radar', 'rings', 'Turn, wind, spin and detent.', 'Knobs, wheels and rotaries around a still centre.'),
+  P('switchboard', 'Switchboard', 'controls', 'canvas', 'bracket', 'status-pulse-grid', 'dots', 'Forty ways to flip a state.', 'Switches, latches and breakers on a canvas the camera flies across.'),
+  P('dials', 'Dials', 'controls', 'spiral', 'plate', 'polar-radar', 'rings', 'Turn, wind, spin and detent.', 'Knobs, wheels and rotaries wound out along a spiral.'),
   P('faders', 'Faders', 'controls', 'rail', 'edge', 'signal-spectrum-field', 'ruler', 'Sliders on a rail that slides.', 'Ranges, scrubbers and tracks on a sideways rail.'),
   P('keypads', 'Keypads', 'controls', 'columns', 'slab', 'glyph-field', 'cross', 'Keys, triggers and buttons with a feel.', 'Press mechanics in three parallax columns.'),
   P('fields', 'Fields', 'controls', 'index', 'tape', 'redaction-matrix', 'lines', 'Inputs, pickers and steppers, reimagined.', 'Text, date, code and tag fields beside a live index.'),
 
   /* 02 — Data */
-  P('gauges', 'Gauges', 'data', 'splitR', 'plate', 'polar-status', 'rings', 'Meters that read the room.', 'Needles, arcs and bars on a pinned dial stack.'),
-  P('charts', 'Charts', 'data', 'counter', 'cross', 'heatmap-control', 'cross', 'Marks, bars, lines and areas.', 'Forty small charts drifting in opposite columns.'),
-  P('matrices', 'Matrices', 'data', 'map', 'dash', 'heatmap-grid', 'dots', 'Heat, tables and dot grids to pan across.', 'A field of grids you travel along a path.'),
+  P('gauges', 'Gauges', 'data', 'spiral', 'plate', 'polar-status', 'rings', 'Meters that read the room.', 'Needles, arcs and bars wound out along a spiral.'),
+  P('charts', 'Charts', 'data', 'atlas', 'cross', 'heatmap-control', 'cross', 'Marks, bars, lines and areas.', 'Forty small charts on one sheet; the camera dives into each.'),
+  P('matrices', 'Matrices', 'data', 'atlas', 'dash', 'heatmap-grid', 'dots', 'Heat, tables and dot grids to pan across.', 'Heat, tables and dot grids on one sheet you fly across.'),
   P('figures', 'Figures', 'data', 'slides', 'bare', 'data-rain', 'none', 'Numerals that roll, flip and settle.', 'Counters and clocks cut in one at a time.'),
   P('graphs', 'Graphs', 'data', 'spine', 'lift', 'dependency-graph', 'lines', 'Nodes, trees and flows that grow.', 'Networks that branch from a filling spine.'),
 
   /* 03 — Type */
-  P('kinetic', 'Kinetic', 'type', 'split', 'bare', 'glyph-compiler', 'none', 'Words that scramble, split and settle.', 'Moving type beside an enormous morphing letter.'),
+  P('kinetic', 'Kinetic', 'type', 'canvas', 'bare', 'glyph-compiler', 'none', 'Words that scramble, split and settle.', 'Moving type on a canvas the camera swoops across.'),
   P('tickers', 'Tickers', 'type', 'rows', 'slab', 'data-stream-ribbons', 'lines', 'Flaps, boards and marquees.', 'Mechanical text on belts that slide both ways.'),
   P('markup', 'Markup', 'type', 'stack', 'tape', 'research-blackout', 'lines', 'Highlights, strikes and redactions.', 'Annotations that stack like pages in a deck.'),
   P('glyphs', 'Glyphs', 'type', 'wheel', 'ring', 'blackout-silhouette', 'none', 'Outlines, strokes and letterforms.', 'Letterforms riding a carousel ring.'),
@@ -72,20 +75,20 @@ export const showcasePages = [
 
   /* 04 — Cards */
   P('tilt', 'Tilt', 'cards', 'tunnel', 'lift', 'isometric-module', 'cross', 'Cards with depth and weight.', 'Parallax and tilt surfaces in a deep column.'),
-  P('glow', 'Glow', 'cards', 'splitR', 'dash', 'glass-prism', 'none', 'Spotlights, beams and borders of light.', 'Light-led cards beside a pinned lamp.'),
+  P('glow', 'Glow', 'cards', 'canvas', 'dash', 'glass-prism', 'none', 'Spotlights, beams and borders of light.', 'Light-led cards on a dark canvas, found by flying across it.'),
   P('fold', 'Fold', 'cards', 'wheel', 'plate', 'split-prism', 'dots', 'Cards that flip, fold and peel.', 'Turning, folding cards on a rotating ring.'),
-  P('bento', 'Bento', 'cards', 'columns', 'plate', 'dashboard-tiles', 'dots', 'Tiles that tessellate.', 'Dashboard tiles in drifting columns.'),
-  P('passes', 'Passes', 'cards', 'spine', 'ticket', 'redacted-timeline-branch', 'lines', 'Tickets, receipts and badges.', 'Perforated passes hung from a spine.'),
+  P('bento', 'Bento', 'cards', 'atlas', 'plate', 'dashboard-tiles', 'dots', 'Tiles that tessellate.', 'Dashboard tiles on one sheet, dived into one by one.'),
+  P('passes', 'Passes', 'cards', 'canvas', 'ticket', 'redacted-timeline-branch', 'lines', 'Tickets, receipts and badges.', 'Perforated passes scattered over a canvas the camera flies across.'),
 
   /* 05 — Navigation */
   P('tabs', 'Tabs', 'navigation', 'index', 'edge', 'timeline-pulse', 'lines', 'Strips, pills and segments that glide.', 'Tab systems beside a live index.'),
-  P('docks', 'Docks', 'navigation', 'rows', 'plate', 'architecture-layer', 'none', 'Floating bars, rails and toolbars.', 'Bars and rails on sliding belts.'),
+  P('docks', 'Docks', 'navigation', 'canvas', 'plate', 'architecture-layer', 'none', 'Floating bars, rails and toolbars.', 'Bars and rails on a canvas the camera flies across.'),
   P('menus', 'Menus', 'navigation', 'split', 'bracket', 'orbital-command', 'rings', 'Dropdowns, radials and command lists.', 'Menu forms around a pinned node map.'),
   P('steps', 'Steps', 'navigation', 'rail', 'cross', 'workflow-river', 'ruler', 'Steppers, breadcrumbs and pagination.', 'Sequences along a sideways rail.'),
-  P('waypoints', 'Waypoints', 'navigation', 'map', 'bracket', 'compass-vector', 'cross', 'Outlines, contents and wayfinding.', 'Wayfinding pieces on a map you pan.'),
+  P('waypoints', 'Waypoints', 'navigation', 'atlas', 'bracket', 'compass-vector', 'cross', 'Outlines, contents and wayfinding.', 'Wayfinding pieces on an atlas you fly across.'),
 
   /* 06 — Feedback */
-  P('loaders', 'Loaders', 'feedback', 'orbit', 'bare', 'orbital-node', 'rings', 'Forty ways to wait.', 'Spinners and waiting states around a still core.'),
+  P('loaders', 'Loaders', 'feedback', 'spiral', 'bare', 'orbital-node', 'rings', 'Forty ways to wait.', 'Spinners and waiting states wound out along a spiral.'),
   P('toasts', 'Toasts', 'feedback', 'stack', 'lift', 'trigger-action-pulse', 'none', 'Alerts, banners and notices.', 'Notices that arrive and pile up.'),
   P('progress', 'Progress', 'feedback', 'counter', 'plate', 'build-pipeline', 'lines', 'Bars, rings and vessels that fill.', 'Fills and meters in counter-scrolling columns.'),
   P('skeletons', 'Skeletons', 'feedback', 'slides', 'dash', 'unknown-silhouette', 'none', 'Placeholders and empty states.', 'Waiting shapes cut in one at a time.'),
@@ -94,7 +97,7 @@ export const showcasePages = [
   /* 07 — Overlays */
   P('popovers', 'Popovers', 'overlays', 'split', 'cross', 'network-constellation', 'dots', 'Tooltips, hover cards and callouts.', 'Anchored overlays with a pinned reference.'),
   P('sheets', 'Sheets', 'overlays', 'tunnel', 'plate', 'secure-boundary', 'lines', 'Drawers, modals and layered panes.', 'Layered panes met on a fly-through.'),
-  P('cursors', 'Cursors', 'overlays', 'map', 'dash', 'magnetic-particles', 'cross', 'Pointers, followers and magnets.', 'Pointer effects across a pannable field.'),
+  P('cursors', 'Cursors', 'overlays', 'canvas', 'dash', 'magnetic-particles', 'cross', 'Pointers, followers and magnets.', 'Pointer effects across a canvas the camera flies over.'),
   P('wipes', 'Wipes', 'overlays', 'slides', 'bare', 'liquid-metal', 'none', 'Curtains, clips and reveals.', 'Transitions cut in by a moving edge.'),
   P('lenses', 'Lenses', 'overlays', 'rows', 'ring', 'concentric-gate', 'rings', 'Magnifiers, compare and focus.', 'Lenses on belts that slide both ways.'),
 
@@ -102,22 +105,22 @@ export const showcasePages = [
   P('cockpit', 'Cockpit', 'objects', 'wheel', 'bracket', 'radar-cutaway', 'rings', 'Instruments with presence.', 'Flight instruments on a rotating ring.'),
   P('studio', 'Studio', 'objects', 'splitR', 'slab', 'audio-signal-wall', 'lines', 'Meters, reels and faders for sound.', 'Studio gear beside a pinned VU needle.'),
   P('terminal', 'Terminal', 'objects', 'index', 'bracket', 'command-terminal', 'lines', 'Code, logs and command-line pieces.', 'Console parts with a live index.'),
-  P('stamps', 'Stamps', 'objects', 'columns', 'tape', 'permission-orbit', 'none', 'Labels, seals, stickers and tape.', 'Marks pressed into three parallax columns.'),
+  P('stamps', 'Stamps', 'objects', 'canvas', 'tape', 'permission-orbit', 'none', 'Labels, seals, stickers and tape.', 'Marks pressed onto a canvas, found one by one.'),
   P('archive', 'Archive', 'objects', 'stack', 'edge', 'architectural-grid', 'lines', 'Files, drawers and index cards.', 'Records filed in a sticky deck.'),
 
   /* 09 — Ground */
   P('beams', 'Beams', 'ground', 'spine', 'bare', 'circuit-trace', 'lines', 'Lines and traces of light.', 'Light traces running along a spine.'),
-  P('patterns', 'Patterns', 'ground', 'tunnel', 'cross', 'hex-lattice', 'none', 'Grids, dots and hatching as surfaces.', 'Surfaces met on a fly-through.'),
-  P('drift', 'Drift', 'ground', 'orbit', 'ring', 'flow-field', 'none', 'Particles, stars and rain.', 'Particle systems around a still centre.'),
+  P('patterns', 'Patterns', 'ground', 'atlas', 'cross', 'hex-lattice', 'none', 'Grids, dots and hatching as surfaces.', 'Surfaces laid out on one sheet.'),
+  P('drift', 'Drift', 'ground', 'spiral', 'ring', 'flow-field', 'none', 'Particles, stars and rain.', 'Particle systems wound out along a spiral.'),
   P('waves', 'Waves', 'ground', 'rows', 'edge', 'wave-interference', 'lines', 'Ripples, interference and noise.', 'Wave forms on sliding belts.'),
-  P('morphs', 'Morphs', 'ground', 'rail', 'bare', 'liquid-glass-operational', 'none', 'Shapes that become other shapes.', 'Shape-changers along a sideways rail.'),
+  P('morphs', 'Morphs', 'ground', 'canvas', 'bare', 'liquid-glass-operational', 'none', 'Shapes that become other shapes.', 'Shape-changers scattered across a canvas.'),
 
   /* 10 — Patterns */
   P('handset', 'Handset', 'patterns', 'split', 'lift', 'client-portal-gate', 'dots', 'Mobile screens, onboarding to settings.', 'Phone-screen patterns beside a pinned handset.'),
-  P('boards', 'Boards', 'patterns', 'counter', 'plate', 'scheduling-grid', 'cross', 'Kanban, calendars and agendas.', 'Planning surfaces in opposite columns.'),
+  P('boards', 'Boards', 'patterns', 'atlas', 'plate', 'scheduling-grid', 'cross', 'Kanban, calendars and agendas.', 'Planning surfaces on one sheet.'),
   P('feeds', 'Feeds', 'patterns', 'index', 'plate', 'node-compression', 'none', 'Lists, chats and notification streams.', 'Streams and lists with a live index.'),
   P('checkout', 'Checkout', 'patterns', 'columns', 'ticket', 'transaction-wave', 'lines', 'Pricing, carts and order flows.', 'Sample pricing and order parts in parallax columns.'),
-  P('heroes', 'Heroes', 'patterns', 'slides', 'bracket', 'hex-tunnel', 'none', 'Opening screens, bands and endings.', 'Layouts for opening screens, cut in one by one.'),
+  P('heroes', 'Heroes', 'patterns', 'canvas', 'bracket', 'hex-tunnel', 'none', 'Opening screens, bands and endings.', 'Layouts for opening screens, scattered across a canvas.'),
 ];
 
 export const showcasePath = (slug) => `/showcase/${slug}`;

@@ -6,6 +6,25 @@ The site is a data-driven React/Vite app: **86 pages** (33 when this body of wor
 
 Nothing has been deployed from this branch.
 
+## Showcase pass (2026-10-15)
+
+`/showcase` is fifty pages of interface components (10 chapters, 2,091 uniquely named specimens, at least forty a page). When this pass began, 30 of the 50 registered pages had no file and returned the 404, and every page moved the same way: down. Now:
+
+- **All 50 pages exist.** The 30 that were missing were written (tabs, docks, menus, steps, waypoints, loaders, toasts, progress, skeletons, signals, popovers, sheets, cursors, wipes, lenses, cockpit, studio, terminal, stamps, archive, beams, patterns, drift, waves, morphs, handset, boards, feeds, checkout, heroes). Names that collided with other pages were renamed, in the new pages and a few older ones.
+- **Canvas flight.** Three stages (`canvas`, `atlas`, `spiral`; `src/showcase/stages/canvas.jsx`, maths in `camera.js`) lay the specimens on one plane and fly a camera over it: hold on a specimen, pull back until it and the next both fit, swing across with a slight bank, drop in. A minimap and a picture-in-picture of the page's still side show where you are, and clicking a far specimen jumps to it. 22 pages moved onto these stages. Under 900 px wide or with reduced motion they fall back to the plain flow stage. The camera transform is written directly onto one element: an earlier version that passed it down as inherited custom properties took 244 ms a frame.
+- **Shared pieces** extracted from the pages: line icons (`icons.jsx`), pointer variables (`pointerVars.js`), a canvas particle/wave engine (`Sim.jsx`, `draw.js`) and the stage parts (`stages/parts.jsx`).
+- The README has a new section, *The showcase*.
+
+### Checks for this pass
+
+| check | result |
+| --- | --- |
+| `npm run lint`, `npm test` (includes `qa/camera.mjs`: 3 stages × 40–50 specimens, camera rests, pulls back, fits both ends, never jumps) | pass |
+| `npm run build` | passes (every showcase page is its own chunk) |
+| `QA_BASE=http://127.0.0.1:5173 node qa/showcase.mjs` (dev server) | 59/59: every page loads without errors or sideways overflow, renders 40+ specimens with names, is driven by the scroll, shows all specimens in the sheet view, falls back to flow and fits on a phone, and ends on its own ending; every specimen name is unique; the index and the menu reach all 50 |
+
+Not measured: the showcase pages were not run through `qa/accessibility.mjs`, `qa/contrast.mjs` or `qa/controls.mjs` (those walk the 86 site pages, not `/showcase/*`), only in headless Chromium, and not on a real phone or in Firefox or Safari. Specimens are keyboard-operable by construction and named, but there has been no keyboard-only or screen-reader walk of them. Frame rates in headless Chromium are pessimistic.
+
 ## Performance and cleanup pass (2026-10-09)
 
 - The 86 routes still use the documented data-driven page model. The current route loads its own data; hovering or focusing a link warms that destination. The app no longer downloads all page modules in the background.
