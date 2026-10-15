@@ -8,7 +8,7 @@
    still; the arrow keys move it by hand and keep it there until the area loses
    focus. Used by the cursors and lenses pages.
    ============================================================ */
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useId, useRef } from 'react';
 import { clamp, useLive } from './hooks';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 
@@ -18,6 +18,9 @@ export function usePointer(auto = true) {
   const inside = useRef(false);
   const live = useLive();
   const reduced = usePrefersReducedMotion();
+  // each area wanders on its own curve (derived from its id), so a page of them is not one synchronised swarm
+  const id = useId();
+  const seed = Array.from(id).reduce((a, ch) => a + ch.charCodeAt(0), 0);
 
   const put = useCallback((x, y) => {
     const el = ref.current;
@@ -34,11 +37,11 @@ export function usePointer(auto = true) {
       raf = requestAnimationFrame(tick);
       if (inside.current || t - last < 33) return;
       last = t;
-      put(0.5 + 0.34 * Math.sin(t / 900), 0.5 + 0.3 * Math.sin(t / 1300 + 1));
+      put(0.5 + 0.34 * Math.sin(t / (780 + (seed % 7) * 70) + seed), 0.5 + 0.3 * Math.sin(t / (1150 + (seed % 5) * 90) + seed * 0.7 + 1));
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [auto, live, reduced, put]);
+  }, [auto, live, reduced, put, seed]);
 
   const bind = {
     onPointerMove: (e) => {
