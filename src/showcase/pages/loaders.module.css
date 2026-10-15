@@ -1,0 +1,269 @@
+/* 26 · LOADERS — five rings the scroll turns, and forty-two ways to wait. */
+
+/* ---- the still side ---- */
+.vis { position: relative; width: min(94cqw, 94cqh); aspect-ratio: 1; display: grid; place-items: center; }
+.vis i { position: absolute; inset: calc(var(--k) * 8cqmin); border-radius: 50%; border: 1px dashed var(--c-white-20); transform: rotate(calc(var(--pin) * (360deg * (var(--k) + 1)) * (1 - 2 * mod(var(--k), 2)))); }
+.vis i b { position: absolute; left: 50%; top: -0.9cqmin; width: 1.8cqmin; height: 1.8cqmin; margin-left: -0.9cqmin; border-radius: 50%; background: var(--c-white-65); }
+.vis i:nth-child(odd) b { background: var(--c-red); box-shadow: var(--glow-red); }
+.vis s { position: absolute; width: 12cqmin; height: 12cqmin; border-radius: 50%; background: radial-gradient(circle, var(--c-red), #5a0a0a); box-shadow: 0 0 calc(2cqmin + var(--pin) * 6cqmin) rgba(255, 51, 51, 0.6); transform: scale(calc(0.8 + var(--pin) * 0.4)); }
+.vis small { position: absolute; bottom: -1cqmin; font: 500 2.1cqmin var(--font-mono); letter-spacing: 0.22em; color: var(--c-white-50); }
+
+/* ---- shared ---- */
+.ring, .dual, .bounce, .wave, .eq, .ripple, .orbit, .clock, .glass, .squares, .cube, .flip, .typing, .helix, .cradle, .battery, .chase, .roller, .ball, .mill, .planet, .grid9, .hex, .ink, .liquid, .fuse, .elastic, .segs, .morph, .pend, .reels, .race, .pct, .spiral { position: relative; display: block; width: 3.2rem; height: 3.2rem; }
+
+@keyframes turn { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { transform: scale(0.4); opacity: 0.4; } 50% { transform: scale(1); opacity: 1; } }
+
+/* 1 ring */
+.ring { border: 3px solid var(--c-white-12); border-top-color: var(--c-red); border-radius: 50%; animation: turn 0.9s linear infinite; }
+
+/* 2 twin ring */
+.dual i { position: absolute; inset: 0; border-radius: 50%; border: 3px solid transparent; }
+.dual i:first-child { border-top-color: var(--c-red); border-bottom-color: var(--c-red); animation: turn 1.2s linear infinite; }
+.dual i:last-child { inset: 0.5rem; border-left-color: #fff; border-right-color: #fff; animation: turn 0.8s linear infinite reverse; }
+
+/* 3 bounce */
+.bounce { display: flex; align-items: flex-end; justify-content: center; gap: 0.35rem; height: 2.4rem; }
+.bounce i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--c-red); animation: hop 0.8s var(--ease-out) infinite alternate; animation-delay: calc(var(--k) * 0.14s); }
+@keyframes hop { to { transform: translateY(-1.5rem); background: #fff; } }
+
+/* 4 dot wave */
+.wave { display: flex; align-items: center; justify-content: center; gap: 0.25rem; width: 5rem; }
+.wave i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #fff; animation: sine 1.2s ease-in-out infinite; animation-delay: calc(var(--k) * 0.1s); }
+@keyframes sine { 0%, 100% { transform: translateY(0.6rem); opacity: 0.35; } 50% { transform: translateY(-0.6rem); opacity: 1; background: var(--c-red); } }
+
+/* 5 equaliser */
+.eq { display: flex; align-items: center; justify-content: center; gap: 0.25rem; }
+.eq i { width: 0.35rem; height: 100%; border-radius: 2px; background: var(--c-red); transform-origin: center; animation: eqbar 0.9s ease-in-out infinite; animation-delay: calc(var(--k) * 0.12s); }
+@keyframes eqbar { 0%, 100% { transform: scaleY(0.2); } 50% { transform: scaleY(1); } }
+
+/* 6 ripple */
+.ripple i { position: absolute; inset: 0; border: 2px solid var(--c-red); border-radius: 50%; animation: out 1.6s var(--ease-out) infinite; }
+.ripple i:last-child { animation-delay: -0.8s; }
+@keyframes out { from { transform: scale(0.1); opacity: 1; } to { transform: scale(1); opacity: 0; } }
+
+/* 7 orbit */
+.orbit i { position: absolute; inset: 0; animation: turn 1.4s linear infinite; animation-delay: calc(var(--k) * -0.46s); }
+.orbit i::before { content: ''; position: absolute; left: 50%; top: 0; width: 0.5rem; height: 0.5rem; margin-left: -0.25rem; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+
+/* 8 clock */
+.clock { border: 2px solid var(--c-white-50); border-radius: 50%; }
+.clock i, .clock b { position: absolute; left: 50%; bottom: 50%; width: 2px; border-radius: 1px; transform-origin: bottom; background: #fff; }
+.clock i { height: 1.1rem; margin-left: -1px; animation: turn 6s linear infinite; background: var(--c-red); }
+.clock b { height: 0.8rem; margin-left: -1px; animation: turn 36s linear infinite; }
+
+/* 9 hourglass */
+.glass { width: 2rem; margin: 0 auto; animation: flipglass 2.4s ease-in-out infinite; }
+.glass::before, .glass::after { content: ''; position: absolute; left: 0; right: 0; height: 50%; background: var(--c-white-12); }
+.glass::before { top: 0; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.glass::after { bottom: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.glass i { position: absolute; left: 50%; top: 50%; width: 2px; height: 50%; margin-left: -1px; background: var(--c-red); transform-origin: top; animation: sand 2.4s linear infinite; }
+@keyframes flipglass { 0%, 85% { transform: rotate(0); } 100% { transform: rotate(180deg); } }
+@keyframes sand { 0% { transform: scaleY(1); opacity: 1; } 85% { transform: scaleY(1); opacity: 1; } 100% { opacity: 0; } }
+
+/* 10 chasing arc */
+.arc { width: 3.2rem; height: 3.2rem; animation: turn 1.8s linear infinite; }
+.arc circle { fill: none; stroke: var(--c-red); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1 126; animation: dash 1.5s ease-in-out infinite; }
+@keyframes dash { 0% { stroke-dasharray: 1 126; stroke-dashoffset: 0; } 50% { stroke-dasharray: 80 126; stroke-dashoffset: -35; } 100% { stroke-dasharray: 80 126; stroke-dashoffset: -125; } }
+
+/* 11 square swap */
+.squares i { position: absolute; width: 1.1rem; height: 1.1rem; background: var(--c-red); animation: swap 1.6s ease-in-out infinite; }
+.squares i:last-child { background: #fff; animation-delay: -0.8s; }
+@keyframes swap { 0% { transform: translate(0, 0) rotate(0); } 25% { transform: translate(1.8rem, 0) rotate(90deg); } 50% { transform: translate(1.8rem, 1.8rem) rotate(180deg); } 75% { transform: translate(0, 1.8rem) rotate(270deg); } 100% { transform: translate(0, 0) rotate(360deg); } }
+.squares { margin: 0.4rem; }
+
+/* 12 cube */
+.cube { width: 2.4rem; height: 2.4rem; margin: 0.4rem; transform-style: preserve-3d; animation: spin3 3.4s linear infinite; }
+.cube { perspective: none; }
+.cube i { position: absolute; inset: 0; border: 1px solid var(--c-red); background: rgba(255, 51, 51, 0.1); }
+.cube i:nth-child(1) { transform: translateZ(1.2rem); }
+.cube i:nth-child(2) { transform: rotateY(180deg) translateZ(1.2rem); }
+.cube i:nth-child(3) { transform: rotateY(90deg) translateZ(1.2rem); }
+.cube i:nth-child(4) { transform: rotateY(-90deg) translateZ(1.2rem); }
+.cube i:nth-child(5) { transform: rotateX(90deg) translateZ(1.2rem); }
+.cube i:nth-child(6) { transform: rotateX(-90deg) translateZ(1.2rem); }
+@keyframes spin3 { from { transform: rotateX(-24deg) rotateY(0); } to { transform: rotateX(-24deg) rotateY(360deg); } }
+
+/* 13 card flip */
+.flip { perspective: 200px; }
+.flip i { position: absolute; inset: 0.4rem; background: var(--c-red); animation: cardflip 1.4s ease-in-out infinite; }
+@keyframes cardflip { 0% { transform: rotateY(0); } 50% { transform: rotateY(180deg); background: #fff; } 100% { transform: rotateY(360deg); } }
+
+/* 14 typing */
+.typing { display: flex; align-items: center; justify-content: center; gap: 0.3rem; width: 4.4rem; height: 2.2rem; padding: 0 0.5rem; border-radius: 99px; background: #1b1c21; }
+.typing i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--c-white-65); animation: type 1.2s ease-in-out infinite; animation-delay: calc(var(--k) * 0.18s); }
+@keyframes type { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-0.4rem); opacity: 1; } }
+
+/* 15 heartbeat */
+.beat { width: 6rem; height: 2rem; }
+.beat path { fill: none; stroke: var(--c-red); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60 140; filter: drop-shadow(0 0 3px rgba(255, 51, 51, 0.8)); animation: ecg 1.6s linear infinite; }
+@keyframes ecg { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+
+/* 16 helix */
+.helix { display: flex; align-items: center; justify-content: space-between; width: 5rem; }
+.helix i { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--c-red); animation: helix 1.4s ease-in-out infinite; animation-delay: calc(var(--k) * -0.17s); box-shadow: 0 0 6px var(--c-red); }
+.helix i:nth-child(even) { background: #fff; box-shadow: 0 0 6px #fff; animation-direction: reverse; }
+@keyframes helix { 0%, 100% { transform: translateY(-0.9rem) scale(0.6); } 50% { transform: translateY(0.9rem) scale(1.1); } }
+
+/* 17 cradle */
+.cradle { display: flex; align-items: flex-end; justify-content: center; height: 3rem; }
+.cradle i { position: relative; width: 0.62rem; height: 2.2rem; transform-origin: 50% 0; }
+.cradle i::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0.62rem; height: 0.62rem; border-radius: 50%; background: #d9d9de; }
+.cradle i::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0.4rem; width: 1px; background: var(--c-white-30); }
+.cradle i:first-child { animation: cl 1.2s ease-in-out infinite; }
+.cradle i:last-child { animation: cr 1.2s ease-in-out infinite; }
+@keyframes cl { 0%, 50% { transform: rotate(0); } 25% { transform: rotate(32deg); } }
+@keyframes cr { 0%, 50% { transform: rotate(0); } 75% { transform: rotate(-32deg); } 50%, 100% { transform: rotate(0); } }
+
+/* 18 gears */
+.gears { width: 6rem; height: 3.8rem; fill: none; stroke: var(--c-white-65); stroke-width: 2; stroke-linecap: round; }
+.g1 { transform-origin: 26px 25px; animation: turn 3s linear infinite; }
+.g2 { transform-origin: 54px 25px; animation: turn 3s linear infinite reverse; stroke: var(--c-red); }
+
+/* 19 charging */
+.battery { width: 3.4rem; height: 1.7rem; margin: 0.8rem 0; border: 2px solid var(--c-white-65); border-radius: 4px; }
+.battery::after { content: ''; position: absolute; right: -6px; top: 50%; width: 4px; height: 0.6rem; margin-top: -0.3rem; background: var(--c-white-65); border-radius: 0 2px 2px 0; }
+.battery i { position: absolute; inset: 2px; background: var(--c-red); transform-origin: left; animation: charge 2s ease-in-out infinite; }
+@keyframes charge { 0% { transform: scaleX(0.1); } 80%, 100% { transform: scaleX(1); } }
+
+/* 20 loading word */
+.words { display: inline-block; width: auto; height: auto; font: 500 0.7rem var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: #fff; }
+.words b { display: inline-block; animation: blinkdot 1.2s infinite; }
+.words b:nth-of-type(2) { animation-delay: 0.2s; }
+.words b:nth-of-type(3) { animation-delay: 0.4s; }
+@keyframes blinkdot { 0%, 20% { opacity: 0.1; } 50% { opacity: 1; color: var(--c-red); } 100% { opacity: 0.1; } }
+
+/* 21 letter wave */
+.letters { display: inline-flex; width: auto; height: auto; font: 300 1.5rem var(--font-serif); color: #fff; }
+.letters i { font-style: normal; animation: letter 1.4s ease-in-out infinite; animation-delay: calc(var(--k) * 0.09s); }
+@keyframes letter { 0%, 100% { transform: translateY(0); color: #fff; } 40% { transform: translateY(-0.5rem); color: var(--c-red); } }
+
+/* 22 chase */
+.chase { display: flex; align-items: center; justify-content: space-between; width: 5.4rem; height: 1.6rem; }
+.chase > i:first-child { position: absolute; left: 0; width: 1.3rem; height: 1.3rem; border-radius: 50%; background: #ffd23f; clip-path: polygon(100% 20%, 50% 50%, 100% 80%, 100% 100%, 0 100%, 0 0, 100% 0); animation: chomp 0.4s linear infinite alternate; }
+@keyframes chomp { from { clip-path: polygon(100% 0, 50% 50%, 100% 100%, 0 100%, 0 0); } to { clip-path: polygon(100% 35%, 50% 50%, 100% 65%, 100% 100%, 0 100%, 0 0, 100% 0); } }
+.chase i + i { position: absolute; top: 50%; width: 0.35rem; height: 0.35rem; margin-top: -0.175rem; border-radius: 50%; background: #fff; left: calc(1.6rem + var(--k) * 1.1rem); animation: eat 1.2s linear infinite; }
+@keyframes eat { 0%, 20% { opacity: 1; } 21%, 80% { opacity: 0.15; } 100% { opacity: 1; } }
+
+/* 23 rolling bar */
+.roller { width: 6rem; height: 1.6rem; overflow: hidden; border-radius: 99px; background: var(--c-white-08); }
+.roller i { position: absolute; top: 0.3rem; left: 0; width: 1rem; height: 1rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff9a9a, var(--c-red) 55%, #7d1010); animation: roll 1.4s var(--ease-in-out) infinite alternate; }
+@keyframes roll { from { transform: translateX(0) rotate(0); } to { transform: translateX(4.6rem) rotate(540deg); } }
+
+/* 24 ball */
+.ball { height: 3.6rem; }
+.ball i { position: absolute; left: 50%; bottom: 0.4rem; width: 1.4rem; height: 1.4rem; margin-left: -0.7rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff9a9a, var(--c-red) 55%, #7d1010); animation: drop 0.9s cubic-bezier(0.3, 0.6, 0.4, 1) infinite alternate; }
+.ball b { position: absolute; left: 50%; bottom: 0; width: 1.4rem; height: 0.3rem; margin-left: -0.7rem; border-radius: 50%; background: var(--c-white-20); animation: shadow 0.9s cubic-bezier(0.3, 0.6, 0.4, 1) infinite alternate; }
+@keyframes drop { from { transform: translateY(-1.8rem) scale(0.94, 1.06); } to { transform: translateY(0) scale(1.1, 0.9); } }
+@keyframes shadow { from { transform: scale(0.4); opacity: 0.3; } to { transform: scale(1); opacity: 1; } }
+
+/* 25 windmill */
+.mill i { position: absolute; left: 50%; top: 50%; width: 0.5rem; height: 1.5rem; margin: -1.5rem 0 0 -0.25rem; border-radius: 99px; background: var(--c-red); transform-origin: 50% 100%; animation: turn 2s linear infinite; }
+.mill i:nth-child(2) { background: #fff; animation-delay: -0.5s; }
+.mill i:nth-child(3) { animation-delay: -1s; }
+.mill i:nth-child(4) { background: #fff; animation-delay: -1.5s; }
+
+/* 26 planet */
+.planet i { position: absolute; left: 50%; top: 50%; width: 1.2rem; height: 1.2rem; margin: -0.6rem; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff9a9a, var(--c-red) 60%, #5a0a0a); }
+.planet b { position: absolute; inset: 0; animation: turn 2.2s linear infinite; }
+.planet b::before { content: ''; position: absolute; left: 50%; top: 0; width: 0.45rem; height: 0.45rem; margin-left: -0.22rem; border-radius: 50%; background: #fff; }
+.planet::after { content: ''; position: absolute; inset: 0; border: 1px dashed var(--c-white-20); border-radius: 50%; }
+
+/* 27 nine grid */
+.grid9 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.2rem; width: 2.6rem; height: 2.6rem; margin: 0.3rem; }
+.grid9 i { background: var(--c-red); animation: cell 1.3s ease-in-out infinite; animation-delay: calc(mod(var(--k), 3) * 0.12s + floor(var(--k) / 3) * 0.12s); }
+@keyframes cell { 0%, 70%, 100% { transform: scale(1); opacity: 1; } 35% { transform: scale(0.1); opacity: 0.3; } }
+
+/* 28 hex spin */
+.hex { width: 3rem; height: 3.4rem; margin: 0 auto; }
+.hex i { position: absolute; inset: 0; background: var(--c-red); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); animation: hexpulse 1.4s ease-in-out infinite; }
+.hex::after { content: ''; position: absolute; inset: 0.5rem; background: #050505; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+@keyframes hexpulse { 0%, 100% { transform: rotate(0) scale(1); } 50% { transform: rotate(60deg) scale(0.85); background: #fff; } }
+
+/* 29 lemniscate */
+.inf { width: 5rem; height: 2.5rem; }
+.inf path { fill: none; stroke: var(--c-red); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0.22 0.78; animation: trace 1.8s linear infinite; filter: drop-shadow(0 0 3px rgba(255, 51, 51, 0.8)); }
+@keyframes trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* 30 dot spiral */
+.spiral i { position: absolute; left: 50%; top: 50%; width: 0.4rem; height: 0.4rem; margin: -0.2rem; border-radius: 50%; background: var(--c-red); transform: rotate(calc(var(--k) * 36deg)) translateY(calc(var(--k) * -0.16rem - 0.2rem)); animation: spiralfade 1.6s ease-in-out infinite; animation-delay: calc(var(--k) * 0.1s); }
+@keyframes spiralfade { 0%, 100% { opacity: 0.15; } 40% { opacity: 1; } }
+
+/* 31 ink drops */
+.ink i { position: absolute; left: 50%; top: 50%; width: 1.4rem; height: 1.4rem; margin: -0.7rem; border-radius: 50%; background: var(--c-red); mix-blend-mode: screen; animation: inkdrop 2.4s ease-out infinite; opacity: 0; }
+.ink i:nth-child(2) { animation-delay: -0.8s; background: #ffb347; }
+.ink i:nth-child(3) { animation-delay: -1.6s; background: #fff; }
+@keyframes inkdrop { 0% { transform: scale(0.1); opacity: 0.9; } 100% { transform: scale(2.4); opacity: 0; } }
+
+/* 32 liquid fill */
+.liquid { overflow: hidden; border: 2px solid var(--c-white-50); border-radius: 50%; }
+.liquid i { position: absolute; left: -50%; width: 200%; height: 200%; top: 100%; border-radius: 40%; background: var(--c-red); animation: fillup 3s ease-in-out infinite, slosh 2s linear infinite; }
+@keyframes fillup { 0% { top: 100%; } 100% { top: 10%; } }
+@keyframes slosh { to { transform: rotate(360deg); } }
+
+/* 33 fuse */
+.fuse { width: 6rem; height: 1.2rem; margin: 1rem 0; }
+.fuse i { position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px; background: repeating-linear-gradient(90deg, var(--c-white-50) 0 4px, transparent 4px 7px); transform-origin: right; animation: burn 2s linear infinite; }
+.fuse b { position: absolute; top: 50%; width: 0.7rem; height: 0.7rem; margin: -0.35rem; border-radius: 50%; background: #ffd23f; box-shadow: 0 0 10px #ff8c00, 0 0 20px var(--c-red); animation: spark 2s linear infinite; }
+@keyframes burn { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes spark { from { left: 100%; } to { left: 0; } }
+
+/* 34 elastic bar */
+.elastic { width: 6rem; height: 0.7rem; margin: 1.2rem 0; border-radius: 99px; background: var(--c-white-08); overflow: hidden; }
+.elastic i { position: absolute; top: 0; bottom: 0; width: 40%; border-radius: 99px; background: var(--c-red); animation: stretch 1.6s var(--ease-in-out) infinite; }
+@keyframes stretch { 0% { left: -40%; width: 40%; } 50% { left: 30%; width: 70%; } 100% { left: 100%; width: 40%; } }
+
+/* 35 segment ring spin */
+.segs i { position: absolute; left: 50%; top: 0; width: 0.28rem; height: 0.8rem; margin-left: -0.14rem; border-radius: 2px; background: #fff; transform-origin: 50% 1.6rem; transform: rotate(calc(var(--k) * 45deg)); animation: segfade 1s linear infinite; animation-delay: calc(var(--k) * 0.125s - 1s); }
+@keyframes segfade { from { opacity: 1; } to { opacity: 0.1; } }
+
+/* 36 plus morph */
+.morph i { position: absolute; left: 50%; top: 50%; width: 2.2rem; height: 0.45rem; margin: -0.225rem -1.1rem; border-radius: 99px; background: var(--c-red); animation: plusturn 1.8s var(--ease-in-out) infinite; }
+.morph i:last-child { background: #fff; animation-name: plusturn2; }
+@keyframes plusturn { 0%, 15% { transform: rotate(0); } 45%, 60% { transform: rotate(90deg); } 85%, 100% { transform: rotate(180deg); } }
+@keyframes plusturn2 { 0%, 15% { transform: rotate(90deg); } 45%, 60% { transform: rotate(180deg); } 85%, 100% { transform: rotate(270deg); } }
+
+/* 37 pendulum */
+.pend { height: 3.6rem; }
+.pend i { position: absolute; left: 50%; top: 0; width: 2px; height: 2.4rem; margin-left: -1px; background: var(--c-white-50); transform-origin: top; animation: swing 1.6s ease-in-out infinite alternate; }
+.pend i::after { content: ''; position: absolute; left: 50%; bottom: -0.5rem; width: 1rem; height: 1rem; margin-left: -0.5rem; border-radius: 50%; background: var(--c-red); box-shadow: var(--glow-red); }
+@keyframes swing { from { transform: rotate(-38deg); } to { transform: rotate(38deg); } }
+
+/* 38 tape reels */
+.reels { width: 6rem; height: 2.8rem; }
+.reels i { position: absolute; top: 0.2rem; width: 2.2rem; height: 2.2rem; border: 3px solid var(--c-white-50); border-radius: 50%; background: radial-gradient(circle, #050505 28%, transparent 30%), conic-gradient(from 0deg, transparent 0 20%, var(--c-white-30) 20% 30%, transparent 30% 53%, var(--c-white-30) 53% 63%, transparent 63% 86%, var(--c-white-30) 86% 96%, transparent 96%); animation: turn 2s linear infinite; }
+.reels i:first-child { left: 0; }
+.reels i:nth-child(2) { right: 0; }
+.reels b { position: absolute; left: 1.8rem; right: 1.8rem; bottom: 0.5rem; height: 2px; background: var(--c-red); }
+
+/* 39 dot race */
+.race { display: grid; gap: 0.3rem; width: 5rem; height: auto; }
+.race i { display: block; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--c-red); animation: lane 1.2s var(--ease-in-out) infinite alternate; animation-delay: calc(var(--k) * 0.15s); }
+.race i:nth-child(even) { background: #fff; }
+@keyframes lane { from { transform: translateX(0); } to { transform: translateX(4.4rem); } }
+
+/* 40 counting up */
+@property --pc { syntax: '<integer>'; inherits: false; initial-value: 0; }
+.pct { display: grid; place-items: center; }
+.pct i { counter-reset: pc var(--pc); animation: count 3s linear infinite; font-style: normal; }
+.pct i::before { content: counter(pc) '%'; font: 300 1.5rem var(--font-serif); color: #fff; }
+.pct::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--c-white-12); border-top-color: var(--c-red); animation: turn 3s linear infinite; }
+@keyframes count { from { --pc: 0; } to { --pc: 100; } }
+
+/* 41 button loader */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; min-width: 7rem; height: 2.6rem; padding: 0 1.2rem; border-radius: 99px; background: var(--c-white); color: #000; font: 700 0.6rem var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; transition: background 0.3s, color 0.3s, min-width 0.4s var(--ease-out); }
+.btn i { width: 0.9rem; height: 0.9rem; border: 2px solid rgba(0, 0, 0, 0.2); border-top-color: #000; border-radius: 50%; animation: turn 0.7s linear infinite; }
+.btn[data-s='busy'] { background: #1b1c21; color: var(--c-white-80); cursor: wait; }
+.btn[data-s='busy'] i { border-color: var(--c-white-20); border-top-color: var(--c-red); }
+.btn[data-s='done'] { background: var(--c-red); color: #fff; }
+.btn .sc-ico { width: 1rem; height: 1rem; stroke-width: 2.4; }
+
+/* 42 pull to refresh */
+.pull { position: relative; width: 11rem; height: 8.6rem; border: 1px solid var(--c-white-12); border-radius: 12px; overflow: hidden; background: #08090b; }
+.pullHead { display: grid; justify-items: center; gap: 0.3rem; padding-top: 0.7rem; height: calc(var(--p) * 3.4rem); overflow: hidden; }
+.pullHead i { width: 1.3rem; height: 1.3rem; border: 2px solid var(--c-white-20); border-top-color: var(--c-red); border-radius: 50%; transform: rotate(calc(var(--p) * 360deg)); }
+.pullHead[data-busy='true'] i { animation: turn 0.7s linear infinite; }
+.pullHead span { font: 500 0.46rem var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-white-50); }
+.pullHandle { position: absolute; left: 0; right: 0; top: 0; bottom: 0; cursor: ns-resize; touch-action: none; }
+.pullHandle::before { content: ''; position: absolute; left: 0.8rem; right: 0.8rem; top: calc(var(--p) * 3.4rem + 0.4rem); display: grid; gap: 0.4rem; height: 4rem; background: repeating-linear-gradient(var(--c-white-08) 0 0.7rem, transparent 0.7rem 1.1rem); border-radius: 4px; transition: top 0.2s; }
+.pullHandle:focus-visible { outline: 1px solid var(--c-red); outline-offset: -3px; }
