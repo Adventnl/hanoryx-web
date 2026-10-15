@@ -70,7 +70,7 @@ function Dial({ active }) {
 /**
  * /showcase — the index of the showcase. An opening screen with a mosaic of every
  * page; then the pages by chapter beside a pinned dial that turns to the chapter
- * being read; then the fourteen stages, each with the pages that use it.
+ * being read; then every stage, each with the pages that use it.
  */
 export default function ShowcaseIndex() {
   useDocumentTitle('Showcase', `${showcasePages.length} scroll-driven pages of components for their own sake, in ${chapters.length} chapters.`);
@@ -125,7 +125,7 @@ export default function ShowcaseIndex() {
               <div><dt>Chapters</dt><dd>{chapters.length}</dd></div>
             </Reveal>
             <Reveal profile="depthRise" as="p" delay={0.36} className={styles.note}>
-              Each page is a stage the scroll drives: a still side that moves with you, and at least forty specimens beside it.
+              Each page is a stage the scroll drives: a side that holds still and moves with you, columns that drift, or a camera that pulls out and flies across a canvas. At least forty specimens on each.
               Every specimen is a component shown on its own; sample content is illustrative.
             </Reveal>
             <Reveal profile="depthRise" as="div" delay={0.42} className={clsx('cluster', styles.actions)}>

@@ -21,7 +21,8 @@ export default defineConfig([
   {
     // A showcase page module default-exports data ({ Visual, items }), not a component;
     // the specimens are small components that live beside it.
-    files: ['src/showcase/pages/**/*.jsx'],
+    // The stage helpers (parts.jsx) export a few functions that return JSX beside the components.
+    files: ['src/showcase/pages/**/*.jsx', 'src/showcase/stages/parts.jsx'],
     rules: { 'react-refresh/only-export-components': 'off' },
   },
 ])

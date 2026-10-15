@@ -1,7 +1,8 @@
 import { useCallback, useContext, useRef } from 'react';
 import clsx from 'clsx';
-import { Specimen } from '../Specimen';
 import { StageApiContext, pad2, useStageVars } from '../hooks';
+import { Hud, Visual, common, spec } from './parts';
+import { CanvasStage } from './canvas';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import s from './stages.module.css';
@@ -17,37 +18,6 @@ import s from './stages.module.css';
    normally and keep their still side in a sticky panel. Under a phone width or
    reduced motion a page uses `flow`; `?view=sheet` shows every specimen at once.
    ============================================================ */
-
-/* One specimen, drawn from an items entry: [name, Component, mode]. */
-function spec(meta, no, items, i, inert = false) {
-  const [name, Comp, mode] = items[i];
-  return (
-    <Specimen key={name} no={no} i={i} name={name} mode={mode} slug={meta.slug} inert={inert}>
-      <Comp />
-    </Specimen>
-  );
-}
-
-/* The readout that sits under the pinned visual: where you are in the page. */
-function Hud({ no, items, active }) {
-  const name = items[active]?.[0] || '';
-  return (
-    <div className={s.hud} aria-hidden="true">
-      <span className={s.hudNo}>{pad2(no)}.{pad2(active + 1)}</span>
-      <span className={s.hudName}>{name}</span>
-      <span className={s.hudCount}>{pad2(active + 1)} / {pad2(items.length)}</span>
-      <span className={s.hudBar}><i /></span>
-    </div>
-  );
-}
-
-/* The visual gets a box it can size itself in: it draws in container units
-   (cqw / cqh / cqmin), so the same piece fits a half screen or a phone band. */
-function Visual({ Visual: V }) {
-  return <div className={s.visual}><V /></div>;
-}
-
-const common = (meta) => ({ 'data-frame': meta.frame, 'data-ground': meta.ground, 'aria-label': `${meta.title}: specimens` });
 
 /* ---------- pinned left / pinned right ---------- */
 function Split({ meta, no, Visual: V, items, mirror = false }) {
@@ -402,9 +372,15 @@ function Sheet({ meta, no, items }) {
   );
 }
 
+/* ---------- the canvas family: a camera flies across a flat plane (canvas.jsx) ---------- */
+const Canvas = (props) => <CanvasStage kind="canvas" {...props} />;
+const Atlas = (props) => <CanvasStage kind="atlas" {...props} />;
+const Spiral = (props) => <CanvasStage kind="spiral" {...props} />;
+
 const ENGINES = {
   split: Split, splitR: SplitR, index: Index, counter: Counter, rail: Rail, stack: Stack, orbit: Orbit, spine: Spine,
-  wheel: Wheel, tunnel: Tunnel, slides: Slides, columns: Columns, map: MapStage, rows: Rows, flow: Flow, sheet: Sheet,
+  wheel: Wheel, tunnel: Tunnel, slides: Slides, columns: Columns, map: MapStage, rows: Rows,
+  canvas: Canvas, atlas: Atlas, spiral: Spiral, flow: Flow, sheet: Sheet,
 };
 
 /** Picks the engine for a page: its own, unless the screen or the visitor asks

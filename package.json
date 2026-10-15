@@ -7,7 +7,7 @@
     "dev": "node scripts/generate-page-indexes.mjs && vite",
     "build": "node scripts/generate-sitemap.mjs && node scripts/generate-page-indexes.mjs && vite build",
     "lint": "eslint .",
-    "test": "node qa/scene-smoke.mjs && node qa/endings.mjs",
+    "test": "node qa/scene-smoke.mjs && node qa/endings.mjs && node qa/camera.mjs",
     "render:social": "node scripts/render-social.mjs",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
