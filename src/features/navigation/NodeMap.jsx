@@ -18,7 +18,9 @@ const nodeAt = (i, count) => {
  * with one node per page of the open category, a selector arc that swings to the
  * page being pointed at, and the group's code at the core. Decorative only —
  * the links beside it carry the meaning, so it is hidden from assistive tech.
- * Keyed by the caller, so a new category redraws it.
+ * Keyed by the caller, so a new category redraws it. Its entrance waits on the
+ * menu's `--t0` head start (inherited from the sheet) so it draws as the drop
+ * reaches it, not before.
  */
 export function NodeMap({ count, hot, code }) {
   const sel = count ? nodeAt(Math.min(hot, count - 1), count) : { deg: -90 };
@@ -45,8 +47,8 @@ export function NodeMap({ count, hot, code }) {
           const p = nodeAt(i, count);
           return (
             <g key={i} className={clsx(styles.node, i === hot && styles.on)}>
-              <line className={styles.connector} x1={C} y1={C} x2={p.x} y2={p.y} pathLength="1" style={{ animationDelay: `${0.12 + i * 0.03}s` }} />
-              <circle className={styles.dot} cx={p.x} cy={p.y} r={i === hot ? 6 : 3.4} style={{ animationDelay: `${0.18 + i * 0.03}s` }} />
+              <line className={styles.connector} x1={C} y1={C} x2={p.x} y2={p.y} pathLength="1" style={{ animationDelay: `calc(var(--t0, 0s) + ${0.12 + i * 0.03}s)` }} />
+              <circle className={styles.dot} cx={p.x} cy={p.y} r={i === hot ? 6 : 3.4} style={{ animationDelay: `calc(var(--t0, 0s) + ${0.18 + i * 0.03}s)` }} />
             </g>
           );
         })}

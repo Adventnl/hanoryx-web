@@ -1,23 +1,30 @@
-import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, usePresence, useReducedMotion } from 'motion/react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import clsx from 'clsx';
 import { NodeMap } from './NodeMap';
 import styles from './MegaPanel.module.css';
 import { fx } from '../../utils/fx';
 
-const EASE = [0.16, 1, 0.3, 1];
 const INTENT_MS = 70; // a rail row must be rested on this long before it takes over
-
-const sheetV = {
-  hidden: { opacity: 0, y: -10 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.32, ease: EASE } },
-  exit: { opacity: 0, y: -8, transition: { duration: 0.18, ease: EASE } },
-};
+const OPEN_MS = 800; // the drop has landed: leaving after this retracts the sheet, before it just fades
+const FRESH_MS = 1500; // every staggered entrance has finished; later swaps of group or category skip the head start
+const LEAVE_MS = 300; // the retract
 
 /**
- * The wide menu: a full-width sheet that drops from the bar. On the left, the
+ * The wide menu: a full-width sheet that drops from the bar. It does not slide: a
+ * red beam shoots out along the bar from the link that was pointed at, the sheet
+ * unfolds from that spot as a widening cone, a light band sweeps across it, and
+ * its parts arrive in turn — the rail sweeps in and its rows follow, the title
+ * wipes on, the cards cascade (each drawing a scan line along its top), the
+ * orbit spins up and the corner brackets snap into place. All of it is CSS keyed
+ * off `--ox` (the link's position along the bar) and `--t0` (the head start the
+ * first drop takes; zero when only the group or category changes). Leaving
+ * retracts the sheet upward, driven by `usePresence` so the presence wrapper
+ * waits for it.
+ *
+ * On the left, the
  * group's categories as a rail (or, for a group with one category, its short
  * introduction); on the right, the open category's pages as a grid of cards —
  * a code, a name and a line saying what is there — so a group of fifty pages is
@@ -32,15 +39,50 @@ const sheetV = {
 const Sheet = forwardRef(function Sheet({ group, onMouseEnter, onMouseLeave, onNavigate }, ref) {
   const { pathname } = useLocation();
   const uid = useId();
+  const wrapRef = useRef(null);
   const intent = useRef(0);
   const tabRefs = useRef({});
   const [pick, setPick] = useState({ group: null, cat: null });
   const [hot, setHot] = useState({ cat: null, i: 0 });
 
+  useImperativeHandle(ref, () => wrapRef.current, []);
+
+  const [present, safeToRemove] = usePresence();
+  const reduced = useReducedMotion();
+  const [settled, setSettled] = useState(false);
+  const [fresh, setFresh] = useState(true);
+
   useEffect(() => {
     const timers = intent;
-    return () => window.clearTimeout(timers.current);
+    const settle = window.setTimeout(() => setSettled(true), OPEN_MS);
+    const stale = window.setTimeout(() => setFresh(false), FRESH_MS);
+    return () => {
+      window.clearTimeout(timers.current);
+      window.clearTimeout(settle);
+      window.clearTimeout(stale);
+    };
   }, []);
+
+  // Leaving: the CSS retract plays, then the presence wrapper lets the sheet go.
+  // Coming back mid-retract cancels the timer and the sheet simply drops again.
+  useEffect(() => {
+    if (present) return undefined;
+    const done = window.setTimeout(safeToRemove, reduced ? 0 : LEAVE_MS);
+    return () => window.clearTimeout(done);
+  }, [present, safeToRemove, reduced]);
+
+  // The drop opens from the link that was pointed at: measure where it sits
+  // along the bar before the first paint (and again when the group changes).
+  useLayoutEffect(() => {
+    const wrap = wrapRef.current;
+    const header = wrap?.closest('header');
+    const link = header?.querySelector('a[aria-controls="mega-panel"]');
+    if (!wrap || !header || !link) return;
+    const bar = header.getBoundingClientRect();
+    const at = link.getBoundingClientRect();
+    const pct = ((at.left + at.width / 2 - bar.left) / bar.width) * 100;
+    wrap.style.setProperty('--ox', `${Math.min(92, Math.max(8, pct)).toFixed(2)}%`);
+  }, [group.id]);
 
   const cats = group.categories;
   // Open on the category the visitor is already in, else the first.
@@ -67,20 +109,20 @@ const Sheet = forwardRef(function Sheet({ group, onMouseEnter, onMouseLeave, onN
   const panelId = `${uid}-panel`;
 
   return (
-    <motion.div
-      ref={ref}
+    <div
+      ref={wrapRef}
       id="mega-panel"
-      className={styles.wrap}
-      variants={sheetV}
-      initial="hidden"
-      animate="show"
-      exit="exit"
+      className={clsx(styles.wrap, !present && (settled ? styles.retract : styles.fade))}
+      data-fresh={fresh ? 'true' : 'false'}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
       <div className={styles.scrim} aria-hidden="true" />
+      <span className={styles.shadow} aria-hidden="true" />
+      <span className={styles.beam} key={`beam:${group.id}`} aria-hidden="true" />
       <div className={styles.sheet} {...fx('menu.wide-sheet')}>
         <span className={styles.railBg} aria-hidden="true" />
+        <span className={styles.sweep} key={`sweep:${group.id}`} aria-hidden="true" />
         <div className={clsx(styles.inner, !hasRail && styles.solo)} key={group.id}>
           <span className={clsx(styles.corner, styles.tl)} aria-hidden="true" />
           <span className={clsx(styles.corner, styles.br)} aria-hidden="true" />
@@ -107,6 +149,7 @@ const Sheet = forwardRef(function Sheet({ group, onMouseEnter, onMouseLeave, onN
                         aria-controls={panelId}
                         tabIndex={on ? 0 : -1}
                         className={styles.tab}
+                        style={{ '--i': i }}
                         onMouseEnter={() => lean(c.id)}
                         onMouseLeave={stay}
                         onFocus={() => choose(c.id)}
@@ -184,7 +227,7 @@ const Sheet = forwardRef(function Sheet({ group, onMouseEnter, onMouseLeave, onN
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 });
 

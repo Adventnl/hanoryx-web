@@ -129,7 +129,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0.4rem 0.9rem;
+  /* The box reaches 0.75rem below the label (and is pulled back by the same margin, so
+     the label does not move): that is the room the hover code slides into, under the
+     ink, instead of crowding it. */
+  padding: 0.4rem 0.9rem 1.15rem;
+  margin-bottom: -0.75rem;
   border-radius: var(--r-sm);
   overflow: hidden;
   color: var(--c-white-50);
@@ -143,7 +147,7 @@
 .ink {
   position: absolute;
   left: 0;
-  bottom: 0.28rem;
+  bottom: 0;
   height: 1px;
   background: var(--c-red);
   box-shadow: var(--glow-red);
@@ -155,22 +159,25 @@
 .groupCode {
   position: absolute;
   left: 0.9rem;
-  bottom: -0.9rem;
+  bottom: 0.15rem;
   font-family: var(--font-mono);
   font-size: 0.5rem;
+  line-height: 1;
   letter-spacing: 0.18em;
   color: var(--c-red);
   opacity: 0;
+  transform: translateY(0.6rem);
   transition: transform var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
 }
-.group:hover .groupCode { transform: translateY(-0.7rem); opacity: 0.7; }
+.group:hover .groupCode, .groupOpen .groupCode { transform: none; opacity: 0.7; }
 /* a small tag for something new (the Showcase) */
 .badge {
   position: absolute;
-  top: 0.2rem;
-  right: 0.3rem;
+  top: 0.15rem;
+  right: 0.2rem;
   font-family: var(--font-mono);
   font-size: 0.44rem;
+  line-height: 1;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--c-red);

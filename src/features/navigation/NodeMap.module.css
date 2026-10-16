@@ -1,19 +1,22 @@
-/* The orbit diagram in the wide menu's aside. Transform and opacity only. */
+/* The orbit diagram in the wide menu's aside. Transform and opacity only. Every
+   entrance is offset by --t0, the head start the menu's first drop sets (unset = 0). */
 .map { width: 100%; max-width: 230px; }
 .svg { width: 100%; height: auto; overflow: visible; }
 
+.ticks { transform-box: fill-box; transform-origin: center; animation: ticks-in 1.2s var(--ease-out) var(--t0, 0s) backwards; }
 .ticks line { stroke: var(--c-white-12); stroke-width: 1; }
-.ring { fill: none; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ring-draw 0.9s var(--ease-out) forwards; }
+@keyframes ticks-in { from { transform: rotate(-70deg) scale(0.9); opacity: 0; } }
+.ring { fill: none; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ring-draw 0.9s var(--ease-out) var(--t0, 0s) forwards; }
 .outer { stroke: var(--c-white-12); stroke-width: 1; }
-.mid { stroke: var(--c-white-20); stroke-width: 1.4; animation-delay: 0.06s; }
-.inner { stroke: var(--c-white-08); stroke-width: 1; animation-delay: 0.12s; animation-direction: reverse; }
+.mid { stroke: var(--c-white-20); stroke-width: 1.4; animation-delay: calc(var(--t0, 0s) + 0.06s); }
+.inner { stroke: var(--c-white-08); stroke-width: 1; animation-delay: calc(var(--t0, 0s) + 0.12s); animation-direction: reverse; }
 @keyframes ring-draw { to { stroke-dashoffset: 0; } }
 
 .selector { transform-box: fill-box; transform-origin: center; transition: transform 0.45s var(--ease-out); }
 .selectorLine { stroke: var(--c-red); stroke-width: 1.2; opacity: 0.7; }
 .selectorHead { fill: var(--c-red); }
 
-.connector { stroke: var(--c-white-08); stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ring-draw 0.45s var(--ease-out) forwards; }
+.connector { stroke: var(--c-white-08); stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ring-draw 0.45s var(--ease-out) var(--t0, 0s) forwards; }
 .dot { fill: var(--c-white-40); transform-box: fill-box; transform-origin: center; animation: node-pop 0.4s var(--ease-spring-soft) both; transition: fill 0.25s var(--ease-out); }
 @keyframes node-pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 .on .dot { fill: var(--c-red); }
@@ -25,5 +28,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ring, .connector { animation: none; stroke-dashoffset: 0; }
+  .ticks, .dot { animation: none; }
   .selector, .glow { transition: none; animation: none; }
 }
